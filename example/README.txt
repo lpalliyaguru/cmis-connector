@@ -26,7 +26,8 @@ HOW IT WORKS:
            - Hydratate a URI to the document content and shorten it with bitly
        - publish the message link twitter
 
-All this is implemented in serval flows. Those that are network independent are tested.
+All this is implemented in several flows. Those that are network independent
+are tested in junit test.
 
 WHAT HAS NOT BEEN DEMO:
     - The ability of creating documents and folders on a CMIS repository.
