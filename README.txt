@@ -131,10 +131,12 @@ or by path:
 
 Folders can be created. For example, to create /mule-cmis-cloudconnector-test
 folder:
+
     <cmis:repository-info/>
     <cmis:create-folder folderName="mule-cmis-cloudconnector-test" parentObjectId="#[bean:rootFolderId]"/>
 
 to create documents one could do:
+
     <cmis:create-document-by-path folderPath="/mule-cmis-cloudconnector-test" 
                                      content="hello world" 
                                     filename="README.txt"
@@ -142,11 +144,13 @@ to create documents one could do:
                                   objectType="D:cmiscustom:document"
                              versioningState="none" />
 or refering by id the containing folder:
+
     <cmis:create-document-by-id     folderId="workspace://SpacesStore/5ae00d48-9eab-4a36-882f-ef7705c1affa" 
                                      content="hello world" 
                                     filename="README.txt"
                                     mimeType="text/plain"
                                   objectType="D:cmiscustom:document"
                              versioningState="none" />
+
 Content can be a String, a byte array, or an InputStream.
 
