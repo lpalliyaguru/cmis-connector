@@ -383,7 +383,10 @@ Access Control information if applicable.
      </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:element name="create-folder" type="createFolderType" substitutionGroup="mule:abstract-message-processor"/>
+    <xsd:element name="create-folder" type="createFolderType" substitutionGroup="mule:abstract-message-processor">
+     <xsd:annotation>
+      <xsd:documentation>Create a folder and returns the ObjectId. If it already exists it return the folder.</xsd:documentation>
+     </xsd:annotation></xsd:element>
 
     <xsd:complexType name="createFolderType">
      <xsd:complexContent>
