@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.mulesoft.org/schema/mule/cmis"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+            xmlns:schemadoc="http://www.mulesoft.org/schema/mule/schemadoc"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            targetNamespace="http://www.mulesoft.org/schema/mule/cmis"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+                schemaLocation="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"/>
+    <xsd:import namespace="http://www.mulesoft.org/schema/mule/core"
+                schemaLocation="http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd"/>
+    <xsd:import namespace="http://www.mulesoft.org/schema/mule/schemadoc"
+                schemaLocation="http://www.mulesoft.org/schema/mule/schemadoc/3.1/mule-schemadoc.xsd"/>
+
+    <xsd:annotation>
+        <xsd:documentation>
+            This schema was auto-generated. Do not edit.
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <!-- Configuration -->
+    <xsd:element name="config" type="configType" substitutionGroup="mule:abstract-extension">
+     <xsd:annotation>
+      <xsd:documentation></xsd:documentation>
+     </xsd:annotation></xsd:element>
+    <xsd:complexType name="configType">
+        <xsd:annotation>
+         <xsd:documentation>CMIS configuration. Please define facade-ref or the rest of the attributes.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+      <xsd:extension base="mule:abstractExtensionType">
+       <xsd:attribute name="username" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>credentials: username</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+       <xsd:attribute name="password" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          credentials: the password
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+       <xsd:attribute name="repository-id" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          CMIS: The identifier for the Repository that this connector
+          instance works with
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+       <xsd:attribute name="base-url" type="xsd:anyURI"
+        use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          URL base for the SOAP connector. For example
+          http://cmis.alfresco.com/cmis/
+         </xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="facade-ref" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          Reference to a CMISFacade implementation in case you want to
+          use another implementation or initialize the default in a
+          diferent way. Using this option make useless the other
+          attributes.
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+       <xsd:attribute name="name">
+        <xsd:annotation>
+         <xsd:documentation>
+          name for this connector configuration. Used as reference with
+          config-ref when you have multiple instances of the connector.
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Operations -->
+    <xsd:element name="repository-info" type="repositoryInfoType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+                Returns information about the CMIS repository, the optional capabilities it supports and its 
+Access Control information if applicable.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="repositoryInfoType">
+     <xsd:annotation>
+      <xsd:documentation></xsd:documentation>
+     </xsd:annotation>
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="NewAttribute" use="optional">
+                    <xsd:annotation>
+                     <xsd:documentation>Connector instance to use</xsd:documentation></xsd:annotation>
+                    <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="changelog" type="changelogType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+                Gets repository changes.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="changelogType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="changeLogToken" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                             the change log token to start from or <code>null</code>
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="includeProperties" type="xsd:boolean">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                             indicates if changed properties should be included in
+           the result
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="config-ref" use="optional">
+                    <xsd:annotation>
+                     <xsd:documentation>Connector instance to use</xsd:documentation></xsd:annotation>
+                    <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="get-object-by-id" type="getObjectByIdType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+                Returns a CMIS object from the repository and puts it into the cache.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="getObjectByIdType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="objectId" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                             the object id
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="config-ref">
+                    <xsd:annotation>
+                     <xsd:documentation>Connector instance to use</xsd:documentation></xsd:annotation>
+                    <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="get-object-by-path" type="getObjectByPathType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+                Returns a CMIS object from the repository and puts it into the cache.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="getObjectByPathType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="path" type="xsd:string"></xsd:attribute>
+       <xsd:attribute name="config-ref">
+        <xsd:annotation>
+         <xsd:documentation>
+          Connector instance to use
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string"></xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="create-document-by-path" type="createDocumentByPathType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                Creates a new document in the repository.
+            ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="createDocumentByPathType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="folderPath" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                    Folder in the repository that will hold the document
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="filename" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                      name of the file
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="content" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                       file content (no byte array or input stream for now)
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="mimeType" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                      stream content-type
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="versioningState" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                               An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+    o none:  The document MUST be created as a non-versionable document.
+    o checkedout: The document MUST be created in the checked-out state.
+    o major (default): The document MUST be created as a major version
+    o minor: The document MUST be created as a minor version.
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="objectType" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation>
+          type of the document to create (cmis:objectTypeId) . For
+          example &quot;D:cmiscustom:document&quot;
+         </xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="config-ref" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          Connector instance to use
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <!-- Enums -->
+
+
+    <xsd:element name="create-document-by-id" type="createDocumentByIdType" substitutionGroup="mule:abstract-message-processor">
+     <xsd:annotation>
+      <xsd:documentation>Creates a new document in the repository.</xsd:documentation></xsd:annotation></xsd:element>
+      
+    <xsd:complexType name="createDocumentByIdType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="folderId" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                    Folder object's id in the repository that will hold the document
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="filename" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                      name of the file
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="content" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                       file content (no byte array or input stream for now)
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="mimeType" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                                      stream content-type
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="versioningState" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation><![CDATA[
+                               An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+    o none:  The document MUST be created as a non-versionable document.
+    o checkedout: The document MUST be created in the checked-out state.
+    o major (default): The document MUST be created as a major version
+    o minor: The document MUST be created as a minor version.
+                        ]]></xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="objectType" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation>
+          type of the document to create (cmis:objectTypeId) . For
+          example "D:cmiscustom:document"
+         </xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="config-ref" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          Connector instance to use
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="create-folder" type="createFolderType" substitutionGroup="mule:abstract-message-processor"/>
+
+    <xsd:complexType name="createFolderType">
+     <xsd:complexContent>
+      <xsd:extension
+       base="mule:abstractInterceptingMessageProcessorType">
+       <xsd:attribute name="folderName" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation>
+          folder name (eg: "my documents")
+         </xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="parentObjectId" type="xsd:string">
+        <xsd:annotation>
+         <xsd:documentation>
+          Parent folder for the folder being created (eg:
+          repository.rootFolder)
+         </xsd:documentation>
+        </xsd:annotation>
+       </xsd:attribute>
+       <xsd:attribute name="config-ref" use="optional">
+        <xsd:annotation>
+         <xsd:documentation>
+          Connector instance to use
+         </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"></xsd:minLength>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>
