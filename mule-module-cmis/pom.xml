@@ -243,8 +243,8 @@
             <id>mulesoft-muleforge-releases</id>
             <name>Mulesoft Muleforge Repository</name>
             <url>http://repository.muleforge.org/release</url>
-            <releases><enabled>false</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </pluginRepository>
     </pluginRepositories>
 </project>
