@@ -118,12 +118,6 @@
             <groupId>org.mule.modules</groupId> 
             <artifactId>mule-module-ibeans</artifactId> 
             <version>${muleVersion}</version>
-            <exclusions>
-              <exclusion>
-                  <groupId>org.mule.modules</groupId>
-                  <artifactId>mule-module-cxf</artifactId>
-             </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>

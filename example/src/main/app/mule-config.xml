@@ -25,12 +25,12 @@
   <global-property name="twitter.access.secret"   value="wrBTf7FqA5YdCGkecJvsgFJ3X3PkL7tTW7LlLiA1NY"/>
   
   <!-- the id of the last change saw in the repository. Alfresco use integers  -->
-  <global-property name="cmis.repository.base" value="http://cmis.alfresco.com/cmis/"/>
+  <global-property name="cmis.repository.base" value="http://cmis.alfresco.com/service/cmis"/>
   <global-property name="cmis.repository.id"   value="371554cd-ac06-40ba-98b8-e6b60275cca7"/>
   <global-property name="cmis.demo.idempotent.directory" value="/tmp"/>
 
   <!-- configuration! -->
-  <cmis:config name="alfresco" username="admin" password="admin" base-url="${cmis.repository.base}" repository-id="${cmis.repository.id}"/>
+  <cmis:config name="alfresco" username="admin" password="admin" base-url="${cmis.repository.base}" repository-id="${cmis.repository.id}" endpoint="atompub"/>
   
   <twitter:config name="twitteraccount1" format="JSON" 
            consumerKey="${twitter.consumer.key}"
