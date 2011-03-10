@@ -39,7 +39,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin> 
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +60,18 @@
                         <inclusion>
                             <groupId>org.mule.ibeans</groupId>
                             <artifactId>twitter-ibean</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.mule.modules</groupId>
+                            <artifactId>mule-module-cmis</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.mule.ibeans</groupId>
+                            <artifactId>bitly-ibean</artifactId> 
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.mule.transports</groupId>
+                            <artifactId>mule-transport-mongodb</artifactId>
                         </inclusion>
                     </inclusions>
                 </configuration>
@@ -93,42 +105,42 @@
             <artifactId>mule-module-cmis</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-ognl</artifactId>
             <version>${muleVersion}</version>
-       </dependency>
-       <dependency>
-         <groupId>org.mule.ibeans</groupId>
-         <artifactId>twitter-ibean</artifactId>
-         <version>${ibeansVersion}</version>
-     </dependency>
-       <dependency>
-         <groupId>org.mule.ibeans</groupId>
-         <artifactId>bitly-ibean</artifactId>
-         <version>${ibeansVersion}</version>
-     </dependency>
-       <!-- these are marked as optional in the twitter pom -->
-       <dependency> 
-            <groupId>org.ibeans</groupId> 
+        </dependency>
+        <dependency>
+            <groupId>org.mule.ibeans</groupId>
+            <artifactId>twitter-ibean</artifactId>
+            <version>${ibeansVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.ibeans</groupId>
+            <artifactId>bitly-ibean</artifactId>
+            <version>${ibeansVersion}</version>
+        </dependency>
+        <!-- these are marked as optional in the twitter pom -->
+        <dependency>
+            <groupId>org.ibeans</groupId>
             <artifactId>ibeans-support</artifactId>
-            <version>${ibeansVersion}</version> 
-        </dependency> 
-        <dependency> 
-            <groupId>org.mule.modules</groupId> 
-            <artifactId>mule-module-ibeans</artifactId> 
+            <version>${ibeansVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-ibeans</artifactId>
             <version>${muleVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-mongodb</artifactId>
-            <version>3.1.0.1</version> 
+            <version>3.1.0.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.mule.transports</groupId>-->
-<!--            <artifactId>mule-transport-vm</artifactId>-->
-<!--            <version>${muleVersion}</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.mule.transports</groupId>-->
+        <!--            <artifactId>mule-transport-vm</artifactId>-->
+        <!--            <version>${muleVersion}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-scripting</artifactId>
