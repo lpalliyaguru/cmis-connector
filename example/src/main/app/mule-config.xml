@@ -117,12 +117,15 @@
       we use the one exponsed by the repository (won't detect any changes now,
       but is a base for the future) 
       </description>
-      <mongodb:outbound-endpoint collection="cmisdemo"  connector-ref="mongo" 
+       <poll frequency="5000">
+         <mongodb:outbound-endpoint collection="cmisdemo"  connector-ref="mongo" 
                                       query='{ "repository": "${cmis.repository.id}" }'
                            exchange-pattern="request-response"/>
+            
+
+        </poll>
        <choice>
-           <when>
-               <expression-filter evaluator="ognl" expression="size == 0"/>
+           <when evaluator="payload" expression="java.lang.String">
                <cmis:repository-info/>
                <expression-transformer>
                   <return-argument evaluator="ognl" expression="latestChangeLogToken" />
