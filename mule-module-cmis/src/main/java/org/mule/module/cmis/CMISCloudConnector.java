@@ -35,6 +35,10 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /** URL base for the SOAP connector. For example http://cmis.alfresco.com/cmis/ */
     @Property
     private String baseUrl;
+    
+    /** The type of endpoint */
+    @Property
+    private String endpoint;
 
     private CMISFacade facade;
 
@@ -94,8 +98,27 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     {
         if (facade == null)
         {
-            facade = new ChemistryCMISFacade(username, password, repositoryId, baseUrl);
+            boolean useAtomPub = false;
+            if(endpoint == null || "soap".equals(endpoint)) {
+                useAtomPub = false;
+            } else if("atompub".equals(endpoint)) {
+                useAtomPub = true;
+            } else {
+                throw new IllegalStateException("unknown endpoint type " + endpoint);
+            }
+            facade = new ChemistryCMISFacade(username, password, repositoryId, baseUrl, useAtomPub);
         }
+    }
+
+    
+    public String getEndpoint()
+    {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint)
+    {
+        this.endpoint = endpoint;
     }
 
     @Operation

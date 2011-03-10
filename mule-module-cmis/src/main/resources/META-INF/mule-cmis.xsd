@@ -28,10 +28,13 @@
       <xsd:documentation></xsd:documentation>
      </xsd:annotation></xsd:element>
     <xsd:complexType name="configType">
-        <xsd:annotation>
-         <xsd:documentation>CMIS configuration. Please define facade-ref or the rest of the attributes.</xsd:documentation>
-        </xsd:annotation>
-        <xsd:complexContent>
+     <xsd:annotation>
+      <xsd:documentation>
+       CMIS configuration. Please define facade-ref or the rest of the
+       attributes.
+      </xsd:documentation>
+     </xsd:annotation>
+     <xsd:complexContent>
       <xsd:extension base="mule:abstractExtensionType">
        <xsd:attribute name="username" use="optional">
         <xsd:annotation>
@@ -105,6 +108,7 @@
          </xsd:restriction>
         </xsd:simpleType>
        </xsd:attribute>
+       <xsd:attribute name="endpoint" type="xsd:string" use="optional"></xsd:attribute>
       </xsd:extension>
      </xsd:complexContent>
     </xsd:complexType>

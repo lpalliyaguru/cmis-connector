@@ -49,9 +49,10 @@ public class ChemistryCMISFacade implements CMISFacade
     public ChemistryCMISFacade(final String username,
                                final String password,
                                final String repositoryId,
-                               final String baseURL)
+                               final String baseURL,
+                               final boolean useAtomPub)
     {
-        this(createSession(username, password, repositoryId, baseURL));
+        this(createSession(username, password, repositoryId, baseURL, useAtomPub));
     }
 
     public ChemistryCMISFacade(final Session session)
@@ -248,7 +249,8 @@ public class ChemistryCMISFacade implements CMISFacade
     private static Session createSession(final String username,
                                          final String password,
                                          final String repositoryId,
-                                         final String baseURL)
+                                         final String baseURL,
+                                         final boolean useAtomPub)
     {
         Validate.notEmpty(username, "username is empty");
         Validate.notEmpty(password, "password is empty");
@@ -263,7 +265,7 @@ public class ChemistryCMISFacade implements CMISFacade
 
         // connection settings... we prefer SOAP over ATOMPUB because some rare
         // behaviurs with the ChangeEvents.getLatestChangeLogToken().
-        if (true)
+        if (!useAtomPub)
         {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.WEBSERVICES.value());
             parameters.put(SessionParameter.WEBSERVICES_ACL_SERVICE, baseURL + "ACLService?wsdl");
@@ -280,10 +282,10 @@ public class ChemistryCMISFacade implements CMISFacade
         else 
         {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-            parameters.put(SessionParameter.ATOMPUB_URL, "http://cmis.alfresco.com/service/cmis");
+            parameters.put(SessionParameter.ATOMPUB_URL, baseURL);
         }
 
-        parameters.put(SessionParameter.REPOSITORY_ID, "371554cd-ac06-40ba-98b8-e6b60275cca7");
+        parameters.put(SessionParameter.REPOSITORY_ID, repositoryId);
 
         // session locale
         parameters.put(SessionParameter.LOCALE_ISO3166_COUNTRY, "");
