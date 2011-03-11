@@ -56,6 +56,9 @@
           4.4. the system fetch the document metadata 
           4.4  the system publish the short text to twitter, facebook, rss, et. al
     </description>
+      <inbound-endpoint>
+        <pool frequency="60000"></pool>
+      </inbound-endpoint>
       <flow-ref name="retrieveChangelogTokenFlow"/>
       <flow-ref name="changeLogFlow"/>
   </flow>
@@ -117,13 +120,11 @@
       we use the one exponsed by the repository (won't detect any changes now,
       but is a base for the future) 
       </description>
-       <poll frequency="5000">
          <mongodb:outbound-endpoint collection="cmisdemo"  connector-ref="mongo" 
                                       query='{ "repository": "${cmis.repository.id}" }'
                            exchange-pattern="request-response"/>
             
 
-        </poll>
        <choice>
            <when evaluator="payload" expression="java.lang.String">
                <cmis:repository-info/>
