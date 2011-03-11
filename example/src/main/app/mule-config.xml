@@ -56,6 +56,7 @@
           4.4. the system fetch the document metadata 
           4.4  the system publish the short text to twitter, facebook, rss, et. al
     </description>
+      <inbound-endpoint address="http://localhost:9090/changelog"/> 
       <flow-ref name="retrieveChangelogTokenFlow"/>
       <flow-ref name="changeLogFlow"/>
   </flow>
