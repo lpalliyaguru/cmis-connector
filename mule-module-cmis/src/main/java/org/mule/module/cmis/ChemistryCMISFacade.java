@@ -127,7 +127,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                              final String filename,
                                              final Object content,
                                              final String mimeType,
-                                             final String versioningState,
+                                             final org.mule.module.cmis.VersioningState versioningState,
                                              final String objectType)
     {
         Validate.notEmpty(objectId, "objectId is empty");
@@ -140,7 +140,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                          final String filename,
                                          final Object content,
                                          final String mimeType,
-                                         final String versioningState,
+                                         final org.mule.module.cmis.VersioningState versioningState,
                                          final String objectType)
     {
         Validate.notEmpty(folderPath, "folderPath is empty");
@@ -155,7 +155,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                    final String filename,
                                    final Object content,
                                    final String mimeType,
-                                   final String versioningState,
+                                   final org.mule.module.cmis.VersioningState versioningState,
                                    final String objectType)
     {
         Validate.notNull(folder,    "folder is null");
@@ -166,7 +166,7 @@ public class ChemistryCMISFacade implements CMISFacade
         VersioningState vs = null; 
         try
         {
-            vs = VersioningState.valueOf(versioningState.toUpperCase());
+            vs = VersioningState.valueOf(versioningState.value());
         }
         catch (final IllegalArgumentException e) 
         {

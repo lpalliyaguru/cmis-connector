@@ -48,8 +48,8 @@ public interface CMISFacade
 
     /**
      * Returns a CMIS object from the repository and puts it into the cache.
-     * 
-     * @param objectId the object id
+     *
+     * @param path path of the object to retrieve
      */
     @Operation
     CmisObject getObjectByPath(final String path);
@@ -74,7 +74,7 @@ public interface CMISFacade
                                   final String filename,
                                   final Object content,
                                   final String mimeType,
-                                  final String versioningState,
+                                  final VersioningState versioningState,
                                   final String objectType);
 
     /**
@@ -102,10 +102,10 @@ public interface CMISFacade
      *  @return the object id of the created 
      */
     @Operation
-    ObjectId createDocumentById(final String objectId,
+    ObjectId createDocumentById(final String folderId,
                                   final String filename,
                                   final Object content,
                                   final String mimeType,
-                                  final String versioningState,
+                                  final VersioningState versioningState,
                                   final String objectType);
 }

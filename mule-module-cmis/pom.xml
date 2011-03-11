@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-cmis</artifactId>
-    <packaging>jar</packaging>
+    <packaging>cloud-connector</packaging>
     <name>Mule CMIS Cloud Connector</name>
     <version>1.0-SNAPSHOT</version>
     <description>Mule Cloud connector to CMIS</description>
@@ -14,7 +14,7 @@
     <properties>
         <!-- the CXF version must be in line with the version Mule uses -->
         <cxf.version>2.3.0</cxf.version>
-        <cloudconnect.version>2.0.4</cloudconnect.version>
+        <cloudconnect.version>2.0.9</cloudconnect.version>
         <mule.version>3.1.0</mule.version>
         <!-- Tools properties -->
         <eclipsePluginVersion>2.8</eclipsePluginVersion>
@@ -64,25 +64,12 @@
                     <jdkName>${jdk.version}</jdkName>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.mule.tools</groupId>-->
-<!--                <artifactId>mule-cloud-connector-maven-plugin</artifactId>-->
-<!--                <version>${cloudconnect.version}</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    <muleVersion>${mule.version}</muleVersion>-->
-<!--                    <connectors>-->
-<!--                        <connector>-->
-<!--                            <cloudConnectorClass>-->
-<!--                                org.mule.module.cmis.CMISCloudConnector-->
-<!--                            </cloudConnectorClass>-->
-<!--                            <schemaFilename>mule-cmis.xsd</schemaFilename>-->
-<!--                            <namespaceHandler>org/mule/module/cmis/config/CMISNamespaceHandler.java-->
-<!--                            </namespaceHandler>-->
-<!--                        </connector>-->
-<!--                    </connectors>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.mule.tools</groupId>
+                <artifactId>mule-cloud-connector-maven-plugin</artifactId>
+                <version>${cloudconnect.version}</version>
+                <extensions>true</extensions>
+            </plugin>
 
             <!-- The release distribution for this project -->
             <plugin>

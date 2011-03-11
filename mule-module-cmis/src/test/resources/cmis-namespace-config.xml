@@ -11,75 +11,80 @@
                           http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/1.0-SNAPSHOT/mule-cmis.xsd
                           http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd
                           ">
-<!--  <cmis:config facade-ref="mockCMISFacade" />-->
-  <cmis:config name="foo" username="admin" password="admin" repository-id="371554cd-ac06-40ba-98b8-e6b60275cca7" base-url="http://cmis.alfresco.com/service/cmis" />
+    <!--  <cmis:config facade-ref="mockCMISFacade" />-->
+    <cmis:config name="foo" username="admin" password="admin" repositoryId="371554cd-ac06-40ba-98b8-e6b60275cca7"
+                 baseUrl="http://cmis.alfresco.com/service/cmis"/>
 
-  <flow name="changeLogFlow">
-     <description>Get changes from the repository</description> 
-      <cmis:changelog changeLogToken="41784" includeProperties="false" />
-      <expression-transformer>
-        <return-argument expression="changeEvents" evaluator="bean"/>
-      </expression-transformer>
-      <collection-splitter />
-      
-      <!-- the only changes that we are interested in are creations -->
-      <expression-filter expression="changeType.value() eq 'created' " evaluator="ognl"/>
-      <logger level="WARN" message="#[bean:changeType] #[bean:objectId]"/>
-      <cmis:get-object-by-id objectId="#[bean:objectId]" />
-      <payload-type-filter expectedType="org.apache.chemistry.opencmis.client.api.Document"/>
-      <logger level="WARN" message="#is a document of content-type #[bean:contentStreamMimeType] #[bean:contentStreamFileName]"/>
-  </flow>
-  
-  
-  <flow name="createDocumentFlow">
-      <cmis:repository-info/>
-      <cmis:create-folder folderName="mule-cmis-cloudconnector-test" parentObjectId="#[bean:rootFolderId]"/>
-      <cmis:get-object-by-path path="/mule-cmis-cloudconnector-test/README.txt" />
-      <choice>
-         <when evaluator="payload-type" expression="org.apache.chemistry.opencmis.client.api.Document">
-            <logger level="DEBUG" message="foobar"/>
-         </when>
-         <otherwise>
-             <cmis:create-document-by-path config-ref="foo" folderPath="/mule-cmis-cloudconnector-test" 
-             content="#[header:conten]" filename="README.txt"
-                                         mimeType="text/plain" objectType="D:cmiscustom:document"
-                                         versioningState="none" />
-         </otherwise>
-      </choice>
-      <expression-transformer>
-         <return-argument expression="contentStream.stream" evaluator="bean"/>
-      </expression-transformer>
-  </flow>
+    <flow name="changeLogFlow">
+        <description>Get changes from the repository</description>
+        <cmis:changelog changeLogToken="41784" includeProperties="false"/>
+        <expression-transformer>
+            <return-argument expression="changeEvents" evaluator="bean"/>
+        </expression-transformer>
+        <collection-splitter/>
 
-   <bean name="mockCMISFacade" xmlns="http://www.springframework.org/schema/beans" class="org.mule.module.cmis.MockCMISFacade">
-      <description>Test mock</description>
-      <property name="repositoryInfo">
-         <bean class="org.apache.chemistry.opencmis.commons.impl.dataobjects.RepositoryInfoImpl">
-            <property name="id" value="371554cd-ac06-40ba-98b8-e6b60275cca7"/>
-            <property name="latestChangeLogToken" value="42542"/>
-         </bean>    
-      </property>
-      <property name="changeEvents">
-         <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl">
-            <property name="latestChangeLogToken" value="42543"/>
-            <property name="changeEvents">
-               <list>
-                  <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
-                      <property name="objectId" value="ABC"/>
-                      <property name="changeType"> 
-                          <util:constant static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.CREATED"/>
-                      </property>
-                  </bean>
-                  <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
-                      <property name="objectId" value="ABC"/>
-                      <property name="changeType"> 
-                          <util:constant static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.UPDATED"/>
-                      </property>
-                  </bean>
-               </list>
-            </property>
-         </bean>
-      </property>
-   </bean>
+        <!-- the only changes that we are interested in are creations -->
+        <expression-filter expression="changeType.value() eq 'created' " evaluator="ognl"/>
+        <logger level="WARN" message="#[bean:changeType] #[bean:objectId]"/>
+        <cmis:get-object-by-id objectId="#[bean:objectId]"/>
+        <payload-type-filter expectedType="org.apache.chemistry.opencmis.client.api.Document"/>
+        <logger level="WARN"
+                message="#is a document of content-type #[bean:contentStreamMimeType] #[bean:contentStreamFileName]"/>
+    </flow>
+
+
+    <flow name="createDocumentFlow">
+        <cmis:repository-info/>
+        <cmis:create-folder folderName="mule-cmis-cloudconnector-test" parentObjectId="#[bean:rootFolderId]"/>
+        <cmis:get-object-by-path path="/mule-cmis-cloudconnector-test/README.txt"/>
+        <choice>
+            <when evaluator="payload-type" expression="org.apache.chemistry.opencmis.client.api.Document">
+                <logger level="DEBUG" message="foobar"/>
+            </when>
+            <otherwise>
+                <cmis:create-document-by-path config-ref="foo" folderPath="/mule-cmis-cloudconnector-test"
+                                              content="#[header:conten]" filename="README.txt"
+                                              mimeType="text/plain" objectType="D:cmiscustom:document"
+                                              versioningState="NONE"/>
+            </otherwise>
+        </choice>
+        <expression-transformer>
+            <return-argument expression="contentStream.stream" evaluator="bean"/>
+        </expression-transformer>
+    </flow>
+
+    <bean name="mockCMISFacade" xmlns="http://www.springframework.org/schema/beans"
+          class="org.mule.module.cmis.MockCMISFacade">
+        <description>Test mock</description>
+        <property name="repositoryInfo">
+            <bean class="org.apache.chemistry.opencmis.commons.impl.dataobjects.RepositoryInfoImpl">
+                <property name="id" value="371554cd-ac06-40ba-98b8-e6b60275cca7"/>
+                <property name="latestChangeLogToken" value="42542"/>
+            </bean>
+        </property>
+        <property name="changeEvents">
+            <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl">
+                <property name="latestChangeLogToken" value="42543"/>
+                <property name="changeEvents">
+                    <list>
+                        <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
+                            <property name="objectId" value="ABC"/>
+                            <property name="changeType">
+                                <util:constant
+                                        static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.CREATED"/>
+                            </property>
+                        </bean>
+                        <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
+                            <property name="objectId" value="ABC"/>
+                            <property name="changeType">
+                                <util:constant
+                                        static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.UPDATED"/>
+                            </property>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
 
 </mule>

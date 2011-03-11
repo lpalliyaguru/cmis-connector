@@ -97,7 +97,7 @@ public class MockCMISFacade implements CMISFacade
                                          final String filename,
                                          final Object content,
                                          final String mimeType,
-                                         final String versioningState,
+                                         final VersioningState versioningState,
                                          final String objectType)
     {
         throw new NotImplementedException();
@@ -107,7 +107,7 @@ public class MockCMISFacade implements CMISFacade
                                        final String filename,
                                        final Object content,
                                        final String mimeType,
-                                       final String versioningState,
+                                       final VersioningState versioningState,
                                        final String objectType)
     {
         throw new NotImplementedException();
