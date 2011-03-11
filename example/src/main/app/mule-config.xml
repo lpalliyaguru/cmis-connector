@@ -56,9 +56,6 @@
           4.4. the system fetch the document metadata 
           4.4  the system publish the short text to twitter, facebook, rss, et. al
     </description>
-      <inbound-endpoint>
-        <pool frequency="60000"></pool>
-      </inbound-endpoint>
       <flow-ref name="retrieveChangelogTokenFlow"/>
       <flow-ref name="changeLogFlow"/>
   </flow>
