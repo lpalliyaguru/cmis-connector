@@ -12,7 +12,7 @@
                           http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd
                           ">
 <!--  <cmis:config facade-ref="mockCMISFacade" />-->
-  <cmis:config name="foo" username="admin" password="admin" repository-id="371554cd-ac06-40ba-98b8-e6b60275cca7" base-url="http://cmis.alfresco.com/cmis/" />
+  <cmis:config name="foo" username="admin" password="admin" repository-id="371554cd-ac06-40ba-98b8-e6b60275cca7" base-url="http://cmis.alfresco.com/service/cmis" />
 
   <flow name="changeLogFlow">
      <description>Get changes from the repository</description> 
@@ -40,7 +40,8 @@
             <logger level="DEBUG" message="foobar"/>
          </when>
          <otherwise>
-             <cmis:create-document-by-path config-ref="foo" folderPath="/mule-cmis-cloudconnector-test" content="hola!" filename="README.txt"
+             <cmis:create-document-by-path config-ref="foo" folderPath="/mule-cmis-cloudconnector-test" 
+             content="#[header:conten]" filename="README.txt"
                                          mimeType="text/plain" objectType="D:cmiscustom:document"
                                          versioningState="none" />
          </otherwise>

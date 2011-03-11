@@ -99,7 +99,9 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
         if (facade == null)
         {
             boolean useAtomPub = false;
-            if(endpoint == null || "soap".equals(endpoint)) {
+            if(endpoint == null) {
+                useAtomPub = true;
+            } else if("soap".equals(endpoint)) {
                 useAtomPub = false;
             } else if("atompub".equals(endpoint)) {
                 useAtomPub = true;

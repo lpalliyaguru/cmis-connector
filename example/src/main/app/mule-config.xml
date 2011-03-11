@@ -30,7 +30,7 @@
   <global-property name="cmis.demo.idempotent.directory" value="/tmp"/>
 
   <!-- configuration! -->
-  <cmis:config name="alfresco" username="admin" password="admin" base-url="${cmis.repository.base}" repository-id="${cmis.repository.id}" endpoint="atompub"/>
+  <cmis:config name="alfresco" username="admin" password="admin" base-url="${cmis.repository.base}" repository-id="${cmis.repository.id}"/>
   
   <twitter:config name="twitteraccount1" format="JSON" 
            consumerKey="${twitter.consumer.key}"
