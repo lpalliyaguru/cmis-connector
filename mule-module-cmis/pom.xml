@@ -8,7 +8,7 @@
     <packaging>cloud-connector</packaging>
     <name>Mule CMIS Cloud Connector</name>
     <version>1.0-SNAPSHOT</version>
-    <description>Mule Cloud connector to CMIS</description>
+    <description>The CMIS Connector provides an easy to integrate with CMS Repositories that have a CMIS Endpoint activated, such Alfresco.</description>
     <url>http://www.muleforge.org/projects/mule-module-cmis</url>
 
     <properties>
@@ -226,6 +226,20 @@
     </dependency>
         
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>muleforge-releases</id>
+            <name>MuleForge Snapshot Repository</name>
+            <url>dav:https://repository.muleforge.org/release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>muleforge-snapshots</id>
+            <name>MuleForge Repository</name>
+            <url>dav:https://repository.muleforge.org/snapshot/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 
     <repositories>
         <repository>
