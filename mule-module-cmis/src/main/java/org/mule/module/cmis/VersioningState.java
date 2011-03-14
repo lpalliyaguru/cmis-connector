@@ -19,8 +19,27 @@ package org.mule.module.cmis;
 
 public enum VersioningState
 {
+    /**
+     * The document MUST be created as a non-versionable document.
+     */
+    NONE("none"),
 
-    NONE("none"), MAJOR("major"), MINOR("minor"), CHECKEDOUT("checkedout");
+    /**
+     * The document MUST be created as a major version
+     */
+    MAJOR("major"),
+
+    /**
+     * The document MUST be created as a minor version.
+     */
+    MINOR("minor"),
+
+    /**
+     * The document MUST be created in the checked-out state.
+     */
+    CHECKEDOUT("checkedout");
+
+
     private final String value;
 
     VersioningState(String v)

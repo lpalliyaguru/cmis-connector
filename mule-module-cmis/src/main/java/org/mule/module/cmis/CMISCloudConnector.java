@@ -21,6 +21,7 @@ import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.tools.cloudconnect.annotations.Connector;
 import org.mule.tools.cloudconnect.annotations.Operation;
+import org.mule.tools.cloudconnect.annotations.Parameter;
 import org.mule.tools.cloudconnect.annotations.Property;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
@@ -156,6 +157,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
 
     /**
      * Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
+     *
+     * {@code <cmis:repository-info/>}
      */
     @Operation
     public RepositoryInfo repositoryInfo()
@@ -166,18 +169,22 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Gets repository changes.
      *
+     * {@code <cmis:changelog changeLogToken="#[payload]" includeProperties="false" />}
+     *
      * @param changeLogToken    the change log token to start from or <code>null</code>
      * @param includeProperties indicates if changed properties should be included in
      *                          the result
      */
     @Operation
-    public ChangeEvents changelog(final String changeLogToken, final boolean includeProperties)
+    public ChangeEvents changelog(@Parameter(optional=true) final String changeLogToken, final boolean includeProperties)
     {
         return facade.changelog(changeLogToken, includeProperties);
     }
 
     /**
      * Returns a CMIS object from the repository and puts it into the cache.
+     *
+     * {@code <cmis:get-object-by-id objectId="#[bean:objectId]"/>}
      *
      * @param objectId the object id
      */
@@ -190,6 +197,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Returns a CMIS object from the repository and puts it into the cache.
      *
+     * {@code <cmis:get-object-by-path objectId="#[bean:path]"/>}
+     *
      * @param path path of the object to retrieve
      */
     @Operation
@@ -201,15 +210,19 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Creates a new document in the repository.
      *
+     * {@code
+     * <cmis:create-document-by-path folderPath="#[bean:path]"
+     *                               filename="myfilename"
+     *                               content="#[bean:content]"
+     *                               mimeType="text/html"
+     *                               versioningState="none"/>
+     * }
+     *
      * @param folderPath      Folder in the repository that will hold the document
      * @param filename        name of the file
      * @param content         file content (no byte array or input stream for now)
      * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checkedout: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
+     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
      * @return the object id of the created
      */
     @Operation
@@ -227,15 +240,19 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Creates a new document in the repository.
      *
+     * {@code
+     * <cmis:create-document-by-id folderId="#[bean:folderId]"
+     *                             filename="myfilename"
+     *                             content="#[bean:content]"
+     *                             mimeType="text/html"
+     *                             versioningState="none"/>
+     * }
+     *
      * @param folderId        Folder Object Id
      * @param filename        name of the file
      * @param content         file content (no byte array or input stream for now)
      * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checkedout: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
+     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
      * @return the object id of the created
      */
     @Operation
@@ -253,6 +270,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Creates a folder. Note that this is not recusive creation. You just create
      * one folder
+     *
+     * {@code <cmis:create-folder folderName="hello" parentObjectId="repository.rootFolder" />}
      *
      * @param folderName     folder name (eg: "my documents")
      * @param parentObjectId Parent folder for the folder being created (eg: repository.rootFolder)
