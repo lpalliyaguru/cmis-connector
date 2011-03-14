@@ -46,15 +46,52 @@ Configuration
 
 You can configure the connector as follows:
 
-    <cmis:config/>
+    <cmis:config username="value" password="value" repositoryId="value" baseUrl="value" endpoint="value"/>
 
 Here is detailed list of all the configuration attributes:
 
-| attribute | description |
-|:-----------|:-----------|
-|name|Give a name to this configuration so it can be later referenced by config-ref.|
-|username|Username|
-|password|Password|
-|repositoryId|The identifier for the Repository that this connector instance works with|
-|baseUrl|URL base for the SOAP connector. For example http://cmis.alfresco.com/cmis/|
-|endpoint|The type of endpoint|
+| attribute | description | optional | default value |
+|:-----------|:-----------|:---------|:--------------|
+|name|Give a name to this configuration so it can be later referenced by config-ref.|yes|
+|username|Username|no|
+|password|Password|no|
+|repositoryId|The identifier for the Repository that this connector instance works with|no|
+|baseUrl|URL base for the SOAP connector. For example http://cmis.alfresco.com/cmis/|no|
+|endpoint|The type of endpoint|no|
+
+Repository Info
+---------------
+
+Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
+
+Changelog
+---------
+
+Gets repository changes.
+
+Get Object By Id
+----------------
+
+Returns a CMIS object from the repository and puts it into the cache.
+
+Get Object By Path
+------------------
+
+Returns a CMIS object from the repository and puts it into the cache.
+
+Create Document By Path
+-----------------------
+
+Creates a new document in the repository.
+
+Create Document By Id
+---------------------
+
+Creates a new document in the repository.
+
+Create Folder
+-------------
+
+Creates a folder. Note that this is not recusive creation. You just create
+one folder
+
