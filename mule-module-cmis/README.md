@@ -67,9 +67,9 @@ Returns information about the CMIS repository, the optional capabilities it supp
 
      <cmis:repository-info/>
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
 
 Changelog
 ---------
@@ -80,12 +80,12 @@ Gets repository changes.
 
      <cmis:changelog changeLogToken="#[payload]" includeProperties="false" />
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|changeLogToken|    the change log token to start from or <code>null</code>|yes|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|changeLogToken|    the change log token to start from or <code>null</code>
 |includeProperties| indicates if changed properties should be included in
-                         the result|no|
+                         the result
 
 Get Object By Id
 ----------------
@@ -96,10 +96,10 @@ Returns a CMIS object from the repository and puts it into the cache.
 
      <cmis:get-object-by-id objectId="#[bean:objectId]"/>
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|objectId| the object id|no|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|objectId| the object id
 
 Get Object By Path
 ------------------
@@ -110,10 +110,10 @@ Returns a CMIS object from the repository and puts it into the cache.
 
      <cmis:get-object-by-path objectId="#[bean:path]"/>
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|path| path of the object to retrieve|no|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|path| path of the object to retrieve
 
 Create Document By Path
 -----------------------
@@ -130,15 +130,15 @@ Creates a new document in the repository.
                                   versioningState="none"/>
     
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|folderPath|      Folder in the repository that will hold the document|no|
-|filename|        name of the file|no|
-|content|         file content (no byte array or input stream for now)|no|
-|mimeType|        stream content-type|no|
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: * NONE* MAJOR* MINOR* CHECKEDOUT|no|
-|objectType||no|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderPath|      Folder in the repository that will hold the document
+|filename|        name of the file
+|content|         file content (no byte array or input stream for now)
+|mimeType|        stream content-type
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|objectType|
 
 Create Document By Id
 ---------------------
@@ -155,19 +155,15 @@ Creates a new document in the repository.
                                 versioningState="none"/>
     
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|folderId|        Folder Object Id|no|
-|filename|        name of the file|no|
-|content|         file content (no byte array or input stream for now)|no|
-|mimeType|        stream content-type|no|
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: 
-* NONE
-* MAJOR
-* MINOR
-* CHECKEDOUT|no|
-|objectType||no|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderId|        Folder Object Id
+|filename|        name of the file
+|content|         file content (no byte array or input stream for now)
+|mimeType|        stream content-type
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|objectType|
 
 Create Folder
 -------------
@@ -179,9 +175,9 @@ one folder
 
      <cmis:create-folder folderName="hello" parentObjectId="repository.rootFolder" />
 
-| attribute | description | optional | default value |
-|:-----------|:-----------|:---------|:--------------|
-|config-ref|Specify which configuration to use for this invocation|yes|
-|folderName|     folder name (eg: "my documents")|no|
-|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)|no|
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderName|     folder name (eg: "my documents")
+|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)
 
