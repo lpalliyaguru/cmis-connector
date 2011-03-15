@@ -46,18 +46,17 @@ Configuration
 
 You can configure the connector as follows:
 
-    <cmis:config username="value" password="value" repositoryId="value" baseUrl="value" endpoint="value"/>
+    <cmis:config username="value" password="value" repositoryId="value" baseUrl="value"/>
 
 Here is detailed list of all the configuration attributes:
 
 | attribute | description | optional | default value |
 |:-----------|:-----------|:---------|:--------------|
 |name|Give a name to this configuration so it can be later referenced by config-ref.|yes|
-|username|Username|no|
-|password|Password|no|
-|repositoryId|The identifier for the Repository that this connector instance works with|no|
-|baseUrl|URL base for the SOAP connector. For example http://cmis.alfresco.com/cmis/|no|
-|endpoint|The type of endpoint|no|
+|username|Username||no|
+|password|Password||no|
+|repositoryId|The identifier for the Repository that this connector instance works with||no|
+|baseUrl|URL base for the SOAP connector.||no|
 
 Repository Info
 ---------------
@@ -84,7 +83,7 @@ Gets repository changes.
 | attribute | description | optional | default value |
 |:-----------|:-----------|:---------|:--------------|
 |config-ref|Specify which configuration to use for this invocation|yes|
-|changeLogToken|    the change log token to start from or <code>null</code>|no|
+|changeLogToken|    the change log token to start from or <code>null</code>|yes|
 |includeProperties| indicates if changed properties should be included in
                          the result|no|
 
@@ -138,7 +137,7 @@ Creates a new document in the repository.
 |filename|        name of the file|no|
 |content|         file content (no byte array or input stream for now)|no|
 |mimeType|        stream content-type|no|
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no|
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: * NONE* MAJOR* MINOR* CHECKEDOUT|no|
 |objectType||no|
 
 Create Document By Id
@@ -163,7 +162,7 @@ Creates a new document in the repository.
 |filename|        name of the file|no|
 |content|         file content (no byte array or input stream for now)|no|
 |mimeType|        stream content-type|no|
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no|
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: * NONE* MAJOR* MINOR* CHECKEDOUT|no|
 |objectType||no|
 
 Create Folder

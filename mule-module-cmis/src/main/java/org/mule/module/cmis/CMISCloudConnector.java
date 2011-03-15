@@ -49,7 +49,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     @Property
     private String repositoryId;
     /**
-     * URL base for the SOAP connector. For example http://cmis.alfresco.com/cmis/
+     * URL base for the SOAP connector.
      */
     @Property
     private String baseUrl;
@@ -57,7 +57,6 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * The type of endpoint
      */
-    @Property
     private String endpoint;
 
     /**
