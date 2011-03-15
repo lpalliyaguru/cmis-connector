@@ -170,8 +170,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      *
      * {@code <cmis:changelog changeLogToken="#[payload]" includeProperties="false" />}
      *
-     * @param changeLogToken    the change log token to start from or <code>null</code>
-     * @param includeProperties indicates if changed properties should be included in
+     * @param changeLogToken    The change log token to start from or <code>null</code>
+     * @param includeProperties Indicates if changed properties should be included in
      *                          the result
      */
     @Operation
@@ -185,7 +185,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      *
      * {@code <cmis:get-object-by-id objectId="#[bean:objectId]"/>}
      *
-     * @param objectId the object id
+     * @param objectId The object id
      */
     @Operation
     public CmisObject getObjectById(final String objectId)
@@ -198,7 +198,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      *
      * {@code <cmis:get-object-by-path objectId="#[bean:path]"/>}
      *
-     * @param path path of the object to retrieve
+     * @param path Path of the object to retrieve
      */
     @Operation
     public CmisObject getObjectByPath(final String path)
@@ -218,9 +218,9 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      * }
      *
      * @param folderPath      Folder in the repository that will hold the document
-     * @param filename        name of the file
-     * @param content         file content (no byte array or input stream for now)
-     * @param mimeType        stream content-type
+     * @param filename        Name of the file
+     * @param content         File content (no byte array or input stream for now)
+     * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
      * @return the object id of the created
      */
@@ -248,11 +248,11 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      * }
      *
      * @param folderId        Folder Object Id
-     * @param filename        name of the file
-     * @param content         file content (no byte array or input stream for now)
-     * @param mimeType        stream content-type
+     * @param filename        Name of the file
+     * @param content         File content (no byte array or input stream for now)
+     * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     * @return the object id of the created
+     * @return The object id of the created
      */
     @Operation
     public ObjectId createDocumentById(final String folderId,
@@ -272,7 +272,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      *
      * {@code <cmis:create-folder folderName="hello" parentObjectId="repository.rootFolder" />}
      *
-     * @param folderName     folder name (eg: "my documents")
+     * @param folderName     Folder name (eg: "my documents")
      * @param parentObjectId Parent folder for the folder being created (eg: repository.rootFolder)
      */
     @Operation
