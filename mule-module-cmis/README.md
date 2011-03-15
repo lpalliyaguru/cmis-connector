@@ -162,7 +162,11 @@ Creates a new document in the repository.
 |filename|        name of the file|no|
 |content|         file content (no byte array or input stream for now)|no|
 |mimeType|        stream content-type|no|
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: * NONE* MAJOR* MINOR* CHECKEDOUT|no|
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.. Possible Values: 
+* NONE
+* MAJOR
+* MINOR
+* CHECKEDOUT|no|
 |objectType||no|
 
 Create Folder
