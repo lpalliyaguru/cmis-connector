@@ -69,7 +69,7 @@ Returns information about the CMIS repository, the optional capabilities it supp
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
+|config-ref|Specify which configuration to use for this invocation|yes||
 
 Changelog
 ---------
@@ -82,10 +82,10 @@ Gets repository changes.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|changeLogToken|    The change log token to start from or <code>null</code>
+|config-ref|Specify which configuration to use for this invocation|yes||
+|changeLogToken|    The change log token to start from or <code>null</code>|yes||
 |includeProperties| Indicates if changed properties should be included in
-                         the result
+                         the result|no||
 
 Get Object By Id
 ----------------
@@ -98,8 +98,8 @@ Returns a CMIS object from the repository and puts it into the cache.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|objectId| The object id
+|config-ref|Specify which configuration to use for this invocation|yes||
+|objectId| The object id|no||
 
 Get Object By Path
 ------------------
@@ -112,8 +112,8 @@ Returns a CMIS object from the repository and puts it into the cache.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|path| Path of the object to retrieve
+|config-ref|Specify which configuration to use for this invocation|yes||
+|path| Path of the object to retrieve|no||
 
 Create Document By Path
 -----------------------
@@ -132,13 +132,13 @@ Creates a new document in the repository.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|folderPath|      Folder in the repository that will hold the document
-|filename|        Name of the file
-|content|         File content (no byte array or input stream for now)
-|mimeType|        Stream content-type
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderPath|      Folder in the repository that will hold the document|no||
+|filename|        Name of the file|no||
+|content|         File content (no byte array or input stream for now)|no||
+|mimeType|        Stream content-type|no||
 |versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
-|objectType|
+|objectType||no||
 
 Create Document By Id
 ---------------------
@@ -157,13 +157,13 @@ Creates a new document in the repository.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|folderId|        Folder Object Id
-|filename|        Name of the file
-|content|         File content (no byte array or input stream for now)
-|mimeType|        Stream content-type
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderId|        Folder Object Id|no||
+|filename|        Name of the file|no||
+|content|         File content (no byte array or input stream for now)|no||
+|mimeType|        Stream content-type|no||
 |versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
-|objectType|
+|objectType||no||
 
 Create Folder
 -------------
@@ -177,7 +177,7 @@ one folder
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes|||
-|folderName|     Folder name (eg: "my documents")
-|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folderName|     Folder name (eg: "my documents")|no||
+|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)|no||
 
