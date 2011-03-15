@@ -277,4 +277,13 @@
             <snapshots><enabled>false</enabled></snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/cmis-connector.git/mule-modules-cmis
+        </connection>
+        <developerConnection>
+            scm:git:git@github.com:mulesoft/cmis-connector.git/mule-modules-cmis
+        </developerConnection>
+        <url>http://github.com/mulesoft/cmis-connector</url>
+    </scm>
 </project>
