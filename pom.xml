@@ -5,7 +5,7 @@
     <artifactId>mule-module-cmis</artifactId>
     <packaging>cloud-connector</packaging>
     <name>Mule CMIS Cloud Connector</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <description>The CMIS Connector provides an easy to integrate with CMS Repositories that have a CMIS Endpoint activated, such Alfresco.</description>
     <url>http://www.muleforge.org/projects/mule-module-cmis</url>
 
