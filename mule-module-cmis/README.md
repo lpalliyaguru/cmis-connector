@@ -52,11 +52,11 @@ Here is detailed list of all the configuration attributes:
 
 | attribute | description | optional | default value |
 |:-----------|:-----------|:---------|:--------------|
-|name|Give a name to this configuration so it can be later referenced by config-ref.|yes|
-|username|Username||no|
-|password|Password||no|
-|repositoryId|The identifier for the Repository that this connector instance works with||no|
-|baseUrl|URL base for the SOAP connector.||no|
+|name|Give a name to this configuration so it can be later referenced by config-ref.|yes||
+|username|Username|no|
+|password|Password|no|
+|repositoryId|The identifier for the Repository that this connector instance works with|no|
+|baseUrl|URL base for the SOAP connector.|no|
 
 Repository Info
 ---------------
@@ -69,7 +69,7 @@ Returns information about the CMIS repository, the optional capabilities it supp
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 
 Changelog
 ---------
@@ -82,7 +82,7 @@ Gets repository changes.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |changeLogToken|    The change log token to start from or <code>null</code>
 |includeProperties| Indicates if changed properties should be included in
                          the result
@@ -98,7 +98,7 @@ Returns a CMIS object from the repository and puts it into the cache.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |objectId| The object id
 
 Get Object By Path
@@ -112,7 +112,7 @@ Returns a CMIS object from the repository and puts it into the cache.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |path| Path of the object to retrieve
 
 Create Document By Path
@@ -132,7 +132,7 @@ Creates a new document in the repository.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |folderPath|      Folder in the repository that will hold the document
 |filename|        Name of the file
 |content|         File content (no byte array or input stream for now)
@@ -157,7 +157,7 @@ Creates a new document in the repository.
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |folderId|        Folder Object Id
 |filename|        Name of the file
 |content|         File content (no byte array or input stream for now)
@@ -177,7 +177,7 @@ one folder
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
-|config-ref|Specify which configuration to use for this invocation|yes||
+|config-ref|Specify which configuration to use for this invocation|yes|||
 |folderName|     Folder name (eg: "my documents")
 |parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)
 
