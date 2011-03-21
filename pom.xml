@@ -12,7 +12,7 @@
     <properties>
         <!-- the CXF version must be in line with the version Mule uses -->
         <cxf.version>2.3.0</cxf.version>
-        <cloudconnect.version>2.0.9</cloudconnect.version>
+        <cloudconnect.version>2.0.12</cloudconnect.version>
         <mule.version>3.1.0</mule.version>
         <!-- Tools properties -->
         <eclipsePluginVersion>2.8</eclipsePluginVersion>
