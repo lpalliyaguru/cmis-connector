@@ -30,9 +30,11 @@ import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 
 @Connector(namespacePrefix = "cmis")
 public class CMISCloudConnector implements Initialisable, CMISFacade
@@ -355,6 +357,24 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     public Acl getAcl(CmisObject cmisObject)
     {
         return facade.getAcl(cmisObject);
+    }
+
+    @Operation
+    public List<Document> getAllVersions(CmisObject document,
+                                         @Parameter(optional = true) String filter,
+                                         @Parameter(optional = true) String orderBy,
+                                         @Parameter(optional = true) Boolean includeACLs)
+    {
+        return facade.getAllVersions(document, filter, orderBy, includeACLs);
+    }
+
+    @Operation
+    public Acl applyAcl(CmisObject cmisObject,
+                        List<Ace> addAces,
+                        List<Ace> removeAces,
+                        AclPropagation aclPropagation)
+    {
+        return facade.applyAcl(cmisObject, addAces, removeAces, aclPropagation);
     }
 }
 

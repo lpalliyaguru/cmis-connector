@@ -24,9 +24,11 @@ import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.commons.lang.NotImplementedException;
 
 /**
@@ -183,6 +185,22 @@ public class MockCMISFacade implements CMISFacade
     }
 
     public Acl getAcl(CmisObject object)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Document> getAllVersions(CmisObject document,
+                                         String filter,
+                                         String orderBy,
+                                         Boolean includeACLs)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Acl applyAcl(CmisObject cmisObject,
+                        List<Ace> addAces,
+                        List<Ace> removeAces,
+                        AclPropagation aclPropagation)
     {
         throw new NotImplementedException();
     }

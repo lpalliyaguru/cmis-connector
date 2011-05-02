@@ -23,9 +23,11 @@ import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.mule.tools.cloudconnect.annotations.Operation;
 
 public interface CMISFacade
@@ -156,7 +158,7 @@ public interface CMISFacade
     
     /**
      * Retrieves the parent folders of a fileable cmis object
-     * @param object the object whose parent folders are needed. can be null if "objectId" is set. 
+     * @param cmisObject the object whose parent folders are needed. can be null if "objectId" is set. 
      * @param objectId id of the object whose parent folders are needed. can be null if "object" is set.
      * @return a list of the object's parent folders.
      */
@@ -185,14 +187,14 @@ public interface CMISFacade
 
     /**
      * Retrieves the content stream of a Document.
-     * @param object The document from which to get the stream. Can be null if "objectId" is set. 
+     * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
      * @return The content stream of the document.
      */
     ContentStream getContentStream(final CmisObject cmisObject, final String objectId);
     /**
      * Moves a fileable cmis object from one location to another.
-     * @param object the object to move
+     * @param cmisObject the object to move
      * @param sourceFolderId id of the source folder
      * @param targetFolderId id of the target folder
      * @return the object moved
@@ -203,7 +205,7 @@ public interface CMISFacade
     
     /**
      * Update an object's properties
-     * @param object object to be updated
+     * @param cmisObject object to be updated
      * @param properties the properties to update
      * @return the updated object (a repository might have created a new object)
      */
@@ -211,16 +213,41 @@ public interface CMISFacade
 
     /**
      * Returns the relationships if they have been fetched for an object.
-     * @param object the object whose relationships are needed
+     * @param cmisObject the object whose relationships are needed
      * @return list of the object's relationships
      */
     List<Relationship> getObjectRelationships(final CmisObject cmisObject);
     
     /**
      * Returns the ACL if it has been fetched for an object.
-     * @param object the object whose Acl is needed
+     * @param cmisObject the object whose Acl is needed
      * @return the object's Acl
      */
     Acl getAcl(final CmisObject cmisObject);
     
+    /**
+     * Set the permissions associated with an object.
+     * @param cmisObject the object whose Acl is intended to change.
+     * @param addAces added access control entities
+     * @param removeAces removed access control entities
+     * @param aclPropagation wheter to propagate changes or not. can be
+     *          (a) REPOSITORYDETERMINED
+     *          (b) OBJECTONLY
+     *          (c) PROPAGATE
+     * @return the new access control list
+     */
+    Acl applyAcl(final CmisObject cmisObject, final List<Ace> addAces, 
+                 final List<Ace> removeAces, final AclPropagation aclPropagation);
+    
+    /**
+     * Retrieve an object's version history
+     * @param document the document whose versions are to be retrieved
+     * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
+     * @param orderBy comma-separated list of query names and the ascending modifier 
+     *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
+     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
+     * @return versions of the document.
+     */
+    List<Document> getAllVersions(final CmisObject document, final String filter, 
+                                  final String orderBy, final Boolean includeACLs);
 }

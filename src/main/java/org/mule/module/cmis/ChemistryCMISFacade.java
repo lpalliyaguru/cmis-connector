@@ -37,9 +37,11 @@ import org.apache.chemistry.opencmis.client.runtime.OperationContextImpl;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExistsException;
@@ -389,6 +391,32 @@ public class ChemistryCMISFacade implements CMISFacade
         return cmisObject.getAcl();
     }
 
+    public List<Document> getAllVersions(final CmisObject document, final String filter, 
+                                        final String orderBy, final Boolean includeACLs)
+    {
+        Validate.notNull(document, "document is null");
+        if (document instanceof Document)
+        {
+            final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+            if (ctx != null)
+            {
+                return ((Document) document).getAllVersions(ctx);
+            }
+            else
+            {
+                return ((Document) document).getAllVersions();
+            }
+        }
+        return null;
+    }
+    
+    public Acl applyAcl(final CmisObject cmisObject, final List<Ace> addAces, 
+                        final List<Ace> removeAces, final AclPropagation aclPropagation)
+    {
+        Validate.notNull(cmisObject, "cmis object is null");
+        return cmisObject.applyAcl(addAces, removeAces, aclPropagation);
+    }
+    
     /**
      * Validates that either a CmisObject or it's ID has been provided.
      */
