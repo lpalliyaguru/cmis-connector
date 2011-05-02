@@ -402,6 +402,18 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
 
+    public void delete(CmisObject cmisObject, String objectId, boolean allVersions)
+    {
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            target.delete(allVersions);
+        }
+    }
+    
     public List<Relationship> getObjectRelationships(final CmisObject cmisObject,
                                                      final String objectId)
     {

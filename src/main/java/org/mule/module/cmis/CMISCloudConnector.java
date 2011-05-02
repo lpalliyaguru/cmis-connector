@@ -390,5 +390,13 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
         return facade.getAppliedPolicies(cmisObject, objectIc);
     }
 
+
+    public void delete(@Parameter(optional = true) CmisObject cmisObject, 
+                       @Parameter(optional = true) String objectId,
+                       @Parameter(optional = true, defaultValue="false") boolean allVersions)
+    {
+        facade.delete(cmisObject, objectId, allVersions);
+    }
+
 }
 

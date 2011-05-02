@@ -221,6 +221,14 @@ public interface CMISFacade
                                       final Map<String, Object> properties);
 
     /**
+     * Remove an object
+     * @param cmisObject The object to be deleted. Can be null if "objectId" is set.
+     * @param objectId The object's id. Can be null if "cmisObject" is set.
+     * @param allVersions If true, deletes all version history of the object. Defaults to "false".
+     */
+    void delete(final CmisObject cmisObject, final String objectId, final boolean allVersions);
+    
+    /**
      * Returns the relationships if they have been fetched for an object.
      * @param cmisObject the object whose relationships are needed
      * @return list of the object's relationships

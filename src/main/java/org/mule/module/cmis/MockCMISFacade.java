@@ -214,4 +214,8 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
+    public void delete(CmisObject cmisObject, String objectId, boolean allVersions)
+    {
+    }
+
 }
