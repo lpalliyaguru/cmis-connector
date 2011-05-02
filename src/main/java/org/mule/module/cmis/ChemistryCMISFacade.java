@@ -294,127 +294,150 @@ public class ChemistryCMISFacade implements CMISFacade
             return session.query(statement, searchAllVersions);
         }
     }
-
-    public List<Folder> getParentFolders(final CmisObject object) 
+   
+    public List<Folder> getParentFolders(final CmisObject cmisObject, final String objectId) 
     {
-        Validate.notNull(object, "cmis object is null");
-        if (object instanceof FileableCmisObject) 
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        
+        if (target instanceof FileableCmisObject) 
         {
-            return ((FileableCmisObject) object).getParents();
-        }
-        return null;
-    }
-    
-
-    public List<Folder> getParentFolders(final String objectId)
-    {
-        Validate.notEmpty(objectId, "objectId is null");
-        final CmisObject object = getObjectById(objectId);
-        if (object != null)
-        {
-            return getParentFolders(object);
+            return ((FileableCmisObject) target).getParents();
         }
         return null;
     }
 
-    public Object folder(final String folderId, final NavigationOptions get, final Integer depth,
+    public Object folder(final Folder folder, final String folderId,
+                         final NavigationOptions get, final Integer depth,
                          final String filter, final String orderBy, final Boolean includeACLs)
     {
-        Validate.notEmpty(folderId, "folderId is empty");
-        Validate.notNull(get, "navigation option not set");
-        if (get.equals(NavigationOptions.DESCENDANTS))
-        {
-            Validate.notNull(depth, "depth is null");
-        }
+        validateObjectOrId(folder, folderId);
+        validateRedundantIdentifier(folder, folderId);
         
-        final CmisObject object = getObjectById(folderId);
-        if (object instanceof Folder)
-        {
-            return folder((Folder) object, get, depth, filter, orderBy, includeACLs);
-        }
-        return null;
-    }
-
-    public Object folder(final Folder folder, final NavigationOptions get, final Integer depth,
-                         final String filter, final String orderBy, final Boolean includeACLs)
-    {
-        Validate.notNull(folder, "folder is null");
-        Validate.notNull(get, "navigation option not set");
-        if (get.equals(NavigationOptions.DESCENDANTS))
-        {
-            Validate.notNull(depth, "depth is null");
-        }
-        
+        final Folder target = getCmisObject(folder, folderId, Folder.class);
         Object ret = null;
-        if (get.equals(NavigationOptions.PARENT))
+
+        if (target != null)
         {
-            ret = folder.getFolderParent();
-        }
-        else
-        {
-            final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
-            if (get.equals(NavigationOptions.CHILDREN))
+            if (get.equals(NavigationOptions.DESCENDANTS))
             {
-                ret = ctx == null? folder.getChildren() : folder.getChildren(ctx);
+                Validate.notNull(depth, "depth is null");
             }
-            else if (get.equals(NavigationOptions.DESCENDANTS))
+            
+            if (get.equals(NavigationOptions.PARENT))
             {
-                ret = ctx == null? folder.getDescendants(depth) : folder.getDescendants(depth, ctx);
+                ret = target.getFolderParent();
             }
+            else
+            {
+                final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+                if (get.equals(NavigationOptions.CHILDREN))
+                {
+                    ret = ctx == null? target.getChildren() : target.getChildren(ctx);
+                }
+                else if (get.equals(NavigationOptions.DESCENDANTS))
+                {
+                    ret = ctx == null? target.getDescendants(depth) : target.getDescendants(depth, ctx);
+                }
+            }
+            return ret;
         }
+        
         return ret;
     }
     
-    public ContentStream getContentStream(final CmisObject object)
+    public ContentStream getContentStream(final CmisObject cmisObject, final String objectId)
     {
-        Validate.notNull(object, "cmis object is null");
-        if (object instanceof Document) 
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        
+        if (target != null && target instanceof Document) 
         {
-            return ((Document) object).getContentStream();
+            return ((Document) target).getContentStream();
         }
         return null;
     }
 
-    public ContentStream getContentStream(final String objectId)
-    {
-        Validate.notEmpty(objectId, "objectId is null");
-        final CmisObject object = getObjectById(objectId);
-        if (object != null)
-        {
-            return getContentStream(object);
-        }
-        return null;
-    }
-
-    public FileableCmisObject moveObject(final FileableCmisObject object, 
+    public FileableCmisObject moveObject(final FileableCmisObject cmisObject, 
                                    final String sourceFolderId,
                                    final String targetFolderId)
     {
-        Validate.notNull(object, "cmis object is empty");
+        Validate.notNull(cmisObject, "cmis object is empty");
         Validate.notEmpty(sourceFolderId, "sourceFolderId is empty");
         Validate.notEmpty(targetFolderId, "targetFolderId is empty");
         
-        return object.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
+        return cmisObject.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
     }
 
-    public CmisObject updateObjectProperties(final CmisObject object, final Map<String, ?> properties)
+    public CmisObject updateObjectProperties(final CmisObject cmisObject, final Map<String, Object> properties)
     {
-        Validate.notNull(object, "cmis object is empty");
+        Validate.notNull(cmisObject, "cmis object is empty");
         Validate.notNull(properties, "properties is null");
-        
-        return object.updateProperties(properties);
+        return cmisObject.updateProperties(properties);
     }
 
-    public List<Relationship> getObjectRelationships(CmisObject object)
+    public List<Relationship> getObjectRelationships(CmisObject cmisObject)
     {
-        return object.getRelationships();
+        return cmisObject.getRelationships();
     }
 
-    public Acl getAcl(CmisObject object)
+    public Acl getAcl(CmisObject cmisObject)
     {
-        return object.getAcl();
+        return cmisObject.getAcl();
     }
 
+    /**
+     * Validates that either a CmisObject or it's ID has been provided.
+     */
+    private static void validateObjectOrId(final CmisObject object, final String objectId)
+    {
+        if (object == null && StringUtils.isBlank(objectId))
+        {
+            throw new IllegalArgumentException("Both the cmis object and it's ID are not set");
+        }
+    }
+    
+    /**
+     * Validates that and object's ID is the one provided, in case both are not null or blank.   
+     */
+    private static void validateRedundantIdentifier(final CmisObject object, final String objectId)
+    {
+        if (object != null && StringUtils.isNotBlank(objectId) && !object.getId().equals(objectId))
+        {
+            throw new IllegalArgumentException("The id provided does not match the object's ID");
+        }
+    }
+    
+    private CmisObject getCmisObject(final CmisObject object, final String objectId)
+    {
+        return getCmisObject(object, objectId, CmisObject.class);
+    }
+    
+    /**
+     * Returns the object if it is not null. Otherwise, get the object by ID and
+     * returns it if types match. Returns null if types don't match.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private <T> T getCmisObject(final T object, final String objectId, final Class<T> clazz)
+    {
+        if (object != null)
+        {
+            return object;
+        }
+        else
+        {
+            final CmisObject obj = getObjectById(objectId);
+            if (clazz.isAssignableFrom(obj.getClass())) {
+                return (T) obj;
+            }
+            return null;
+        }
+    }
+    
     
     private static OperationContext createOperationContext(final String filter,
                                                            final String orderBy,

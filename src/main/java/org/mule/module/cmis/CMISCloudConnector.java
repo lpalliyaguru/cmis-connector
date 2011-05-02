@@ -306,67 +306,55 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     }
 
     @Operation
-    public List<Folder> getParentFolders(CmisObject object) 
+    public List<Folder> getParentFolders(@Parameter(optional=true) CmisObject cmisObject, 
+                                         @Parameter(optional=true) String objectId) 
     {
-        return facade.getParentFolders(object);
+        return facade.getParentFolders(cmisObject, objectId);
     }
 
     @Operation
-    public List<Folder> getParentFolders(String objectId)
+    public Object folder(@Parameter(optional=true) Folder folder, 
+                         @Parameter(optional=true) String folderId, 
+                         NavigationOptions get,
+                         @Parameter(optional=true) Integer depth,
+                         @Parameter(optional=true) String filter,
+                         @Parameter(optional=true) String orderBy,
+                         @Parameter(optional=true) Boolean includeACLs)
     {
-        return facade.getParentFolders(objectId);
+        return facade.folder(folder, folderId, get, depth, filter, orderBy, includeACLs);
     }
 
     @Operation
-    public Object folder(String folderId, NavigationOptions get, Integer depth,
-                         String filter, String orderBy, Boolean includeACLs)
+    public ContentStream getContentStream(@Parameter(optional = true) CmisObject cmisObject,
+                                          @Parameter(optional = true) String objectId)
     {
-        return facade.folder(folderId, get, depth, filter, orderBy, includeACLs);
+        return facade.getContentStream(cmisObject, objectId);
     }
 
     @Operation
-    public Object folder(Folder folder, NavigationOptions get, Integer depth,
-                         String filter, String orderBy, Boolean includeACLs)
-    {
-        return facade.folder(folder, get, depth, filter, orderBy, includeACLs);
-    }
-
-    @Operation
-    public ContentStream getContentStream(CmisObject object)
-    {
-        return facade.getContentStream(object);
-    }
-
-    @Operation
-    public ContentStream getContentStream(String objectId)
-    {
-        return facade.getContentStream(objectId);
-    }
-
-    @Operation
-    public FileableCmisObject moveObject(FileableCmisObject object,
+    public FileableCmisObject moveObject(FileableCmisObject cmisObject,
                                          String sourceFolderId,
                                          String targetFolderId)
     {
-        return facade.moveObject(object, sourceFolderId, targetFolderId);
+        return facade.moveObject(cmisObject, sourceFolderId, targetFolderId);
     }
 
     @Operation
-    public CmisObject updateObjectProperties(CmisObject object, Map<String, ?> properties)
+    public CmisObject updateObjectProperties(CmisObject cmisObject, Map<String, Object> properties)
     {
-        return facade.updateObjectProperties(object, properties);
+        return facade.updateObjectProperties(cmisObject, properties);
     }
 
     @Operation
-    public List<Relationship> getObjectRelationships(CmisObject object)
+    public List<Relationship> getObjectRelationships(CmisObject cmisObject)
     {
-        return facade.getObjectRelationships(object);
+        return facade.getObjectRelationships(cmisObject);
     }
 
     @Operation
-    public Acl getAcl(CmisObject object)
+    public Acl getAcl(CmisObject cmisObject)
     {
-        return facade.getAcl(object);
+        return facade.getAcl(cmisObject);
     }
 }
 

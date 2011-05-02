@@ -144,36 +144,13 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public List<Folder> getParentFolders(CmisObject object) 
+    public List<Folder> getParentFolders(CmisObject object, String objectId) 
     {
         throw new NotImplementedException();
     }
 
-    public List<Folder> getParentFolders(String objectId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Object folder(String folderId, NavigationOptions get, Integer depth)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Object folder(Folder folder, NavigationOptions get, Integer depth)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Object folder(String folderId,
-                         NavigationOptions get,
-                         Integer depth,
-                         String filter,
-                         String orderBy,
-                         Boolean includeACLs)
-    {
-        throw new NotImplementedException();
-    }
      public Object folder(Folder folder,
+                         String folderId,
                          NavigationOptions get,
                          Integer depth,
                          String filter,
@@ -183,12 +160,7 @@ public class MockCMISFacade implements CMISFacade
          throw new NotImplementedException();
     }
 
-    public ContentStream getContentStream(CmisObject object)
-    {
-        throw new NotImplementedException();
-    }
-
-    public ContentStream getContentStream(String objectId)
+    public ContentStream getContentStream(CmisObject object, String objectId)
     {
         throw new NotImplementedException();
     }
@@ -200,7 +172,7 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public CmisObject updateObjectProperties(CmisObject object, Map<String, ?> properties)
+    public CmisObject updateObjectProperties(CmisObject object, Map<String, Object> properties)
     {
         throw new NotImplementedException();
     }

@@ -156,21 +156,16 @@ public interface CMISFacade
     
     /**
      * Retrieves the parent folders of a fileable cmis object
-     * @param object the object whose parent folders are needed
+     * @param object the object whose parent folders are needed. can be null if "objectId" is set. 
+     * @param objectId id of the object whose parent folders are needed. can be null if "object" is set.
      * @return a list of the object's parent folders.
      */
-    List<Folder> getParentFolders(final CmisObject object);
-
-    /**
-     * Retrieves the parent folders of a fileable cmis object
-     * @param objectId id of the object whose parent folders are needed
-     * @return a list of the object's parent folders.
-     */
-    List<Folder> getParentFolders(final String objectId);
+    List<Folder> getParentFolders(final CmisObject cmisObject, final String objectId);
     
     /**
      * Navigates the folder structure.
-     * @param folderId Folder Object id
+     * @param folder Folder Object. Can be null if "folderId" is set. 
+     * @param folderId Folder Object id. Can be null if "folder" is set.
      * @param get NavigationOptions that specifies whether to get the parent folder,
      *              the list of immediate children or the whole descendants tree
      * @param depth if "get" value is DESCENDANTS, represents the depth of the
@@ -185,43 +180,16 @@ public interface CMISFacade
      *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing the 
      *                         directory structure under the current folder.  
      */
-    Object folder(final String folderId, final NavigationOptions get, final Integer depth,
-                  final String filter, final String orderBy, final Boolean includeACLs);
-
-    /**
-     * Navigates the folder structure.
-     * @param folde Folder Object
-     * @param get NavigationOptions that specifies whether to get the parent folder,
-     *              the list of immediate children or the whole descendants tree
-     * @param depth if "get" value is DESCENDANTS, represents the depth of the
-     *              descendants tree
-     * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
-     * @param orderBy comma-separated list of query names and the ascending modifier 
-     *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
-     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
-     * @return the following, depending on the value of "get" parameter:
-     *          * PARENT: returns the parent Folder
-     *          * CHILDREN: returns a CmisObject ItemIterable
-     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing the 
-     *                         directory structure under the current folder.  
-     */
-    Object folder(final Folder folder, final NavigationOptions get, final Integer depth,
-                  final String filter, final String orderBy, final Boolean includeACLs);
+    Object folder(final Folder folder, final String folderId, final NavigationOptions get,
+                  final Integer depth, final String filter, final String orderBy, final Boolean includeACLs);
 
     /**
      * Retrieves the content stream of a Document.
-     * @param object the document from which to get the stream 
-     * @return the content stream of the document.
+     * @param object The document from which to get the stream. Can be null if "objectId" is set. 
+     * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
+     * @return The content stream of the document.
      */
-    ContentStream getContentStream(final CmisObject object);
-    
-    /**
-     * Retrieves the content stream of a Document.
-     * @param objectId id of the document from which to get the stream 
-     * @return the content stream of the document.
-     */
-    ContentStream getContentStream(final String objectId);
-    
+    ContentStream getContentStream(final CmisObject cmisObject, final String objectId);
     /**
      * Moves a fileable cmis object from one location to another.
      * @param object the object to move
@@ -229,7 +197,7 @@ public interface CMISFacade
      * @param targetFolderId id of the target folder
      * @return the object moved
      */
-    FileableCmisObject moveObject(final FileableCmisObject object, 
+    FileableCmisObject moveObject(final FileableCmisObject cmisObject, 
                             final String sourceFolderId,
                             final String targetFolderId);
     
@@ -239,20 +207,20 @@ public interface CMISFacade
      * @param properties the properties to update
      * @return the updated object (a repository might have created a new object)
      */
-    CmisObject updateObjectProperties(final CmisObject object, final Map<String, ?> properties);
+    CmisObject updateObjectProperties(final CmisObject cmisObject, final Map<String, Object> properties);
 
     /**
      * Returns the relationships if they have been fetched for an object.
      * @param object the object whose relationships are needed
      * @return list of the object's relationships
      */
-    List<Relationship> getObjectRelationships(final CmisObject object);
+    List<Relationship> getObjectRelationships(final CmisObject cmisObject);
     
     /**
      * Returns the ACL if it has been fetched for an object.
      * @param object the object whose Acl is needed
      * @return the object's Acl
      */
-    Acl getAcl(final CmisObject object);
+    Acl getAcl(final CmisObject cmisObject);
     
 }
