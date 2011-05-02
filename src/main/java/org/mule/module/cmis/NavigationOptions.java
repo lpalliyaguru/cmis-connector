@@ -17,7 +17,9 @@ public enum NavigationOptions
     /** Returns a list of objects contained in the current folder */
     CHILDREN,
     /** Returns the whole descentants tree of the current folder */
-    DESCENDANTS;
+    DESCENDANTS,
+    /** Returns the folder tree starting with this folder. */
+    TREE;
 }
 
 

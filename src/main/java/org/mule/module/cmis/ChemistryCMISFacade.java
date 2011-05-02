@@ -28,6 +28,7 @@ import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.OperationContext;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.client.api.Session;
@@ -322,7 +323,7 @@ public class ChemistryCMISFacade implements CMISFacade
 
         if (target != null)
         {
-            if (get.equals(NavigationOptions.DESCENDANTS))
+            if (get.equals(NavigationOptions.DESCENDANTS) || get.equals(NavigationOptions.TREE))
             {
                 Validate.notNull(depth, "depth is null");
             }
@@ -341,6 +342,10 @@ public class ChemistryCMISFacade implements CMISFacade
                 else if (get.equals(NavigationOptions.DESCENDANTS))
                 {
                     ret = ctx == null? target.getDescendants(depth) : target.getDescendants(depth, ctx);
+                }
+                else if (get.equals(NavigationOptions.TREE))
+                {
+                    ret = ctx == null? target.getFolderTree(depth) : target.getFolderTree(depth, ctx);
                 }
             }
             return ret;
@@ -363,59 +368,113 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
 
-    public FileableCmisObject moveObject(final FileableCmisObject cmisObject, 
+    public FileableCmisObject moveObject(final FileableCmisObject cmisObject,
+                                   final String objectId,
                                    final String sourceFolderId,
                                    final String targetFolderId)
     {
-        Validate.notNull(cmisObject, "cmis object is empty");
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
         Validate.notEmpty(sourceFolderId, "sourceFolderId is empty");
         Validate.notEmpty(targetFolderId, "targetFolderId is empty");
         
-        return cmisObject.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
+        final FileableCmisObject target = getCmisObject(cmisObject, objectId, FileableCmisObject.class);
+        if (target != null)
+        {
+            return target.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
+        }
+        return null;
     }
 
-    public CmisObject updateObjectProperties(final CmisObject cmisObject, final Map<String, Object> properties)
+    public CmisObject updateObjectProperties(final CmisObject cmisObject,
+                                             final String objectId, 
+                                             final Map<String, Object> properties)
     {
-        Validate.notNull(cmisObject, "cmis object is empty");
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
         Validate.notNull(properties, "properties is null");
-        return cmisObject.updateProperties(properties);
+        
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            return target.updateProperties(properties);
+        }
+        return null;
     }
 
-    public List<Relationship> getObjectRelationships(CmisObject cmisObject)
+    public List<Relationship> getObjectRelationships(final CmisObject cmisObject,
+                                                     final String objectId)
     {
-        return cmisObject.getRelationships();
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            return target.getRelationships();
+        }
+        return null;
     }
 
-    public Acl getAcl(CmisObject cmisObject)
+    public Acl getAcl(final CmisObject cmisObject, final String objectId)
     {
-        return cmisObject.getAcl();
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            return target.getAcl();        
+        }
+        return null;
     }
 
-    public List<Document> getAllVersions(final CmisObject document, final String filter, 
-                                        final String orderBy, final Boolean includeACLs)
+    public List<Document> getAllVersions(final CmisObject document, final String objectId,
+                                        final String filter,  final String orderBy, 
+                                        final Boolean includeACLs)
     {
-        Validate.notNull(document, "document is null");
-        if (document instanceof Document)
+        validateObjectOrId(document, orderBy);
+        validateRedundantIdentifier(document, objectId);
+        final CmisObject target = getCmisObject(document, objectId);
+        
+        if (target instanceof Document)
         {
             final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
             if (ctx != null)
             {
-                return ((Document) document).getAllVersions(ctx);
+                return ((Document) target).getAllVersions(ctx);
             }
             else
             {
-                return ((Document) document).getAllVersions();
+                return ((Document) target).getAllVersions();
             }
         }
         return null;
     }
     
-    public Acl applyAcl(final CmisObject cmisObject, final List<Ace> addAces, 
+    public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
                         final List<Ace> removeAces, final AclPropagation aclPropagation)
     {
-        Validate.notNull(cmisObject, "cmis object is null");
-        return cmisObject.applyAcl(addAces, removeAces, aclPropagation);
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            return target.applyAcl(addAces, removeAces, aclPropagation);
+        }
+        return null;
     }
+    
+    public List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectId)
+    {
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            return target.getPolicies();
+        }
+        return null;
+    }
+
     
     /**
      * Validates that either a CmisObject or it's ID has been provided.

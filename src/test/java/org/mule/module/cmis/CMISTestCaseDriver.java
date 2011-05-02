@@ -26,7 +26,8 @@ public class CMISTestCaseDriver
         cmis.setUsername("admin");
         cmis.setPassword("admin");
         cmis.setRepositoryId("371554cd-ac06-40ba-98b8-e6b60275cca7");
-        cmis.setBaseUrl("http://cmis.alfresco.com/cmis/");
+        cmis.setBaseUrl("http://cmis.alfresco.com/service/cmis");
+        cmis.setEndpoint("atompub");
         try
         {
             cmis.initialise();
@@ -39,7 +40,6 @@ public class CMISTestCaseDriver
         
     }
     @Test
-    @Ignore
     public void changeLog() throws InitialisationException
     {
         final ChangeEvents events =  cmis.changelog("42215", false);
@@ -48,7 +48,6 @@ public class CMISTestCaseDriver
     }
     
     @Test
-    @Ignore
     public void createFolder() throws InitialisationException
     {
         final RepositoryInfo info = cmis.repositoryInfo();

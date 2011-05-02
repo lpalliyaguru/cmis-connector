@@ -28,6 +28,7 @@ import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -334,47 +335,60 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     }
 
     @Operation
-    public FileableCmisObject moveObject(FileableCmisObject cmisObject,
+    public FileableCmisObject moveObject(@Parameter(optional = true) FileableCmisObject cmisObject,
+                                         @Parameter(optional = true) String objectId,
                                          String sourceFolderId,
                                          String targetFolderId)
     {
-        return facade.moveObject(cmisObject, sourceFolderId, targetFolderId);
+        return facade.moveObject(cmisObject, objectId, sourceFolderId, targetFolderId);
     }
 
     @Operation
-    public CmisObject updateObjectProperties(CmisObject cmisObject, Map<String, Object> properties)
+    public CmisObject updateObjectProperties(@Parameter(optional = true) CmisObject cmisObject, 
+                                             @Parameter(optional = true) String objectId, 
+                                             Map<String, Object> properties)
     {
-        return facade.updateObjectProperties(cmisObject, properties);
+        return facade.updateObjectProperties(cmisObject, objectId, properties);
     }
 
     @Operation
-    public List<Relationship> getObjectRelationships(CmisObject cmisObject)
+    public List<Relationship> getObjectRelationships(@Parameter(optional = true) CmisObject cmisObject,
+                                                     @Parameter(optional = true) String objectId)
     {
-        return facade.getObjectRelationships(cmisObject);
+        return facade.getObjectRelationships(cmisObject, objectId);
     }
 
     @Operation
-    public Acl getAcl(CmisObject cmisObject)
+    public Acl getAcl(@Parameter(optional = true) CmisObject cmisObject,@Parameter(optional = true) String objectId)
     {
-        return facade.getAcl(cmisObject);
+        return facade.getAcl(cmisObject, objectId);
     }
 
     @Operation
-    public List<Document> getAllVersions(CmisObject document,
+    public List<Document> getAllVersions(@Parameter(optional = true) CmisObject document,
+                                         @Parameter(optional = true) String objectId, 
                                          @Parameter(optional = true) String filter,
                                          @Parameter(optional = true) String orderBy,
                                          @Parameter(optional = true) Boolean includeACLs)
     {
-        return facade.getAllVersions(document, filter, orderBy, includeACLs);
+        return facade.getAllVersions(document, objectId, filter, orderBy, includeACLs);
     }
 
     @Operation
-    public Acl applyAcl(CmisObject cmisObject,
+    public Acl applyAcl(@Parameter(optional = true) CmisObject cmisObject,
+                        @Parameter(optional = true) String objectId,
                         List<Ace> addAces,
                         List<Ace> removeAces,
                         AclPropagation aclPropagation)
     {
-        return facade.applyAcl(cmisObject, addAces, removeAces, aclPropagation);
+        return facade.applyAcl(cmisObject, objectId, addAces, removeAces, aclPropagation);
     }
+
+    public List<Policy> getAppliedPolicies(@Parameter(optional = true) CmisObject cmisObject, 
+                                           @Parameter(optional = true)String objectIc)
+    {
+        return facade.getAppliedPolicies(cmisObject, objectIc);
+    }
+
 }
 

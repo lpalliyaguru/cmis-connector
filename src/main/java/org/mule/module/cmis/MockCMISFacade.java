@@ -22,6 +22,7 @@ import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -168,28 +169,30 @@ public class MockCMISFacade implements CMISFacade
     }
 
     public FileableCmisObject moveObject(FileableCmisObject object,
+                                         String objectId,
                                          String sourceFolderId,
                                          String targetFolderId)
     {
         throw new NotImplementedException();
     }
 
-    public CmisObject updateObjectProperties(CmisObject object, Map<String, Object> properties)
+    public CmisObject updateObjectProperties(CmisObject object, String objectId, Map<String, Object> properties)
     {
         throw new NotImplementedException();
     }
 
-    public List<Relationship> getObjectRelationships(CmisObject object)
+    public List<Relationship> getObjectRelationships(CmisObject object, String objectId)
     {
         throw new NotImplementedException();
     }
 
-    public Acl getAcl(CmisObject object)
+    public Acl getAcl(CmisObject object, String objectId)
     {
         throw new NotImplementedException();
     }
 
     public List<Document> getAllVersions(CmisObject document,
+                                         String documentId,
                                          String filter,
                                          String orderBy,
                                          Boolean includeACLs)
@@ -198,10 +201,17 @@ public class MockCMISFacade implements CMISFacade
     }
 
     public Acl applyAcl(CmisObject cmisObject,
+                        String objectId,
                         List<Ace> addAces,
                         List<Ace> removeAces,
                         AclPropagation aclPropagation)
     {
         throw new NotImplementedException();
     }
+
+    public List<Policy> getAppliedPolicies(CmisObject cmisObject, String objectIc)
+    {
+        throw new NotImplementedException();
+    }
+
 }

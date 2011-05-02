@@ -21,6 +21,7 @@ import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -178,9 +179,12 @@ public interface CMISFacade
      * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
      * @return the following, depending on the value of "get" parameter:
      *          * PARENT: returns the parent Folder
-     *          * CHILDREN: returns a CmisObject ItemIterable
-     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing the 
-     *                         directory structure under the current folder.  
+     *          * CHILDREN: returns a CmisObject ItemIterable with
+     *                         objects contained in the current folder
+     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing
+     *                         the whole descentants tree of the current folder
+     *          * TREE: List<Tree<FileableCmisObject>> representing the 
+     *                         directory structure under the current folder.                           
      */
     Object folder(final Folder folder, final String folderId, final NavigationOptions get,
                   final Integer depth, final String filter, final String orderBy, final Boolean includeACLs);
@@ -194,36 +198,41 @@ public interface CMISFacade
     ContentStream getContentStream(final CmisObject cmisObject, final String objectId);
     /**
      * Moves a fileable cmis object from one location to another.
-     * @param cmisObject the object to move
-     * @param sourceFolderId id of the source folder
-     * @param targetFolderId id of the target folder
-     * @return the object moved
+     * @param cmisObject The object to move. Can be null if "objectId" is set.
+     * @param objectId The object's id. Can be null if "cmisObject" is set.
+     * @param sourceFolderId Id of the source folder
+     * @param targetFolderId Id of the target folder
+     * @return The object moved
      */
-    FileableCmisObject moveObject(final FileableCmisObject cmisObject, 
+    FileableCmisObject moveObject(final FileableCmisObject cmisObject,
+                            final String objectId,
                             final String sourceFolderId,
                             final String targetFolderId);
     
     /**
      * Update an object's properties
-     * @param cmisObject object to be updated
-     * @param properties the properties to update
-     * @return the updated object (a repository might have created a new object)
+     * @param cmisObject Object to be updated. Can be null if "objectId" is set.
+     * @param objectId The object's id. Can be null if "cmisObject" is set.
+     * @param properties The properties to update
+     * @return The updated object (a repository might have created a new object)
      */
-    CmisObject updateObjectProperties(final CmisObject cmisObject, final Map<String, Object> properties);
+    CmisObject updateObjectProperties(final CmisObject cmisObject,
+                                      final String objectId,
+                                      final Map<String, Object> properties);
 
     /**
      * Returns the relationships if they have been fetched for an object.
      * @param cmisObject the object whose relationships are needed
      * @return list of the object's relationships
      */
-    List<Relationship> getObjectRelationships(final CmisObject cmisObject);
+    List<Relationship> getObjectRelationships(final CmisObject cmisObject, final String objectId);
     
     /**
      * Returns the ACL if it has been fetched for an object.
      * @param cmisObject the object whose Acl is needed
      * @return the object's Acl
      */
-    Acl getAcl(final CmisObject cmisObject);
+    Acl getAcl(final CmisObject cmisObject, final String objectId);
     
     /**
      * Set the permissions associated with an object.
@@ -236,7 +245,7 @@ public interface CMISFacade
      *          (c) PROPAGATE
      * @return the new access control list
      */
-    Acl applyAcl(final CmisObject cmisObject, final List<Ace> addAces, 
+    Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
                  final List<Ace> removeAces, final AclPropagation aclPropagation);
     
     /**
@@ -248,6 +257,16 @@ public interface CMISFacade
      * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
      * @return versions of the document.
      */
-    List<Document> getAllVersions(final CmisObject document, final String filter, 
-                                  final String orderBy, final Boolean includeACLs);
+    List<Document> getAllVersions(final CmisObject document, final String objectId, 
+                                  final String filter, final String orderBy, final Boolean includeACLs);
+
+    
+    /**
+     * Get the policies that are applied to an object.
+     * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
+     * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
+     * @return List of applied policies
+     */
+    List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectIc);
+    
 }
