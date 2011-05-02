@@ -16,8 +16,16 @@ import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
+import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.QueryResult;
+import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Acl;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -114,6 +122,95 @@ public class MockCMISFacade implements CMISFacade
     }
 
     public ObjectId createFolder(final String folderName, final String parentObjectId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ObjectType getTypeDefinition(String typeId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ItemIterable<Document> getCheckoutDocs(String filter,
+            String orderBy, Boolean includeACLs)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ItemIterable<QueryResult> query(String statement,
+            Boolean searchAllVersions, String filter, String orderBy,
+            Boolean includeACLs) 
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Folder> getParentFolders(CmisObject object) 
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Folder> getParentFolders(String objectId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Object folder(String folderId, NavigationOptions get, Integer depth)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Object folder(Folder folder, NavigationOptions get, Integer depth)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Object folder(String folderId,
+                         NavigationOptions get,
+                         Integer depth,
+                         String filter,
+                         String orderBy,
+                         Boolean includeACLs)
+    {
+        throw new NotImplementedException();
+    }
+     public Object folder(Folder folder,
+                         NavigationOptions get,
+                         Integer depth,
+                         String filter,
+                         String orderBy,
+                         Boolean includeACLs)
+    {
+         throw new NotImplementedException();
+    }
+
+    public ContentStream getContentStream(CmisObject object)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ContentStream getContentStream(String objectId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public FileableCmisObject moveObject(FileableCmisObject object,
+                                         String sourceFolderId,
+                                         String targetFolderId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CmisObject updateObjectProperties(CmisObject object, Map<String, ?> properties)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Relationship> getObjectRelationships(CmisObject object)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Acl getAcl(CmisObject object)
     {
         throw new NotImplementedException();
     }

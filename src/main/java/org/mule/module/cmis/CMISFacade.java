@@ -10,12 +10,23 @@
 
 package org.mule.module.cmis;
 
-import org.mule.tools.cloudconnect.annotations.Operation;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
+import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.QueryResult;
+import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Acl;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.mule.tools.cloudconnect.annotations.Operation;
 
 public interface CMISFacade
 {
@@ -108,4 +119,140 @@ public interface CMISFacade
                                   final String mimeType,
                                   final VersioningState versioningState,
                                   final String objectType);
+    
+    /**
+     * Returns the type definition of the given type id.
+     * 
+     * @param typeId Object type Id
+     * @return type of object
+     */
+    @Operation
+    ObjectType getTypeDefinition(final String typeId);
+    
+    /**
+     * Retrieve list of checked out documents.
+     * 
+     * @param filter comma-separated list of properties to filter
+     * @param orderBy comma-separated list of query names and the ascending modifier 
+     *      "ASC" or the descending modifier "DESC" for each query name
+     * @param includeACLs whether ACLs should be returned or not
+     * @return list of documents
+     */
+    ItemIterable<Document> getCheckoutDocs(final String filter, final String orderBy, final Boolean includeACLs);
+    
+    /**
+     * Sends a query to the repository
+     * @param statement the query statement (CMIS query language)
+     * @param searchAllVersions specifies if the latest and non-latest versions 
+     *                          of document objects should be included
+     * @param filter comma-separated list of properties to filter
+     * @param orderBy comma-separated list of query names and the ascending modifier 
+     *      "ASC" or the descending modifier "DESC" for each query name
+     * @param includeACLs whether ACLs should be returned or not
+     * @return
+     */
+    ItemIterable<QueryResult> query(final String statement, final Boolean searchAllVersions, 
+                        final String filter, final String orderBy, final Boolean includeACLs);
+    
+    /**
+     * Retrieves the parent folders of a fileable cmis object
+     * @param object the object whose parent folders are needed
+     * @return a list of the object's parent folders.
+     */
+    List<Folder> getParentFolders(final CmisObject object);
+
+    /**
+     * Retrieves the parent folders of a fileable cmis object
+     * @param objectId id of the object whose parent folders are needed
+     * @return a list of the object's parent folders.
+     */
+    List<Folder> getParentFolders(final String objectId);
+    
+    /**
+     * Navigates the folder structure.
+     * @param folderId Folder Object id
+     * @param get NavigationOptions that specifies whether to get the parent folder,
+     *              the list of immediate children or the whole descendants tree
+     * @param depth if "get" value is DESCENDANTS, represents the depth of the
+     *              descendants tree
+     * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
+     * @param orderBy comma-separated list of query names and the ascending modifier 
+     *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
+     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
+     * @return the following, depending on the value of "get" parameter:
+     *          * PARENT: returns the parent Folder
+     *          * CHILDREN: returns a CmisObject ItemIterable
+     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing the 
+     *                         directory structure under the current folder.  
+     */
+    Object folder(final String folderId, final NavigationOptions get, final Integer depth,
+                  final String filter, final String orderBy, final Boolean includeACLs);
+
+    /**
+     * Navigates the folder structure.
+     * @param folde Folder Object
+     * @param get NavigationOptions that specifies whether to get the parent folder,
+     *              the list of immediate children or the whole descendants tree
+     * @param depth if "get" value is DESCENDANTS, represents the depth of the
+     *              descendants tree
+     * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
+     * @param orderBy comma-separated list of query names and the ascending modifier 
+     *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
+     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
+     * @return the following, depending on the value of "get" parameter:
+     *          * PARENT: returns the parent Folder
+     *          * CHILDREN: returns a CmisObject ItemIterable
+     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing the 
+     *                         directory structure under the current folder.  
+     */
+    Object folder(final Folder folder, final NavigationOptions get, final Integer depth,
+                  final String filter, final String orderBy, final Boolean includeACLs);
+
+    /**
+     * Retrieves the content stream of a Document.
+     * @param object the document from which to get the stream 
+     * @return the content stream of the document.
+     */
+    ContentStream getContentStream(final CmisObject object);
+    
+    /**
+     * Retrieves the content stream of a Document.
+     * @param objectId id of the document from which to get the stream 
+     * @return the content stream of the document.
+     */
+    ContentStream getContentStream(final String objectId);
+    
+    /**
+     * Moves a fileable cmis object from one location to another.
+     * @param object the object to move
+     * @param sourceFolderId id of the source folder
+     * @param targetFolderId id of the target folder
+     * @return the object moved
+     */
+    FileableCmisObject moveObject(final FileableCmisObject object, 
+                            final String sourceFolderId,
+                            final String targetFolderId);
+    
+    /**
+     * Update an object's properties
+     * @param object object to be updated
+     * @param properties the properties to update
+     * @return the updated object (a repository might have created a new object)
+     */
+    CmisObject updateObjectProperties(final CmisObject object, final Map<String, ?> properties);
+
+    /**
+     * Returns the relationships if they have been fetched for an object.
+     * @param object the object whose relationships are needed
+     * @return list of the object's relationships
+     */
+    List<Relationship> getObjectRelationships(final CmisObject object);
+    
+    /**
+     * Returns the ACL if it has been fetched for an object.
+     * @param object the object whose Acl is needed
+     * @return the object's Acl
+     */
+    Acl getAcl(final CmisObject object);
+    
 }

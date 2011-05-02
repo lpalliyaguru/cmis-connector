@@ -10,6 +10,9 @@
 
 package org.mule.module.cmis;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.tools.cloudconnect.annotations.Connector;
@@ -19,7 +22,16 @@ import org.mule.tools.cloudconnect.annotations.Property;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
+import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.QueryResult;
+import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Acl;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 
 @Connector(namespacePrefix = "cmis")
@@ -272,6 +284,89 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     public ObjectId createFolder(String folderName, String parentObjectId)
     {
         return facade.createFolder(folderName, parentObjectId);
+    }
+
+    @Operation
+    public ObjectType getTypeDefinition(String typeId) {
+        return facade.getTypeDefinition(typeId);
+    }
+
+    @Operation
+    public ItemIterable<Document> getCheckoutDocs(@Parameter(optional=true) String filter,
+            @Parameter(optional = true) String orderBy, @Parameter(optional = true) Boolean includeACLs) {
+        return facade.getCheckoutDocs(filter, orderBy, includeACLs);
+    }
+
+    @Operation
+    public ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions, 
+            @Parameter(optional=true) String filter, @Parameter(optional=true) String orderBy,
+            @Parameter(optional=true) Boolean includeACLs) 
+    {
+        return facade.query(statement, searchAllVersions, filter, orderBy, includeACLs);
+    }
+
+    @Operation
+    public List<Folder> getParentFolders(CmisObject object) 
+    {
+        return facade.getParentFolders(object);
+    }
+
+    @Operation
+    public List<Folder> getParentFolders(String objectId)
+    {
+        return facade.getParentFolders(objectId);
+    }
+
+    @Operation
+    public Object folder(String folderId, NavigationOptions get, Integer depth,
+                         String filter, String orderBy, Boolean includeACLs)
+    {
+        return facade.folder(folderId, get, depth, filter, orderBy, includeACLs);
+    }
+
+    @Operation
+    public Object folder(Folder folder, NavigationOptions get, Integer depth,
+                         String filter, String orderBy, Boolean includeACLs)
+    {
+        return facade.folder(folder, get, depth, filter, orderBy, includeACLs);
+    }
+
+    @Operation
+    public ContentStream getContentStream(CmisObject object)
+    {
+        return facade.getContentStream(object);
+    }
+
+    @Operation
+    public ContentStream getContentStream(String objectId)
+    {
+        return facade.getContentStream(objectId);
+    }
+
+    @Operation
+    public FileableCmisObject moveObject(FileableCmisObject object,
+                                         String sourceFolderId,
+                                         String targetFolderId)
+    {
+        return facade.moveObject(object, sourceFolderId, targetFolderId);
+    }
+
+    @Operation
+    public CmisObject updateObjectProperties(CmisObject object, Map<String, ?> properties)
+    {
+        return facade.updateObjectProperties(object, properties);
+    }
+
+    @Operation
+    public List<Relationship> getObjectRelationships(CmisObject object)
+    {
+        return facade.getObjectRelationships(object);
+    }
+
+    @Operation
+    public Acl getAcl(CmisObject object)
+    {
+        return facade.getAcl(object);
     }
 }
 

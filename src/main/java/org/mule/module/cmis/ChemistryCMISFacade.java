@@ -21,14 +21,23 @@ import java.util.Map;
 import org.apache.chemistry.opencmis.client.api.ChangeEvent;
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.ObjectType;
+import org.apache.chemistry.opencmis.client.api.OperationContext;
+import org.apache.chemistry.opencmis.client.api.QueryResult;
+import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl;
+import org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl;
+import org.apache.chemistry.opencmis.client.runtime.OperationContextImpl;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
@@ -37,6 +46,7 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExists
 import org.apache.chemistry.opencmis.commons.exceptions.CmisInvalidArgumentException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -245,6 +255,190 @@ public class ChemistryCMISFacade implements CMISFacade
             return null;
         }
     }
+
+    public ObjectType getTypeDefinition(final String typeId) 
+    {
+        Validate.notEmpty(typeId, "typeId is empty");
+        return session.getTypeDefinition(typeId);
+    }
+    
+    public ItemIterable<Document> getCheckoutDocs(final String filter, 
+                                                  final String orderBy, 
+                                                  final Boolean includeACLs) 
+    {
+        final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+        if (ctx != null) 
+        {
+            return session.getCheckedOutDocs(ctx);
+        }
+        else 
+        {
+            return session.getCheckedOutDocs();
+        }
+    }
+    
+    public ItemIterable<QueryResult> query(final String statement,
+            final Boolean searchAllVersions, final String filter,
+            final String orderBy, final Boolean includeACLs) 
+    {
+        Validate.notEmpty(statement, "statement is empty");
+        Validate.notNull(searchAllVersions, "searchAllVersions is empty");
+        
+        final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+        if (ctx != null)
+        {
+            return session.query(statement, searchAllVersions, ctx);
+        }
+        else 
+        {
+            return session.query(statement, searchAllVersions);
+        }
+    }
+
+    public List<Folder> getParentFolders(final CmisObject object) 
+    {
+        Validate.notNull(object, "cmis object is null");
+        if (object instanceof FileableCmisObject) 
+        {
+            return ((FileableCmisObject) object).getParents();
+        }
+        return null;
+    }
+    
+
+    public List<Folder> getParentFolders(final String objectId)
+    {
+        Validate.notEmpty(objectId, "objectId is null");
+        final CmisObject object = getObjectById(objectId);
+        if (object != null)
+        {
+            return getParentFolders(object);
+        }
+        return null;
+    }
+
+    public Object folder(final String folderId, final NavigationOptions get, final Integer depth,
+                         final String filter, final String orderBy, final Boolean includeACLs)
+    {
+        Validate.notEmpty(folderId, "folderId is empty");
+        Validate.notNull(get, "navigation option not set");
+        if (get.equals(NavigationOptions.DESCENDANTS))
+        {
+            Validate.notNull(depth, "depth is null");
+        }
+        
+        final CmisObject object = getObjectById(folderId);
+        if (object instanceof Folder)
+        {
+            return folder((Folder) object, get, depth, filter, orderBy, includeACLs);
+        }
+        return null;
+    }
+
+    public Object folder(final Folder folder, final NavigationOptions get, final Integer depth,
+                         final String filter, final String orderBy, final Boolean includeACLs)
+    {
+        Validate.notNull(folder, "folder is null");
+        Validate.notNull(get, "navigation option not set");
+        if (get.equals(NavigationOptions.DESCENDANTS))
+        {
+            Validate.notNull(depth, "depth is null");
+        }
+        
+        Object ret = null;
+        if (get.equals(NavigationOptions.PARENT))
+        {
+            ret = folder.getFolderParent();
+        }
+        else
+        {
+            final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+            if (get.equals(NavigationOptions.CHILDREN))
+            {
+                ret = ctx == null? folder.getChildren() : folder.getChildren(ctx);
+            }
+            else if (get.equals(NavigationOptions.DESCENDANTS))
+            {
+                ret = ctx == null? folder.getDescendants(depth) : folder.getDescendants(depth, ctx);
+            }
+        }
+        return ret;
+    }
+    
+    public ContentStream getContentStream(final CmisObject object)
+    {
+        Validate.notNull(object, "cmis object is null");
+        if (object instanceof Document) 
+        {
+            return ((Document) object).getContentStream();
+        }
+        return null;
+    }
+
+    public ContentStream getContentStream(final String objectId)
+    {
+        Validate.notEmpty(objectId, "objectId is null");
+        final CmisObject object = getObjectById(objectId);
+        if (object != null)
+        {
+            return getContentStream(object);
+        }
+        return null;
+    }
+
+    public FileableCmisObject moveObject(final FileableCmisObject object, 
+                                   final String sourceFolderId,
+                                   final String targetFolderId)
+    {
+        Validate.notNull(object, "cmis object is empty");
+        Validate.notEmpty(sourceFolderId, "sourceFolderId is empty");
+        Validate.notEmpty(targetFolderId, "targetFolderId is empty");
+        
+        return object.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
+    }
+
+    public CmisObject updateObjectProperties(final CmisObject object, final Map<String, ?> properties)
+    {
+        Validate.notNull(object, "cmis object is empty");
+        Validate.notNull(properties, "properties is null");
+        
+        return object.updateProperties(properties);
+    }
+
+    public List<Relationship> getObjectRelationships(CmisObject object)
+    {
+        return object.getRelationships();
+    }
+
+    public Acl getAcl(CmisObject object)
+    {
+        return object.getAcl();
+    }
+
+    
+    private static OperationContext createOperationContext(final String filter,
+                                                           final String orderBy,
+                                                           final Boolean includeACLs) 
+    {
+        if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy) || includeACLs != null) 
+        {
+            final OperationContext ctx = new OperationContextImpl();
+            if (StringUtils.isNotBlank(filter))
+            {
+                ctx.setFilterString(filter);
+            }
+            if (StringUtils.isNotBlank(orderBy))
+            {
+                ctx.setOrderBy(orderBy);
+            }
+            if (includeACLs != null)
+            {
+                ctx.setIncludeAcls(includeACLs);
+            }
+            return ctx;
+        }
+        return null;
+    }
     
     private static Session createSession(final String username,
                                          final String password,
@@ -290,7 +484,7 @@ public class ChemistryCMISFacade implements CMISFacade
         // session locale
         parameters.put(SessionParameter.LOCALE_ISO3166_COUNTRY, "");
         parameters.put(SessionParameter.LOCALE_ISO639_LANGUAGE, "en");
-
+        
         return SessionFactoryImpl.newInstance().createSession(parameters);
     }
 
