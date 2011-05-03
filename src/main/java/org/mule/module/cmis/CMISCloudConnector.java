@@ -31,6 +31,7 @@ import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
@@ -162,6 +163,13 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
         this.endpoint = endpoint;
     }
 
+    @Operation
+    public List<Repository> repositories()
+    {
+        return facade.repositories();
+    }
+    
+    
     /**
      * Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
      *

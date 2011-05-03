@@ -25,6 +25,7 @@ import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
@@ -216,6 +217,11 @@ public class MockCMISFacade implements CMISFacade
 
     public void delete(CmisObject cmisObject, String objectId, boolean allVersions)
     {
+    }
+
+    public List<Repository> repositories()
+    {
+        throw new NotImplementedException();
     }
 
 }

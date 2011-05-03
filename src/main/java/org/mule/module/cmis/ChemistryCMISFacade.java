@@ -31,6 +31,7 @@ import org.apache.chemistry.opencmis.client.api.OperationContext;
 import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl;
 import org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl;
@@ -58,22 +59,23 @@ import org.apache.commons.lang.Validate;
 public class ChemistryCMISFacade implements CMISFacade
 {
     private final Session session;
-
+    private final Map<String, String> connectionParameters;
+    
     public ChemistryCMISFacade(final String username,
                                final String password,
                                final String repositoryId,
                                final String baseURL,
                                final boolean useAtomPub)
     {
-        this(createSession(username, password, repositoryId, baseURL, useAtomPub));
+        this.connectionParameters = paramMap(username, password, repositoryId, baseURL, useAtomPub);
+        this.session = createSession(connectionParameters);
     }
 
-    public ChemistryCMISFacade(final Session session)
+    public List<Repository> repositories()
     {
-        Validate.notNull(session, "session is null");
-        this.session = session;
+        return SessionFactoryImpl.newInstance().getRepositories(connectionParameters);
     }
-
+    
     public RepositoryInfo repositoryInfo()
     {
         return session.getRepositoryInfo();
@@ -562,11 +564,11 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
     
-    private static Session createSession(final String username,
-                                         final String password,
-                                         final String repositoryId,
-                                         final String baseURL,
-                                         final boolean useAtomPub)
+    private static Map<String, String> paramMap(final String username,
+                                                final String password,
+                                                final String repositoryId,
+                                                final String baseURL,
+                                                final boolean useAtomPub)
     {
         Validate.notEmpty(username, "username is empty");
         Validate.notEmpty(password, "password is empty");
@@ -606,7 +608,13 @@ public class ChemistryCMISFacade implements CMISFacade
         // session locale
         parameters.put(SessionParameter.LOCALE_ISO3166_COUNTRY, "");
         parameters.put(SessionParameter.LOCALE_ISO639_LANGUAGE, "en");
-        
+
+        return parameters;
+    }
+    
+    private static Session createSession(final Map<String, String> parameters)
+    {
+        Validate.notNull(parameters);
         return SessionFactoryImpl.newInstance().createSession(parameters);
     }
 

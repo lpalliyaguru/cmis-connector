@@ -24,6 +24,7 @@ import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
@@ -34,6 +35,8 @@ import org.mule.tools.cloudconnect.annotations.Operation;
 public interface CMISFacade
 {
 
+    List<Repository> repositories();
+    
     /**
      * Returns information about the CMIS repository, the optional capabilities it supports and its 
      * Access Control information if applicable. 
