@@ -367,7 +367,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     }
 
     @Operation
-    public Acl getAcl(@Parameter(optional = true) CmisObject cmisObject,@Parameter(optional = true) String objectId)
+    public Acl getAcl(@Parameter(optional = true) CmisObject cmisObject, @Parameter(optional = true) String objectId)
     {
         return facade.getAcl(cmisObject, objectId);
     }
@@ -380,6 +380,13 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                                          @Parameter(optional = true) Boolean includeACLs)
     {
         return facade.getAllVersions(document, objectId, filter, orderBy, includeACLs);
+    }
+    
+    @Operation
+    public ObjectId checkout(@Parameter(optional = true) final CmisObject document,
+                             @Parameter(optional = true) final String documentId)
+    {
+        return facade.checkout(document, documentId);
     }
 
     @Operation

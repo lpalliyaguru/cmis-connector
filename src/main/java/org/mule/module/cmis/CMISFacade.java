@@ -262,6 +262,7 @@ public interface CMISFacade
     /**
      * Retrieve an object's version history
      * @param document the document whose versions are to be retrieved
+     * @param objectId Id of the document whose versions are to be retrieved
      * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
@@ -271,6 +272,14 @@ public interface CMISFacade
     List<Document> getAllVersions(final CmisObject document, final String objectId, 
                                   final String filter, final String orderBy, final Boolean includeACLs);
 
+
+    /**
+     * Checks out the document and returns the object id of the PWC (private working copy).
+     * @param document The document to be checked out. Can be null if "documentId" is set.
+     * @param objectId Id of the document to be checked out. Can be null if "document" is set.
+     * @return PWC ObjectId
+     */
+    ObjectId checkout(final CmisObject document, final String documentId);
     
     /**
      * Get the policies that are applied to an object.

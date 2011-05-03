@@ -224,4 +224,9 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
+    public ObjectId checkout(CmisObject document, String documentId)
+    {
+        throw new NotImplementedException();
+    }
+
 }

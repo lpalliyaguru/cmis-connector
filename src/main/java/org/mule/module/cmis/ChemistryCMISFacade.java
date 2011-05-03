@@ -306,7 +306,7 @@ public class ChemistryCMISFacade implements CMISFacade
         validateRedundantIdentifier(cmisObject, objectId);
         final CmisObject target = getCmisObject(cmisObject, objectId);
         
-        if (target instanceof FileableCmisObject) 
+        if (target != null  && target instanceof FileableCmisObject) 
         {
             return ((FileableCmisObject) target).getParents();
         }
@@ -464,6 +464,21 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
     
+
+    public ObjectId checkout(CmisObject document, String documentId)
+    {
+        validateObjectOrId(document, documentId);
+        validateRedundantIdentifier(document, documentId);
+        final CmisObject target = getCmisObject(document, documentId);
+        
+        if (target != null  && target instanceof Document) 
+        {
+            return ((Document) target).checkOut();
+        }
+        return null;
+    }
+
+    
     public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
                         final List<Ace> removeAces, final AclPropagation aclPropagation)
     {
@@ -532,7 +547,8 @@ public class ChemistryCMISFacade implements CMISFacade
         else
         {
             final CmisObject obj = getObjectById(objectId);
-            if (clazz.isAssignableFrom(obj.getClass())) {
+            if (clazz.isAssignableFrom(obj.getClass())) 
+            {
                 return (T) obj;
             }
             return null;
