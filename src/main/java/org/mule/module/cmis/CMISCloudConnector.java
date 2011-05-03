@@ -191,7 +191,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      *                          the result
      */
     @Operation
-    public ChangeEvents changelog(@Parameter(optional=true) final String changeLogToken, final boolean includeProperties)
+    public ChangeEvents changelog(@Parameter(optional = true) final String changeLogToken, 
+                                  final boolean includeProperties)
     {
         return facade.changelog(changeLogToken, includeProperties);
     }
@@ -298,39 +299,41 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     }
 
     @Operation
-    public ObjectType getTypeDefinition(String typeId) {
+    public ObjectType getTypeDefinition(String typeId) 
+    {
         return facade.getTypeDefinition(typeId);
     }
 
     @Operation
-    public ItemIterable<Document> getCheckoutDocs(@Parameter(optional=true) String filter,
-            @Parameter(optional = true) String orderBy, @Parameter(optional = true) Boolean includeACLs) {
+    public ItemIterable<Document> getCheckoutDocs(@Parameter(optional = true) String filter,
+            @Parameter(optional = true) String orderBy, @Parameter(optional = true) Boolean includeACLs) 
+            {
         return facade.getCheckoutDocs(filter, orderBy, includeACLs);
     }
 
     @Operation
     public ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions, 
-            @Parameter(optional=true) String filter, @Parameter(optional=true) String orderBy,
-            @Parameter(optional=true) Boolean includeACLs) 
+            @Parameter(optional = true) String filter, @Parameter(optional = true) String orderBy,
+            @Parameter(optional = true) Boolean includeACLs) 
     {
         return facade.query(statement, searchAllVersions, filter, orderBy, includeACLs);
     }
 
     @Operation
-    public List<Folder> getParentFolders(@Parameter(optional=true) CmisObject cmisObject, 
-                                         @Parameter(optional=true) String objectId) 
+    public List<Folder> getParentFolders(@Parameter(optional = true) CmisObject cmisObject, 
+                                         @Parameter(optional = true) String objectId) 
     {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
     @Operation
-    public Object folder(@Parameter(optional=true) Folder folder, 
-                         @Parameter(optional=true) String folderId, 
+    public Object folder(@Parameter(optional = true) Folder folder, 
+                         @Parameter(optional = true) String folderId, 
                          NavigationOptions get,
-                         @Parameter(optional=true) Integer depth,
-                         @Parameter(optional=true) String filter,
-                         @Parameter(optional=true) String orderBy,
-                         @Parameter(optional=true) Boolean includeACLs)
+                         @Parameter(optional = true) Integer depth,
+                         @Parameter(optional = true) String filter,
+                         @Parameter(optional = true) String orderBy,
+                         @Parameter(optional = true) Boolean includeACLs)
     {
         return facade.folder(folder, folderId, get, depth, filter, orderBy, includeACLs);
     }
@@ -414,7 +417,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
 
     public void delete(@Parameter(optional = true) CmisObject cmisObject, 
                        @Parameter(optional = true) String objectId,
-                       @Parameter(optional = true, defaultValue="false") boolean allVersions)
+                       @Parameter(optional = true, defaultValue = "false") boolean allVersions)
     {
         facade.delete(cmisObject, objectId, allVersions);
     }

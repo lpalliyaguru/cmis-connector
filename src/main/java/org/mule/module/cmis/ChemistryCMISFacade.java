@@ -339,15 +339,15 @@ public class ChemistryCMISFacade implements CMISFacade
                 final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
                 if (get.equals(NavigationOptions.CHILDREN))
                 {
-                    ret = ctx == null? target.getChildren() : target.getChildren(ctx);
+                    ret = ctx == null ? target.getChildren() : target.getChildren(ctx);
                 }
                 else if (get.equals(NavigationOptions.DESCENDANTS))
                 {
-                    ret = ctx == null? target.getDescendants(depth) : target.getDescendants(depth, ctx);
+                    ret = ctx == null ? target.getDescendants(depth) : target.getDescendants(depth, ctx);
                 }
                 else if (get.equals(NavigationOptions.TREE))
                 {
-                    ret = ctx == null? target.getFolderTree(depth) : target.getFolderTree(depth, ctx);
+                    ret = ctx == null ? target.getFolderTree(depth) : target.getFolderTree(depth, ctx);
                 }
             }
             return ret;
