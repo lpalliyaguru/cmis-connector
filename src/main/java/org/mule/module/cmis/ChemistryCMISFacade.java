@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +147,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                              final String objectType)
     {
         Validate.notEmpty(objectId, "objectId is empty");
+        
         return createDocument(
             session.getObject(session.createObjectId(objectId)), 
             filename, content, mimeType, versioningState, objectType);
@@ -197,7 +199,7 @@ public class ChemistryCMISFacade implements CMISFacade
                 session.createObjectId(folder.getId()),
                 createContentStream(filename, mimeType, content), vs);   
     }
-
+    
     public static ContentStream createContentStream(final String filename,
                                                     final String mimeType,
                                                     final Object content)
@@ -445,7 +447,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                         final String filter,  final String orderBy, 
                                         final Boolean includeACLs)
     {
-        validateObjectOrId(document, orderBy);
+        validateObjectOrId(document, objectId);
         validateRedundantIdentifier(document, objectId);
         final CmisObject target = getCmisObject(document, objectId);
         
@@ -465,7 +467,7 @@ public class ChemistryCMISFacade implements CMISFacade
     }
     
 
-    public ObjectId checkout(CmisObject document, String documentId)
+    public ObjectId checkout(final CmisObject document, final String documentId)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
@@ -479,7 +481,7 @@ public class ChemistryCMISFacade implements CMISFacade
     }
 
 
-    public void cancelCheckout(CmisObject document, String documentId)
+    public void cancelCheckout(final CmisObject document, final String documentId)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
@@ -490,6 +492,30 @@ public class ChemistryCMISFacade implements CMISFacade
         }
     }
 
+    public ObjectId checkIn(final CmisObject document, final String documentId,
+                            final Object content, final String filename, 
+                            final String mimeType, boolean major, String checkinComment)
+    {
+        validateObjectOrId(document, documentId);
+        validateRedundantIdentifier(document, documentId);
+        Validate.notEmpty(filename, "filename is empty");
+        Validate.notNull(content,   "content is null");
+        Validate.notEmpty(mimeType, "did you mean application/octet-stream?");
+        Validate.notEmpty(checkinComment, "checkinComment is empty");
+        
+        final CmisObject target = getCmisObject(document, documentId);
+        if (target != null && target instanceof Document)
+        {
+            final Document doc = (Document) target;
+            return doc.checkIn(major, Collections.<String, String>emptyMap(), 
+                               createContentStream(filename, mimeType, content),
+                               checkinComment);
+        }
+        return null;
+    }
+    
+
+    
     public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
                         final List<Ace> removeAces, final AclPropagation aclPropagation)
     {

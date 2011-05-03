@@ -397,6 +397,19 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     {
         facade.cancelCheckout(document, documentId);
     }
+
+    @Operation
+    public ObjectId checkIn(@Parameter(optional = true) final CmisObject document,
+                            @Parameter(optional = true) final String documentId,
+                            final Object content,
+                            final String filename,
+                            final String mimeType,
+                            final boolean major,
+                            final String checkinComment)
+    {
+        return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment);
+    }
+
     
     @Operation
     public Acl applyAcl(@Parameter(optional = true) CmisObject cmisObject,
@@ -421,6 +434,5 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     {
         facade.delete(cmisObject, objectId, allVersions);
     }
-
 }
 

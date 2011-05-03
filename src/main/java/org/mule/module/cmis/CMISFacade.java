@@ -282,12 +282,29 @@ public interface CMISFacade
     ObjectId checkout(final CmisObject document, final String documentId);
     
     /**
-     * If applied on a PWC of the document, the check out will be reversed.
-     * Otherwise, an exception will be thrown.
+     * If applied to a PWC (private working copy) of the document, the check out
+     * will be reversed. Otherwise, an exception will be thrown.
      * @param document The checked out document. Can be null if "documentId" is set.
      * @param objectId Id of the checked out document. Can be null if "document" is set.
      */
     void cancelCheckout(final CmisObject document, final String documentId);
+    
+    /**
+     * If applied to a PWC (private working copy) it performs a check in.
+     * Otherwise, an exception will be thrown.
+     * @param document The document to check-in. Can be null if "documentId" is set.
+     * @param documentId Id of the document to check-in. Can be null if "document" is set.
+     * @param content           File content (no byte array or input stream for now)
+     * @param filename          Name of the file
+     * @param mimeType          Stream content-type
+     * 
+     * @param major
+     * @param checkinComment Check-in comment
+     * @return
+     */
+    ObjectId checkIn(final CmisObject document, final String documentId,
+                     final Object content, final String filename, 
+                     final String mimeType, boolean major, String checkinComment);
     
     /**
      * Get the policies that are applied to an object.

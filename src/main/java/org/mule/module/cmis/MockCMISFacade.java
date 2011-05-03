@@ -233,4 +233,15 @@ public class MockCMISFacade implements CMISFacade
     {
     }
 
+    public ObjectId checkIn(CmisObject document,
+                            String documentId,
+                            Object content,
+                            String filename,
+                            String mimeType,
+                            boolean major,
+                            String checkinComment)
+    {
+        throw new NotImplementedException();
+    }
+
 }
