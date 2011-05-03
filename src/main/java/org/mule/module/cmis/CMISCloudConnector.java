@@ -390,6 +390,12 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     }
 
     @Operation
+    public void cancelCheckout(CmisObject document, String documentId)
+    {
+        facade.cancelCheckout(document, documentId);
+    }
+    
+    @Operation
     public Acl applyAcl(@Parameter(optional = true) CmisObject cmisObject,
                         @Parameter(optional = true) String objectId,
                         List<Ace> addAces,

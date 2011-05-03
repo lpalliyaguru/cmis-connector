@@ -478,7 +478,18 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
 
-    
+
+    public void cancelCheckout(CmisObject document, String documentId)
+    {
+        validateObjectOrId(document, documentId);
+        validateRedundantIdentifier(document, documentId);
+        final CmisObject target = getCmisObject(document, documentId);
+        if (target != null  && target instanceof Document) 
+        {
+            ((Document) target).cancelCheckOut();
+        }
+    }
+
     public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
                         final List<Ace> removeAces, final AclPropagation aclPropagation)
     {
@@ -633,5 +644,4 @@ public class ChemistryCMISFacade implements CMISFacade
         Validate.notNull(parameters);
         return SessionFactoryImpl.newInstance().createSession(parameters);
     }
-
 }

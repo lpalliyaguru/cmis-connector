@@ -229,4 +229,8 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
+    public void cancelCheckout(CmisObject document, String documentId)
+    {
+    }
+
 }

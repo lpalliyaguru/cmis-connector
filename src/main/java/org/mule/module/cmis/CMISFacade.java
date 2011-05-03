@@ -282,6 +282,14 @@ public interface CMISFacade
     ObjectId checkout(final CmisObject document, final String documentId);
     
     /**
+     * If applied on a PWC of the document, the check out will be reversed.
+     * Otherwise, an exception will be thrown.
+     * @param document The checked out document. Can be null if "documentId" is set.
+     * @param objectId Id of the checked out document. Can be null if "document" is set.
+     */
+    void cancelCheckout(final CmisObject document, final String documentId);
+    
+    /**
      * Get the policies that are applied to an object.
      * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
