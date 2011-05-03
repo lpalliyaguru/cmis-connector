@@ -65,6 +65,10 @@
         </expression-transformer>
     </flow>
 
+    <flow name="folderParentFlow">
+        <cmis:folder />
+    </flow>
+
     <bean name="mockCMISFacade" xmlns="http://www.springframework.org/schema/beans"
           class="org.mule.module.cmis.MockCMISFacade">
         <description>Test mock</description>

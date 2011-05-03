@@ -21,11 +21,10 @@ import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Tree;
-import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
-import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.api.lifecycle.InitialisationException;
 
@@ -50,6 +49,7 @@ public class CMISTestCaseDriver
         
     }
     @Test
+    @Ignore
     public void changeLog() throws InitialisationException
     {
         final ChangeEvents events =  cmis.changelog("42215", false);
@@ -58,12 +58,14 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void repositories()
     {
         Assert.assertNotNull(cmis.repositories());
     }
     
     @Test
+    @Ignore
     public void folderParent()
     {
         final String subFolderId = getObjectId("/mule-cloud-connector/test-folder");
@@ -75,6 +77,7 @@ public class CMISTestCaseDriver
     
     @SuppressWarnings("unchecked")
     @Test
+    @Ignore
     public void folderTree()
     {
         final String folderId = getObjectId("/mule-cloud-connector");
@@ -85,6 +88,7 @@ public class CMISTestCaseDriver
     
     @SuppressWarnings("unchecked")
     @Test
+    @Ignore
     public void folderDescendants()
     {
         final String folderId = getObjectId("/mule-cloud-connector");
@@ -94,6 +98,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void objectParents()
     {
         final String parent = "/mule-cloud-connector";
@@ -114,6 +119,7 @@ public class CMISTestCaseDriver
     }
 
     @Test
+    @Ignore
     @SuppressWarnings("unchecked")
     public void folderContent()
     {
@@ -125,6 +131,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void checkedOutDocs()
     {
         final ItemIterable<Document> docs = cmis.getCheckoutDocs(null, null, null);
@@ -132,6 +139,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void query()
     {
         ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder " +
@@ -144,6 +152,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void getContentStream()
     {
         final CmisObject object = cmis.getObjectByPath("/mule-cloud-connector/test");
@@ -152,6 +161,7 @@ public class CMISTestCaseDriver
     }
 
     @Test
+    @Ignore
     public void moveObject()
     {
         final String f1 = getObjectId("/mule-cloud-connector");
@@ -163,6 +173,7 @@ public class CMISTestCaseDriver
     }
 
     @Test
+    @Ignore
     public void getAllVersions()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
@@ -170,6 +181,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void checkout()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
@@ -178,6 +190,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void checkIn()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
@@ -186,6 +199,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void relationShips()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
@@ -193,6 +207,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void getAcl()
     {
         Acl acl = cmis.getAcl(null, getObjectId("/mule-cloud-connector/test"));
@@ -200,16 +215,19 @@ public class CMISTestCaseDriver
     }
     
     @Test
+    @Ignore
     public void getAppliedPolicies()
     {
         Assert.assertNotNull(cmis.getAppliedPolicies(null, getObjectId("/mule-cloud-connector/test")));
     }
     
     @Test
+    @Ignore
     public void createAndDeleteFolder()
     {
-        final ObjectId id = doCreateFolder("/mule-cloud-connector/delete-me");
-        cmis.delete(null, id.getId(), false);
+        final String parentId = getObjectId("/mule-cloud-connector");
+        final ObjectId toDelete = cmis.createFolder("delete-me", parentId);
+        cmis.delete(null, toDelete.getId(), false);
     }
     
     private String getObjectId(final String path)
@@ -217,13 +235,4 @@ public class CMISTestCaseDriver
         return cmis.getObjectByPath(path).getId();
     }
     
-    private ObjectId doCreateFolder(String path)
-    {
-        if (path.length() > 1 && path.charAt(0) == '/')
-        {
-            path = path.substring(1);
-        }
-        final RepositoryInfo info = cmis.repositoryInfo();
-        return cmis.createFolder(path, info.getRootFolderId());
-    }
 }
