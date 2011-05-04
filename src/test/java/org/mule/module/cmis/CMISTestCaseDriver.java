@@ -142,13 +142,9 @@ public class CMISTestCaseDriver
     @Ignore
     public void query()
     {
-        ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder " +
-                                                       "where cmis:path =  '/mule-cloud-connector'",
+        ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder ",
                                                        false, null, null, null);
-        for (QueryResult queryResult : results)
-        {
-            queryResult.getPropertyValueByQueryName("cmis:path");
-        }
+        Assert.assertNotNull(results);
     }
     
     @Test
