@@ -443,13 +443,13 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
 
-    public List<Document> getAllVersions(final CmisObject document, final String objectId,
+    public List<Document> getAllVersions(final CmisObject document, final String documentId,
                                         final String filter,  final String orderBy, 
                                         final Boolean includeACLs)
     {
-        validateObjectOrId(document, objectId);
-        validateRedundantIdentifier(document, objectId);
-        final CmisObject target = getCmisObject(document, objectId);
+        validateObjectOrId(document, documentId);
+        validateRedundantIdentifier(document, documentId);
+        final CmisObject target = getCmisObject(document, documentId);
         
         if (target instanceof Document)
         {
@@ -467,7 +467,7 @@ public class ChemistryCMISFacade implements CMISFacade
     }
     
 
-    public ObjectId checkout(final CmisObject document, final String documentId)
+    public ObjectId checkOut(final CmisObject document, final String documentId)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
@@ -481,7 +481,7 @@ public class ChemistryCMISFacade implements CMISFacade
     }
 
 
-    public void cancelCheckout(final CmisObject document, final String documentId)
+    public void cancelCheckOut(final CmisObject document, final String documentId)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);

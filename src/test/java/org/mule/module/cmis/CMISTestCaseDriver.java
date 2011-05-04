@@ -185,8 +185,8 @@ public class CMISTestCaseDriver
     public void checkout()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
-        final ObjectId pwc = cmis.checkout(null, id);
-        cmis.cancelCheckout(null, pwc.getId());
+        final ObjectId pwc = cmis.checkOut(null, id);
+        cmis.cancelCheckOut(null, pwc.getId());
     }
     
     @Test

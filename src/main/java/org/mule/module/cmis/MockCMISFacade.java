@@ -210,7 +210,7 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public List<Policy> getAppliedPolicies(CmisObject cmisObject, String objectIc)
+    public List<Policy> getAppliedPolicies(CmisObject cmisObject, String objectId)
     {
         throw new NotImplementedException();
     }
@@ -224,12 +224,12 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public ObjectId checkout(CmisObject document, String documentId)
+    public ObjectId checkOut(CmisObject document, String documentId)
     {
         throw new NotImplementedException();
     }
 
-    public void cancelCheckout(CmisObject document, String documentId)
+    public void cancelCheckOut(CmisObject document, String documentId)
     {
     }
 

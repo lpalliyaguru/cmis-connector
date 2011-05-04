@@ -357,7 +357,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     @Operation
     public CmisObject updateObjectProperties(@Parameter(optional = true) CmisObject cmisObject, 
                                              @Parameter(optional = true) String objectId, 
-                                             Map<String, Object> properties)
+                                             @Parameter Map<String, Object> properties)
     {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
     }
@@ -377,25 +377,26 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
 
     @Operation
     public List<Document> getAllVersions(@Parameter(optional = true) CmisObject document,
-                                         @Parameter(optional = true) String objectId, 
+                                         @Parameter(optional = true) String documentId, 
                                          @Parameter(optional = true) String filter,
                                          @Parameter(optional = true) String orderBy,
                                          @Parameter(optional = true) Boolean includeACLs)
     {
-        return facade.getAllVersions(document, objectId, filter, orderBy, includeACLs);
+        return facade.getAllVersions(document, documentId, filter, orderBy, includeACLs);
     }
     
     @Operation
-    public ObjectId checkout(@Parameter(optional = true) final CmisObject document,
+    public ObjectId checkOut(@Parameter(optional = true) final CmisObject document,
                              @Parameter(optional = true) final String documentId)
     {
-        return facade.checkout(document, documentId);
+        return facade.checkOut(document, documentId);
     }
 
     @Operation
-    public void cancelCheckout(CmisObject document, String documentId)
+    public void cancelCheckOut(@Parameter(optional = true) CmisObject document, 
+                               @Parameter(optional = true) String documentId)
     {
-        facade.cancelCheckout(document, documentId);
+        facade.cancelCheckOut(document, documentId);
     }
 
     @Operation
@@ -421,13 +422,15 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
         return facade.applyAcl(cmisObject, objectId, addAces, removeAces, aclPropagation);
     }
 
+    @Operation
     public List<Policy> getAppliedPolicies(@Parameter(optional = true) CmisObject cmisObject, 
-                                           @Parameter(optional = true)String objectIc)
+                                           @Parameter(optional = true)String objectId)
     {
-        return facade.getAppliedPolicies(cmisObject, objectIc);
+        return facade.getAppliedPolicies(cmisObject, objectId);
     }
 
 
+    @Operation
     public void delete(@Parameter(optional = true) CmisObject cmisObject, 
                        @Parameter(optional = true) String objectId,
                        @Parameter(optional = true, defaultValue = "false") boolean allVersions)

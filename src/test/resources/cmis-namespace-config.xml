@@ -27,80 +27,122 @@
     <cmis:config name="foo" username="admin" password="admin" repositoryId="371554cd-ac06-40ba-98b8-e6b60275cca7"
                  baseUrl="http://cmis.alfresco.com/service/cmis"/>
 
+    <flow name="repositoryInfoFlow">
+        <cmis:repository-info />
+    </flow>
+
+    <flow name="repositoriesFlow">
+        <cmis:repositories />
+    </flow>
+
     <flow name="changeLogFlow">
-        <description>Get changes from the repository</description>
         <cmis:changelog changeLogToken="41784" includeProperties="false"/>
-        <expression-transformer>
-            <return-argument expression="changeEvents" evaluator="bean"/>
-        </expression-transformer>
-        <collection-splitter/>
-
-        <!-- the only changes that we are interested in are creations -->
-        <expression-filter expression="changeType.value() eq 'created' " evaluator="ognl"/>
-        <logger level="WARN" message="#[bean:changeType] #[bean:objectId]"/>
-        <cmis:get-object-by-id objectId="#[bean:objectId]"/>
-        <payload-type-filter expectedType="org.apache.chemistry.opencmis.client.api.Document"/>
-        <logger level="WARN"
-                message="#is a document of content-type #[bean:contentStreamMimeType] #[bean:contentStreamFileName]"/>
     </flow>
 
-
-    <flow name="createDocumentFlow">
-        <cmis:repository-info/>
-        <cmis:create-folder folderName="mule-cmis-cloudconnector-test" parentObjectId="#[bean:rootFolderId]"/>
-        <cmis:get-object-by-path path="/mule-cmis-cloudconnector-test/README.txt"/>
-        <choice>
-            <when evaluator="payload-type" expression="org.apache.chemistry.opencmis.client.api.Document">
-                <logger level="DEBUG" message="foobar"/>
-            </when>
-            <otherwise>
-                <cmis:create-document-by-path config-ref="foo" folderPath="/mule-cmis-cloudconnector-test"
-                                              content="#[header:conten]" filename="README.txt"
-                                              mimeType="text/plain" objectType="D:cmiscustom:document"
-                                              versioningState="NONE"/>
-            </otherwise>
-        </choice>
-        <expression-transformer>
-            <return-argument expression="contentStream.stream" evaluator="bean"/>
-        </expression-transformer>
+    <flow name="objectByIdFlow">
+        <cmis:get-object-by-id objectId="1234" />
     </flow>
 
+    <flow name="objectByPathFlow">
+        <cmis:get-object-by-path path="/mule-cloud-connector" />    
+    </flow>
+
+    <flow name="createDocumentByPathFlow">
+        <cmis:create-document-by-path content="new content" filename="file"
+            folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+    </flow>
+
+    <flow name="createDocumentByIdFlow">
+        <cmis:create-document-by-id content="new content" filename="file"
+            folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+    </flow>
+
+    <flow name="createFolderFlow">
+        <cmis:create-folder folderName="new folder" parentObjectId="11111" />
+    </flow>
+
+    <flow name="getTypeDefinitionFlow">
+        <cmis:get-type-definition typeId="1111" />
+    </flow>
+
+    <flow name="getCheckoutDocsFlow">
+        <cmis:get-checkout-docs />
+    </flow>
+
+    <flow name="queryFlow">
+        <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" />
+    </flow>
+
+    <flow name="parentFoldersFlow">
+        <cmis:get-parent-folders objectId="1111" /> 
+    </flow>
+    
     <flow name="folderParentFlow">
-        <cmis:folder />
+        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
     </flow>
 
-    <bean name="mockCMISFacade" xmlns="http://www.springframework.org/schema/beans"
-          class="org.mule.module.cmis.MockCMISFacade">
-        <description>Test mock</description>
-        <property name="repositoryInfo">
-            <bean class="org.apache.chemistry.opencmis.commons.impl.dataobjects.RepositoryInfoImpl">
-                <property name="id" value="371554cd-ac06-40ba-98b8-e6b60275cca7"/>
-                <property name="latestChangeLogToken" value="42542"/>
-            </bean>
-        </property>
-        <property name="changeEvents">
-            <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl">
-                <property name="latestChangeLogToken" value="42543"/>
-                <property name="changeEvents">
-                    <list>
-                        <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
-                            <property name="objectId" value="ABC"/>
-                            <property name="changeType">
-                                <util:constant
-                                        static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.CREATED"/>
-                            </property>
-                        </bean>
-                        <bean class="org.apache.chemistry.opencmis.client.runtime.ChangeEventImpl">
-                            <property name="objectId" value="ABC"/>
-                            <property name="changeType">
-                                <util:constant
-                                        static-field="org.apache.chemistry.opencmis.commons.enums.ChangeType.UPDATED"/>
-                            </property>
-                        </bean>
-                    </list>
-                </property>
-            </bean>
-        </property>
-    </bean>
+    <flow name="folderTreeFlow">
+        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
+    </flow>
+
+    <flow name="floderDescentandsFlow">
+        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:folder get="DESCENDANTS" folderId="#[payload:id]"/>
+    </flow>
+
+    <flow name="getContentStreamFlow">
+        <cmis:get-content-stream objectId="11111" />
+    </flow>
+
+    <flow name="moveObjectFlow">
+        <cmis:move-object sourceFolderId="1111" targetFolderId="2222"
+                        objectId="3333" />
+    </flow>
+
+    <flow name="updateObjectPropertiesFlow">
+        <cmis:update-object-properties objectId="1111">
+            <cmis:properties>
+                <cmis:property key="propkey" value="propValue"/>
+            </cmis:properties>
+        </cmis:update-object-properties>
+    </flow>
+
+    <flow name="getObjectRelationshipsFlow">
+        <cmis:get-object-relationships objectId="2222" />
+    </flow>
+
+    <flow name="getAclFLow">
+        <cmis:get-acl objectId="2222" />
+    </flow>
+
+    <flow name="getAllVersionsFlow">
+        <cmis:get-all-versions documentId="1111" includeACLs="true" />
+    </flow>
+
+    <flow name="checkOutFLow">
+        <cmis:check-out documentId="1111" />
+    </flow>
+
+    <flow name="cancelCheckOutFlow">
+        <cmis:cancel-check-out documentId="1111" />
+    </flow>
+
+    <flow name="checkInFlow">
+        <cmis:check-in content="modified content" filename="#[payload:name]"
+                        checkinComment="change on file" major="true"
+                        mimeType="application/octet-stream;charset=UTF-8" /> 
+    </flow>
+
+    <flow name="getAppliedPoliciesFlow">
+        <cmis:get-applied-policies objectId="1111"/>
+    </flow>
+
+    <flow name="deleteFlow">
+        <cmis:delete objectId="1111" allVersions="true" />
+    </flow>
 
 </mule>

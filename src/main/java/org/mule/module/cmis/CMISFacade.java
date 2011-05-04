@@ -269,7 +269,7 @@ public interface CMISFacade
      * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
      * @return versions of the document.
      */
-    List<Document> getAllVersions(final CmisObject document, final String objectId, 
+    List<Document> getAllVersions(final CmisObject document, final String documentId, 
                                   final String filter, final String orderBy, final Boolean includeACLs);
 
 
@@ -279,7 +279,7 @@ public interface CMISFacade
      * @param objectId Id of the document to be checked out. Can be null if "document" is set.
      * @return PWC ObjectId
      */
-    ObjectId checkout(final CmisObject document, final String documentId);
+    ObjectId checkOut(final CmisObject document, final String documentId);
     
     /**
      * If applied to a PWC (private working copy) of the document, the check out
@@ -287,7 +287,7 @@ public interface CMISFacade
      * @param document The checked out document. Can be null if "documentId" is set.
      * @param objectId Id of the checked out document. Can be null if "document" is set.
      */
-    void cancelCheckout(final CmisObject document, final String documentId);
+    void cancelCheckOut(final CmisObject document, final String documentId);
     
     /**
      * If applied to a PWC (private working copy) it performs a check in.
@@ -312,6 +312,6 @@ public interface CMISFacade
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
      * @return List of applied policies
      */
-    List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectIc);
+    List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectId);
     
 }
