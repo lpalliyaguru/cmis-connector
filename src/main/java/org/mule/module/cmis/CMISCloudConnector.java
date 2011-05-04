@@ -37,6 +37,7 @@ import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
+import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 
 @Connector(namespacePrefix = "cmis")
 public class CMISCloudConnector implements Initialisable, CMISFacade
@@ -437,5 +438,16 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     {
         facade.delete(cmisObject, objectId, allVersions);
     }
+    
+    @Operation
+    public List<String> deleteTree(@Parameter(optional = true) CmisObject folder, 
+                                   @Parameter(optional = true) String folderId,
+                                   boolean allversions, 
+                                   @Parameter(optional = true) UnfileObject unfile, 
+                                   boolean continueOnFailure) 
+    {
+        return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
+    }
+    
 }
 

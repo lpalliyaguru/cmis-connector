@@ -30,6 +30,7 @@ import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
+import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.tools.cloudconnect.annotations.Operation;
 
 public interface CMISFacade
@@ -230,6 +231,22 @@ public interface CMISFacade
      * @param allVersions If true, deletes all version history of the object. Defaults to "false".
      */
     void delete(final CmisObject cmisObject, final String objectId, final boolean allVersions);
+    
+    /**
+     * Deletes a folder and all subfolders.
+     * @param folder Folder Object. Can be null if "folderId" is set. 
+     * @param folderId Folder Object id. Can be null if "folder" is set.
+     * @param allversions If true, then delete all versions of the document. 
+     *                    If false, delete only the document object specified.
+     * @param unfile Specifies how the repository must process file-able child- 
+     *               or descendant-objects.
+     * @param continueOnFailure Specified whether to continue attempting to perform 
+     *               this operation even if deletion of a child- or descendant-object 
+     *               in the specified folder cannot be deleted or not. 
+     * @return a list of object ids which failed to be deleted.
+     */
+    List<String> deleteTree(final CmisObject folder, final String folderId, final boolean allversions, 
+                            final UnfileObject unfile, final boolean continueOnFailure);
     
     /**
      * Returns the relationships if they have been fetched for an object.

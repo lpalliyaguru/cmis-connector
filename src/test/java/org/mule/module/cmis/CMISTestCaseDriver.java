@@ -48,6 +48,16 @@ public class CMISTestCaseDriver
         
         
     }
+   
+    @Test(expected = IllegalArgumentException.class)
+    @Ignore
+    public void failWrongId()
+    {
+        final CmisObject obj = cmis.getObjectByPath("mule-cloud-connector/test");
+        final String wrongId = "1";
+        cmis.getContentStream(obj, wrongId);
+    }
+    
     @Test
     @Ignore
     public void changeLog() throws InitialisationException
@@ -222,8 +232,17 @@ public class CMISTestCaseDriver
     public void createAndDeleteFolder()
     {
         final String parentId = getObjectId("/mule-cloud-connector");
-        final ObjectId toDelete = cmis.createFolder("delete-me", parentId);
-        cmis.delete(null, toDelete.getId(), false);
+        final ObjectId toDelete = cmis.createFolder("delete me", parentId);
+        cmis.delete(null, toDelete.getId(), true);
+    }
+
+    @Test
+    @Ignore
+    public void createAndDeleteTree()
+    {
+        final String parentId = getObjectId("/mule-cloud-connector");
+        final ObjectId toDelete = cmis.createFolder("delete me", parentId);
+        cmis.delete(null, toDelete.getId(), true);
     }
     
     private String getObjectId(final String path)

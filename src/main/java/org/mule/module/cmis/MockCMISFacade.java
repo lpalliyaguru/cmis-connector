@@ -31,6 +31,7 @@ import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
+import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.commons.lang.NotImplementedException;
 
 /**
@@ -240,6 +241,12 @@ public class MockCMISFacade implements CMISFacade
                             String mimeType,
                             boolean major,
                             String checkinComment)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<String> deleteTree(CmisObject folder, String folderId,
+            boolean allversions, UnfileObject unfile, boolean continueOnFailure)
     {
         throw new NotImplementedException();
     }

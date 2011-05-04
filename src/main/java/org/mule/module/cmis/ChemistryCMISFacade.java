@@ -46,6 +46,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
+import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExistsException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisInvalidArgumentException;
@@ -418,6 +419,19 @@ public class ChemistryCMISFacade implements CMISFacade
         }
     }
     
+    public List<String> deleteTree(CmisObject folder, String folderId,
+            boolean allversions, UnfileObject unfile, boolean continueOnFailure)
+    {
+        validateObjectOrId(folder, folderId);
+        validateRedundantIdentifier(folder, folderId);
+        final CmisObject target = getCmisObject(folder, folderId);
+        if (target != null && target instanceof Folder)
+        {
+            return ((Folder) target).deleteTree(allversions, unfile, continueOnFailure);
+        }
+        return null;
+    }
+    
     public List<Relationship> getObjectRelationships(final CmisObject cmisObject,
                                                      final String objectId)
     {
@@ -670,4 +684,5 @@ public class ChemistryCMISFacade implements CMISFacade
         Validate.notNull(parameters);
         return SessionFactoryImpl.newInstance().createSession(parameters);
     }
+
 }
