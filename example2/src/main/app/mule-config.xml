@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule CMIS Connector
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.txt file.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+       xmlns:bitly="http://www.mulesoft.org/schema/mule/bitly"
+       xmlns:cmis="http://www.mulesoft.org/schema/mule/cmis"
+       xmlns:json="http://www.mulesoft.org/schema/mule/json"
+       xmlns:mongodb="http://www.mulesoft.org/schema/mule/mongodb"
+       xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+       xmlns:spring="http://www.springframework.org/schema/beans"
+       xmlns:twitter="http://www.mulesoft.org/schema/mule/twitter"
+       xmlns:http="http://www.mulesoft.org/schema/mule/http"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.mulesoft.org/schema/mule/bitly   http://www.mulesoft.org/schema/mule/bitly/3.1/mule-bitly.xsd
+       http://www.mulesoft.org/schema/mule/cmis    http://www.mulesoft.org/schema/mule/cmis/1.0/mule-cmis.xsd
+       http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+       http://www.mulesoft.org/schema/mule/json    http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
+       http://www.mulesoft.org/schema/mule/mongodb http://www.mulesoft.org/schema/mule/mongodb/3.1/mule-mongodb.xsd
+       http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd 
+       http://www.mulesoft.org/schema/mule/twitter http://www.mulesoft.org/schema/mule/twitter/3.1/mule-twitter.xsd
+       http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+       ">
+       
+	<!-- the id of the last change saw in the repository. Alfresco use integers -->
+	<global-property name="cmis.repository.base"
+		value="http://cmis.alfresco.com/service/cmis" />
+	<global-property name="cmis.repository.id"
+		value="371554cd-ac06-40ba-98b8-e6b60275cca7" />
+	<global-property name="cmis.demo.idempotent.directory"
+		value="/mule-cloud-connector/demo2" />
+
+	<!-- configuration! -->
+	<cmis:config name="alfresco" username="admin" password="admin"
+		         baseUrl="${cmis.repository.base}" repositoryId="${cmis.repository.id}" />
+	<http:connector name="HttpConnector" enableCookies="true" keepAlive="true" />
+
+	<flow name="cmisDemo2">
+	    <description>
+	       1. Listens to HttpRequests, expecting the following parameters:
+	           * fileName: name of the file to modify in the CMS
+	           * pastieId: Id of a pastie.org element.
+	           * checkInComment: description of the text file. 
+	       2. Downloads the text file.
+	       3. Checks out the document in the CMIS
+	       4. Checks in the document with the new content.
+	    </description>
+		<http:inbound-endpoint host="localhost" port="9090" path="update-file" />
+		<flow-ref name="updateDocumentFlow" />
+	</flow>
+
+    <flow name="updateDocumentFlow">
+		<enricher target="#[header:session:pastieId]">
+			<expression-transformer>
+				<return-argument evaluator="string" expression="#[map-payload:pastieId]" />
+			</expression-transformer>
+		</enricher>
+	     <enricher target="#[header:session:fileName]">
+            <expression-transformer>
+                <return-argument evaluator="string" expression="#[map-payload:fileName]" />
+            </expression-transformer>
+        </enricher>
+        <cmis:get-object-by-path path="${cmis.demo.idempotent.directory}/#[header:session:fileName]"/>
+        <enricher target="#[header:session:checkoutId]" source="#[ognl:id]">
+            <cmis:check-out document="#[payload]" />
+        </enricher>
+        <logger level="ERROR" message="#[header:session:checkoutId]"/>
+        <http:outbound-endpoint host="www.pastie.org" path="pastes/#[header:session:pastieId]/text" port="80" method="GET">
+			<message-properties-transformer>
+				<add-message-property key="http.method" value="GET" />
+			</message-properties-transformer>
+        </http:outbound-endpoint>
+        <cmis:check-in checkinComment="File modification" documentId="#[header:session:checkoutId]"
+                       content="#[message]" filename="#[header:session:fileName]"
+                       major="true" mimeType="text/html" />
+        <logger level="INFO" message="Update successful!"/>
+    </flow>
+
+
+</mule>
