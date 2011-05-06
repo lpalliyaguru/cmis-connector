@@ -184,7 +184,7 @@ public class ChemistryCMISFacade implements CMISFacade
         VersioningState vs = null; 
         try
         {
-            vs = VersioningState.valueOf(versioningState.value());
+            vs = VersioningState.valueOf(versioningState.name());
         }
         catch (final IllegalArgumentException e) 
         {
