@@ -150,6 +150,14 @@ public class CMISTestCaseDriver
     
     @Test
     @Ignore
+    public void checkOut()
+    {
+        final ObjectId id = cmis.checkOut(null, getObjectId("/mule-cloud-connector/test"));
+        cmis.cancelCheckOut(null, id.getId());
+    }
+    
+    @Test
+    @Ignore
     public void query()
     {
         ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder ",
@@ -243,6 +251,15 @@ public class CMISTestCaseDriver
         final String parentId = getObjectId("/mule-cloud-connector");
         final ObjectId toDelete = cmis.createFolder("delete me", parentId);
         cmis.delete(null, toDelete.getId(), true);
+    }
+    
+    @Test
+    @Ignore
+    public void createAndDeleteDocument()
+    {
+        final ObjectId id = cmis.createDocumentByPath("/mule-cloud-connector", 
+                "foo.txt", "txttxttxt", "text/plain", VersioningState.NONE, "cmis:document");
+        cmis.delete(null, id.getId(), true);
     }
     
     private String getObjectId(final String path)
