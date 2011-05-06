@@ -45,7 +45,8 @@
 	<cmis:config name="alfresco" username="admin" password="admin"
 		         baseUrl="${cmis.repository.base}" repositoryId="${cmis.repository.id}" />
 	<http:connector name="HttpConnector" enableCookies="true" keepAlive="true" />
-
+    <custom-transformer name="HttpRequestBodyToParamMap" class="org.mule.transport.http.transformers.HttpRequestBodyToParamMap" />
+	
 	<flow name="cmisDemo2">
 	    <description>
 	       1. Listens to HttpRequests, expecting the following parameters:
@@ -57,6 +58,7 @@
 	       4. Checks in the document with the new content.
 	    </description>
 		<http:inbound-endpoint host="localhost" port="9090" path="update-file" />
+		<transformer ref="HttpRequestBodyToParamMap"/>
 		<flow-ref name="updateDocumentFlow" />
 	</flow>
 
@@ -75,8 +77,11 @@
         <enricher target="#[header:session:checkoutId]" source="#[ognl:id]">
             <cmis:check-out document="#[payload]" />
         </enricher>
-        <logger level="ERROR" message="#[header:session:checkoutId]"/>
         <http:outbound-endpoint host="www.pastie.org" path="pastes/#[header:session:pastieId]/text" port="80" method="GET">
+            <!-- 
+                The following is a work around for a bug in the outbound endpoint, which
+                causes Mule to send POST requests even if the specified method is GET.
+             -->
 			<message-properties-transformer>
 				<add-message-property key="http.method" value="GET" />
 			</message-properties-transformer>
@@ -84,7 +89,9 @@
         <cmis:check-in checkinComment="File modification" documentId="#[header:session:checkoutId]"
                        content="#[message]" filename="#[header:session:fileName]"
                        major="true" mimeType="text/html" />
-        <logger level="INFO" message="Update successful!"/>
+        <expression-transformer>
+            <return-argument evaluator="string" expression="Update successful" />
+        </expression-transformer>
     </flow>
 
 
