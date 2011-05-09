@@ -232,7 +232,7 @@ public class CMISTestCaseDriver
     @Ignore
     public void getAppliedPolicies()
     {
-        Assert.assertNotNull(cmis.getAppliedPolicies(null, getObjectId("/mule-cloud-connector/test")));
+        cmis.getAppliedPolicies(null, getObjectId("/mule-cloud-connector/test"));
     }
     
     @Test
