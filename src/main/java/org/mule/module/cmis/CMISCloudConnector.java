@@ -149,7 +149,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
             {
                 throw new IllegalStateException("unknown endpoint type " + endpoint);
             }
-            facade = new ChemistryCMISFacade(username, password, repositoryId, baseUrl, useAtomPub);
+            facade = CMISFacadeAdaptor.adapt(new ChemistryCMISFacade(username, password, repositoryId, baseUrl, useAtomPub));
         }
     }
 
