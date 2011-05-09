@@ -38,7 +38,7 @@
 		value="http://cmis.alfresco.com/service/cmis" />
 	<global-property name="cmis.repository.id"
 		value="371554cd-ac06-40ba-98b8-e6b60275cca7" />
-	<global-property name="cmis.demo.idempotent.directory"
+	<global-property name="cmis.demo.baseDirectory"
 		value="/mule-cloud-connector/demo2" />
 
 	<!-- configuration! -->
@@ -75,7 +75,7 @@
         </enricher>
         <enricher target="#[header:session:filePath]">
             <expression-transformer>
-                <return-argument evaluator="string" expression="${cmis.demo.idempotent.directory}/#[header:session:fileName]" />
+                <return-argument evaluator="string" expression="${cmis.demo.baseDirectory}/#[header:session:fileName]" />
             </expression-transformer>
         </enricher>
         
@@ -111,7 +111,7 @@
         <logger level="ERROR" message="Create document Flow"/>
         <flow-ref name="getPastieFlow"/>
         <cmis:create-document-by-path filename="#[header:session:fileName]" content="#[message]" 
-            folderPath="${cmis.demo.idempotent.directory}" mimeType="text/html" objectType="cmis:document" versioningState="NONE" /> 
+            folderPath="${cmis.demo.baseDirectory}" mimeType="text/html" objectType="cmis:document" versioningState="NONE" /> 
     </flow>
     <expression-transformer>
             <return-argument evaluator="string" expression="Document created" />
