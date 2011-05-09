@@ -93,7 +93,6 @@
     </flow>
 
     <flow name="checkOutDocumentFlow">
-        <logger level="ERROR" message="Check Out Flow"/>
         <enricher target="#[header:session:checkoutId]" source="#[ognl:id]">
             <cmis:check-out document="#[payload]" />
         </enricher>
@@ -108,14 +107,13 @@
 
 
     <flow name="createDocumentFlow">
-        <logger level="ERROR" message="Create document Flow"/>
         <flow-ref name="getPastieFlow"/>
         <cmis:create-document-by-path filename="#[header:session:fileName]" content="#[message]" 
             folderPath="${cmis.demo.baseDirectory}" mimeType="text/html" objectType="cmis:document" versioningState="NONE" /> 
+	    <expression-transformer>
+	            <return-argument evaluator="string" expression="Document created" />
+	    </expression-transformer>
     </flow>
-    <expression-transformer>
-            <return-argument evaluator="string" expression="Document created" />
-    </expression-transformer>
 
 
     <flow name="getPastieFlow">
