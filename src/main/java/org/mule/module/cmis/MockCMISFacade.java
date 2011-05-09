@@ -136,15 +136,13 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public ItemIterable<Document> getCheckoutDocs(String filter,
-            String orderBy, Boolean includeACLs)
+    public ItemIterable<Document> getCheckoutDocs(String filter, String orderBy)
     {
         throw new NotImplementedException();
     }
 
     public ItemIterable<QueryResult> query(String statement,
-            Boolean searchAllVersions, String filter, String orderBy,
-            Boolean includeACLs) 
+            Boolean searchAllVersions, String filter, String orderBy) 
     {
         throw new NotImplementedException();
     }
@@ -159,8 +157,7 @@ public class MockCMISFacade implements CMISFacade
                          NavigationOptions get,
                          Integer depth,
                          String filter,
-                         String orderBy,
-                         Boolean includeACLs)
+                         String orderBy)
     {
          throw new NotImplementedException();
     }
@@ -196,8 +193,7 @@ public class MockCMISFacade implements CMISFacade
     public List<Document> getAllVersions(CmisObject document,
                                          String documentId,
                                          String filter,
-                                         String orderBy,
-                                         Boolean includeACLs)
+                                         String orderBy)
     {
         throw new NotImplementedException();
     }

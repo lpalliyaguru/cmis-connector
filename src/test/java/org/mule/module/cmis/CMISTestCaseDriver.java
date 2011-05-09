@@ -59,7 +59,7 @@ public class CMISTestCaseDriver
     }
     
     @Test
-    @Ignore
+    @Ignore    
     public void changeLog() throws InitialisationException
     {
         final ChangeEvents events =  cmis.changelog("42215", false);
@@ -80,7 +80,7 @@ public class CMISTestCaseDriver
     {
         final String subFolderId = getObjectId("/mule-cloud-connector/test-folder");
         Folder parent = (Folder) cmis.folder(null, subFolderId, NavigationOptions.PARENT, 
-            null, null, null, null);
+            null, null, null);
         
         Assert.assertEquals("/mule-cloud-connector", parent.getPath());
     }
@@ -92,7 +92,7 @@ public class CMISTestCaseDriver
     {
         final String folderId = getObjectId("/mule-cloud-connector");
         final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(
-                                 null, folderId, NavigationOptions.TREE, 1, null, null, null);
+                                 null, folderId, NavigationOptions.TREE, 1, null, null);
         Assert.assertNotNull(tree);
     }
     
@@ -103,7 +103,7 @@ public class CMISTestCaseDriver
     {
         final String folderId = getObjectId("/mule-cloud-connector");
         final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(
-            null, folderId, NavigationOptions.DESCENDANTS, 1, null, null, null);
+            null, folderId, NavigationOptions.DESCENDANTS, 1, null, null);
         Assert.assertNotNull(tree);
     }
     
@@ -136,7 +136,7 @@ public class CMISTestCaseDriver
         final String folderId = getObjectId("/mule-cloud-connector");
         ItemIterable<CmisObject> it = (ItemIterable<CmisObject>) cmis.folder(
             null, folderId, NavigationOptions.CHILDREN, 
-            null, null, null, null);
+            null, null, null);
         Assert.assertNotNull(it);
     }
     
@@ -144,7 +144,7 @@ public class CMISTestCaseDriver
     @Ignore
     public void checkedOutDocs()
     {
-        final ItemIterable<Document> docs = cmis.getCheckoutDocs(null, null, null);
+        final ItemIterable<Document> docs = cmis.getCheckoutDocs(null, null);
         Assert.assertNotNull(docs);
     }
     
@@ -161,7 +161,7 @@ public class CMISTestCaseDriver
     public void query()
     {
         ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder ",
-                                                       false, null, null, null);
+                                                       false, null, null);
         Assert.assertNotNull(results);
     }
     
@@ -191,7 +191,7 @@ public class CMISTestCaseDriver
     public void getAllVersions()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
-        Assert.assertNotNull(cmis.getAllVersions(null, id, null, null, null));
+        Assert.assertNotNull(cmis.getAllVersions(null, id, null, null));
     }
     
     @Test
@@ -261,7 +261,7 @@ public class CMISTestCaseDriver
                 "foo.txt", "txttxttxt", "text/plain", VersioningState.NONE, "cmis:document");
         cmis.delete(null, id.getId(), true);
     }
-    
+
     private String getObjectId(final String path)
     {
         return cmis.getObjectByPath(path).getId();

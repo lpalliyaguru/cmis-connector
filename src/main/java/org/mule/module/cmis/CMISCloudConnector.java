@@ -307,17 +307,16 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
 
     @Operation
     public ItemIterable<Document> getCheckoutDocs(@Parameter(optional = true) String filter,
-            @Parameter(optional = true) String orderBy, @Parameter(optional = true) Boolean includeACLs) 
+            @Parameter(optional = true) String orderBy) 
             {
-        return facade.getCheckoutDocs(filter, orderBy, includeACLs);
+        return facade.getCheckoutDocs(filter, orderBy);
     }
 
     @Operation
     public ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions, 
-            @Parameter(optional = true) String filter, @Parameter(optional = true) String orderBy,
-            @Parameter(optional = true) Boolean includeACLs) 
+            @Parameter(optional = true) String filter, @Parameter(optional = true) String orderBy) 
     {
-        return facade.query(statement, searchAllVersions, filter, orderBy, includeACLs);
+        return facade.query(statement, searchAllVersions, filter, orderBy);
     }
 
     @Operation
@@ -333,10 +332,9 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                          NavigationOptions get,
                          @Parameter(optional = true) Integer depth,
                          @Parameter(optional = true) String filter,
-                         @Parameter(optional = true) String orderBy,
-                         @Parameter(optional = true) Boolean includeACLs)
+                         @Parameter(optional = true) String orderBy)
     {
-        return facade.folder(folder, folderId, get, depth, filter, orderBy, includeACLs);
+        return facade.folder(folder, folderId, get, depth, filter, orderBy);
     }
 
     @Operation
@@ -380,10 +378,9 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     public List<Document> getAllVersions(@Parameter(optional = true) CmisObject document,
                                          @Parameter(optional = true) String documentId, 
                                          @Parameter(optional = true) String filter,
-                                         @Parameter(optional = true) String orderBy,
-                                         @Parameter(optional = true) Boolean includeACLs)
+                                         @Parameter(optional = true) String orderBy)
     {
-        return facade.getAllVersions(document, documentId, filter, orderBy, includeACLs);
+        return facade.getAllVersions(document, documentId, filter, orderBy);
     }
     
     @Operation

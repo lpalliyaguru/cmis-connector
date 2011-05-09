@@ -142,10 +142,9 @@ public interface CMISFacade
      * @param filter comma-separated list of properties to filter
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name
-     * @param includeACLs whether ACLs should be returned or not
      * @return list of documents
      */
-    ItemIterable<Document> getCheckoutDocs(final String filter, final String orderBy, final Boolean includeACLs);
+    ItemIterable<Document> getCheckoutDocs(final String filter, final String orderBy);
     
     /**
      * Sends a query to the repository
@@ -155,11 +154,10 @@ public interface CMISFacade
      * @param filter comma-separated list of properties to filter
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name
-     * @param includeACLs whether ACLs should be returned or not
      * @return
      */
     ItemIterable<QueryResult> query(final String statement, final Boolean searchAllVersions, 
-                        final String filter, final String orderBy, final Boolean includeACLs);
+                                    final String filter, final String orderBy);
     
     /**
      * Retrieves the parent folders of a fileable cmis object
@@ -180,7 +178,6 @@ public interface CMISFacade
      * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
-     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
      * @return the following, depending on the value of "get" parameter:
      *          * PARENT: returns the parent Folder
      *          * CHILDREN: returns a CmisObject ItemIterable with
@@ -191,7 +188,7 @@ public interface CMISFacade
      *                         directory structure under the current folder.                           
      */
     Object folder(final Folder folder, final String folderId, final NavigationOptions get,
-                  final Integer depth, final String filter, final String orderBy, final Boolean includeACLs);
+                  final Integer depth, final String filter, final String orderBy);
 
     /**
      * Retrieves the content stream of a Document.
@@ -283,11 +280,10 @@ public interface CMISFacade
      * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
-     * @param includeACLs whether ACLs should be returned or not (only for CHILDREN or DESCENDANTS navigation)
      * @return versions of the document.
      */
     List<Document> getAllVersions(final CmisObject document, final String documentId, 
-                                  final String filter, final String orderBy, final Boolean includeACLs);
+                                  final String filter, final String orderBy);
 
 
     /**

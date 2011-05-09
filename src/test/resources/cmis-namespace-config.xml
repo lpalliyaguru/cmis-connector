@@ -120,7 +120,7 @@
     </flow>
 
     <flow name="getAllVersionsFlow">
-        <cmis:get-all-versions documentId="1111" includeACLs="true" />
+        <cmis:get-all-versions documentId="1111" />
     </flow>
 
     <flow name="checkOutFLow">

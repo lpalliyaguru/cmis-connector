@@ -116,7 +116,7 @@ public class ChemistryCMISFacade implements CMISFacade
     {
         try
         {
-            return session.getObject(session.createObjectId(objectId));
+            return session.getObject(session.createObjectId(objectId), createOperationContext(null, null));
         }
         catch (final CmisObjectNotFoundException e)
         {
@@ -128,7 +128,7 @@ public class ChemistryCMISFacade implements CMISFacade
     {
         try
         {
-            return session.getObjectByPath(path);
+            return session.getObjectByPath(path, createOperationContext(null, null));
         }
         catch (final CmisObjectNotFoundException e)
         {
@@ -271,36 +271,20 @@ public class ChemistryCMISFacade implements CMISFacade
     }
     
     public ItemIterable<Document> getCheckoutDocs(final String filter, 
-                                                  final String orderBy, 
-                                                  final Boolean includeACLs) 
+                                                  final String orderBy) 
     {
-        final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
-        if (ctx != null) 
-        {
-            return session.getCheckedOutDocs(ctx);
-        }
-        else 
-        {
-            return session.getCheckedOutDocs();
-        }
+        return session.getCheckedOutDocs(createOperationContext(filter, orderBy));
     }
     
     public ItemIterable<QueryResult> query(final String statement,
             final Boolean searchAllVersions, final String filter,
-            final String orderBy, final Boolean includeACLs) 
+            final String orderBy) 
     {
         Validate.notEmpty(statement, "statement is empty");
         Validate.notNull(searchAllVersions, "searchAllVersions is empty");
         
-        final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
-        if (ctx != null)
-        {
-            return session.query(statement, searchAllVersions, ctx);
-        }
-        else 
-        {
-            return session.query(statement, searchAllVersions);
-        }
+        final OperationContext ctx = createOperationContext(filter, orderBy);
+        return session.query(statement, searchAllVersions, ctx);
     }
    
     public List<Folder> getParentFolders(final CmisObject cmisObject, final String objectId) 
@@ -318,7 +302,7 @@ public class ChemistryCMISFacade implements CMISFacade
 
     public Object folder(final Folder folder, final String folderId,
                          final NavigationOptions get, final Integer depth,
-                         final String filter, final String orderBy, final Boolean includeACLs)
+                         final String filter, final String orderBy)
     {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
@@ -339,21 +323,20 @@ public class ChemistryCMISFacade implements CMISFacade
             }
             else
             {
-                final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
+                final OperationContext ctx = createOperationContext(filter, orderBy);
                 if (get.equals(NavigationOptions.CHILDREN))
                 {
-                    ret = ctx == null ? target.getChildren() : target.getChildren(ctx);
+                    ret = target.getChildren(ctx);
                 }
                 else if (get.equals(NavigationOptions.DESCENDANTS))
                 {
-                    ret = ctx == null ? target.getDescendants(depth) : target.getDescendants(depth, ctx);
+                    ret = target.getDescendants(depth, ctx);
                 }
                 else if (get.equals(NavigationOptions.TREE))
                 {
-                    ret = ctx == null ? target.getFolderTree(depth) : target.getFolderTree(depth, ctx);
+                    ret = target.getFolderTree(depth, ctx);
                 }
             }
-            return ret;
         }
         
         return ret;
@@ -458,8 +441,7 @@ public class ChemistryCMISFacade implements CMISFacade
     }
 
     public List<Document> getAllVersions(final CmisObject document, final String documentId,
-                                        final String filter,  final String orderBy, 
-                                        final Boolean includeACLs)
+                                        final String filter,  final String orderBy)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
@@ -467,15 +449,8 @@ public class ChemistryCMISFacade implements CMISFacade
         
         if (target instanceof Document)
         {
-            final OperationContext ctx = createOperationContext(filter, orderBy, includeACLs);
-            if (ctx != null)
-            {
-                return ((Document) target).getAllVersions(ctx);
-            }
-            else
-            {
-                return ((Document) target).getAllVersions();
-            }
+            final OperationContext ctx = createOperationContext(filter, orderBy);
+            return ((Document) target).getAllVersions(ctx);
         }
         return null;
     }
@@ -608,12 +583,13 @@ public class ChemistryCMISFacade implements CMISFacade
     
     
     private static OperationContext createOperationContext(final String filter,
-                                                           final String orderBy,
-                                                           final Boolean includeACLs) 
+                                                           final String orderBy) 
     {
-        if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy) || includeACLs != null) 
+        final OperationContext ctx = new OperationContextImpl();
+        ctx.setIncludeAcls(true);
+        ctx.setIncludePolicies(true);
+        if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy)) 
         {
-            final OperationContext ctx = new OperationContextImpl();
             if (StringUtils.isNotBlank(filter))
             {
                 ctx.setFilterString(filter);
@@ -622,13 +598,8 @@ public class ChemistryCMISFacade implements CMISFacade
             {
                 ctx.setOrderBy(orderBy);
             }
-            if (includeACLs != null)
-            {
-                ctx.setIncludeAcls(includeACLs);
-            }
-            return ctx;
         }
-        return null;
+        return ctx;
     }
     
     private static Map<String, String> paramMap(final String username,
