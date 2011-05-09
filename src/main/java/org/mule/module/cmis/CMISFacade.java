@@ -326,5 +326,12 @@ public interface CMISFacade
      * @return List of applied policies
      */
     List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectId);
-    
+
+    /**
+     * Applies policies to this object.
+     * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
+     * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
+     * @param policyIds Policy ID's to apply
+     */
+    void applyPolicy(final CmisObject cmisObject, final String objectId, final List<ObjectId> policyIds);
 }

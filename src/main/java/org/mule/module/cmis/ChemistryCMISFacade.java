@@ -530,6 +530,18 @@ public class ChemistryCMISFacade implements CMISFacade
         return null;
     }
 
+    public void applyPolicy(final CmisObject cmisObject, final String objectId, List<ObjectId> policyIds)
+    {
+        validateObjectOrId(cmisObject, objectId);
+        validateRedundantIdentifier(cmisObject, objectId);
+        Validate.notNull(policyIds);
+        final CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null)
+        {
+            target.applyPolicy(policyIds.toArray(new ObjectId[policyIds.size()]));
+        }
+    }
+    
     
     /**
      * Validates that either a CmisObject or it's ID has been provided.

@@ -427,6 +427,13 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
         return facade.getAppliedPolicies(cmisObject, objectId);
     }
 
+    @Operation
+    public void applyPolicy(@Parameter(optional = true)CmisObject cmisObject, 
+                            @Parameter(optional = true)String objectId,
+                            List<ObjectId> policyIds) 
+    {
+        facade.applyPolicy(cmisObject, objectId, policyIds);
+    }
 
     @Operation
     public void delete(@Parameter(optional = true) CmisObject cmisObject, 
@@ -445,6 +452,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     {
         return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
     }
+
     
 }
 

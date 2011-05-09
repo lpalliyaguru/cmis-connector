@@ -247,4 +247,9 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
+    public void applyPolicy(CmisObject cmisObject, String objectId,
+            List<ObjectId> policyIds) 
+    {
+    }
+
 }
