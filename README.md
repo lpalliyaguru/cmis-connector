@@ -32,13 +32,13 @@ Add the connector's maven repo to your pom.xml:
     </repositories>
 
 Add the connector as a dependency to your project. This can be done by adding
-the following under the <dependencies> element in the pom.xml file of the
+the following under the dependencies element in the pom.xml file of the
 application:
 
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-cmis</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.3-SNAPSHOT</version>
     </dependency>
 
 Configuration
@@ -57,6 +57,27 @@ Here is detailed list of all the configuration attributes:
 |password|Password|no|
 |repositoryId|The identifier for the Repository that this connector instance works with|no|
 |baseUrl|URL base for the SOAP connector.|no|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Repositories
+------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
 
 Repository Info
 ---------------
@@ -180,4 +201,210 @@ one folder
 |config-ref|Specify which configuration to use for this invocation|yes||
 |folderName|     Folder name (eg: "my documents")|no||
 |parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)|no||
+
+Get Type Definition
+-------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|typeId||no||
+
+Get Checkout Docs
+-----------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|filter||yes||
+|orderBy||yes||
+
+Query
+-----
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|statement||no||
+|searchAllVersions||no||
+|filter||yes||
+|orderBy||yes||
+
+Get Parent Folders
+------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+
+Folder
+------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folder||yes||
+|folderId||yes||
+|get||no||*PARENT*, *CHILDREN*, *DESCENDANTS*, *TREE*
+|depth||yes||
+|filter||yes||
+|orderBy||yes||
+
+Get Content Stream
+------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+
+Move Object
+-----------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+|sourceFolderId||no||
+|targetFolderId||no||
+
+Update Object Properties
+------------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+|properties||no||
+
+Get Object Relationships
+------------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+
+Get Acl
+-------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+
+Get All Versions
+----------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|document||yes||
+|documentId||yes||
+|filter||yes||
+|orderBy||yes||
+
+Check Out
+---------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|document||yes||
+|documentId||yes||
+
+Cancel Check Out
+----------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|document||yes||
+|documentId||yes||
+
+Check In
+--------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|document||yes||
+|documentId||yes||
+|content||no||
+|filename||no||
+|mimeType||no||
+|major||no||
+|checkinComment||no||
+
+Apply Acl
+---------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+|addAces||no||
+|removeAces||no||
+|aclPropagation||no||
+
+Get Applied Policies
+--------------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+
+Apply Policy
+------------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+|policyIds||no||
+
+Delete
+------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|cmisObject||yes||
+|objectId||yes||
+|allVersions||yes|false|
+
+Delete Tree
+-----------
+
+| attribute | description | optional | default value | possible values |
+|:-----------|:-----------|:---------|:--------------|:----------------|
+|config-ref|Specify which configuration to use for this invocation|yes||
+|folder||yes||
+|folderId||yes||
+|allversions||no||
+|unfile||yes||
+|continueOnFailure||no||
+
+
+
+
+
+
+
+
+
+
+
+
 
