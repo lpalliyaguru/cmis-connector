@@ -24,7 +24,7 @@
     xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.mulesoft.org/schema/mule/bitly   http://www.mulesoft.org/schema/mule/bitly/3.1/mule-bitly.xsd
-       http://www.mulesoft.org/schema/mule/cmis    http://www.mulesoft.org/schema/mule/cmis/1.0/mule-cmis.xsd
+       http://www.mulesoft.org/schema/mule/cmis    http://www.mulesoft.org/schema/mule/cmis/1.2/mule-cmis.xsd
        http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
        http://www.mulesoft.org/schema/mule/json    http://www.mulesoft.org/schema/mule/json/3.1/mule-json.xsd
        http://www.mulesoft.org/schema/mule/mongodb http://www.mulesoft.org/schema/mule/mongodb/3.1/mule-mongodb.xsd
@@ -57,7 +57,7 @@
 	       3. Checks out the document in the CMIS
 	       4. Checks in the document with the new content.
 	    </description>
-		<http:inbound-endpoint host="localhost" port="9090" path="update-file" />
+		<http:inbound-endpoint host="localhost" port="9091" path="update-file" />
 		<transformer ref="HttpRequestBodyToParamMap"/>
 		<flow-ref name="updateDocumentFlow" />
 	</flow>

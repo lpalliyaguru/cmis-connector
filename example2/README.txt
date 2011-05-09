@@ -13,7 +13,7 @@ HOW TO DEMO:
     c. cmis.demo.baseDirectory Path to an existing directory in the repository where result documents will be saved.
 
   2. Deploy the example in a mule Container and hit
-        http://localhost:9090/update-file?fileName=demoFile&pastieId=1873255&checkInComment=Comment
+        http://localhost:9091/update-file?fileName=demoFile&pastieId=1873255&checkInComment=Comment
     This will update the contents of the file named "demoFile" in the base directory with the text from pastie #1873255.
 
 
