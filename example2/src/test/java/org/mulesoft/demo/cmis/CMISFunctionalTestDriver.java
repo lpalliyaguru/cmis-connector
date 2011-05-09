@@ -29,8 +29,8 @@ public class CMISFunctionalTestDriver extends FunctionalTestCase
     public void testDemoFlow() throws Exception
     {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("fileName", "testFile3");
-        params.put("pastieId", "1872943");
+        params.put("fileName", "testFile7");
+        params.put("pastieId", "78312");
         params.put("checkInComment", "Update text file with a speech by Obama.");
         final MuleEvent event = getTestEvent(params);
         final SimpleFlowConstruct flow = lookupFlowConstruct("updateDocumentFlow");

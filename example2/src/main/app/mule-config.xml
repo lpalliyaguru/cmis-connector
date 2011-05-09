@@ -73,19 +73,31 @@
                 <return-argument evaluator="string" expression="#[map-payload:fileName]" />
             </expression-transformer>
         </enricher>
-        <cmis:get-object-by-path path="${cmis.demo.idempotent.directory}/#[header:session:fileName]"/>
+        <enricher target="#[header:session:filePath]">
+            <expression-transformer>
+                <return-argument evaluator="string" expression="${cmis.demo.idempotent.directory}/#[header:session:fileName]" />
+            </expression-transformer>
+        </enricher>
+        
+        <cmis:get-object-by-path path="#[header:session:filePath]"/>
+        
+        <choice>
+            <when evaluator="groovy" expression="payload instanceof org.mule.transport.NullPayload">
+                <flow-ref name="createDocumentFlow"/>
+            </when>
+            <otherwise>
+                <flow-ref name="checkOutDocumentFlow" />
+            </otherwise>
+        </choice>
+        
+    </flow>
+
+    <flow name="checkOutDocumentFlow">
+        <logger level="ERROR" message="Check Out Flow"/>
         <enricher target="#[header:session:checkoutId]" source="#[ognl:id]">
             <cmis:check-out document="#[payload]" />
         </enricher>
-        <http:outbound-endpoint host="www.pastie.org" path="pastes/#[header:session:pastieId]/text" port="80" method="GET">
-            <!-- 
-                The following is a work around for a bug in the outbound endpoint, which
-                causes Mule to send POST requests even if the specified method is GET.
-             -->
-			<message-properties-transformer>
-				<add-message-property key="http.method" value="GET" />
-			</message-properties-transformer>
-        </http:outbound-endpoint>
+        <flow-ref name="getPastieFlow"/>
         <cmis:check-in checkinComment="File modification" documentId="#[header:session:checkoutId]"
                        content="#[message]" filename="#[header:session:fileName]"
                        major="true" mimeType="text/html" />
@@ -94,5 +106,28 @@
         </expression-transformer>
     </flow>
 
+
+    <flow name="createDocumentFlow">
+        <logger level="ERROR" message="Create document Flow"/>
+        <flow-ref name="getPastieFlow"/>
+        <cmis:create-document-by-path filename="#[header:session:fileName]" content="#[message]" 
+            folderPath="${cmis.demo.idempotent.directory}" mimeType="text/html" objectType="cmis:document" versioningState="NONE" /> 
+    </flow>
+    <expression-transformer>
+            <return-argument evaluator="string" expression="Document created" />
+    </expression-transformer>
+
+
+    <flow name="getPastieFlow">
+        <http:outbound-endpoint host="www.pastie.org" path="pastes/#[header:session:pastieId]/text" port="80" method="GET">
+            <!-- 
+                The following is a work around for a bug in the outbound endpoint, which
+                causes Mule to send POST requests even if the specified method is GET.
+             -->
+            <message-properties-transformer>
+                <add-message-property key="http.method" value="GET" />
+            </message-properties-transformer>
+        </http:outbound-endpoint>
+    </flow>
 
 </mule>
