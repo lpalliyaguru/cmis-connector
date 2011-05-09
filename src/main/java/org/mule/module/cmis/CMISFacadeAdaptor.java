@@ -11,6 +11,7 @@
 package org.mule.module.cmis;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -44,13 +45,21 @@ public class CMISFacadeAdaptor
                         }
                         return ret;
                     }
-                    catch (Exception e)
+                    catch (InvocationTargetException e)
                     {
                         if (logger.isWarnEnabled())
                         {
                             logger.warn("Method " + method.getName() + " thew " + e.getClass(), e);
                         }
-                        throw e;
+                        final Throwable cause = e.getCause();
+                        if (cause instanceof RuntimeException)
+                        {
+                            throw e.getCause();                            
+                        }
+                        else
+                        {
+                            throw new CMISConnectorException(cause);
+                        }
                     }
                     
             } });
