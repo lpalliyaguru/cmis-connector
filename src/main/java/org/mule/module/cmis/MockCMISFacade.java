@@ -111,7 +111,7 @@ public class MockCMISFacade implements CMISFacade
                                          final Object content,
                                          final String mimeType,
                                          final VersioningState versioningState,
-                                         final String objectType)
+                                         final String objectType, boolean force)
     {
         throw new NotImplementedException();
     }

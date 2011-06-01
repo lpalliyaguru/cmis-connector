@@ -159,15 +159,15 @@ public class ChemistryCMISFacade implements CMISFacade
                                          final Object content,
                                          final String mimeType,
                                          final org.mule.module.cmis.VersioningState versioningState,
-                                         final String objectType)
+                                         final String objectType,
+                                         boolean force)
     {
         Validate.notEmpty(folderPath, "folderPath is empty");
-        boolean force = true;
-        return createDocument(force ? getOrCreateFolder(folderPath) : session.getObjectByPath(folderPath),
+        return createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
             filename, content, mimeType, versioningState, objectType);
     }
 
-    private CmisObject getOrCreateFolder(final String folderPath)
+    private CmisObject getOrCreateFolderByPath(final String folderPath)
     {
         try
         {
@@ -175,14 +175,33 @@ public class ChemistryCMISFacade implements CMISFacade
         }
         catch (CmisObjectNotFoundException e)
         {
-            String[] folderNames = StringUtils.split(folderPath, "/");
-            String nextObjectId = getObjectByPath("/").getId();
-            for (String folder : folderNames)
-            {
-                nextObjectId = createFolder(folder, nextObjectId).getId();
-            }
-            return getObjectById(nextObjectId);
+            return createFolderStructure(folderPath);
         }
+    }
+
+    /**
+     * For each folder in the given folder path, creates it if neccessary.
+     * Notice: this implementacion checks that the folder exists, and if not creates it. 
+     * This is not efficient, it would be better to try to just try to create it 
+     * and catch {@link CmisContentAlreadyExistsException}, but currently that exception 
+     * is not being thrown - it seems like a server's bug 
+     * @param folderPath
+     * @return
+     */
+    private CmisObject createFolderStructure(final String folderPath)
+    {
+        final String[] folderNames = StringUtils.split(folderPath, "/");
+        String currentObjectId = getObjectByPath("/").getId();
+        String currentPath = "/";
+        for (String folder : folderNames)
+        {
+            currentPath = currentPath + folder + "/"; 
+            CmisObject currentObject = getObjectByPath(currentPath);
+            currentObjectId = currentObject != null 
+                ? currentObject.getId() 
+                : createFolder(folder, currentObjectId).getId();
+        }
+        return getObjectById(currentObjectId);
     }
 
     /** create a document */

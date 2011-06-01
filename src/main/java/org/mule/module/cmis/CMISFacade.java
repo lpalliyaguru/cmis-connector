@@ -84,8 +84,9 @@ public interface CMISFacade
      *     o checkedout: The document MUST be created in the checked-out state.
      *     o major (default): The document MUST be created as a major version
      *     o minor: The document MUST be created as a minor version.
-     *
-     *  @return the object id of the created 
+     * @param force if should folder structure must be created when there 
+     *     are missing intermidiate folders
+     * @return the object id of the created 
      */
     @Operation
     ObjectId createDocumentByPath(final String folderPath,
@@ -93,7 +94,8 @@ public interface CMISFacade
                                   final Object content,
                                   final String mimeType,
                                   final VersioningState versioningState,
-                                  final String objectType);
+                                  final String objectType, 
+                                  boolean force);
 
     /**
      * Creates a folder. Note that this is not recusive creation. You just create

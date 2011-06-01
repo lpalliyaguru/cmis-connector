@@ -248,10 +248,11 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                                          final Object content,
                                          final String mimeType,
                                          final VersioningState versioningState,
-                                         final String objectType)
+                                         final String objectType, 
+                                         @Parameter(optional=true, defaultValue="false") boolean force)
     {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
-                                           objectType);
+                                           objectType, force);
     }
 
     /**

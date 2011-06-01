@@ -237,7 +237,7 @@ public class CMISTestCaseDriver
     public void createAndDeleteDocument()
     {
         final ObjectId id = cmis.createDocumentByPath("/mule-cloud-connector", "foo.txt", "txttxttxt",
-            "text/plain", VersioningState.NONE, "cmis:document");
+            "text/plain", VersioningState.NONE, "cmis:document", false);
         cmis.delete(null, id.getId(), true);
     }
 
@@ -257,11 +257,11 @@ public class CMISTestCaseDriver
     {
         try
         {
-            assertCanCreateInFolder("/mule-cloud-connector/foobar/baz/");
+            assertCanCreateInFolder("/mule-cloud-connector/bar/baz/");
         }
         finally
         {
-            deleteTree("/mule-cloud-connector/foobar/");
+            deleteTree("/mule-cloud-connector/bar/");
         }
     }
 
@@ -270,11 +270,11 @@ public class CMISTestCaseDriver
     {
         try
         {
-            assertCanCreateInFolder("/baz/bar/foobar/");
+            assertCanCreateInFolder("/foobar/bar/baz/");
         }
         finally
         {
-            deleteTree("/baz");
+            deleteTree("/foobar/");
         }
 
     }
@@ -294,7 +294,7 @@ public class CMISTestCaseDriver
         try
         {
             document = cmis.createDocumentByPath(folderPath, "File.txt", "Hello!", "text/plain",
-                VersioningState.NONE, "cmis:document");
+                VersioningState.NONE, "cmis:document", true);
             assertNotNull(document);
         }
         finally
