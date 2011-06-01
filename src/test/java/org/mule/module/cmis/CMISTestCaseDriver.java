@@ -251,19 +251,43 @@ public class CMISTestCaseDriver
     {
         assertCanCreateInFolder("/mule-cloud-connector/");
     }
-    
+
     @Test
     public void createDocumentPartialUnexistentPath() throws Exception
     {
-        assertCanCreateInFolder("/mule-cloud-connector/foobar/");
+        try
+        {
+            assertCanCreateInFolder("/mule-cloud-connector/foobar/baz/");
+        }
+        finally
+        {
+            deleteTree("/mule-cloud-connector/foobar/");
+        }
     }
 
     @Test
     public void createDocumentUnexistentPath() throws Exception
     {
-        assertCanCreateInFolder("/foo/bar/foobar/");
+        try
+        {
+            assertCanCreateInFolder("/baz/bar/foobar/");
+        }
+        finally
+        {
+            deleteTree("/baz");
+        }
+
     }
-    
+
+    private void deleteTree(String folder)
+    {
+        CmisObject objectByPath = cmis.getObjectByPath(folder);
+        if (objectByPath != null)
+        {
+            cmis.deleteTree(null, objectByPath.getId(), true, null, false);
+        }
+    }
+
     private void assertCanCreateInFolder(String folderPath)
     {
         ObjectId document = null;

@@ -162,9 +162,27 @@ public class ChemistryCMISFacade implements CMISFacade
                                          final String objectType)
     {
         Validate.notEmpty(folderPath, "folderPath is empty");
-        
-        return createDocument(session.getObjectByPath(folderPath), 
+        boolean force = true;
+        return createDocument(force ? getOrCreateFolder(folderPath) : session.getObjectByPath(folderPath),
             filename, content, mimeType, versioningState, objectType);
+    }
+
+    private CmisObject getOrCreateFolder(final String folderPath)
+    {
+        try
+        {
+            return session.getObjectByPath(folderPath);
+        }
+        catch (CmisObjectNotFoundException e)
+        {
+            String[] folderNames = StringUtils.split(folderPath, "/");
+            String nextObjectId = getObjectByPath("/").getId();
+            for (String folder : folderNames)
+            {
+                nextObjectId = createFolder(folder, nextObjectId).getId();
+            }
+            return getObjectById(nextObjectId);
+        }
     }
 
     /** create a document */
