@@ -10,6 +10,8 @@
 
 package org.mule.module.cmis;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
@@ -45,78 +47,69 @@ public class CMISTestCaseDriver
         {
             e.printStackTrace();
         }
-        
-        
+
     }
-   
+
     @Test(expected = IllegalArgumentException.class)
-    @Ignore
     public void failWrongId()
     {
         final CmisObject obj = cmis.getObjectByPath("mule-cloud-connector/test");
         final String wrongId = "1";
         cmis.getContentStream(obj, wrongId);
     }
-    
+
     @Test
-    @Ignore    
     public void changeLog() throws InitialisationException
     {
-        final ChangeEvents events =  cmis.changelog("42215", false);
+        final ChangeEvents events = cmis.changelog("42215", false);
         Assert.assertFalse(events.getHasMoreItems());
         Assert.assertTrue(events.getTotalNumItems() > 0);
     }
-    
+
     @Test
-    @Ignore
     public void repositories()
     {
         Assert.assertNotNull(cmis.repositories());
     }
-    
+
     @Test
-    @Ignore
     public void folderParent()
     {
         final String subFolderId = getObjectId("/mule-cloud-connector/test-folder");
-        Folder parent = (Folder) cmis.folder(null, subFolderId, NavigationOptions.PARENT, 
-            null, null, null);
-        
+        Folder parent = (Folder) cmis.folder(null, subFolderId, NavigationOptions.PARENT, null, null, null);
+
         Assert.assertEquals("/mule-cloud-connector", parent.getPath());
     }
-    
+
     @SuppressWarnings("unchecked")
     @Test
-    @Ignore
     public void folderTree()
     {
         final String folderId = getObjectId("/mule-cloud-connector");
-        final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(
-                                 null, folderId, NavigationOptions.TREE, 1, null, null);
+        final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(null,
+            folderId, NavigationOptions.TREE, 1, null, null);
         Assert.assertNotNull(tree);
     }
-    
+
     @SuppressWarnings("unchecked")
     @Test
-    @Ignore
     public void folderDescendants()
     {
         final String folderId = getObjectId("/mule-cloud-connector");
-        final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(
-            null, folderId, NavigationOptions.DESCENDANTS, 1, null, null);
+        final List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(null,
+            folderId, NavigationOptions.DESCENDANTS, 1, null, null);
         Assert.assertNotNull(tree);
     }
-    
+
     @Test
-    @Ignore
     public void objectParents()
     {
         final String parent = "/mule-cloud-connector";
         final CmisObject obj = cmis.getObjectByPath(parent + "/test");
         final List<Folder> parents = cmis.getParentFolders(obj, null);
-        
+
         boolean present = false;
-        
+
         for (Folder folder : parents)
         {
             if (folder.getPath().equals(parent))
@@ -124,30 +117,27 @@ public class CMISTestCaseDriver
                 present = true;
             }
         }
-        
+
         Assert.assertTrue(present);
     }
 
     @Test
-    @Ignore
     @SuppressWarnings("unchecked")
     public void folderContent()
     {
         final String folderId = getObjectId("/mule-cloud-connector");
-        ItemIterable<CmisObject> it = (ItemIterable<CmisObject>) cmis.folder(
-            null, folderId, NavigationOptions.CHILDREN, 
-            null, null, null);
+        ItemIterable<CmisObject> it = (ItemIterable<CmisObject>) cmis.folder(null, folderId,
+            NavigationOptions.CHILDREN, null, null, null);
         Assert.assertNotNull(it);
     }
-    
+
     @Test
-    @Ignore
     public void checkedOutDocs()
     {
         final ItemIterable<Document> docs = cmis.getCheckoutDocs(null, null);
         Assert.assertNotNull(docs);
     }
-    
+
     @Test
     @Ignore
     public void checkOut()
@@ -155,18 +145,15 @@ public class CMISTestCaseDriver
         final ObjectId id = cmis.checkOut(null, getObjectId("/mule-cloud-connector/test"));
         cmis.cancelCheckOut(null, id.getId());
     }
-    
+
     @Test
-    @Ignore
     public void query()
     {
-        ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder ",
-                                                       false, null, null);
+        ItemIterable<QueryResult> results = cmis.query("SELECT * from cmis:folder ", false, null, null);
         Assert.assertNotNull(results);
     }
-    
+
     @Test
-    @Ignore
     public void getContentStream()
     {
         final CmisObject object = cmis.getObjectByPath("/mule-cloud-connector/test");
@@ -175,7 +162,6 @@ public class CMISTestCaseDriver
     }
 
     @Test
-    @Ignore
     public void moveObject()
     {
         final String f1 = getObjectId("/mule-cloud-connector");
@@ -187,13 +173,12 @@ public class CMISTestCaseDriver
     }
 
     @Test
-    @Ignore
     public void getAllVersions()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
         Assert.assertNotNull(cmis.getAllVersions(null, id, null, null));
     }
-    
+
     @Test
     @Ignore
     public void checkout()
@@ -202,41 +187,37 @@ public class CMISTestCaseDriver
         final ObjectId pwc = cmis.checkOut(null, id);
         cmis.cancelCheckOut(null, pwc.getId());
     }
-    
+
     @Test
     @Ignore
     public void checkIn()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
-        cmis.checkIn(null, id, "modified content", "test", 
-            "application/octet-stream;charset=UTF-8", true, "modified test file");
+        cmis.checkIn(null, id, "modified content", "test", "application/octet-stream;charset=UTF-8", true,
+            "modified test file");
     }
-    
+
     @Test
-    @Ignore
     public void relationShips()
     {
         final String id = getObjectId("/mule-cloud-connector/test");
         Assert.assertNotNull(cmis.getObjectRelationships(null, id));
     }
-    
+
     @Test
-    @Ignore
     public void getAcl()
     {
         Acl acl = cmis.getAcl(null, getObjectId("/mule-cloud-connector/test"));
         Assert.assertNotNull(acl);
     }
-    
+
     @Test
-    @Ignore
     public void getAppliedPolicies()
     {
         cmis.getAppliedPolicies(null, getObjectId("/mule-cloud-connector/test"));
     }
-    
+
     @Test
-    @Ignore
     public void createAndDeleteFolder()
     {
         final String parentId = getObjectId("/mule-cloud-connector");
@@ -245,20 +226,18 @@ public class CMISTestCaseDriver
     }
 
     @Test
-    @Ignore
     public void createAndDeleteTree()
     {
         final String parentId = getObjectId("/mule-cloud-connector");
         final ObjectId toDelete = cmis.createFolder("delete me", parentId);
         cmis.delete(null, toDelete.getId(), true);
     }
-    
+
     @Test
-    @Ignore
     public void createAndDeleteDocument()
     {
-        final ObjectId id = cmis.createDocumentByPath("/mule-cloud-connector", 
-                "foo.txt", "txttxttxt", "text/plain", VersioningState.NONE, "cmis:document");
+        final ObjectId id = cmis.createDocumentByPath("/mule-cloud-connector", "foo.txt", "txttxttxt",
+            "text/plain", VersioningState.NONE, "cmis:document");
         cmis.delete(null, id.getId(), true);
     }
 
@@ -266,5 +245,40 @@ public class CMISTestCaseDriver
     {
         return cmis.getObjectByPath(path).getId();
     }
+
+    @Test
+    public void createDocumentExistentPath() throws Exception
+    {
+        assertCanCreateInFolder("/mule-cloud-connector/");
+    }
     
+    @Test
+    public void createDocumentPartialUnexistentPath() throws Exception
+    {
+        assertCanCreateInFolder("/mule-cloud-connector/foobar/");
+    }
+
+    @Test
+    public void createDocumentUnexistentPath() throws Exception
+    {
+        assertCanCreateInFolder("/foo/bar/foobar/");
+    }
+    
+    private void assertCanCreateInFolder(String folderPath)
+    {
+        ObjectId document = null;
+        try
+        {
+            document = cmis.createDocumentByPath(folderPath, "File.txt", "Hello!", "text/plain",
+                VersioningState.NONE, "cmis:document");
+            assertNotNull(document);
+        }
+        finally
+        {
+            if (document != null)
+            {
+                cmis.delete(null, document.getId(), true);
+            }
+        }
+    }
 }
