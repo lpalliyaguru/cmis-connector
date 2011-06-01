@@ -16,7 +16,7 @@
        xmlns:http="http://www.mulesoft.org/schema/mule/http"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/cmis    http://www.mulesoft.org/schema/mule/cmis/1.2/mule-cmis.xsd
+       http://www.mulesoft.org/schema/mule/cmis    http://www.mulesoft.org/schema/mule/cmis/1.3/mule-cmis.xsd
        http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
        ">

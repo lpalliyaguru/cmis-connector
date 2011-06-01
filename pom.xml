@@ -68,7 +68,7 @@
                 <version>${cloudconnect.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <schemaVersion>1.2</schemaVersion>
+                    <schemaVersion>1.3</schemaVersion>
                 </configuration>
             </plugin>
 
