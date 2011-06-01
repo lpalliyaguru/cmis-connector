@@ -12,6 +12,7 @@ package org.mule.module.cmis;
 
 import static org.junit.Assert.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
@@ -23,6 +24,7 @@ import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Tree;
+import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.junit.Assert;
@@ -194,7 +196,7 @@ public class CMISTestCaseDriver
     {
         final String id = getObjectId("/mule-cloud-connector/test");
         cmis.checkIn(null, id, "modified content", "test", "application/octet-stream;charset=UTF-8", true,
-            "modified test file");
+            "modified test file", null);
     }
 
     @Test
@@ -237,23 +239,26 @@ public class CMISTestCaseDriver
     public void createAndDeleteDocument()
     {
         final ObjectId id = cmis.createDocumentByPath("/mule-cloud-connector", "foo.txt", "txttxttxt",
-            "text/plain", VersioningState.NONE, "cmis:document", false);
+            "text/plain", VersioningState.NONE, "cmis:document", null, false);
         cmis.delete(null, id.getId(), true);
     }
-
+    
     private String getObjectId(final String path)
     {
         return cmis.getObjectByPath(path).getId();
     }
 
+    /**Tests that a document can be created under an existent path*/
     @Test
     public void createDocumentExistentPath() throws Exception
     {
         assertCanCreateInFolder("/mule-cloud-connector/");
     }
 
+    /**Tests that a document can be created under an inexistent path
+     * that contains existent folders*/
     @Test
-    public void createDocumentPartialUnexistentPath() throws Exception
+    public void createDocumentPartialInexistentPath() throws Exception
     {
         try
         {
@@ -265,8 +270,9 @@ public class CMISTestCaseDriver
         }
     }
 
+    /**Tests that a document can be created under an inexistent path*/
     @Test
-    public void createDocumentUnexistentPath() throws Exception
+    public void createDocumentInexistentPath() throws Exception
     {
         try
         {
@@ -294,7 +300,7 @@ public class CMISTestCaseDriver
         try
         {
             document = cmis.createDocumentByPath(folderPath, "File.txt", "Hello!", "text/plain",
-                VersioningState.NONE, "cmis:document", true);
+                VersioningState.NONE, "cmis:document", null, true);
             assertNotNull(document);
         }
         finally

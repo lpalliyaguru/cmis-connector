@@ -84,8 +84,9 @@ public interface CMISFacade
      *     o checkedout: The document MUST be created in the checked-out state.
      *     o major (default): The document MUST be created as a major version
      *     o minor: The document MUST be created as a minor version.
+     * @param properties the properties optional document properties to set
      * @param force if should folder structure must be created when there 
-     *     are missing intermidiate folders
+     *     are missing intermediate folders
      * @return the object id of the created 
      */
     @Operation
@@ -95,7 +96,7 @@ public interface CMISFacade
                                   final String mimeType,
                                   final VersioningState versioningState,
                                   final String objectType, 
-                                  boolean force);
+                                  Map<String, Object> properties, boolean force);
 
     /**
      * Creates a folder. Note that this is not recusive creation. You just create
@@ -118,16 +119,17 @@ public interface CMISFacade
      *     o checkedout: The document MUST be created in the checked-out state.
      *     o major (default): The document MUST be created as a major version
      *     o minor: The document MUST be created as a minor version.
-     *
-     *  @return the object id of the created 
+     * @param properties the properties optional document properties to set
+     * @return the object id of the created 
      */
     @Operation
     ObjectId createDocumentById(final String folderId,
-                                  final String filename,
-                                  final Object content,
-                                  final String mimeType,
-                                  final VersioningState versioningState,
-                                  final String objectType);
+                                final String filename,
+                                final Object content,
+                                final String mimeType,
+                                final VersioningState versioningState,
+                                final String objectType,
+                                final Map<String, Object> properties);
     
     /**
      * Returns the type definition of the given type id.
@@ -312,14 +314,14 @@ public interface CMISFacade
      * @param content           File content (no byte array or input stream for now)
      * @param filename          Name of the file
      * @param mimeType          Stream content-type
-     * 
      * @param major
      * @param checkinComment Check-in comment
+     * @param properties TODO
      * @return
      */
     ObjectId checkIn(final CmisObject document, final String documentId,
                      final Object content, final String filename, 
-                     final String mimeType, boolean major, String checkinComment);
+                     final String mimeType, boolean major, String checkinComment, Map<String, String> properties);
     
     /**
      * Get the policies that are applied to an object.

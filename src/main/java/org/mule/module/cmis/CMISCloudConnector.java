@@ -240,6 +240,9 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      * @param content         File content (no byte array or input stream for now)
      * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param properties the properties optional document properties to set
+     * @param force if should folder structure must be created when there 
+     *     are missing intermediate folders
      * @return the object id of the created
      */
     @Operation
@@ -249,10 +252,11 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                                          final String mimeType,
                                          final VersioningState versioningState,
                                          final String objectType, 
-                                         @Parameter(optional=true, defaultValue="false") boolean force)
+                                         @Parameter(optional=true) final Map<String, Object> properties,
+                                         @Parameter(optional=true, defaultValue="false") final boolean force)
     {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
-                                           objectType, force);
+                                           objectType, properties, force);
     }
 
     /**
@@ -271,6 +275,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      * @param content         File content (no byte array or input stream for now)
      * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param properties the properties optional document properties to set
      * @return The object id of the created
      */
     @Operation
@@ -279,10 +284,11 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                                        final Object content,
                                        final String mimeType,
                                        final VersioningState versioningState,
-                                       final String objectType)
+                                       final String objectType, 
+                                       @Parameter(optional=true, defaultValue="false") final Map<String, Object> properties)
     {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
-                                         objectType);
+                                         objectType, properties);
     }
 
     /**
@@ -405,9 +411,10 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
                             final String filename,
                             final String mimeType,
                             final boolean major,
-                            final String checkinComment)
+                            final String checkinComment,
+                            @Parameter(optional = true) final Map<String, String> properties)
     {
-        return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment);
+        return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment, properties);
     }
 
     

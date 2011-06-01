@@ -52,6 +52,7 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExists
 import org.apache.chemistry.opencmis.commons.exceptions.CmisInvalidArgumentException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -145,13 +146,14 @@ public class ChemistryCMISFacade implements CMISFacade
                                              final Object content,
                                              final String mimeType,
                                              final org.mule.module.cmis.VersioningState versioningState,
-                                             final String objectType)
+                                             final String objectType, 
+                                             final Map<String, Object> properties)
     {
         Validate.notEmpty(objectId, "objectId is empty");
         
         return createDocument(
             session.getObject(session.createObjectId(objectId)), 
-            filename, content, mimeType, versioningState, objectType);
+            filename, content, mimeType, versioningState, objectType, properties);
     }
 
     public ObjectId createDocumentByPath(final String folderPath,
@@ -160,11 +162,12 @@ public class ChemistryCMISFacade implements CMISFacade
                                          final String mimeType,
                                          final org.mule.module.cmis.VersioningState versioningState,
                                          final String objectType,
+                                         final Map<String, Object> properties,
                                          boolean force)
     {
         Validate.notEmpty(folderPath, "folderPath is empty");
         return createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
-            filename, content, mimeType, versioningState, objectType);
+            filename, content, mimeType, versioningState, objectType, properties);
     }
 
     private CmisObject getOrCreateFolderByPath(final String folderPath)
@@ -180,13 +183,11 @@ public class ChemistryCMISFacade implements CMISFacade
     }
 
     /**
-     * For each folder in the given folder path, creates it if neccessary.
-     * Notice: this implementacion checks that the folder exists, and if not creates it. 
+     * For each folder in the given folder path, creates it if necessary.
+     * Notice: this implementation checks that the folder exists, and if not creates it. 
      * This is not efficient, it would be better to try to just try to create it 
      * and catch {@link CmisContentAlreadyExistsException}, but currently that exception 
      * is not being thrown - it seems like a server's bug 
-     * @param folderPath
-     * @return
      */
     private CmisObject createFolderStructure(final String folderPath)
     {
@@ -211,7 +212,8 @@ public class ChemistryCMISFacade implements CMISFacade
                                    final Object content,
                                    final String mimeType,
                                    final org.mule.module.cmis.VersioningState versioningState,
-                                   final String objectType)
+                                   final String objectType, 
+                                   final Map<String, Object> extraProperties)
     {
         Validate.notNull(folder,    "folder is null");
         Validate.notEmpty(filename, "filename is empty");
@@ -233,6 +235,10 @@ public class ChemistryCMISFacade implements CMISFacade
         final Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.OBJECT_TYPE_ID, objectType);
         properties.put(PropertyIds.NAME, filename);
+        if (extraProperties != null)
+        {
+            properties.putAll(extraProperties);
+        }
         return session.createDocument(properties, 
                 session.createObjectId(folder.getId()),
                 createContentStream(filename, mimeType, content), vs);   
@@ -520,7 +526,9 @@ public class ChemistryCMISFacade implements CMISFacade
 
     public ObjectId checkIn(final CmisObject document, final String documentId,
                             final Object content, final String filename, 
-                            final String mimeType, boolean major, String checkinComment)
+                            final String mimeType, boolean major, 
+                            final String checkinComment,
+                            final Map<String, String> properties)
     {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
@@ -533,13 +541,17 @@ public class ChemistryCMISFacade implements CMISFacade
         if (target != null && target instanceof Document)
         {
             final Document doc = (Document) target;
-            return doc.checkIn(major, Collections.<String, String>emptyMap(), 
+            return doc.checkIn(major, coalesceProperties(properties) , 
                                createContentStream(filename, mimeType, content),
                                checkinComment);
         }
         return null;
     }
-    
+
+    private Map<String, String> coalesceProperties(final Map<String, String> properties)
+    {
+        return properties != null ? properties : Collections.<String, String>emptyMap();
+    }
 
     
     public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 

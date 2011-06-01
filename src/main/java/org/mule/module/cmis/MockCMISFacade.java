@@ -111,7 +111,7 @@ public class MockCMISFacade implements CMISFacade
                                          final Object content,
                                          final String mimeType,
                                          final VersioningState versioningState,
-                                         final String objectType, boolean force)
+                                         final String objectType, Map<String, Object> properties, boolean force)
     {
         throw new NotImplementedException();
     }
@@ -121,7 +121,7 @@ public class MockCMISFacade implements CMISFacade
                                        final Object content,
                                        final String mimeType,
                                        final VersioningState versioningState,
-                                       final String objectType)
+                                       final String objectType, Map<String, Object> properties)
     {
         throw new NotImplementedException();
     }
@@ -236,7 +236,7 @@ public class MockCMISFacade implements CMISFacade
                             String filename,
                             String mimeType,
                             boolean major,
-                            String checkinComment)
+                            String checkinComment, Map<String, String> properties)
     {
         throw new NotImplementedException();
     }
