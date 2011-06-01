@@ -182,7 +182,8 @@ Creates a new document in the repository.
 |mimeType|Stream content-type|no||
 |versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
-|force||yes|false|
+|properties|the properties optional document properties to set|yes||
+|force|if should folder structure must be created when there are missing intermediate folders|yes|false|
 
 Returns object id of the created
 
@@ -212,6 +213,7 @@ Creates a new document in the repository.
 |mimeType|Stream content-type|no||
 |versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
+|properties|the properties optional document properties to set|yes|false|
 
 Returns object id of the created
 
@@ -401,6 +403,7 @@ Check In
 |mimeType||no||
 |major||no||
 |checkinComment||no||
+|properties||yes||
 
 
 
