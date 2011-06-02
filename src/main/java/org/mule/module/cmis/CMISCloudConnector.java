@@ -510,7 +510,7 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
     /**
      * Returns the ACL if it has been fetched for an object.
      * 
-     * {<cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
+     * {@code <cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
      * 
      * @param cmisObject the object whose Acl is needed
      * @return the object's Acl
@@ -691,8 +691,8 @@ public class CMISCloudConnector implements Initialisable, CMISFacade
      * @param unfile Specifies how the repository must process file-able child- 
      *               or descendant-objects.
      * @param continueOnFailure Specified whether to continue attempting to perform 
-     *               this operation even if deletion of a child- or descendant-object 
-     *               in the specified folder cannot be deleted or not. 
+     *  this operation even if deletion of a child- or descendant-object 
+     *  in the specified folder cannot be deleted or not. 
      * @return a list of object ids which failed to be deleted.
      */
     @Operation

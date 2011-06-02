@@ -38,7 +38,7 @@ application:
     <dependency>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-module-cmis</artifactId>
-        <version>1.4-SNAPSHOT</version>
+        <version>1.3</version>
     </dependency>
 
 Configuration
@@ -385,7 +385,9 @@ Get Acl
 
 Returns the ACL if it has been fetched for an object.
 
-{<cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
+
+
+     <cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
@@ -546,8 +548,8 @@ Deletes a folder and all subfolders.
 |unfile| Specifies how the repository must process file-able child- 
               or descendant-objects.|yes||
 |continueOnFailure| Specified whether to continue attempting to perform 
-              this operation even if deletion of a child- or descendant-object 
-              in the specified folder cannot be deleted or not.|no||
+ this operation even if deletion of a child- or descendant-object 
+ in the specified folder cannot be deleted or not.|no||
 
 
 

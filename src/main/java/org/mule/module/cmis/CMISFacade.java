@@ -283,6 +283,7 @@ public interface CMISFacade
     
     /**
      * Deletes a folder and all subfolders.
+     * 
      * @param folder Folder Object. Can be null if "folderId" is set. 
      * @param folderId Folder Object id. Can be null if "folder" is set.
      * @param allversions If true, then delete all versions of the document. 
@@ -290,8 +291,8 @@ public interface CMISFacade
      * @param unfile Specifies how the repository must process file-able child- 
      *               or descendant-objects.
      * @param continueOnFailure Specified whether to continue attempting to perform 
-     *               this operation even if deletion of a child- or descendant-object 
-     *               in the specified folder cannot be deleted or not. 
+     *  this operation even if deletion of a child- or descendant-object 
+     *  in the specified folder cannot be deleted or not. 
      * @return a list of object ids which failed to be deleted.
      */
     List<String> deleteTree(final CmisObject folder, final String folderId, final boolean allversions, 
@@ -310,7 +311,7 @@ public interface CMISFacade
     /**
      * Returns the ACL if it has been fetched for an object.
      * 
-     * {<cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
+     * {@code <cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
      * 
      * @param cmisObject the object whose Acl is needed
      * @return the object's Acl
