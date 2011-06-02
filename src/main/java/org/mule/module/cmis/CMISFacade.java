@@ -326,11 +326,7 @@ public interface CMISFacade
      * @param cmisObject the object whose Acl is intended to change.
      * @param addAces added access control entities
      * @param removeAces removed access control entities
-     * @param aclPropagation wheter to propagate changes or not. can be <ul>
-     *          <li>(a) REPOSITORYDETERMINED</li>
-     *          <li>(b) OBJECTONLY</li>
-     *          <li>(c) PROPAGATE</li>
-     *          </ul>
+     * @param aclPropagation wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE
      * @return the new access control list
      */
     Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 

@@ -72,6 +72,19 @@ Here is detailed list of all the configuration attributes:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 Repositories
 ------------
 
@@ -84,6 +97,10 @@ Returns all repositories that are available at the endpoint.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
+
+Returns list of {@link Repository}.
+
+
 
 Repository Info
 ---------------
@@ -98,6 +115,8 @@ Returns information about the CMIS repository, the optional capabilities it supp
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
 
+
+
 Changelog
 ---------
 
@@ -110,9 +129,10 @@ Gets repository changes.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|changeLogToken|    The change log token to start from or <code>null</code>|yes||
-|includeProperties| Indicates if changed properties should be included in
-                         the result|no||
+|changeLogToken|The change log token to start from or <code>null</code>|yes||
+|includeProperties|Indicates if changed properties should be included in the result|no||
+
+
 
 Get Object By Id
 ----------------
@@ -126,7 +146,9 @@ Returns a CMIS object from the repository and puts it into the cache.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|objectId| The object id|no||
+|objectId|The object id|no||
+
+
 
 Get Object By Path
 ------------------
@@ -140,7 +162,9 @@ Returns a CMIS object from the repository and puts it into the cache.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|path| Path of the object to retrieve|no||
+|path|Path of the object to retrieve|no||
+
+
 
 Create Document By Path
 -----------------------
@@ -160,15 +184,18 @@ Creates a new document in the repository.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderPath|      Folder in the repository that will hold the document|no||
-|filename|        Name of the file|no||
-|content|         File content (no byte array or input stream for now)|no||
-|mimeType|        Stream content-type|no||
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|folderPath|Folder in the repository that will hold the document|no||
+|filename|Name of the file|no||
+|content|File content (no byte array or input stream for now)|no||
+|mimeType|Stream content-type|no||
+|versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
-|properties| the properties optional document properties to set|yes||
-|force| if should folder structure must be created when there 
-    are missing intermediate folders|yes|false|
+|properties|the properties optional document properties to set|yes||
+|force|if should folder structure must be created when there are missing intermediate folders|yes|false|
+
+Returns object id of the created
+
+
 
 Create Document By Id
 ---------------------
@@ -188,13 +215,17 @@ Creates a new document in the repository.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderId|        Folder Object Id|no||
-|filename|        Name of the file|no||
-|content|         File content (no byte array or input stream for now)|no||
-|mimeType|        Stream content-type|no||
-|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|folderId|Folder Object Id|no||
+|filename|Name of the file|no||
+|content|File content (no byte array or input stream for now)|no||
+|mimeType|Stream content-type|no||
+|versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
-|properties| the properties optional document properties to set|yes|false|
+|properties|the properties optional document properties to set|yes|false|
+
+Returns object id of the created
+
+
 
 Create Folder
 -------------
@@ -209,8 +240,10 @@ one folder
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderName|     Folder name (eg: "my documents")|no||
-|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)|no||
+|folderName|Folder name (eg: "my documents")|no||
+|parentObjectId|Parent folder for the folder being created (eg: repository.rootFolder)|no||
+
+
 
 Get Type Definition
 -------------------
@@ -224,7 +257,11 @@ Returns the type definition of the given type id.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|typeId| Object type Id|no||
+|typeId|Object type Id|no||
+
+Returns of object ({@see ObjectType})
+
+
 
 Get Checkout Docs
 -----------------
@@ -238,9 +275,12 @@ Retrieve list of checked out documents.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|filter| comma-separated list of properties to filter|yes||
-|orderBy| comma-separated list of query names and the ascending modifier 
-     "ASC" or the descending modifier "DESC" for each query name|yes||
+|filter|comma-separated list of properties to filter|yes||
+|orderBy|comma-separated list of query names and the ascending modifier "ASC" or the descending modifier "DESC" for each query name|yes||
+
+Returns of {@link Document}.
+
+
 
 Query
 -----
@@ -254,12 +294,14 @@ Sends a query to the repository
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|statement| the query statement (CMIS query language)|no||
-|searchAllVersions| specifies if the latest and non-latest versions 
-                         of document objects should be included|no||
-|filter| comma-separated list of properties to filter|yes||
-|orderBy| comma-separated list of query names and the ascending modifier 
-     "ASC" or the descending modifier "DESC" for each query name|yes||
+|statement|the query statement (CMIS query language)|no||
+|searchAllVersions|specifies if the latest and non-latest versions of document objects should be included|no||
+|filter|comma-separated list of properties to filter|yes||
+|orderBy|comma-separated list of query names and the ascending modifier "ASC" or the descending modifier "DESC" for each query name|yes||
+
+Returns iterable of {@link QueryResult}
+
+
 
 Get Parent Folders
 ------------------
@@ -277,8 +319,12 @@ Retrieves the parent folders of a fileable cmis object
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| the object whose parent folders are needed. can be null if "objectId" is set.|yes||
-|objectId| id of the object whose parent folders are needed. can be null if "object" is set.|yes||
+|cmisObject|the object whose parent folders are needed. can be null if "objectId" is set.|yes||
+|objectId|id of the object whose parent folders are needed. can be null if "object" is set.|yes||
+
+Returns list of the object's parent folders.
+
+
 
 Folder
 ------
@@ -300,15 +346,16 @@ Navigates the folder structure.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folder| Folder Object. Can be null if "folderId" is set.|yes||
-|folderId| Folder Object id. Can be null if "folder" is set.|yes||
-|get| NavigationOptions that specifies whether to get the parent folder,
-             the list of immediate children or the whole descendants tree|no||*PARENT*, *CHILDREN*, *DESCENDANTS*, *TREE*
-|depth| if "get" value is DESCENDANTS, represents the depth of the
-             descendants tree|yes||
-|filter| comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)|yes||
-|orderBy| comma-separated list of query names and the ascending modifier 
-     "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)|yes||
+|folder|Folder Object. Can be null if "folderId" is set.|yes||
+|folderId|Folder Object id. Can be null if "folder" is set.|yes||
+|get|NavigationOptions that specifies whether to get the parent folder, the list of immediate children or the whole descendants tree|no||*PARENT*, *CHILDREN*, *DESCENDANTS*, *TREE*
+|depth|if "get" value is DESCENDANTS, represents the depth of the descendants tree|yes||
+|filter|comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)|yes||
+|orderBy|comma-separated list of query names and the ascending modifier "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)|yes||
+
+Returns following, depending on the value of "get" parameter: <ul> <li>PARENT: returns the parent Folder</li> <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li> <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing the whole descentants tree of the current folder</li> <li>TREE: List<Tree<FileableCmisObject>> representing the directory structure under the current folder. </li> </ul>
+
+
 
 Get Content Stream
 ------------------
@@ -322,8 +369,12 @@ Retrieves the content stream of a Document.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| The document from which to get the stream. Can be null if "objectId" is set.|yes||
-|objectId| Id of the document from which to get the stream. Can be null if "object" is set.|yes||
+|cmisObject|The document from which to get the stream. Can be null if "objectId" is set.|yes||
+|objectId|Id of the document from which to get the stream. Can be null if "object" is set.|yes||
+
+Returns content stream of the document.
+
+
 
 Move Object
 -----------
@@ -340,10 +391,14 @@ object may be filled in several locations. Thats why you must specify a source f
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| The object to move. Can be null if "objectId" is set.|yes||
-|objectId| The object's id. Can be null if "cmisObject" is set.|yes||
-|sourceFolderId| Id of the source folder|no||
-|targetFolderId| Id of the target folder|no||
+|cmisObject|The object to move. Can be null if "objectId" is set.|yes||
+|objectId|The object's id. Can be null if "cmisObject" is set.|yes||
+|sourceFolderId|Id of the source folder|no||
+|targetFolderId|Id of the target folder|no||
+
+Returns object moved (FileableCmisObject)
+
+
 
 Update Object Properties
 ------------------------
@@ -361,9 +416,13 @@ Update an object's properties
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| Object to be updated. Can be null if "objectId" is set.|yes||
-|objectId| The object's id. Can be null if "cmisObject" is set.|yes||
-|properties| The properties to update|no||
+|cmisObject|Object to be updated. Can be null if "objectId" is set.|yes||
+|objectId|The object's id. Can be null if "cmisObject" is set.|yes||
+|properties|The properties to update|no||
+
+Returns updated object (a repository might have created a new object)
+
+
 
 Get Object Relationships
 ------------------------
@@ -377,8 +436,12 @@ Returns the relationships if they have been fetched for an object.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| the object whose relationships are needed|yes||
+|cmisObject|the object whose relationships are needed|yes||
 |objectId||yes||
+
+Returns of the object's relationships
+
+
 
 Get Acl
 -------
@@ -392,8 +455,12 @@ Returns the ACL if it has been fetched for an object.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| the object whose Acl is needed|yes||
+|cmisObject|the object whose Acl is needed|yes||
 |objectId||yes||
+
+Returns object's Acl
+
+
 
 Get All Versions
 ----------------
@@ -407,11 +474,14 @@ Retrieve an object's version history
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|document| the document whose versions are to be retrieved|yes||
+|document|the document whose versions are to be retrieved|yes||
 |documentId||yes||
-|filter| comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)|yes||
-|orderBy| comma-separated list of query names and the ascending modifier 
-     "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)|yes||
+|filter|comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)|yes||
+|orderBy|comma-separated list of query names and the ascending modifier "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)|yes||
+
+Returns of the document.
+
+
 
 Check Out
 ---------
@@ -425,8 +495,12 @@ Checks out the document and returns the object id of the PWC (private working co
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|document| The document to be checked out. Can be null if "documentId" is set.|yes||
+|document|The document to be checked out. Can be null if "documentId" is set.|yes||
 |documentId||yes||
+
+Returns ObjectId
+
+
 
 Cancel Check Out
 ----------------
@@ -441,8 +515,10 @@ will be reversed. Otherwise, an exception will be thrown.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|document| The checked out document. Can be null if "documentId" is set.|yes||
+|document|The checked out document. Can be null if "documentId" is set.|yes||
 |documentId||yes||
+
+
 
 Check In
 --------
@@ -459,14 +535,18 @@ Otherwise, an exception will be thrown.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|document| The document to check-in. Can be null if "documentId" is set.|yes||
-|documentId| Id of the document to check-in. Can be null if "document" is set.|yes||
-|content|           File content (no byte array or input stream for now)|no||
-|filename|          Name of the file|no||
-|mimeType|          Stream content-type|no||
+|document|The document to check-in. Can be null if "documentId" is set.|yes||
+|documentId|Id of the document to check-in. Can be null if "document" is set.|yes||
+|content|File content (no byte array or input stream for now)|no||
+|filename|Name of the file|no||
+|mimeType|Stream content-type|no||
 |major||no||
-|checkinComment| Check-in comment|no||
-|properties| custom properties|yes||
+|checkinComment|Check-in comment|no||
+|properties|custom properties|yes||
+
+Returns {@link ObjectId} of the checkedin document
+
+
 
 Apply Acl
 ---------
@@ -480,15 +560,15 @@ Set the permissions associated with an object.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| the object whose Acl is intended to change.|yes||
+|cmisObject|the object whose Acl is intended to change.|yes||
 |objectId||yes||
-|addAces| added access control entities|no||
-|removeAces| removed access control entities|no||
-|aclPropagation| wheter to propagate changes or not. can be <ul>
-         <li>(a) REPOSITORYDETERMINED</li>
-         <li>(b) OBJECTONLY</li>
-         <li>(c) PROPAGATE</li>
-         </ul>|no||
+|addAces|added access control entities|no||
+|removeAces|removed access control entities|no||
+|aclPropagation|wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE|no||
+
+Returns new access control list
+
+
 
 Get Applied Policies
 --------------------
@@ -502,8 +582,12 @@ Get the policies that are applied to an object.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| The document from which to get the stream. Can be null if "objectId" is set.|yes||
-|objectId| Id of the document from which to get the stream. Can be null if "object" is set.|yes||
+|cmisObject|The document from which to get the stream. Can be null if "objectId" is set.|yes||
+|objectId|Id of the document from which to get the stream. Can be null if "object" is set.|yes||
+
+Returns of applied policies
+
+
 
 Apply Policy
 ------------
@@ -513,9 +597,11 @@ Applies policies to this object.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| The document from which to get the stream. Can be null if "objectId" is set.|yes||
-|objectId| Id of the document from which to get the stream. Can be null if "object" is set.|yes||
-|policyIds| Policy ID's to apply|no||
+|cmisObject|The document from which to get the stream. Can be null if "objectId" is set.|yes||
+|objectId|Id of the document from which to get the stream. Can be null if "object" is set.|yes||
+|policyIds|Policy ID's to apply|no||
+
+
 
 Delete
 ------
@@ -529,9 +615,11 @@ Remove an object
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|cmisObject| The object to be deleted. Can be null if "objectId" is set.|yes||
-|objectId| The object's id. Can be null if "cmisObject" is set.|yes||
-|allVersions| If true, deletes all version history of the object. Defaults to "false".|yes|false|
+|cmisObject|The object to be deleted. Can be null if "objectId" is set.|yes||
+|objectId|The object's id. Can be null if "cmisObject" is set.|yes||
+|allVersions|If true, deletes all version history of the object. Defaults to "false".|yes|false|
+
+
 
 Delete Tree
 -----------
@@ -541,15 +629,27 @@ Deletes a folder and all subfolders.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folder| Folder Object. Can be null if "folderId" is set.|yes||
-|folderId| Folder Object id. Can be null if "folder" is set.|yes||
-|allversions| If true, then delete all versions of the document. 
-                   If false, delete only the document object specified.|no||
-|unfile| Specifies how the repository must process file-able child- 
-              or descendant-objects.|yes||
-|continueOnFailure| Specified whether to continue attempting to perform 
- this operation even if deletion of a child- or descendant-object 
- in the specified folder cannot be deleted or not.|no||
+|folder|Folder Object. Can be null if "folderId" is set.|yes||
+|folderId|Folder Object id. Can be null if "folder" is set.|yes||
+|allversions|If true, then delete all versions of the document. If false, delete only the document object specified.|no||
+|unfile|Specifies how the repository must process file-able child- or descendant-objects.|yes||
+|continueOnFailure|Specified whether to continue attempting to perform this operation even if deletion of a child- or descendant-object in the specified folder cannot be deleted or not.|no||
+
+Returns list of object ids which failed to be deleted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
