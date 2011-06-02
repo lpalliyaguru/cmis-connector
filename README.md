@@ -26,7 +26,7 @@ Add the connector's maven repo to your pom.xml:
         <repository>
             <id>muleforge-releases</id>
             <name>MuleForge Snapshot Repository</name>
-            <url>https://repository.muleforge.org/release/</url>
+            <url>https://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repsitory>
     </repositories>
@@ -72,27 +72,12 @@ Here is detailed list of all the configuration attributes:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Repositories
 ------------
 
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-
-
 
 Repository Info
 ---------------
@@ -107,8 +92,6 @@ Returns information about the CMIS repository, the optional capabilities it supp
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
 
-
-
 Changelog
 ---------
 
@@ -121,10 +104,9 @@ Gets repository changes.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|changeLogToken|The change log token to start from or <code>null</code>|yes||
-|includeProperties|Indicates if changed properties should be included in the result|no||
-
-
+|changeLogToken|    The change log token to start from or <code>null</code>|yes||
+|includeProperties| Indicates if changed properties should be included in
+                         the result|no||
 
 Get Object By Id
 ----------------
@@ -138,9 +120,7 @@ Returns a CMIS object from the repository and puts it into the cache.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|objectId|The object id|no||
-
-
+|objectId| The object id|no||
 
 Get Object By Path
 ------------------
@@ -154,9 +134,7 @@ Returns a CMIS object from the repository and puts it into the cache.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|path|Path of the object to retrieve|no||
-
-
+|path| Path of the object to retrieve|no||
 
 Create Document By Path
 -----------------------
@@ -176,18 +154,15 @@ Creates a new document in the repository.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderPath|Folder in the repository that will hold the document|no||
-|filename|Name of the file|no||
-|content|File content (no byte array or input stream for now)|no||
-|mimeType|Stream content-type|no||
-|versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|folderPath|      Folder in the repository that will hold the document|no||
+|filename|        Name of the file|no||
+|content|         File content (no byte array or input stream for now)|no||
+|mimeType|        Stream content-type|no||
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
-|properties|the properties optional document properties to set|yes||
-|force|if should folder structure must be created when there are missing intermediate folders|yes|false|
-
-Returns object id of the created
-
-
+|properties| the properties optional document properties to set|yes||
+|force| if should folder structure must be created when there 
+    are missing intermediate folders|yes|false|
 
 Create Document By Id
 ---------------------
@@ -207,17 +182,13 @@ Creates a new document in the repository.
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderId|Folder Object Id|no||
-|filename|Name of the file|no||
-|content|File content (no byte array or input stream for now)|no||
-|mimeType|Stream content-type|no||
-|versioningState|An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
+|folderId|        Folder Object Id|no||
+|filename|        Name of the file|no||
+|content|         File content (no byte array or input stream for now)|no||
+|mimeType|        Stream content-type|no||
+|versioningState| An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.|no||*NONE*, *MAJOR*, *MINOR*, *CHECKEDOUT*
 |objectType||no||
-|properties|the properties optional document properties to set|yes|false|
-
-Returns object id of the created
-
-
+|properties| the properties optional document properties to set|yes|false|
 
 Create Folder
 -------------
@@ -232,10 +203,8 @@ one folder
 | attribute | description | optional | default value | possible values |
 |:-----------|:-----------|:---------|:--------------|:----------------|
 |config-ref|Specify which configuration to use for this invocation|yes||
-|folderName|Folder name (eg: "my documents")|no||
-|parentObjectId|Parent folder for the folder being created (eg: repository.rootFolder)|no||
-
-
+|folderName|     Folder name (eg: "my documents")|no||
+|parentObjectId| Parent folder for the folder being created (eg: repository.rootFolder)|no||
 
 Get Type Definition
 -------------------
@@ -245,8 +214,6 @@ Get Type Definition
 |config-ref|Specify which configuration to use for this invocation|yes||
 |typeId||no||
 
-
-
 Get Checkout Docs
 -----------------
 
@@ -255,8 +222,6 @@ Get Checkout Docs
 |config-ref|Specify which configuration to use for this invocation|yes||
 |filter||yes||
 |orderBy||yes||
-
-
 
 Query
 -----
@@ -269,8 +234,6 @@ Query
 |filter||yes||
 |orderBy||yes||
 
-
-
 Get Parent Folders
 ------------------
 
@@ -279,8 +242,6 @@ Get Parent Folders
 |config-ref|Specify which configuration to use for this invocation|yes||
 |cmisObject||yes||
 |objectId||yes||
-
-
 
 Folder
 ------
@@ -295,8 +256,6 @@ Folder
 |filter||yes||
 |orderBy||yes||
 
-
-
 Get Content Stream
 ------------------
 
@@ -305,8 +264,6 @@ Get Content Stream
 |config-ref|Specify which configuration to use for this invocation|yes||
 |cmisObject||yes||
 |objectId||yes||
-
-
 
 Move Object
 -----------
@@ -319,8 +276,6 @@ Move Object
 |sourceFolderId||no||
 |targetFolderId||no||
 
-
-
 Update Object Properties
 ------------------------
 
@@ -331,8 +286,6 @@ Update Object Properties
 |objectId||yes||
 |properties||no||
 
-
-
 Get Object Relationships
 ------------------------
 
@@ -342,8 +295,6 @@ Get Object Relationships
 |cmisObject||yes||
 |objectId||yes||
 
-
-
 Get Acl
 -------
 
@@ -352,8 +303,6 @@ Get Acl
 |config-ref|Specify which configuration to use for this invocation|yes||
 |cmisObject||yes||
 |objectId||yes||
-
-
 
 Get All Versions
 ----------------
@@ -366,8 +315,6 @@ Get All Versions
 |filter||yes||
 |orderBy||yes||
 
-
-
 Check Out
 ---------
 
@@ -377,8 +324,6 @@ Check Out
 |document||yes||
 |documentId||yes||
 
-
-
 Cancel Check Out
 ----------------
 
@@ -387,8 +332,6 @@ Cancel Check Out
 |config-ref|Specify which configuration to use for this invocation|yes||
 |document||yes||
 |documentId||yes||
-
-
 
 Check In
 --------
@@ -405,8 +348,6 @@ Check In
 |checkinComment||no||
 |properties||yes||
 
-
-
 Apply Acl
 ---------
 
@@ -419,8 +360,6 @@ Apply Acl
 |removeAces||no||
 |aclPropagation||no||
 
-
-
 Get Applied Policies
 --------------------
 
@@ -429,8 +368,6 @@ Get Applied Policies
 |config-ref|Specify which configuration to use for this invocation|yes||
 |cmisObject||yes||
 |objectId||yes||
-
-
 
 Apply Policy
 ------------
@@ -442,8 +379,6 @@ Apply Policy
 |objectId||yes||
 |policyIds||no||
 
-
-
 Delete
 ------
 
@@ -453,8 +388,6 @@ Delete
 |cmisObject||yes||
 |objectId||yes||
 |allVersions||yes|false|
-
-
 
 Delete Tree
 -----------
@@ -467,20 +400,6 @@ Delete Tree
 |allversions||no||
 |unfile||yes||
 |continueOnFailure||no||
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
