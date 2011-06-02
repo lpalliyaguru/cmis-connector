@@ -255,7 +255,7 @@
         <repository>
             <id>muleforge-repo</id>
             <name>MuleForge Repository</name>
-            <url>http://repository.muleforge.org/release</url>
+            <url>http://repository.mulesoft.org/releases</url>
             <layout>default</layout>
         </repository>
 
@@ -282,7 +282,7 @@
         <pluginRepository>
             <id>mulesoft-muleforge-releases</id>
             <name>Mulesoft Muleforge Repository</name>
-            <url>http://repository.muleforge.org/release</url>
+            <url>http://repository.mulesoft.org/releases</url>
             <releases><enabled>true</enabled></releases>
             <snapshots><enabled>false</enabled></snapshots>
         </pluginRepository>
