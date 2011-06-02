@@ -36,6 +36,7 @@ import org.mule.tools.cloudconnect.annotations.Operation;
 public interface CMISFacade
 {
 
+    /** @return all repositories that are available at the endpoint. */
     List<Repository> repositories();
     
     /**
@@ -134,6 +135,8 @@ public interface CMISFacade
     /**
      * Returns the type definition of the given type id.
      * 
+     * {@code <cmis:get-type-definition typeId="12345" />}
+     * 
      * @param typeId Object type Id
      * @return type of object
      */
@@ -142,6 +145,8 @@ public interface CMISFacade
     
     /**
      * Retrieve list of checked out documents.
+     * 
+     * {@code <cmis:get-checkout-docs />}
      * 
      * @param filter comma-separated list of properties to filter
      * @param orderBy comma-separated list of query names and the ascending modifier 
@@ -152,19 +157,29 @@ public interface CMISFacade
     
     /**
      * Sends a query to the repository
+     * 
+     * {@code <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" />}
+     * 
      * @param statement the query statement (CMIS query language)
      * @param searchAllVersions specifies if the latest and non-latest versions 
      *                          of document objects should be included
      * @param filter comma-separated list of properties to filter
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name
-     * @return
+     * @return an iterable of {@link QueryResult}
      */
     ItemIterable<QueryResult> query(final String statement, final Boolean searchAllVersions, 
                                     final String filter, final String orderBy);
     
     /**
      * Retrieves the parent folders of a fileable cmis object
+     * 
+     * {@code 
+     *    <cmis:get-parent-folders objectId="workspace://SpacesStore/ae87c116-be51-43df-8f79-f8859fb5bb20" />
+     *    or
+     *    <cmis:get-parent-folders cmisObject="#[payload]" />
+     * }
+     * 
      * @param cmisObject the object whose parent folders are needed. can be null if "objectId" is set. 
      * @param objectId id of the object whose parent folders are needed. can be null if "object" is set.
      * @return a list of the object's parent folders.
@@ -173,6 +188,17 @@ public interface CMISFacade
     
     /**
      * Navigates the folder structure.
+     * 
+     * {@code <cmis:get-object-by-path path="/mule-cloud-connector" />
+     *  <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
+     *  
+     *  or 
+     *  
+     *  <cmis:get-object-by-path path="/mule-cloud-connector" />
+     *  <cmis:folder get="DESCENDANTS" folderId="#[payload:id]"/>
+     *  
+     *  }
+     * 
      * @param folder Folder Object. Can be null if "folderId" is set. 
      * @param folderId Folder Object id. Can be null if "folder" is set.
      * @param get NavigationOptions that specifies whether to get the parent folder,
@@ -183,31 +209,43 @@ public interface CMISFacade
      * @param orderBy comma-separated list of query names and the ascending modifier 
      *      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
      * @return the following, depending on the value of "get" parameter:
-     *          * PARENT: returns the parent Folder
-     *          * CHILDREN: returns a CmisObject ItemIterable with
-     *                         objects contained in the current folder
-     *          * DESCENDANTS: List<Tree<FileableCmisObject>> representing
-     *                         the whole descentants tree of the current folder
-     *          * TREE: List<Tree<FileableCmisObject>> representing the 
-     *                         directory structure under the current folder.                           
+     *  <ul>
+     *          <li>PARENT: returns the parent Folder</li>
+     *          <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
+     *          <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
+     *                         the whole descentants tree of the current folder</li>
+     *          <li>TREE: List<Tree<FileableCmisObject>> representing the 
+     *                         directory structure under the current folder.
+     *                         </li>
+     * </ul>                           
      */
     Object folder(final Folder folder, final String folderId, final NavigationOptions get,
                   final Integer depth, final String filter, final String orderBy);
 
     /**
      * Retrieves the content stream of a Document.
+     * 
+     * {@code <cmis:get-content-stream cmisObject="#[variable:document]" /> }
+     * 
      * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
      * @return The content stream of the document.
      */
     ContentStream getContentStream(final CmisObject cmisObject, final String objectId);
+    
     /**
-     * Moves a fileable cmis object from one location to another.
+     * Moves a fileable cmis object from one location to another. Take into account that a fileable
+     * object may be filled in several locations. Thats why you must specify a source folder.
+     * 
+     * {@code <cmis:move-object sourceFolderId="1111" 
+     *   targetFolderId="workspace://SpacesStore/2437b2ff-8804-4426-a268-fcfb3ef34ffc" 
+     *         objectId="workspace://SpacesStore/ae87c116-be51-43df-8f79-f8859fb5bb20" />}
+     *                        
      * @param cmisObject The object to move. Can be null if "objectId" is set.
      * @param objectId The object's id. Can be null if "cmisObject" is set.
      * @param sourceFolderId Id of the source folder
      * @param targetFolderId Id of the target folder
-     * @return The object moved
+     * @return The object moved (FileableCmisObject)
      */
     FileableCmisObject moveObject(final FileableCmisObject cmisObject,
                             final String objectId,
@@ -216,6 +254,13 @@ public interface CMISFacade
     
     /**
      * Update an object's properties
+     * 
+     * {@code <cmis:update-object-properties objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28">
+     *       <cmis:properties>
+     *           <cmis:property key="propkey" value="propValue"/>
+     *       </cmis:properties>
+     *   </cmis:update-object-properties>}
+     * 
      * @param cmisObject Object to be updated. Can be null if "objectId" is set.
      * @param objectId The object's id. Can be null if "cmisObject" is set.
      * @param properties The properties to update
@@ -227,6 +272,9 @@ public interface CMISFacade
 
     /**
      * Remove an object
+     * 
+     * {@code <cmis:delete object="#[payload]" allVersions="true" />}
+     * 
      * @param cmisObject The object to be deleted. Can be null if "objectId" is set.
      * @param objectId The object's id. Can be null if "cmisObject" is set.
      * @param allVersions If true, deletes all version history of the object. Defaults to "false".
@@ -251,6 +299,9 @@ public interface CMISFacade
     
     /**
      * Returns the relationships if they have been fetched for an object.
+     * 
+     * {@code <cmis:get-object-relationships objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28" />}
+     * 
      * @param cmisObject the object whose relationships are needed
      * @return list of the object's relationships
      */
@@ -258,6 +309,9 @@ public interface CMISFacade
     
     /**
      * Returns the ACL if it has been fetched for an object.
+     * 
+     * {<cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"  />}
+     * 
      * @param cmisObject the object whose Acl is needed
      * @return the object's Acl
      */
@@ -265,13 +319,17 @@ public interface CMISFacade
     
     /**
      * Set the permissions associated with an object.
+     * 
+     * {@code <cmis:get-acl objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28" />}
+     * 
      * @param cmisObject the object whose Acl is intended to change.
      * @param addAces added access control entities
      * @param removeAces removed access control entities
-     * @param aclPropagation wheter to propagate changes or not. can be
-     *          (a) REPOSITORYDETERMINED
-     *          (b) OBJECTONLY
-     *          (c) PROPAGATE
+     * @param aclPropagation wheter to propagate changes or not. can be <ul>
+     *          <li>(a) REPOSITORYDETERMINED</li>
+     *          <li>(b) OBJECTONLY</li>
+     *          <li>(c) PROPAGATE</li>
+     *          </ul>
      * @return the new access control list
      */
     Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
@@ -279,6 +337,9 @@ public interface CMISFacade
     
     /**
      * Retrieve an object's version history
+     * 
+     * {@code <cmis:get-all-versions document="#[payload]" />}
+     * 
      * @param document the document whose versions are to be retrieved
      * @param objectId Id of the document whose versions are to be retrieved
      * @param filter comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)
@@ -292,6 +353,9 @@ public interface CMISFacade
 
     /**
      * Checks out the document and returns the object id of the PWC (private working copy).
+     * 
+     * {@code <cmis:check-out documentId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28" />}
+     * 
      * @param document The document to be checked out. Can be null if "documentId" is set.
      * @param objectId Id of the document to be checked out. Can be null if "document" is set.
      * @return PWC ObjectId
@@ -301,6 +365,9 @@ public interface CMISFacade
     /**
      * If applied to a PWC (private working copy) of the document, the check out
      * will be reversed. Otherwise, an exception will be thrown.
+     * 
+     * {@code <cmis:cancel-check-out documentId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28" />}
+     * 
      * @param document The checked out document. Can be null if "documentId" is set.
      * @param objectId Id of the checked out document. Can be null if "document" is set.
      */
@@ -309,6 +376,11 @@ public interface CMISFacade
     /**
      * If applied to a PWC (private working copy) it performs a check in.
      * Otherwise, an exception will be thrown.
+     * 
+     * {@code <cmis:check-in content="modified content" filename="#[payload:name]"
+     *                   checkinComment="change on file" major="true"
+     *                  mimeType="application/octet-stream;charset=UTF-8" />}
+     * 
      * @param document The document to check-in. Can be null if "documentId" is set.
      * @param documentId Id of the document to check-in. Can be null if "document" is set.
      * @param content           File content (no byte array or input stream for now)
@@ -316,8 +388,8 @@ public interface CMISFacade
      * @param mimeType          Stream content-type
      * @param major
      * @param checkinComment Check-in comment
-     * @param properties TODO
-     * @return
+     * @param properties custom properties
+     * @return the {@link ObjectId} of the checkedin document
      */
     ObjectId checkIn(final CmisObject document, final String documentId,
                      final Object content, final String filename, 
@@ -325,6 +397,9 @@ public interface CMISFacade
     
     /**
      * Get the policies that are applied to an object.
+     * 
+     * {@code <cmis:get-applied-policies objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"/>}
+     * 
      * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
      * @return List of applied policies
@@ -333,6 +408,7 @@ public interface CMISFacade
 
     /**
      * Applies policies to this object.
+     * 
      * @param cmisObject The document from which to get the stream. Can be null if "objectId" is set. 
      * @param objectId Id of the document from which to get the stream. Can be null if "object" is set.
      * @param policyIds Policy ID's to apply
