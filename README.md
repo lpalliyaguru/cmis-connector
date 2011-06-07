@@ -1,7 +1,7 @@
 Mule CMIS Cloud Connector
 =========================
 
-The CMIS Connector provides an easy to integrate with CMS Repositories that have a CMIS Endpoint activated, such Alfresco.
+The CMIS Connector provides connectivity to CMIS repositories, such as Alfresco or Sharepoint.
 
 Installation
 ------------
