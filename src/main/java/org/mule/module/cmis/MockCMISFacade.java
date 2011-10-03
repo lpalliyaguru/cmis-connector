@@ -10,10 +10,6 @@
 
 package org.mule.module.cmis;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -33,6 +29,10 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.commons.lang.NotImplementedException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Mock {@link CMISFacade} useful for testing offline flows.
@@ -111,7 +111,7 @@ public class MockCMISFacade implements CMISFacade
                                          final Object content,
                                          final String mimeType,
                                          final VersioningState versioningState,
-                                         final String objectType, Map<String, Object> properties, boolean force)
+                                         final String objectType, Map<String, String> properties, boolean force)
     {
         throw new NotImplementedException();
     }
@@ -121,7 +121,7 @@ public class MockCMISFacade implements CMISFacade
                                        final Object content,
                                        final String mimeType,
                                        final VersioningState versioningState,
-                                       final String objectType, Map<String, Object> properties)
+                                       final String objectType, Map<String, String> properties)
     {
         throw new NotImplementedException();
     }
@@ -175,7 +175,7 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
 
-    public CmisObject updateObjectProperties(CmisObject object, String objectId, Map<String, Object> properties)
+    public CmisObject updateObjectProperties(CmisObject object, String objectId, Map<String, String> properties)
     {
         throw new NotImplementedException();
     }

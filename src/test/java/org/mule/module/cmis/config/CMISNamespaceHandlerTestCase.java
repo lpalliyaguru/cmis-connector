@@ -10,16 +10,15 @@
 
 package org.mule.module.cmis.config;
 
+import org.apache.commons.io.IOUtils;
 import org.mule.api.MuleEvent;
-import org.mule.construct.SimpleFlowConstruct;
+import org.mule.construct.Flow;
 import org.mule.tck.FunctionalTestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
 
 public class CMISNamespaceHandlerTestCase extends FunctionalTestCase
 {
@@ -36,7 +35,7 @@ public class CMISNamespaceHandlerTestCase extends FunctionalTestCase
     }
     public void ignoretestCreateDocumentFlow()throws Exception
     {
-        final SimpleFlowConstruct flow = lookupFlowConstruct("createDocumentFlow");
+        final Flow flow = lookupFlowConstruct("createDocumentFlow");
         final Map<String, Object>map = new HashMap<String, Object>();
         map.put("content", new ByteArrayInputStream("hola!".getBytes()));
         final MuleEvent event = getTestEvent(map);
@@ -46,8 +45,8 @@ public class CMISNamespaceHandlerTestCase extends FunctionalTestCase
         assertEquals("hola!", s);
     }
 
-    private SimpleFlowConstruct lookupFlowConstruct(String name)
+    private Flow lookupFlowConstruct(String name)
     {
-        return (SimpleFlowConstruct) muleContext.getRegistry().lookupFlowConstruct(name);
+        return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }

@@ -10,15 +10,6 @@
 
 package org.mule.module.cmis;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.chemistry.opencmis.client.api.ChangeEvent;
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -52,9 +43,17 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExists
 import org.apache.chemistry.opencmis.commons.exceptions.CmisInvalidArgumentException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
@@ -147,7 +146,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                              final String mimeType,
                                              final org.mule.module.cmis.VersioningState versioningState,
                                              final String objectType, 
-                                             final Map<String, Object> properties)
+                                             final Map<String, String> properties)
     {
         Validate.notEmpty(objectId, "objectId is empty");
         
@@ -162,7 +161,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                          final String mimeType,
                                          final org.mule.module.cmis.VersioningState versioningState,
                                          final String objectType,
-                                         final Map<String, Object> properties,
+                                         final Map<String, String> properties,
                                          boolean force)
     {
         Validate.notEmpty(folderPath, "folderPath is empty");
@@ -213,7 +212,7 @@ public class ChemistryCMISFacade implements CMISFacade
                                    final String mimeType,
                                    final org.mule.module.cmis.VersioningState versioningState,
                                    final String objectType, 
-                                   final Map<String, Object> extraProperties)
+                                   final Map<String, String> extraProperties)
     {
         Validate.notNull(folder,    "folder is null");
         Validate.notEmpty(filename, "filename is empty");
@@ -419,7 +418,7 @@ public class ChemistryCMISFacade implements CMISFacade
 
     public CmisObject updateObjectProperties(final CmisObject cmisObject,
                                              final String objectId, 
-                                             final Map<String, Object> properties)
+                                             final Map<String, String> properties)
     {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
