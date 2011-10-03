@@ -40,7 +40,7 @@ import org.mule.api.lifecycle.InitialisationException;
 import java.util.List;
 import java.util.Map;
 
-@Module(name = "cmis")
+@Module(name = "cmis", version = "1.1")
 public class CMISCloudConnector implements CMISFacade
 {
     /**
