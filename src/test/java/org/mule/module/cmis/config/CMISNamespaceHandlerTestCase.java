@@ -20,23 +20,20 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CMISNamespaceHandlerTestCase extends FunctionalTestCase
-{
+public class CMISNamespaceHandlerTestCase extends FunctionalTestCase {
+
     @Override
-    protected String getConfigResources()
-    {
+    protected String getConfigResources() {
         return "cmis-namespace-config.xml";
     }
 
-    
-    public void testEmpty() 
-    {
-        
+    public void testEmpty() {
+
     }
-    public void ignoretestCreateDocumentFlow()throws Exception
-    {
+
+    public void ignoretestCreateDocumentFlow() throws Exception {
         final Flow flow = lookupFlowConstruct("createDocumentFlow");
-        final Map<String, Object>map = new HashMap<String, Object>();
+        final Map<String, Object> map = new HashMap<String, Object>();
         map.put("content", new ByteArrayInputStream("hola!".getBytes()));
         final MuleEvent event = getTestEvent(map);
         final MuleEvent responseEvent = flow.process(event);
@@ -45,8 +42,7 @@ public class CMISNamespaceHandlerTestCase extends FunctionalTestCase
         assertEquals("hola!", s);
     }
 
-    private Flow lookupFlowConstruct(String name)
-    {
+    private Flow lookupFlowConstruct(String name) {
         return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }

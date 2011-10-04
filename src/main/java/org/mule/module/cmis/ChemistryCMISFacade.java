@@ -58,50 +58,43 @@ import java.util.Map;
 /**
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
  */
-public class ChemistryCMISFacade implements CMISFacade
-{
-    private final Session session;
-    private final Map<String, String> connectionParameters;
-    
-    public ChemistryCMISFacade(final String username,
-                               final String password,
-                               final String repositoryId,
-                               final String baseURL,
-                               final boolean useAtomPub)
-    {
+public class ChemistryCMISFacade implements CMISFacade {
+
+    private Session session;
+    private Map<String, String> connectionParameters;
+
+    public ChemistryCMISFacade(String username,
+                               String password,
+                               String repositoryId,
+                               String baseURL,
+                               boolean useAtomPub) {
         this.connectionParameters = paramMap(username, password, repositoryId, baseURL, useAtomPub);
         this.session = createSession(connectionParameters);
     }
 
-    public List<Repository> repositories()
-    {
+    public List<Repository> repositories() {
         return SessionFactoryImpl.newInstance().getRepositories(connectionParameters);
     }
-    
-    public RepositoryInfo repositoryInfo()
-    {
+
+    public RepositoryInfo repositoryInfo() {
         return session.getRepositoryInfo();
     }
 
-    public ChangeEvents changelog(final String changeLogToken, final boolean includeProperties)
-    {
+    public ChangeEvents changelog(String changeLogToken, boolean includeProperties) {
         boolean hasMore = false;
         String token = changeLogToken;
 
-        final List<ChangeEvent> changeEvents = new ArrayList<ChangeEvent>();
+        List<ChangeEvent> changeEvents = new ArrayList<ChangeEvent>();
         long totalNumItems = 0;
         // follow the pages
-        do
-        {
-            final ChangeEvents events = session.getContentChanges(token, includeProperties, 50);
+        do {
+            ChangeEvents events = session.getContentChanges(token, includeProperties, 50);
             totalNumItems += events.getTotalNumItems();
 
             changeEvents.addAll(events.getChangeEvents());
-            if (events.getHasMoreItems())
-            {
-                final String t = events.getLatestChangeLogToken();
-                if (t != null && !t.equals(token))
-                {
+            if (events.getHasMoreItems()) {
+                String t = events.getLatestChangeLogToken();
+                if (t != null && !t.equals(token)) {
                     hasMore = true;
                     token = t;
                 }
@@ -112,568 +105,472 @@ public class ChemistryCMISFacade implements CMISFacade
         return new ChangeEventsImpl(token, changeEvents, false, totalNumItems);
     }
 
-    public CmisObject getObjectById(final String objectId)
-    {
-        try
-        {
+    public CmisObject getObjectById(String objectId) {
+        try {
             return session.getObject(session.createObjectId(objectId), createOperationContext(null, null));
-        }
-        catch (final CmisObjectNotFoundException e)
-        {
+        } catch (CmisObjectNotFoundException e) {
             return null;
         }
     }
 
-    public CmisObject getObjectByPath(final String path)
-    {
-        try
-        {
+    public CmisObject getObjectByPath(String path) {
+        try {
             return session.getObjectByPath(path, createOperationContext(null, null));
-        }
-        catch (final CmisObjectNotFoundException e)
-        {
+        } catch (CmisObjectNotFoundException e) {
             return null;
-        }
-        catch (final CmisInvalidArgumentException e) 
-        {
+        } catch (CmisInvalidArgumentException e) {
             return null;
         }
     }
 
-    public ObjectId createDocumentById(final String objectId,
-                                             final String filename,
-                                             final Object content,
-                                             final String mimeType,
-                                             final org.mule.module.cmis.VersioningState versioningState,
-                                             final String objectType, 
-                                             final Map<String, String> properties)
-    {
+    public ObjectId createDocumentById(String objectId,
+                                       String filename,
+                                       Object content,
+                                       String mimeType,
+                                       org.mule.module.cmis.VersioningState versioningState,
+                                       String objectType,
+                                       Map<String, String> properties) {
         Validate.notEmpty(objectId, "objectId is empty");
-        
+
         return createDocument(
-            session.getObject(session.createObjectId(objectId)), 
-            filename, content, mimeType, versioningState, objectType, properties);
+                session.getObject(session.createObjectId(objectId)),
+                filename, content, mimeType, versioningState, objectType, properties);
     }
 
-    public ObjectId createDocumentByPath(final String folderPath,
-                                         final String filename,
-                                         final Object content,
-                                         final String mimeType,
-                                         final org.mule.module.cmis.VersioningState versioningState,
-                                         final String objectType,
-                                         final Map<String, String> properties,
-                                         boolean force)
-    {
+    public ObjectId createDocumentByPath(String folderPath,
+                                         String filename,
+                                         Object content,
+                                         String mimeType,
+                                         org.mule.module.cmis.VersioningState versioningState,
+                                         String objectType,
+                                         Map<String, String> properties,
+                                         boolean force) {
         Validate.notEmpty(folderPath, "folderPath is empty");
         return createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
-            filename, content, mimeType, versioningState, objectType, properties);
+                filename, content, mimeType, versioningState, objectType, properties);
     }
 
-    private CmisObject getOrCreateFolderByPath(final String folderPath)
-    {
-        try
-        {
+    private CmisObject getOrCreateFolderByPath(String folderPath) {
+        try {
             return session.getObjectByPath(folderPath);
-        }
-        catch (CmisObjectNotFoundException e)
-        {
+        } catch (CmisObjectNotFoundException e) {
             return createFolderStructure(folderPath);
         }
     }
 
     /**
      * For each folder in the given folder path, creates it if necessary.
-     * Notice: this implementation checks that the folder exists, and if not creates it. 
-     * This is not efficient, it would be better to try to just try to create it 
-     * and catch {@link CmisContentAlreadyExistsException}, but currently that exception 
-     * is not being thrown - it seems like a server's bug 
+     * Notice: this implementation checks that the folder exists, and if not creates it.
+     * This is not efficient, it would be better to try to just try to create it
+     * and catch {@link CmisContentAlreadyExistsException}, but currently that exception
+     * is not being thrown - it seems like a server's bug
      */
-    private CmisObject createFolderStructure(final String folderPath)
-    {
-        final String[] folderNames = StringUtils.split(folderPath, "/");
+    private CmisObject createFolderStructure(String folderPath) {
+        String[] folderNames = StringUtils.split(folderPath, "/");
         String currentObjectId = getObjectByPath("/").getId();
         String currentPath = "/";
-        for (String folder : folderNames)
-        {
-            currentPath = currentPath + folder + "/"; 
+        for (String folder : folderNames) {
+            currentPath = currentPath + folder + "/";
             CmisObject currentObject = getObjectByPath(currentPath);
-            currentObjectId = currentObject != null 
-                ? currentObject.getId() 
-                : createFolder(folder, currentObjectId).getId();
+            currentObjectId = currentObject != null
+                    ? currentObject.getId()
+                    : createFolder(folder, currentObjectId).getId();
         }
         return getObjectById(currentObjectId);
     }
 
-    /** create a document */
+    /**
+     * create a document
+     */
     protected ObjectId createDocument(
-                                   final CmisObject folder,
-                                   final String filename,
-                                   final Object content,
-                                   final String mimeType,
-                                   final org.mule.module.cmis.VersioningState versioningState,
-                                   final String objectType, 
-                                   final Map<String, String> extraProperties)
-    {
-        Validate.notNull(folder,    "folder is null");
+            CmisObject folder,
+            String filename,
+            Object content,
+            String mimeType,
+            org.mule.module.cmis.VersioningState versioningState,
+            String objectType,
+            Map<String, String> extraProperties) {
+        Validate.notNull(folder, "folder is null");
         Validate.notEmpty(filename, "filename is empty");
-        Validate.notNull(content,   "content is null");
+        Validate.notNull(content, "content is null");
         Validate.notEmpty(mimeType, "did you mean application/octet-stream?");
         Validate.notNull(versioningState, "versionState is null");
-        VersioningState vs = null; 
-        try
-        {
+        VersioningState vs = null;
+        try {
             vs = VersioningState.valueOf(versioningState.name());
-        }
-        catch (final IllegalArgumentException e) 
-        {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(String.format(
-                "Illegal value for versioningState. Given `%s' could be: ",
-                versioningState, Arrays.toString(VersioningState.values())), e);
+                    "Illegal value for versioningState. Given `%s' could be: ",
+                    versioningState, Arrays.toString(VersioningState.values())), e);
         }
-        
-        final Map<String, Object> properties = new HashMap<String, Object>();
+
+        Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.OBJECT_TYPE_ID, objectType);
         properties.put(PropertyIds.NAME, filename);
-        if (extraProperties != null)
-        {
+        if (extraProperties != null) {
             properties.putAll(extraProperties);
         }
-        return session.createDocument(properties, 
+        return session.createDocument(properties,
                 session.createObjectId(folder.getId()),
-                createContentStream(filename, mimeType, content), vs);   
+                createContentStream(filename, mimeType, content), vs);
     }
-    
-    public static ContentStream createContentStream(final String filename,
-                                                    final String mimeType,
-                                                    final Object content)
-    {
-        final ContentStreamImpl ret;
 
-        if (content instanceof String)
-        {
+    public static ContentStream createContentStream(String filename,
+                                                    String mimeType,
+                                                    Object content) {
+        ContentStreamImpl ret;
+
+        if (content instanceof String) {
             ret = new ContentStreamImpl(filename, mimeType, (String) content);
-        }
-        else
-        {
+        } else {
             ret = new ContentStreamImpl();
             ret.setFileName(filename);
             ret.setMimeType(mimeType);
-            if (content instanceof InputStream)
-            {
+            if (content instanceof InputStream) {
                 ret.setStream((InputStream) content);
-            }
-            else if (content instanceof byte[])
-            {
+            } else if (content instanceof byte[]) {
                 ret.setStream(new ByteArrayInputStream((byte[]) content));
-            }
-            else
-            {
+            } else {
                 throw new IllegalArgumentException("Don't know how to handle content of type"
-                                                   + content.getClass());
+                        + content.getClass());
             }
         }
 
         return ret;
     }
 
-    public ObjectId createFolder(final String folderName, final String parentObjectId)
-    {
-        final Map<String, Object> properties = new HashMap<String, Object>();
+    public ObjectId createFolder(String folderName, String parentObjectId) {
+        Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.NAME, folderName);
-        properties.put(PropertyIds.OBJECT_TYPE_ID,   "cmis:folder");
-        try 
-        {
+        properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
+        try {
             return session.createFolder(properties, session.getObject(
-                session.createObjectId(parentObjectId)));
-        }
-        catch (final CmisContentAlreadyExistsException e)
-        {
-            final CmisObject object = session.getObject(session.createObjectId(parentObjectId));
-            if (!(object instanceof Folder)) 
-            {
+                    session.createObjectId(parentObjectId)));
+        } catch (CmisContentAlreadyExistsException e) {
+            CmisObject object = session.getObject(session.createObjectId(parentObjectId));
+            if (!(object instanceof Folder)) {
                 throw new IllegalArgumentException(parentObjectId + " is not a folder");
             }
-            final Folder folder = (Folder) object;
-            for (final CmisObject o : folder.getChildren())
-            {
-                if (o.getName().equals(folderName)) 
-                {
+            Folder folder = (Folder) object;
+            for (CmisObject o : folder.getChildren()) {
+                if (o.getName().equals(folderName)) {
                     return session.createObjectId(o.getId());
                 }
             }
-            
+
             return null;
         }
     }
 
-    public ObjectType getTypeDefinition(final String typeId) 
-    {
+    public ObjectType getTypeDefinition(String typeId) {
         Validate.notEmpty(typeId, "typeId is empty");
         return session.getTypeDefinition(typeId);
     }
-    
-    public ItemIterable<Document> getCheckoutDocs(final String filter, 
-                                                  final String orderBy) 
-    {
+
+    public ItemIterable<Document> getCheckoutDocs(String filter,
+                                                  String orderBy) {
         return session.getCheckedOutDocs(createOperationContext(filter, orderBy));
     }
-    
-    public ItemIterable<QueryResult> query(final String statement,
-            final Boolean searchAllVersions, final String filter,
-            final String orderBy) 
-    {
+
+    public ItemIterable<QueryResult> query(String statement,
+                                           Boolean searchAllVersions, String filter,
+                                           String orderBy) {
         Validate.notEmpty(statement, "statement is empty");
         Validate.notNull(searchAllVersions, "searchAllVersions is empty");
-        
-        final OperationContext ctx = createOperationContext(filter, orderBy);
+
+        OperationContext ctx = createOperationContext(filter, orderBy);
         return session.query(statement, searchAllVersions, ctx);
     }
-   
-    public List<Folder> getParentFolders(final CmisObject cmisObject, final String objectId) 
-    {
+
+    public List<Folder> getParentFolders(CmisObject cmisObject, String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        
-        if (target != null  && target instanceof FileableCmisObject) 
-        {
+        CmisObject target = getCmisObject(cmisObject, objectId);
+
+        if (target != null && target instanceof FileableCmisObject) {
             return ((FileableCmisObject) target).getParents();
         }
         return null;
     }
 
-    public Object folder(final Folder folder, final String folderId,
-                         final NavigationOptions get, final Integer depth,
-                         final String filter, final String orderBy)
-    {
+    public Object folder(Folder folder, String folderId,
+                         NavigationOptions get, Integer depth,
+                         String filter, String orderBy) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
-        
-        final Folder target = getCmisObject(folder, folderId, Folder.class);
+
+        Folder target = getCmisObject(folder, folderId, Folder.class);
         Object ret = null;
 
-        if (target != null)
-        {
-            if (get.equals(NavigationOptions.DESCENDANTS) || get.equals(NavigationOptions.TREE))
-            {
+        if (target != null) {
+            if (get.equals(NavigationOptions.DESCENDANTS) || get.equals(NavigationOptions.TREE)) {
                 Validate.notNull(depth, "depth is null");
             }
-            
-            if (get.equals(NavigationOptions.PARENT))
-            {
+
+            if (get.equals(NavigationOptions.PARENT)) {
                 ret = target.getFolderParent();
-            }
-            else
-            {
-                final OperationContext ctx = createOperationContext(filter, orderBy);
-                if (get.equals(NavigationOptions.CHILDREN))
-                {
+            } else {
+                OperationContext ctx = createOperationContext(filter, orderBy);
+                if (get.equals(NavigationOptions.CHILDREN)) {
                     ret = target.getChildren(ctx);
-                }
-                else if (get.equals(NavigationOptions.DESCENDANTS))
-                {
+                } else if (get.equals(NavigationOptions.DESCENDANTS)) {
                     ret = target.getDescendants(depth, ctx);
-                }
-                else if (get.equals(NavigationOptions.TREE))
-                {
+                } else if (get.equals(NavigationOptions.TREE)) {
                     ret = target.getFolderTree(depth, ctx);
                 }
             }
         }
-        
+
         return ret;
     }
-    
-    public ContentStream getContentStream(final CmisObject cmisObject, final String objectId)
-    {
+
+    public ContentStream getContentStream(CmisObject cmisObject, String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        
-        if (target != null && target instanceof Document) 
-        {
+
+        CmisObject target = getCmisObject(cmisObject, objectId);
+
+        if (target != null && target instanceof Document) {
             return ((Document) target).getContentStream();
         }
         return null;
     }
 
-    public FileableCmisObject moveObject(final FileableCmisObject cmisObject,
-                                   final String objectId,
-                                   final String sourceFolderId,
-                                   final String targetFolderId)
-    {
+    public FileableCmisObject moveObject(FileableCmisObject cmisObject,
+                                         String objectId,
+                                         String sourceFolderId,
+                                         String targetFolderId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         Validate.notEmpty(sourceFolderId, "sourceFolderId is empty");
         Validate.notEmpty(targetFolderId, "targetFolderId is empty");
-        
-        final FileableCmisObject target = getCmisObject(cmisObject, objectId, FileableCmisObject.class);
-        if (target != null)
-        {
+
+        FileableCmisObject target = getCmisObject(cmisObject, objectId, FileableCmisObject.class);
+        if (target != null) {
             return target.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
         }
         return null;
     }
 
-    public CmisObject updateObjectProperties(final CmisObject cmisObject,
-                                             final String objectId, 
-                                             final Map<String, String> properties)
-    {
+    public CmisObject updateObjectProperties(CmisObject cmisObject,
+                                             String objectId,
+                                             Map<String, String> properties) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         Validate.notNull(properties, "properties is null");
-        
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             return target.updateProperties(properties);
         }
         return null;
     }
 
-    public void delete(CmisObject cmisObject, String objectId, boolean allVersions)
-    {
+    public void delete(CmisObject cmisObject, String objectId, boolean allVersions) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             target.delete(allVersions);
         }
     }
-    
+
     public List<String> deleteTree(CmisObject folder, String folderId,
-            boolean allversions, UnfileObject unfile, boolean continueOnFailure)
-    {
+                                   boolean allversions, UnfileObject unfile, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
-        final CmisObject target = getCmisObject(folder, folderId);
-        if (target != null && target instanceof Folder)
-        {
+        CmisObject target = getCmisObject(folder, folderId);
+        if (target != null && target instanceof Folder) {
             return ((Folder) target).deleteTree(allversions, unfile, continueOnFailure);
         }
         return null;
     }
-    
-    public List<Relationship> getObjectRelationships(final CmisObject cmisObject,
-                                                     final String objectId)
-    {
+
+    public List<Relationship> getObjectRelationships(CmisObject cmisObject,
+                                                     String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             return target.getRelationships();
         }
         return null;
     }
 
-    public Acl getAcl(final CmisObject cmisObject, final String objectId)
-    {
+    public Acl getAcl(CmisObject cmisObject, String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
-            return target.getAcl();        
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
+            return target.getAcl();
         }
         return null;
     }
 
-    public List<Document> getAllVersions(final CmisObject document, final String documentId,
-                                        final String filter,  final String orderBy)
-    {
+    public List<Document> getAllVersions(CmisObject document, String documentId,
+                                         String filter, String orderBy) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
-        final CmisObject target = getCmisObject(document, documentId);
-        
-        if (target instanceof Document)
-        {
-            final OperationContext ctx = createOperationContext(filter, orderBy);
+        CmisObject target = getCmisObject(document, documentId);
+
+        if (target instanceof Document) {
+            OperationContext ctx = createOperationContext(filter, orderBy);
             return ((Document) target).getAllVersions(ctx);
         }
         return null;
     }
-    
 
-    public ObjectId checkOut(final CmisObject document, final String documentId)
-    {
+
+    public ObjectId checkOut(CmisObject document, String documentId) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
-        final CmisObject target = getCmisObject(document, documentId);
-        
-        if (target != null  && target instanceof Document) 
-        {
+        CmisObject target = getCmisObject(document, documentId);
+
+        if (target != null && target instanceof Document) {
             return ((Document) target).checkOut();
         }
         return null;
     }
 
 
-    public void cancelCheckOut(final CmisObject document, final String documentId)
-    {
+    public void cancelCheckOut(CmisObject document, String documentId) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
-        final CmisObject target = getCmisObject(document, documentId);
-        if (target != null  && target instanceof Document) 
-        {
+        CmisObject target = getCmisObject(document, documentId);
+        if (target != null && target instanceof Document) {
             ((Document) target).cancelCheckOut();
         }
     }
 
-    public ObjectId checkIn(final CmisObject document, final String documentId,
-                            final Object content, final String filename, 
-                            final String mimeType, boolean major, 
-                            final String checkinComment,
-                            final Map<String, String> properties)
-    {
+    public ObjectId checkIn(CmisObject document, String documentId,
+                            Object content, String filename,
+                            String mimeType, boolean major,
+                            String checkinComment,
+                            Map<String, String> properties) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
         Validate.notEmpty(filename, "filename is empty");
-        Validate.notNull(content,   "content is null");
+        Validate.notNull(content, "content is null");
         Validate.notEmpty(mimeType, "did you mean application/octet-stream?");
         Validate.notEmpty(checkinComment, "checkinComment is empty");
-        
-        final CmisObject target = getCmisObject(document, documentId);
-        if (target != null && target instanceof Document)
-        {
-            final Document doc = (Document) target;
-            return doc.checkIn(major, coalesceProperties(properties) , 
-                               createContentStream(filename, mimeType, content),
-                               checkinComment);
+
+        CmisObject target = getCmisObject(document, documentId);
+        if (target != null && target instanceof Document) {
+            Document doc = (Document) target;
+            return doc.checkIn(major, coalesceProperties(properties),
+                    createContentStream(filename, mimeType, content),
+                    checkinComment);
         }
         return null;
     }
 
-    private Map<String, String> coalesceProperties(final Map<String, String> properties)
-    {
+    private Map<String, String> coalesceProperties(Map<String, String> properties) {
         return properties != null ? properties : Collections.<String, String>emptyMap();
     }
 
-    
-    public Acl applyAcl(final CmisObject cmisObject, final String objectId, final List<Ace> addAces, 
-                        final List<Ace> removeAces, final AclPropagation aclPropagation)
-    {
+
+    public Acl applyAcl(CmisObject cmisObject, String objectId, List<Ace> addAces,
+                        List<Ace> removeAces, AclPropagation aclPropagation) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             return target.applyAcl(addAces, removeAces, aclPropagation);
         }
         return null;
     }
-    
-    public List<Policy> getAppliedPolicies(final CmisObject cmisObject, final String objectId)
-    {
+
+    public List<Policy> getAppliedPolicies(CmisObject cmisObject, String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             return target.getPolicies();
         }
         return null;
     }
 
-    public void applyPolicy(final CmisObject cmisObject, final String objectId, List<ObjectId> policyIds)
-    {
+    public void applyPolicy(CmisObject cmisObject, String objectId, List<ObjectId> policyIds) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         Validate.notNull(policyIds);
-        final CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null)
-        {
+        CmisObject target = getCmisObject(cmisObject, objectId);
+        if (target != null) {
             target.applyPolicy(policyIds.toArray(new ObjectId[policyIds.size()]));
         }
     }
-    
-    
+
+
     /**
      * Validates that either a CmisObject or it's ID has been provided.
      */
-    private static void validateObjectOrId(final CmisObject object, final String objectId)
-    {
-        if (object == null && StringUtils.isBlank(objectId))
-        {
+    private static void validateObjectOrId(CmisObject object, String objectId) {
+        if (object == null && StringUtils.isBlank(objectId)) {
             throw new IllegalArgumentException("Both the cmis object and it's ID are not set");
         }
     }
-    
+
     /**
-     * Validates that and object's ID is the one provided, in case both are not null or blank.   
+     * Validates that and object's ID is the one provided, in case both are not null or blank.
      */
-    private static void validateRedundantIdentifier(final CmisObject object, final String objectId)
-    {
-        if (object != null && StringUtils.isNotBlank(objectId) && !object.getId().equals(objectId))
-        {
+    private static void validateRedundantIdentifier(CmisObject object, String objectId) {
+        if (object != null && StringUtils.isNotBlank(objectId) && !object.getId().equals(objectId)) {
             throw new IllegalArgumentException("The id provided does not match the object's ID");
         }
     }
-    
-    private CmisObject getCmisObject(final CmisObject object, final String objectId)
-    {
+
+    private CmisObject getCmisObject(CmisObject object, String objectId) {
         return getCmisObject(object, objectId, CmisObject.class);
     }
-    
+
     /**
      * Returns the object if it is not null. Otherwise, get the object by ID and
      * returns it if types match. Returns null if types don't match.
+     *
      * @return
      */
     @SuppressWarnings("unchecked")
-    private <T> T getCmisObject(final T object, final String objectId, final Class<T> clazz)
-    {
-        if (object != null)
-        {
+    private <T> T getCmisObject(T object, String objectId, Class<T> clazz) {
+        if (object != null) {
             return object;
-        }
-        else
-        {
-            final CmisObject obj = getObjectById(objectId);
-            if (clazz.isAssignableFrom(obj.getClass())) 
-            {
+        } else {
+            CmisObject obj = getObjectById(objectId);
+            if (clazz.isAssignableFrom(obj.getClass())) {
                 return (T) obj;
             }
             return null;
         }
     }
-    
-    
-    private static OperationContext createOperationContext(final String filter,
-                                                           final String orderBy) 
-    {
-        final OperationContext ctx = new OperationContextImpl();
+
+
+    private static OperationContext createOperationContext(String filter,
+                                                           String orderBy) {
+        OperationContext ctx = new OperationContextImpl();
         ctx.setIncludeAcls(true);
         ctx.setIncludePolicies(true);
-        if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy)) 
-        {
-            if (StringUtils.isNotBlank(filter))
-            {
+        if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy)) {
+            if (StringUtils.isNotBlank(filter)) {
                 ctx.setFilterString(filter);
             }
-            if (StringUtils.isNotBlank(orderBy))
-            {
+            if (StringUtils.isNotBlank(orderBy)) {
                 ctx.setOrderBy(orderBy);
             }
         }
         return ctx;
     }
-    
-    private static Map<String, String> paramMap(final String username,
-                                                final String password,
-                                                final String repositoryId,
-                                                final String baseURL,
-                                                final boolean useAtomPub)
-    {
+
+    private static Map<String, String> paramMap(String username,
+                                                String password,
+                                                String repositoryId,
+                                                String baseURL,
+                                                boolean useAtomPub) {
         Validate.notEmpty(username, "username is empty");
         Validate.notEmpty(password, "password is empty");
         Validate.notEmpty(repositoryId, "repository-id is empty");
         Validate.notEmpty(baseURL, "base-url is empty");
 
-        final Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<String, String>();
 
         // user credentials
         parameters.put(SessionParameter.USER, username);
@@ -681,8 +578,7 @@ public class ChemistryCMISFacade implements CMISFacade
 
         // connection settings... we prefer SOAP over ATOMPUB because some rare
         // behaviurs with the ChangeEvents.getLatestChangeLogToken().
-        if (!useAtomPub)
-        {
+        if (!useAtomPub) {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.WEBSERVICES.value());
             parameters.put(SessionParameter.WEBSERVICES_ACL_SERVICE, baseURL + "ACLService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_DISCOVERY_SERVICE, baseURL + "DiscoveryService?wsdl");
@@ -691,12 +587,10 @@ public class ChemistryCMISFacade implements CMISFacade
             parameters.put(SessionParameter.WEBSERVICES_OBJECT_SERVICE, baseURL + "ObjectService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_POLICY_SERVICE, baseURL + "PolicyService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_RELATIONSHIP_SERVICE, baseURL
-                                                                              + "RelationshipService?wsdl");
+                    + "RelationshipService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_REPOSITORY_SERVICE, baseURL + "RepositoryService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_VERSIONING_SERVICE, baseURL + "VersioningService?wsdl");
-        } 
-        else 
-        {
+        } else {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
             parameters.put(SessionParameter.ATOMPUB_URL, baseURL);
         }
@@ -709,11 +603,9 @@ public class ChemistryCMISFacade implements CMISFacade
 
         return parameters;
     }
-    
-    private static Session createSession(final Map<String, String> parameters)
-    {
+
+    private static Session createSession(Map<String, String> parameters) {
         Validate.notNull(parameters);
         return SessionFactoryImpl.newInstance().createSession(parameters);
     }
-
 }

@@ -10,16 +10,24 @@
 
 package org.mule.module.cmis;
 
-public enum NavigationOptions
-{
-    /** Returns the parent Folder */
+/**
+ * Enum holding all the possible navigation options
+ */
+public enum NavigationOptions {
+    /**
+     * Returns the parent Folder
+     */
     PARENT,
-    /** Returns a list of objects contained in the current folder */
+    /**
+     * Returns a list of objects contained in the current folder
+     */
     CHILDREN,
-    /** Returns the whole descentants tree of the current folder */
+    /**
+     * Returns the whole descentants tree of the current folder
+     */
     DESCENDANTS,
-    /** Returns the folder tree starting with this folder. */
+    /**
+     * Returns the folder tree starting with this folder.
+     */
     TREE;
 }
-
-

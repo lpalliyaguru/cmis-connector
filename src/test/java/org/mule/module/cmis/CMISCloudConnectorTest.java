@@ -10,47 +10,45 @@
 
 package org.mule.module.cmis;
 
-import static org.junit.Assert.*;
-import static org.mule.module.cmis.ChemistryCMISFacade.*;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.commons.io.IOUtils;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.chemistry.opencmis.commons.data.ContentStream;
-import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.mule.module.cmis.ChemistryCMISFacade.createContentStream;
 
-/** Test {@link ChemistryCMISFacade} internals */
-public class CMISCloudConnectorTest
-{
-    private final String filename = "foo.txt";
-    private final String mediaType = "plain/text";
-    private final String content = "hello world";
+/**
+ * Test {@link ChemistryCMISFacade} internals
+ */
+public class CMISCloudConnectorTest {
+
+    private static final String FILENAME = "foo.txt";
+    private static final String MEDIA_TYPE = "plain/text";
+    private static final String CONTENT = "hello world";
 
     @Test
-    public void createStringContent() throws Exception
-    {
-        assertContent(createContentStream(filename, mediaType, content));
+    public void createStringContent() throws Exception {
+        assertContent(createContentStream(FILENAME, MEDIA_TYPE, CONTENT));
     }
 
     @Test
-    public void createInputStreamContent() throws Exception
-    {
-        final InputStream is = new ByteArrayInputStream(content.getBytes());
-        assertContent(createContentStream(filename, mediaType, is));
+    public void createInputStreamContent() throws Exception {
+        InputStream is = new ByteArrayInputStream(CONTENT.getBytes());
+        assertContent(createContentStream(FILENAME, MEDIA_TYPE, is));
     }
 
     @Test
-    public void createByteArrayContent() throws Exception
-    {
-        assertContent(createContentStream(filename, mediaType, content.getBytes()));
+    public void createByteArrayContent() throws Exception {
+        assertContent(createContentStream(FILENAME, MEDIA_TYPE, CONTENT.getBytes()));
     }
-    
-    private void assertContent(final ContentStream content) throws IOException
-    {
-        assertEquals(filename, content.getFileName());
-        assertEquals(mediaType, content.getMimeType());
-        assertEquals(this.content, IOUtils.toString(content.getStream()));
+
+    private void assertContent(ContentStream content) throws IOException {
+        assertEquals(FILENAME, content.getFileName());
+        assertEquals(MEDIA_TYPE, content.getMimeType());
+        assertEquals(CONTENT, IOUtils.toString(content.getStream()));
     }
 }

@@ -10,8 +10,10 @@
 
 package org.mule.module.cmis;
 
-public enum VersioningState
-{
+/**
+ * Enum holding all the possible versioning states
+ */
+public enum VersioningState {
     /**
      * The document MUST be created as a non-versionable document.
      */
@@ -35,26 +37,11 @@ public enum VersioningState
 
     private final String value;
 
-    VersioningState(String v)
-    {
+    VersioningState(String v) {
         value = v;
     }
 
-    public String value()
-    {
+    public String value() {
         return value;
     }
-
-    public static VersioningState fromValue(String v)
-    {
-        for (VersioningState c : VersioningState.values())
-        {
-            if (c.value.equals(v))
-            {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
-
 }

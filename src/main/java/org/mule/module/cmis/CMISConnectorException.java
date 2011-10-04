@@ -16,7 +16,4 @@ public class CMISConnectorException extends RuntimeException {
     {
         super(cause);
     }
-    
 }
-
-
