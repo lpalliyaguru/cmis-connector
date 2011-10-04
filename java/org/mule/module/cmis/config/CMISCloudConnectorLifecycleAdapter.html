@@ -1151,7 +1151,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#delete(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean)">delete</a></span>(CmisObject cmisObject, String objectId, boolean allVersions)</nobr>
         
         <div class="jd-descrdiv">Remove an object
-
+ <p/>
  </div>
   
   </td></tr>
@@ -1225,7 +1225,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getAllVersions(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.String, java.lang.String)">getAllVersions</a></span>(CmisObject document, String documentId, String filter, String orderBy)</nobr>
         
         <div class="jd-descrdiv">Retrieve an object's version history
-
+ <p/>
  </div>
   
   </td></tr>
@@ -1401,7 +1401,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getParentFolders</a></span>(CmisObject cmisObject, String objectId)</nobr>
         
         <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object
-
+ <p/>
  </div>
   
   </td></tr>
@@ -1521,7 +1521,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#query(java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)">query</a></span>(String statement, Boolean searchAllVersions, String filter, String orderBy)</nobr>
         
         <div class="jd-descrdiv">Sends a query to the repository
-
+ <p/>
  </div>
   
   </td></tr>
@@ -1673,7 +1673,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#updateObjectProperties(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateObjectProperties</a></span>(CmisObject cmisObject, String objectId, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
         <div class="jd-descrdiv">Update an object's properties
-
+ <p/>
  </div>
   
   </td></tr>
@@ -2293,9 +2293,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#delete(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean)">delete</a></span>(CmisObject cmisObject, String objectId, boolean allVersions)</nobr>
         
-        <div class="jd-descrdiv">Remove an object
- 
- <code>&lt;cmis:delete object="#[payload]" allVersions="true" /&gt;</code></div>
+        <div class="jd-descrdiv">Remove an object</div>
   
   </td></tr>
 
@@ -2367,9 +2365,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#getAllVersions(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.String, java.lang.String)">getAllVersions</a></span>(CmisObject document, String documentId, String filter, String orderBy)</nobr>
         
-        <div class="jd-descrdiv">Retrieve an object's version history
- 
- <code>&lt;cmis:get-all-versions document="#[payload]" /&gt;</code></div>
+        <div class="jd-descrdiv">Retrieve an object's version history</div>
   
   </td></tr>
 
@@ -2495,12 +2491,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getParentFolders</a></span>(CmisObject cmisObject, String objectId)</nobr>
         
-        <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object
- 
- <code>&lt;cmis:get-parent-folders objectId="workspace://SpacesStore/ae87c116-be51-43df-8f79-f8859fb5bb20" /&gt;
-    or
-    &lt;cmis:get-parent-folders cmisObject="#[payload]" /&gt;
- </code></div>
+        <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object</div>
   
   </td></tr>
 
@@ -2554,9 +2545,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#query(java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)">query</a></span>(String statement, Boolean searchAllVersions, String filter, String orderBy)</nobr>
         
-        <div class="jd-descrdiv">Sends a query to the repository
- 
- <code>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</code></div>
+        <div class="jd-descrdiv">Sends a query to the repository</div>
   
   </td></tr>
 
@@ -2590,7 +2579,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#repositoryInfo()">repositoryInfo</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Returns information about the CMIS repository, the optional capabilities it supports and its 
+        <div class="jd-descrdiv">Returns information about the CMIS repository, the optional capabilities it supports and its
  Access Control information if applicable.</div>
   
   </td></tr>
@@ -2609,13 +2598,7 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#updateObjectProperties(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateObjectProperties</a></span>(CmisObject cmisObject, String objectId, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Update an object's properties
- 
- <code>&lt;cmis:update-object-properties objectId="workspace://SpacesStore/64b078f5-3024-403b-b133-fa87d0060f28"&gt;
-       &lt;cmis:properties&gt;
-           &lt;cmis:property key="propkey" value="propValue"/&gt;
-       &lt;/cmis:properties&gt;
-   &lt;/cmis:update-object-properties&gt;</code></div>
+        <div class="jd-descrdiv">Update an object's properties</div>
   
   </td></tr>
 
@@ -2797,10 +2780,6 @@ From interface
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
-        <tr>
-            <th>DefaultMuleException</td>
-            <td></td>
-        </tr>  
         <tr>
             <th>MuleException</td>
             <td></td>

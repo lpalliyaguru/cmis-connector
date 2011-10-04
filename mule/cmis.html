@@ -356,7 +356,7 @@ Summary:
         <span class="sympad"><a href="../mule/cmis.html#delete">&lt;cmis:delete&gt;</a></nobr>
         
         <div class="jd-descrdiv">Remove an object
-
+ <p/>
  <br/></div>
         
   </td></tr>
@@ -398,7 +398,7 @@ Summary:
         <span class="sympad"><a href="../mule/cmis.html#get-all-versions">&lt;cmis:get-all-versions&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieve an object's version history
-
+ <p/>
  <br/></div>
         
   </td></tr>
@@ -470,7 +470,7 @@ Summary:
         <span class="sympad"><a href="../mule/cmis.html#get-parent-folders">&lt;cmis:get-parent-folders&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object
-
+ <p/>
  <br/></div>
         
   </td></tr>
@@ -502,7 +502,7 @@ Summary:
         <span class="sympad"><a href="../mule/cmis.html#query">&lt;cmis:query&gt;</a></nobr>
         
         <div class="jd-descrdiv">Sends a query to the repository
-
+ <p/>
  <br/></div>
         
   </td></tr>
@@ -534,7 +534,7 @@ Summary:
         <span class="sympad"><a href="../mule/cmis.html#update-object-properties">&lt;cmis:update-object-properties&gt;</a></nobr>
         
         <div class="jd-descrdiv">Update an object's properties
-
+ <p/>
  <br/></div>
         
   </td></tr>
@@ -655,7 +655,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Set the permissions associated with an object.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-acl aclPropagation="OBJECTONLY"&gt;
     &lt;cmis:add-aces&gt;
         &lt;cmis:add-ace value-ref="addAce1Ref" /&gt;
@@ -691,7 +691,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
                 </tr>
                 
                 
@@ -775,7 +775,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Applies policies to this object.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy&gt;
     &lt;cmis:policy-ids&gt;
         &lt;cmis:policy-id value-ref="policyId1Ref" /&gt;
@@ -862,7 +862,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) of the document, the check out
  will be reversed. Otherwise, an exception will be thrown.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:cancel-check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -930,7 +930,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Gets repository changes.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:changelog changeLogToken="41784" includeProperties="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1005,7 +1005,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) it performs a check in.
  Otherwise, an exception will be thrown.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-in filename="#[payload:name]"
                 checkinComment="change on file" major="true"
                 mimeType="application/octet-stream;charset=UTF-8" /&gt;</pre></div></p></div>
@@ -1078,7 +1078,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>major</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"></td>
+                    <td class="jd-descrcol" width="100%">whether it is major<br/></td>
                 </tr>
                 
                 
@@ -1157,7 +1157,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Checks out the document and returns the object id of the PWC (private working copy).
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1229,7 +1229,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id filename="file"
     folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
@@ -1302,7 +1302,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"></td>
+                    <td class="jd-descrcol" width="100%">the type of the object<br/></td>
                 </tr>
                 
                 
@@ -1368,7 +1368,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path filename="file"
     folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
@@ -1441,7 +1441,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"></td>
+                    <td class="jd-descrcol" width="100%">the type of the object<br/></td>
                 </tr>
                 
                 
@@ -1464,7 +1464,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>force</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>if should folder structure must be created when there
-     are missing intermediate folders<br/></td>
+                        are missing intermediate folders<br/></td>
                 </tr>
                 
                 
@@ -1522,7 +1522,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a folder. Note that this is not recusive creation. You just create
  one folder
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-folder folderName="new folder" parentObjectId="11111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1571,6 +1571,11 @@ specify which configuration to use.</p>
       </table>
   </div>
   
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>the object id <br/>ObjectId of the created
+<br/></li></ul>
+  </div>
 
     </div>
 </div>
@@ -1590,7 +1595,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Remove an object
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete objectId="1111" allVersions="true" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1671,7 +1676,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes a folder and all subfolders.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete-tree allversions="true" continueOnFailure="false" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1710,7 +1715,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>allversions</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">If true, then delete all versions of the document.
-                    If false, delete only the document object specified.<br/></td>
+                          If false, delete only the document object specified.<br/></td>
                 </tr>
                 
                 
@@ -1722,7 +1727,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>unfile</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies how the repository must process file-able child-
-               or descendant-objects.<br/></td>
+                          or descendant-objects.<br/></td>
                 </tr>
                 
                 
@@ -1734,8 +1739,8 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>continueOnFailure</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Specified whether to continue attempting to perform
-  this operation even if deletion of a child- or descendant-object
-  in the specified folder cannot be deleted or not.<br/></td>
+                          this operation even if deletion of a child- or descendant-object
+                          in the specified folder cannot be deleted or not.<br/></td>
                 </tr>
                 
                 
@@ -1786,7 +1791,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Navigates the folder structure.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:folder get="CHILDREN" folderId="#[payload:id]"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1825,7 +1830,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>get</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">NavigationOptions that specifies whether to get the parent folder,
-              the list of immediate children or the whole descendants tree<br/></td>
+                 the list of immediate children or the whole descendants tree<br/></td>
                 </tr>
                 
                 
@@ -1837,7 +1842,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>depth</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>if "get" value is DESCENDANTS, represents the depth of the
-              descendants tree<br/></td>
+                 descendants tree<br/></td>
                 </tr>
                 
                 
@@ -1860,7 +1865,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>comma-separated list of query names and the ascending modifier
-      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                 "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
                 </tr>
                 
                 
@@ -1892,15 +1897,15 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>the following, depending on the value of "get" parameter:
-  <ul>
-          <li>PARENT: returns the parent Folder</li>
-          <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
-          <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
-                         the whole descentants tree of the current folder</li>
-          <li>TREE: List<Tree<FileableCmisObject>> representing the
-                         directory structure under the current folder.
-                         </li>
- </ul>
+         <ul>
+         <li>PARENT: returns the parent Folder</li>
+         <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
+         <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
+         the whole descentants tree of the current folder</li>
+         <li>TREE: List<Tree<FileableCmisObject>> representing the
+         directory structure under the current folder.
+         </li>
+         </ul>
 <br/></li></ul>
   </div>
 
@@ -1922,7 +1927,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the ACL if it has been fetched for an object.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-acl objectId="2222" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -1949,7 +1954,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
                 </tr>
                 
                 
@@ -1994,7 +1999,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve an object's version history
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-all-versions documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2044,7 +2049,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>comma-separated list of query names and the ascending modifier
-      "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                   "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
                 </tr>
                 
                 
@@ -2093,7 +2098,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Get the policies that are applied to an object.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-applied-policies objectId="1111"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2165,7 +2170,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve list of checked out documents.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-checkout-docs /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2193,7 +2198,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>comma-separated list of query names and the ascending modifier
-      "ASC" or the descending modifier "DESC" for each query name<br/></td>
+                "ASC" or the descending modifier "DESC" for each query name<br/></td>
                 </tr>
                 
                 
@@ -2238,7 +2243,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the content stream of a Document.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-content-stream objectId="11111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2310,7 +2315,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-id objectId="1234" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2346,6 +2351,11 @@ specify which configuration to use.</p>
       </table>
   </div>
   
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>a <br/>CmisObject instance
+<br/></li></ul>
+  </div>
 
     </div>
 </div>
@@ -2365,7 +2375,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-path path="/mule-cloud-connector" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2401,6 +2411,11 @@ specify which configuration to use.</p>
       </table>
   </div>
   
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>a <br/>CmisObject instance
+<br/></li></ul>
+  </div>
 
     </div>
 </div>
@@ -2420,7 +2435,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the relationships if they have been fetched for an object.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-relationships objectId="2222" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2447,7 +2462,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
                 </tr>
                 
                 
@@ -2492,7 +2507,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the parent folders of a fileable cmis object
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-parent-folders objectId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2564,7 +2579,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the type definition of the given type id.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-type-definition typeId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2601,7 +2616,7 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>type of object (<br/>)
+      <ul class="nolist"><li>type of object <br/>ObjectType
 <br/></li></ul>
   </div>
 
@@ -2624,7 +2639,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Moves a fileable cmis object from one location to another. Take into account that a fileable
  object may be filled in several locations. Thats why you must specify a source folder.
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2722,7 +2737,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sends a query to the repository
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2773,7 +2788,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>comma-separated list of query names and the ascending modifier
-      "ASC" or the descending modifier "DESC" for each query name<br/></td>
+                          "ASC" or the descending modifier "DESC" for each query name<br/></td>
                 </tr>
                 
                 
@@ -2822,8 +2837,8 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns all repositories that are available at the endpoint.
-
-  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div></p></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2868,8 +2883,8 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
-
-  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div>
+ <p/>
+ <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div>
 <br/></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
@@ -2891,6 +2906,11 @@ specify which configuration to use.</p>
       </table>
   </div>
   
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Return Payload</h5>
+      <ul class="nolist"><li>a <br/>RepositoryInfo object
+<br/></li></ul>
+  </div>
 
     </div>
 </div>
@@ -2910,7 +2930,7 @@ specify which configuration to use.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Update an object's properties
-
+ <p/>
  <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:update-object-properties objectId="1111"&gt;
     &lt;cmis:properties&gt;
         &lt;cmis:property key="propkey1"&gt;propValue1&lt;/cmis:property&gt;

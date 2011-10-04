@@ -1,6 +1,6 @@
 var NAVTREE_DATA =
 [ [ "org.mule.module.cmis", "org/mule/module/cmis/package-summary.html", [ [ "Interfaces", null, [ [ "CMISFacade", "org/mule/module/cmis/CMISFacade.html", null, "" ] ]
-, "" ], [ "Classes", null, [ [ "ChemistryCMISFacade", "org/mule/module/cmis/ChemistryCMISFacade.html", null, "" ], [ "CMISCloudConnector", "org/mule/module/cmis/CMISCloudConnector.html", null, "" ], [ "CMISFacadeAdaptor", "org/mule/module/cmis/CMISFacadeAdaptor.html", null, "" ], [ "MockCMISFacade", "org/mule/module/cmis/MockCMISFacade.html", null, "" ] ]
+, "" ], [ "Classes", null, [ [ "ChemistryCMISFacade", "org/mule/module/cmis/ChemistryCMISFacade.html", null, "" ], [ "CMISCloudConnector", "org/mule/module/cmis/CMISCloudConnector.html", null, "" ], [ "CMISFacadeAdaptor", "org/mule/module/cmis/CMISFacadeAdaptor.html", null, "" ] ]
 , "" ], [ "Enums", null, [ [ "NavigationOptions", "org/mule/module/cmis/NavigationOptions.html", null, "" ], [ "VersioningState", "org/mule/module/cmis/VersioningState.html", null, "" ] ]
 , "" ], [ "Exceptions", null, [ [ "CMISConnectorException", "org/mule/module/cmis/CMISConnectorException.html", null, "" ] ]
 , "" ] ]
