@@ -431,6 +431,9 @@ Summary:
 <div class="jd-descr">
 
 
+<h2>Class Overview</h2>
+<p>CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.</p>
+
 
 
 
@@ -2340,7 +2343,7 @@ From interface
         </tr>
         <tr>
           <th>objectId</td>
-          <td>The object's id. Can be null if "cmisObject" is set.</td>
+          <td>the id of the object</td>
         </tr>
         <tr>
           <th>addAces</td>
@@ -2503,14 +2506,13 @@ From interface
         <tr>
           <th>includeProperties</td>
           <td>Indicates if changed properties should be included in
-                          the result
-</td>
+                          the result</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the changelog events
+      <ul class="nolist"><li>a ChangeEvents instance
 </li></ul>
   </div>
 
@@ -2698,7 +2700,7 @@ From interface
         </tr>
         <tr>
           <th>objectType</td>
-          <td>the type of the object</td>
+          <td>The type of the object.</td>
         </tr>
         <tr>
           <th>properties</td>
@@ -2708,7 +2710,7 @@ From interface
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The object id of the created
+      <ul class="nolist"><li>the ObjectId of the created
 </li></ul>
   </div>
 
@@ -2769,7 +2771,7 @@ From interface
         </tr>
         <tr>
           <th>objectType</td>
-          <td>the type of the object</td>
+          <td>The type of the object.</td>
         </tr>
         <tr>
           <th>properties</td>
@@ -2784,7 +2786,7 @@ From interface
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the object id of the created
+      <ul class="nolist"><li>the ObjectId of the created
 </li></ul>
   </div>
 
@@ -2830,14 +2832,13 @@ From interface
         </tr>
         <tr>
           <th>parentObjectId</td>
-          <td>Parent folder for the folder being created (eg: repository.rootFolder)
-</td>
+          <td>Parent folder for the folder being created (eg: repository.rootFolder)</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the object id ObjectId of the created
+      <ul class="nolist"><li>the ObjectId of the created
 </li></ul>
   </div>
 
@@ -3079,7 +3080,7 @@ From interface
         </tr>
         <tr>
           <th>objectId</td>
-          <td>The object's id. Can be null if "cmisObject" is set.</td>
+          <td>the id of the object</td>
         </tr>
       </table>
   </div>
@@ -3433,8 +3434,7 @@ From interface
       <table class="jd-tagtable">
         <tr>
           <th>objectId</td>
-          <td>The object id
-</td>
+          <td>The object id</td>
         </tr>
       </table>
   </div>
@@ -3481,8 +3481,7 @@ From interface
       <table class="jd-tagtable">
         <tr>
           <th>path</td>
-          <td>Path of the object to retrieve
-</td>
+          <td>Path of the object to retrieve</td>
         </tr>
       </table>
   </div>
@@ -3533,7 +3532,7 @@ From interface
         </tr>
         <tr>
           <th>objectId</td>
-          <td>The object's id. Can be null if "cmisObject" is set.</td>
+          <td>the id of the object</td>
         </tr>
       </table>
   </div>
@@ -3955,11 +3954,10 @@ From interface
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
  <p/>
- 
-</p></div>
+ </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a RepositoryInfo object
+      <ul class="nolist"><li>a RepositoryInfo instance
 </li></ul>
   </div>
 
