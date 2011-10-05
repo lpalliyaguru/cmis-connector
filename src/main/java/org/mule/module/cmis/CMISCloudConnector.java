@@ -39,6 +39,11 @@ import org.mule.api.annotations.param.Payload;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.
+ *
+ * @author MuleSoft, Inc.
+ */
 @Module(name = "cmis", version = "1.1")
 public class CMISCloudConnector implements CMISFacade {
     /**
@@ -99,6 +104,7 @@ public class CMISCloudConnector implements CMISFacade {
      *
      * @return a list of {@link Repository}.
      */
+    @Override
     @Processor
     public List<Repository> repositories() {
         return facade.repositories();
@@ -108,7 +114,10 @@ public class CMISCloudConnector implements CMISFacade {
      * Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:repositoryInfo}
+     *
+     * @return a {@link RepositoryInfo} instance
      */
+    @Override
     @Processor
     public RepositoryInfo repositoryInfo() {
         return facade.repositoryInfo();
@@ -119,16 +128,17 @@ public class CMISCloudConnector implements CMISFacade {
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:changelog}
      *
-     * @param changeLogToken    The change log token to start from or <code>null</code>
+     * @param changeLogToken    The change log token to start from or {@code null}
      * @param includeProperties Indicates if changed properties should be included in
      *                          the result
+     * @return a {@link ChangeEvents} instance
      */
+    @Override
     @Processor
     public ChangeEvents changelog(@Optional String changeLogToken,
                                   boolean includeProperties) {
         return facade.changelog(changeLogToken, includeProperties);
     }
-
 
     /**
      * Returns a CMIS object from the repository and puts it into the cache.
@@ -136,7 +146,10 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getObjectById}
      *
      * @param objectId The object id
+     *
+     * @return a {@link CmisObject} instance
      */
+    @Override
     @Processor
     public CmisObject getObjectById(String objectId) {
         return facade.getObjectById(objectId);
@@ -148,7 +161,9 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getObjectByPath}
      *
      * @param path Path of the object to retrieve
+     * @return a {@link CmisObject} instance
      */
+    @Override
     @Processor
     public CmisObject getObjectByPath(String path) {
         return facade.getObjectByPath(path);
@@ -164,11 +179,13 @@ public class CMISCloudConnector implements CMISFacade {
      * @param content         File content (no byte array or input stream for now)
      * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param objectType      The type of the object.
      * @param properties      the properties optional document properties to set
      * @param force           if should folder structure must be created when there
      *                        are missing intermediate folders
-     * @return the object id of the created
+     * @return the {@link ObjectId} of the created
      */
+    @Override
     @Processor
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
@@ -192,9 +209,11 @@ public class CMISCloudConnector implements CMISFacade {
      * @param content         File content (no byte array or input stream for now)
      * @param mimeType        Stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param objectType      The type of the object.
      * @param properties      the properties optional document properties to set
-     * @return The object id of the created
+     * @return the {@link ObjectId} of the created
      */
+    @Override
     @Processor
     public ObjectId createDocumentById(String folderId,
                                        String filename,
@@ -215,7 +234,9 @@ public class CMISCloudConnector implements CMISFacade {
      *
      * @param folderName     Folder name (eg: "my documents")
      * @param parentObjectId Parent folder for the folder being created (eg: repository.rootFolder)
+     * @return the {@link ObjectId} of the created
      */
+    @Override
     @Processor
     public ObjectId createFolder(String folderName, String parentObjectId) {
         return facade.createFolder(folderName, parentObjectId);
@@ -229,6 +250,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param typeId Object type Id
      * @return type of object {@link ObjectType}
      */
+    @Override
     @Processor
     public ObjectType getTypeDefinition(String typeId) {
         return facade.getTypeDefinition(typeId);
@@ -244,6 +266,7 @@ public class CMISCloudConnector implements CMISFacade {
      *                "ASC" or the descending modifier "DESC" for each query name
      * @return list of {@link Document}.
      */
+    @Override
     @Processor
     public ItemIterable<Document> getCheckoutDocs(@Optional String filter, @Optional String orderBy) {
         return facade.getCheckoutDocs(filter, orderBy);
@@ -262,6 +285,7 @@ public class CMISCloudConnector implements CMISFacade {
      *                          "ASC" or the descending modifier "DESC" for each query name
      * @return an iterable of {@link QueryResult}
      */
+    @Override
     @Processor
     public ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions, @Optional String filter, @Optional String orderBy) {
         return facade.query(statement, searchAllVersions, filter, orderBy);
@@ -276,6 +300,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param objectId   id of the object whose parent folders are needed. can be null if "object" is set.
      * @return a list of the object's parent folders.
      */
+    @Override
     @Processor
     public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
@@ -306,6 +331,7 @@ public class CMISCloudConnector implements CMISFacade {
      *         </li>
      *         </ul>
      */
+    @Override
     @Processor
     public Object folder(@Optional Folder folder,
                          @Optional String folderId,
@@ -316,7 +342,6 @@ public class CMISCloudConnector implements CMISFacade {
         return facade.folder(folder, folderId, get, depth, filter, orderBy);
     }
 
-
     /**
      * Retrieves the content stream of a Document.
      * <p/>
@@ -326,6 +351,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @return The content stream of the document.
      */
+    @Override
     @Processor
     public ContentStream getContentStream(@Optional CmisObject cmisObject,
                                           @Optional String objectId) {
@@ -344,6 +370,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param targetFolderId Id of the target folder
      * @return The object moved (FileableCmisObject)
      */
+    @Override
     @Processor
     public FileableCmisObject moveObject(@Optional FileableCmisObject cmisObject,
                                          @Optional String objectId,
@@ -351,7 +378,6 @@ public class CMISCloudConnector implements CMISFacade {
                                          String targetFolderId) {
         return facade.moveObject(cmisObject, objectId, sourceFolderId, targetFolderId);
     }
-
 
     /**
      * Update an object's properties
@@ -363,6 +389,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param properties The properties to update
      * @return The updated object (a repository might have created a new object)
      */
+    @Override
     @Processor
     public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
                                              @Optional String objectId,
@@ -377,8 +404,10 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getObjectRelationships}
      *
      * @param cmisObject the object whose relationships are needed
+     * @param objectId   the id of the object
      * @return list of the object's relationships
      */
+    @Override
     @Processor
     public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
                                                      @Optional String objectId) {
@@ -391,8 +420,10 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getAcl}
      *
      * @param cmisObject the object whose Acl is needed
+     * @param objectId   the id of the object
      * @return the object's Acl
      */
+    @Override
     @Processor
     public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
@@ -410,6 +441,7 @@ public class CMISCloudConnector implements CMISFacade {
      *                   "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
      * @return versions of the document.
      */
+    @Override
     @Processor
     public List<Document> getAllVersions(@Optional CmisObject document,
                                          @Optional String documentId,
@@ -427,6 +459,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param documentId Id of the document to be checked out. Can be null if "document" is set.
      * @return PWC ObjectId
      */
+    @Override
     @Processor
     public ObjectId checkOut(@Optional CmisObject document,
                              @Optional String documentId) {
@@ -442,6 +475,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param document   The checked out document. Can be null if "documentId" is set.
      * @param documentId Id of the checked out document. Can be null if "document" is set.
      */
+    @Override
     @Processor
     public void cancelCheckOut(@Optional CmisObject document,
                                @Optional String documentId) {
@@ -464,6 +498,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param properties     custom properties
      * @return the {@link ObjectId} of the checkedin document
      */
+    @Override
     @Processor
     public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
@@ -483,11 +518,13 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:applyAcl}
      *
      * @param cmisObject     the object whose Acl is intended to change.
+     * @param objectId       the id of the object
      * @param addAces        added access control entities
      * @param removeAces     removed access control entities
      * @param aclPropagation wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE
      * @return the new access control list
      */
+    @Override
     @Processor
     public Acl applyAcl(@Optional CmisObject cmisObject,
                         @Optional String objectId,
@@ -506,12 +543,12 @@ public class CMISCloudConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @return List of applied policies
      */
+    @Override
     @Processor
     public List<Policy> getAppliedPolicies(@Optional CmisObject cmisObject,
                                            @Optional String objectId) {
         return facade.getAppliedPolicies(cmisObject, objectId);
     }
-
 
     /**
      * Applies policies to this object.
@@ -522,13 +559,13 @@ public class CMISCloudConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @param policyIds  Policy ID's to apply
      */
+    @Override
     @Processor
     public void applyPolicy(@Optional CmisObject cmisObject,
                             @Optional String objectId,
                             List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
     }
-
 
     /**
      * Remove an object
@@ -539,6 +576,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @param objectId    The object's id. Can be null if "cmisObject" is set.
      * @param allVersions If true, deletes all version history of the object. Defaults to "false".
      */
+    @Override
     @Processor
     public void delete(@Optional CmisObject cmisObject,
                        @Optional String objectId,
@@ -562,6 +600,7 @@ public class CMISCloudConnector implements CMISFacade {
      *                          in the specified folder cannot be deleted or not.
      * @return a list of object ids which failed to be deleted.
      */
+    @Override
     @Processor
     public List<String> deleteTree(@Optional CmisObject folder,
                                    @Optional String folderId,
