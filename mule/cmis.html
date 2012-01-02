@@ -111,15 +111,19 @@
       <span id="masthead-title">Mule CMIS Connector</span>
     
     <ul id="header-tabs" class="mule">
+    
     	<li id="guide"><a href="../guide/install.html">
 	    	<span class="en">Install Guide</span>
     	</a></li>
+    
     	<li id="java"><a href="../java/packages.html">
-	    	<span class="en">Java API</span>
+	    	<span class="en">Java API Reference</span>
     	</a></li>
+    
     	<li id="mule"><a href="../mule/modules.html">
-	    	<span class="en">Mule API</span>
+	    	<span class="en">Mule API Reference</span>
     	</a></li>
+    
     </ul>
     </div>
     <div id="headerRight">
@@ -221,7 +225,7 @@ Summary:
 
 
 <h2>Module Overview</h2>
-<p>CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.<br/></p>
+<p>CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.</p>
 
 
 </div><!-- jd-descr -->
@@ -637,6 +641,8 @@ specify which configuration to use.</p>
 
 
 
+
+
 <!-- ========= MESSAGE PROCESSOR DETAIL ======== -->
 <!-- Message Processors -->
 
@@ -659,7 +665,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Set the permissions associated with an object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-acl aclPropagation="OBJECTONLY"&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-acl aclPropagation="OBJECTONLY"&gt;
     &lt;cmis:add-aces&gt;
         &lt;cmis:add-ace value-ref="addAce1Ref" /&gt;
         &lt;cmis:add-ace value-ref="addAce2Ref" /&gt;
@@ -672,17 +678,19 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose Acl is intended to change.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose Acl is intended to change.</td>
                 </tr>
                 
                 
@@ -691,53 +699,31 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object</td>
                 </tr>
                 
                 
           
                 
-                <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>addAces</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Added access control entities<br/></td>
-                </tr>
-                
-                
           
-                
-                <tr class="alt-color api apilevel-" >
-                    <td class="jd-linkcol"><nobr>removeAces</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Removed access control entities<br/></td>
-                </tr>
-                
                 
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>aclPropagation</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE<br/></td>
+                    <td class="jd-descrcol" width="100%">Wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -745,7 +731,13 @@ specify which configuration to use.</p>
             
           
             
+            <tr><th colspan="12"><nobr>&lt;cmis:addAces&gt;</nobr></br><span style="font-weight: normal;">Added access control entities</span></th></tr>
+            
+            
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:removeAces&gt;</nobr></br><span style="font-weight: normal;">Removed access control entities</span></th></tr>
+            
             
           
             
@@ -756,8 +748,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>the new access control list
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -778,7 +772,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Applies policies to this object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy&gt;
     &lt;cmis:policy-ids&gt;
         &lt;cmis:policy-id value-ref="policyId1Ref" /&gt;
         &lt;cmis:policy-id value-ref="policyId2Ref" /&gt;
@@ -787,17 +781,19 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -806,46 +802,36 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
                 </tr>
                 
                 
           
                 
-                <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>policyIds</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Policy ID's to apply
-<br/></td>
-                </tr>
-                
-                
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
           
             
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:policyIds&gt;</nobr></br><span style="font-weight: normal;">Policy ID's to apply
+</span></th></tr>
+            
             
           
       </table>
   </div>
+  
+    
   
 
     </div>
@@ -868,21 +854,23 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) of the document, the check out
  will be reversed. Otherwise, an exception will be thrown.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:cancel-check-out documentId="1111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:cancel-check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>document</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The checked out document. Can be null if "documentId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The checked out document. Can be null if "documentId" is set.</td>
                 </tr>
                 
                 
@@ -892,26 +880,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>documentId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the checked out document. Can be null if "document" is set.
-<br/></td>
+</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -920,6 +900,8 @@ specify which configuration to use.</p>
           
       </table>
   </div>
+  
+    
   
 
     </div>
@@ -941,21 +923,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Gets repository changes.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:changelog changeLogToken="41784" includeProperties="false"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:changelog changeLogToken="41784" includeProperties="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>changeLogToken</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The change log token to start from or <br/><code>null</code></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The change log token to start from or <code>null</code></td>
                 </tr>
                 
                 
@@ -965,26 +949,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>includeProperties</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Indicates if changed properties should be included in
-                          the result<br/></td>
+                          the result</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -996,9 +972,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a <br/>ChangeEvents instance
-<br/></li></ul>
+      <ul class="nolist"><li>a ChangeEvents instance
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1020,23 +998,25 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) it performs a check in.
  Otherwise, an exception will be thrown.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-in filename="#[payload:name]"
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-in filename="#[payload:name]"
                 checkinComment="change on file" major="true"
                 mimeType="application/octet-stream;charset=UTF-8" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>document</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document to check-in. Can be null if "documentId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document to check-in. Can be null if "documentId" is set.</td>
                 </tr>
                 
                 
@@ -1045,7 +1025,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>documentId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document to check-in. Can be null if "document" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document to check-in. Can be null if "document" is set.</td>
                 </tr>
                 
                 
@@ -1054,7 +1034,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>content</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)<br/></td>
+                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)</td>
                 </tr>
                 
                 
@@ -1063,7 +1043,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>filename</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Name of the file<br/></td>
+                    <td class="jd-descrcol" width="100%">Name of the file</td>
                 </tr>
                 
                 
@@ -1072,7 +1052,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>mimeType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Stream content-type<br/></td>
+                    <td class="jd-descrcol" width="100%">Stream content-type</td>
                 </tr>
                 
                 
@@ -1081,7 +1061,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>major</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Whether it is major<br/></td>
+                    <td class="jd-descrcol" width="100%">Whether it is major</td>
                 </tr>
                 
                 
@@ -1090,35 +1070,20 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>checkinComment</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Check-in comment<br/></td>
+                    <td class="jd-descrcol" width="100%">Check-in comment</td>
                 </tr>
                 
                 
           
                 
-                <tr class="alt-color api apilevel-" >
-                    <td class="jd-linkcol"><nobr>properties</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Custom properties<br/></td>
-                </tr>
-                
-                
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1135,6 +1100,9 @@ specify which configuration to use.</p>
           
             
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:properties&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Custom properties</span></th></tr>
+            
             
           
       </table>
@@ -1142,9 +1110,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the <br/>ObjectId of the checkedin document
-<br/></li></ul>
+      <ul class="nolist"><li>the ObjectId of the checkedin document
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1165,21 +1135,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Checks out the document and returns the object id of the PWC (private working copy).
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-out documentId="1111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>document</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document to be checked out. Can be null if "documentId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document to be checked out. Can be null if "documentId" is set.</td>
                 </tr>
                 
                 
@@ -1188,26 +1160,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>documentId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document to be checked out. Can be null if "document" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document to be checked out. Can be null if "document" is set.</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1220,8 +1184,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>PWC ObjectId
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1242,23 +1208,25 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id filename="file"
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id filename="file"
     folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Folder Object Id<br/></td>
+                    <td class="jd-descrcol" width="100%">Folder Object Id</td>
                 </tr>
                 
                 
@@ -1267,7 +1235,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>filename</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Name of the file<br/></td>
+                    <td class="jd-descrcol" width="100%">Name of the file</td>
                 </tr>
                 
                 
@@ -1276,7 +1244,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>content</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)<br/></td>
+                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)</td>
                 </tr>
                 
                 
@@ -1285,7 +1253,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>mimeType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Stream content-type<br/></td>
+                    <td class="jd-descrcol" width="100%">Stream content-type</td>
                 </tr>
                 
                 
@@ -1294,7 +1262,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>versioningState</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.<br/></td>
+                    <td class="jd-descrcol" width="100%">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
                 </tr>
                 
                 
@@ -1303,35 +1271,20 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The type of the object.<br/></td>
+                    <td class="jd-descrcol" width="100%">The type of the object.</td>
                 </tr>
                 
                 
           
                 
-                <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>properties</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The properties optional document properties to set<br/></td>
-                </tr>
-                
-                
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1346,6 +1299,9 @@ specify which configuration to use.</p>
           
             
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:properties&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The properties optional document properties to set</span></th></tr>
+            
             
           
       </table>
@@ -1353,9 +1309,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the <br/>ObjectId of the created
-<br/></li></ul>
+      <ul class="nolist"><li>the ObjectId of the created
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1376,23 +1334,25 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path filename="file"
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path filename="file"
     folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderPath</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Folder in the repository that will hold the document<br/></td>
+                    <td class="jd-descrcol" width="100%">Folder in the repository that will hold the document</td>
                 </tr>
                 
                 
@@ -1401,7 +1361,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>filename</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Name of the file<br/></td>
+                    <td class="jd-descrcol" width="100%">Name of the file</td>
                 </tr>
                 
                 
@@ -1410,7 +1370,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>content</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)<br/></td>
+                    <td class="jd-descrcol" width="100%">File content (no byte array or input stream for now)</td>
                 </tr>
                 
                 
@@ -1419,7 +1379,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>mimeType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Stream content-type<br/></td>
+                    <td class="jd-descrcol" width="100%">Stream content-type</td>
                 </tr>
                 
                 
@@ -1428,7 +1388,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>versioningState</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.<br/></td>
+                    <td class="jd-descrcol" width="100%">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
                 </tr>
                 
                 
@@ -1437,45 +1397,30 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectType</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The type of the object.<br/></td>
+                    <td class="jd-descrcol" width="100%">The type of the object.</td>
                 </tr>
                 
+                
+          
                 
           
                 
                 <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>properties</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The properties optional document properties to set<br/></td>
-                </tr>
-                
-                
-          
-                
-                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>force</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If should folder structure must be created when there
-                        are missing intermediate folders<br/></td>
+                        are missing intermediate folders</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1490,6 +1435,9 @@ specify which configuration to use.</p>
           
             
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:properties&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The properties optional document properties to set</span></th></tr>
+            
             
           
             
@@ -1499,9 +1447,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the <br/>ObjectId of the created
-<br/></li></ul>
+      <ul class="nolist"><li>the ObjectId of the created
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1523,21 +1473,23 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Creates a folder. Note that this is not recusive creation. You just create
  one folder
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-folder folderName="new folder" parentObjectId="11111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-folder folderName="new folder" parentObjectId="11111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderName</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Folder name (eg: "my documents")<br/></td>
+                    <td class="jd-descrcol" width="100%">Folder name (eg: "my documents")</td>
                 </tr>
                 
                 
@@ -1546,26 +1498,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Parent folder for the folder being created (eg: repository.rootFolder)<br/></td>
+                    <td class="jd-descrcol" width="100%">Parent folder for the folder being created (eg: repository.rootFolder)</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1577,9 +1521,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the <br/>ObjectId of the created
-<br/></li></ul>
+      <ul class="nolist"><li>the ObjectId of the created
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1600,21 +1546,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Remove an object
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete objectId="1111" allVersions="true" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete objectId="1111" allVersions="true" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object to be deleted. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object to be deleted. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -1623,7 +1571,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
                 </tr>
                 
                 
@@ -1633,26 +1581,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>allVersions</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If true, deletes all version history of the object. Defaults to "false".
-<br/></td>
+</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1663,6 +1603,8 @@ specify which configuration to use.</p>
           
       </table>
   </div>
+  
+    
   
 
     </div>
@@ -1684,21 +1626,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes a folder and all subfolders.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete-tree allversions="true" continueOnFailure="false" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete-tree allversions="true" continueOnFailure="false" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folder</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
                 </tr>
                 
                 
@@ -1707,7 +1651,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
                 </tr>
                 
                 
@@ -1717,7 +1661,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>allversions</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">If true, then delete all versions of the document.
-                          If false, delete only the document object specified.<br/></td>
+                          If false, delete only the document object specified.</td>
                 </tr>
                 
                 
@@ -1727,7 +1671,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>unfile</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies how the repository must process file-able child-
-                          or descendant-objects.<br/></td>
+                          or descendant-objects.</td>
                 </tr>
                 
                 
@@ -1738,26 +1682,18 @@ specify which configuration to use.</p>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Specified whether to continue attempting to perform
                           this operation even if deletion of a child- or descendant-object
-                          in the specified folder cannot be deleted or not.<br/></td>
+                          in the specified folder cannot be deleted or not.</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1776,8 +1712,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>a list of object ids which failed to be deleted.
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1798,21 +1736,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Navigates the folder structure.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:folder get="CHILDREN" folderId="#[payload:id]"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:folder get="CHILDREN" folderId="#[payload:id]"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folder</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
                 </tr>
                 
                 
@@ -1821,7 +1761,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
                 </tr>
                 
                 
@@ -1831,7 +1771,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>get</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">NavigationOptions that specifies whether to get the parent folder,
-                 the list of immediate children or the whole descendants tree<br/></td>
+                 the list of immediate children or the whole descendants tree</td>
                 </tr>
                 
                 
@@ -1841,7 +1781,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>depth</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If "get" value is DESCENDANTS, represents the depth of the
-                 descendants tree<br/></td>
+                 descendants tree</td>
                 </tr>
                 
                 
@@ -1850,7 +1790,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>filter</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
                 </tr>
                 
                 
@@ -1860,26 +1800,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
-                 "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                 "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1909,8 +1841,10 @@ specify which configuration to use.</p>
          directory structure under the current folder.
          </li>
          </ul>
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -1931,21 +1865,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the ACL if it has been fetched for an object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-acl objectId="2222" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-acl objectId="2222" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose Acl is needed<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose Acl is needed</td>
                 </tr>
                 
                 
@@ -1954,26 +1890,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1986,8 +1914,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>the object's Acl
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2008,21 +1938,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve an object's version history
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-all-versions documentId="1111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-all-versions documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>document</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document whose versions are to be retrieved<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document whose versions are to be retrieved</td>
                 </tr>
                 
                 
@@ -2031,7 +1963,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>documentId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document whose versions are to be retrieved<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document whose versions are to be retrieved</td>
                 </tr>
                 
                 
@@ -2040,7 +1972,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>filter</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
                 </tr>
                 
                 
@@ -2050,26 +1982,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
-                   "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)<br/></td>
+                   "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2086,8 +2010,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>versions of the document.
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2108,21 +2034,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Get the policies that are applied to an object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-applied-policies objectId="1111"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-applied-policies objectId="1111"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -2131,26 +2059,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2163,8 +2083,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>List of applied policies
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2185,21 +2107,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve list of checked out documents.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-checkout-docs /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-checkout-docs /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>filter</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
                 </tr>
                 
                 
@@ -2209,26 +2133,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
-                "ASC" or the descending modifier "DESC" for each query name<br/></td>
+                "ASC" or the descending modifier "DESC" for each query name</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2240,9 +2156,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>list of <br/>Document.
-<br/></li></ul>
+      <ul class="nolist"><li>list of Document.
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2263,21 +2181,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the content stream of a Document.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-content-stream objectId="11111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-content-stream objectId="11111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -2286,26 +2206,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2318,8 +2230,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>The content stream of the document.
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2340,40 +2254,34 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-id objectId="1234" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-id objectId="1234" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The object id<br/></td>
+                    <td class="jd-descrcol" width="100%">The object id</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2383,9 +2291,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a <br/>CmisObject instance
-<br/></li></ul>
+      <ul class="nolist"><li>a CmisObject instance
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2406,40 +2316,34 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-path path="/mule-cloud-connector" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-path path="/mule-cloud-connector" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>path</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Path of the object to retrieve<br/></td>
+                    <td class="jd-descrcol" width="100%">Path of the object to retrieve</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2449,9 +2353,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a <br/>CmisObject instance
-<br/></li></ul>
+      <ul class="nolist"><li>a CmisObject instance
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2472,21 +2378,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the relationships if they have been fetched for an object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-relationships objectId="2222" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-relationships objectId="2222" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose relationships are needed<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose relationships are needed</td>
                 </tr>
                 
                 
@@ -2495,26 +2403,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the object</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2527,8 +2427,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>list of the object's relationships
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2549,21 +2451,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the parent folders of a fileable cmis object
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-parent-folders objectId="1111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-parent-folders objectId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose parent folders are needed. can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object whose parent folders are needed. can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -2572,26 +2476,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the object whose parent folders are needed. can be null if "object" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Id of the object whose parent folders are needed. can be null if "object" is set.</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2604,8 +2500,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>a list of the object's parent folders.
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2626,40 +2524,34 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the type definition of the given type id.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-type-definition typeId="1111" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-type-definition typeId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>typeId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Object type Id<br/></td>
+                    <td class="jd-descrcol" width="100%">Object type Id</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2669,9 +2561,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>type of object <br/>ObjectType
-<br/></li></ul>
+      <ul class="nolist"><li>type of object ObjectType
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2693,21 +2587,23 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Moves a fileable cmis object from one location to another. Take into account that a fileable
  object may be filled in several locations. Thats why you must specify a source folder.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object to move. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object to move. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -2716,7 +2612,7 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
                 </tr>
                 
                 
@@ -2725,7 +2621,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>sourceFolderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Id of the source folder<br/></td>
+                    <td class="jd-descrcol" width="100%">Id of the source folder</td>
                 </tr>
                 
                 
@@ -2734,26 +2630,18 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetFolderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Id of the target folder<br/></td>
+                    <td class="jd-descrcol" width="100%">Id of the target folder</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2770,8 +2658,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>The object moved (FileableCmisObject)
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2792,21 +2682,23 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Sends a query to the repository
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>statement</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The query statement (CMIS query language)<br/></td>
+                    <td class="jd-descrcol" width="100%">The query statement (CMIS query language)</td>
                 </tr>
                 
                 
@@ -2816,7 +2708,7 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>searchAllVersions</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Specifies if the latest and non-latest versions
-                          of document objects should be included<br/></td>
+                          of document objects should be included</td>
                 </tr>
                 
                 
@@ -2825,7 +2717,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>filter</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
                 </tr>
                 
                 
@@ -2835,26 +2727,18 @@ specify which configuration to use.</p>
                     <td class="jd-linkcol"><nobr>orderBy</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
-                          "ASC" or the descending modifier "DESC" for each query name<br/></td>
+                          "ASC" or the descending modifier "DESC" for each query name</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -2870,9 +2754,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>an iterable of <br/>QueryResult
-<br/></li></ul>
+      <ul class="nolist"><li>an iterable of QueryResult
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2893,31 +2779,25 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns all repositories that are available at the endpoint.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
       </table>
@@ -2925,9 +2805,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a list of <br/>Repository.
-<br/></li></ul>
+      <ul class="nolist"><li>a list of Repository.
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -2948,31 +2830,25 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
           
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
       </table>
@@ -2980,9 +2856,11 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a <br/>RepositoryInfo instance
-<br/></li></ul>
+      <ul class="nolist"><li>a RepositoryInfo instance
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -3003,7 +2881,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Update an object's properties
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:update-object-properties objectId="1111"&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:update-object-properties objectId="1111"&gt;
     &lt;cmis:properties&gt;
         &lt;cmis:property key="propkey1"&gt;propValue1&lt;/cmis:property&gt;
         &lt;cmis:property key="propkey2"&gt;propValue2&lt;/cmis:property&gt;
@@ -3012,17 +2890,19 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Object to be updated. Can be null if "objectId" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Object to be updated. Can be null if "objectId" is set.</td>
                 </tr>
                 
                 
@@ -3031,41 +2911,29 @@ specify which configuration to use.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>objectId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.<br/></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
                 </tr>
                 
                 
           
                 
-                <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>properties</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The properties to update<br/></td>
-                </tr>
-                
-                
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
-            
           
-        
-      </table>
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
           
             
           
+            
+            <tr><th colspan="12"><nobr>&lt;cmis:properties&gt;</nobr></br><span style="font-weight: normal;">The properties to update</span></th></tr>
+            
             
           
       </table>
@@ -3074,8 +2942,10 @@ specify which configuration to use.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>The updated object (a repository might have created a new object)
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
