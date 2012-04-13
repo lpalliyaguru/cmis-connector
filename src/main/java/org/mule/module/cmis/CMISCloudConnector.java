@@ -31,6 +31,8 @@ import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.Password;
+import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -44,27 +46,32 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Module(name = "cmis", schemaVersion = "1.1")
+@Module(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS")
 public class CMISCloudConnector implements CMISFacade {
     /**
      * Username
      */
     @Configurable
+    @Placement(group = "Authentication")
     private String username;
     /**
      * Password
      */
     @Configurable
+    @Password
+    @Placement(group = "Authentication")
     private String password;
     /**
      * The identifier for the Repository that this connector instance works with
      */
     @Configurable
+    @Placement(group = "Connection")
     private String repositoryId;
     /**
      * URL base for the SOAP connector.
      */
     @Configurable
+    @Placement(group = "Connection")
     private String baseUrl;
 
     /**
@@ -193,7 +200,7 @@ public class CMISCloudConnector implements CMISFacade {
                                          String mimeType,
                                          VersioningState versioningState,
                                          String objectType,
-                                         @Optional Map<String, String> properties,
+                                         @Placement(group = "Properties") @Optional Map<String, String> properties,
                                          @Optional @Default("false") boolean force) {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
@@ -221,7 +228,7 @@ public class CMISCloudConnector implements CMISFacade {
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Optional @Default("false") Map<String, String> properties) {
+                                       @Optional @Default("false")  @Placement(group = "Properties") Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
@@ -238,7 +245,8 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ObjectId createFolder(String folderName, String parentObjectId) {
+    public ObjectId createFolder(String folderName,
+                                 String parentObjectId) {
         return facade.createFolder(folderName, parentObjectId);
     }
 
@@ -287,7 +295,10 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions, @Optional String filter, @Optional String orderBy) {
+    public ItemIterable<QueryResult> query(@Placement(order = 1) String statement,
+                                           @Placement(order = 4) Boolean searchAllVersions,
+                                           @Placement(order = 2) @Optional String filter,
+                                           @Placement(order = 3) @Optional String orderBy) {
         return facade.query(statement, searchAllVersions, filter, orderBy);
     }
 
@@ -333,12 +344,12 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public Object folder(@Optional Folder folder,
-                         @Optional String folderId,
-                         NavigationOptions get,
-                         @Optional Integer depth,
-                         @Optional String filter,
-                         @Optional String orderBy) {
+    public Object folder(@Placement(order = 2) @Optional Folder folder,
+                         @Placement(order = 3) @Optional String folderId,
+                         @Placement(order = 1) NavigationOptions get,
+                         @Placement(order = 4) @Optional Integer depth,
+                         @Placement(order = 5) @Optional String filter,
+                         @Placement(order = 6) @Optional String orderBy) {
         return facade.folder(folder, folderId, get, depth, filter, orderBy);
     }
 
@@ -372,10 +383,10 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public FileableCmisObject moveObject(@Optional FileableCmisObject cmisObject,
-                                         @Optional String objectId,
-                                         String sourceFolderId,
-                                         String targetFolderId) {
+    public FileableCmisObject moveObject(@Placement(order = 3) @Optional FileableCmisObject cmisObject,
+                                         @Placement(order = 4) @Optional String objectId,
+                                         @Placement(order = 1) String sourceFolderId,
+                                         @Placement(order = 2) String targetFolderId) {
         return facade.moveObject(cmisObject, objectId, sourceFolderId, targetFolderId);
     }
 
@@ -393,7 +404,7 @@ public class CMISCloudConnector implements CMISFacade {
     @Processor
     public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
                                              @Optional String objectId,
-                                             Map<String, String> properties) {
+                                             @Placement(group = "Properties") Map<String, String> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
     }
 
@@ -507,7 +518,7 @@ public class CMISCloudConnector implements CMISFacade {
                             String mimeType,
                             boolean major,
                             String checkinComment,
-                            @Optional Map<String, String> properties) {
+                            @Placement(group = "Properties") @Optional Map<String, String> properties) {
         return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment, properties);
     }
 
@@ -528,9 +539,9 @@ public class CMISCloudConnector implements CMISFacade {
     @Processor
     public Acl applyAcl(@Optional CmisObject cmisObject,
                         @Optional String objectId,
-                        List<Ace> addAces,
-                        List<Ace> removeAces,
-                        AclPropagation aclPropagation) {
+                        @Placement(group = "Add Aces") List<Ace> addAces,
+                        @Placement(group = "Remove Aces") List<Ace> removeAces,
+                        @Placement(order = 1) AclPropagation aclPropagation) {
         return facade.applyAcl(cmisObject, objectId, addAces, removeAces, aclPropagation);
     }
 
@@ -563,7 +574,7 @@ public class CMISCloudConnector implements CMISFacade {
     @Processor
     public void applyPolicy(@Optional CmisObject cmisObject,
                             @Optional String objectId,
-                            List<ObjectId> policyIds) {
+                            @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
     }
 
@@ -602,11 +613,11 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public List<String> deleteTree(@Optional CmisObject folder,
-                                   @Optional String folderId,
-                                   boolean allversions,
-                                   @Optional UnfileObject unfile,
-                                   boolean continueOnFailure) {
+    public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
+                                   @Placement(order = 2) @Optional String folderId,
+                                   @Placement(order = 4) boolean allversions,
+                                   @Placement(order = 3) @Optional UnfileObject unfile,
+                                   @Placement(order = 5) boolean continueOnFailure) {
         return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
     }
 
