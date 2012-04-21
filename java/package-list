@@ -1,4 +1,7 @@
 org.mule.module.cmis
+org.mule.module.cmis.adapters
 org.mule.module.cmis.config
 org.mule.module.cmis.config.spring
+org.mule.module.cmis.processors
+org.mule.module.cmis.transformers
 
