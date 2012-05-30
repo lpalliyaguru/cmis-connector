@@ -223,17 +223,20 @@ public class ChemistryCMISFacade implements CMISFacade {
         if (content instanceof String) {
             ret = new ContentStreamImpl(filename, mimeType, (String) content);
         } else {
-            ret = new ContentStreamImpl();
-            ret.setFileName(filename);
-            ret.setMimeType(mimeType);
-            if (content instanceof InputStream) {
-                ret.setStream((InputStream) content);
-            } else if (content instanceof byte[]) {
-                ret.setStream(new ByteArrayInputStream((byte[]) content));
-            } else {
-                throw new IllegalArgumentException("Don't know how to handle content of type"
-                        + content.getClass());
-            }
+			ret = new ContentStreamImpl();
+			ret.setFileName(filename);
+			ret.setMimeType(mimeType);
+			if (content instanceof InputStream) {
+				ret.setStream((InputStream) content);
+			} else if (content instanceof byte[]) {
+				ret.setStream(new ByteArrayInputStream((byte[]) content));
+			} else if (content instanceof Document) {
+				ret = (ContentStreamImpl) ((Document) content).getContentStream();
+			} else {
+				throw new IllegalArgumentException(
+						"The content must be one of the following: Document, InputStream or Byte array. The received type is not a valid one for generating a content stream: "
+								+ content.getClass());
+			}
         }
 
         return ret;

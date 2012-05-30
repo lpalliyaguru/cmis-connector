@@ -11,6 +11,7 @@
 package org.mule.module.cmis;
 
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
@@ -20,6 +21,8 @@ import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mule.module.cmis.ChemistryCMISFacade.createContentStream;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test {@link ChemistryCMISFacade} internals
@@ -45,6 +48,13 @@ public class CMISCloudConnectorTest {
     public void createByteArrayContent() throws Exception {
         assertContent(createContentStream(FILENAME, MEDIA_TYPE, CONTENT.getBytes()));
     }
+    
+    @Test
+    public void createDocumentContent() throws Exception {
+    	Document doc = mock(Document.class);
+    	when(doc.getContentStream()).thenReturn(createContentStream(FILENAME, MEDIA_TYPE, CONTENT));
+    	assertContent(createContentStream(FILENAME, MEDIA_TYPE, doc));
+	}
 
     private void assertContent(ContentStream content) throws IOException {
         assertEquals(FILENAME, content.getFileName());
