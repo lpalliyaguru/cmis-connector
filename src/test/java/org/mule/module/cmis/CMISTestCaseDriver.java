@@ -43,9 +43,9 @@ public class CMISTestCaseDriver {
         cmis.setUsername("admin");
         cmis.setPassword("admin");
         cmis.setRepositoryId("371554cd-ac06-40ba-98b8-e6b60275cca7");
-        cmis.setBaseUrl("http://cmis.alfresco.com/service/cmis");
+        cmis.setBaseUrl("https://cmis.alfresco.com/service/cmis");
         cmis.setEndpoint("atompub");
-        cmis.initialise();
+        cmis.initialiseConnector();
         
         //cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
         folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));

@@ -88,7 +88,7 @@ public class CMISCloudConnector implements CMISFacade {
     private CMISFacade facade;
 
     @Start
-    public void initialise() {
+    public void initialiseConnector() {
         if (facade == null) {
             boolean useAtomPub = false;
             if (endpoint == null) {
