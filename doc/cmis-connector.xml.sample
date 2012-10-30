@@ -24,11 +24,27 @@
             versioningState="NONE" objectType="D:cmiscustom:document" />
 <!-- END_INCLUDE(cmis:createDocumentByPath) -->
 
+<!-- BEGIN_INCLUDE(cmis:createDocumentByPathFromContent) -->
+        <cmis:create-document-by-path-from-content filename="file" content="some content"
+            folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+<!-- END_INCLUDE(cmis:createDocumentByPathFromContent) -->
+
+<!-- BEGIN_INCLUDE(cmis:getOrCreateFolderByPath) -->
+        <cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  />
+<!-- END_INCLUDE(cmis:getOrCreateFolderByPath) -->
+
 <!-- BEGIN_INCLUDE(cmis:createDocumentById) -->
         <cmis:create-document-by-id filename="file"
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" />
 <!-- END_INCLUDE(cmis:createDocumentById) -->
+
+<!-- BEGIN_INCLUDE(cmis:createDocumentByIdFromContent) -->
+        <cmis:create-document-by-id-from-content filename="file" content="some content"
+            folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+<!-- END_INCLUDE(cmis:createDocumentByIdFromContent) -->
 
 <!-- BEGIN_INCLUDE(cmis:createFolder) -->
         <cmis:create-folder folderName="new folder" parentObjectId="11111" />
@@ -131,6 +147,15 @@
         <cmis:delete-tree allversions="true" continueOnFailure="false" />
 <!-- END_INCLUDE(cmis:deleteTree) -->
 
-<!-- BEGIN_INCLUDE(cmis:deleteTree) -->
-        <cmis:delete-tree allversions="true" continueOnFailure="false" />
-<!-- END_INCLUDE(cmis:deleteTree) -->
+<!-- BEGIN_INCLUDE(cmis:applyAspect) -->
+        <cmis:apply-aspect objectId="1111" aspectName="somename">
+            <cmis:properties>
+                <cmis:property key="propkey1">propValue1</cmis:property>
+                <cmis:property key="propkey2">propValue2</cmis:property>
+            </cmis:properties>
+        </cmis:update-object-properties>
+<!-- END_INCLUDE(cmis:applyAspect) -->
+
+<!-- BEGIN_INCLUDE(cmis:createRelationship) -->
+       <cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/>
+<!-- END_INCLUDE(cmis:createRelationship) -->

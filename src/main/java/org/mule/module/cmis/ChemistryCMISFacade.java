@@ -8,6 +8,18 @@
 
 package org.mule.module.cmis;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.ChangeEvent;
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -38,88 +50,118 @@ import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExistsException;
-import org.apache.chemistry.opencmis.commons.exceptions.CmisInvalidArgumentException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.apache.log4j.Logger;
 
 /**
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
  */
-public class ChemistryCMISFacade implements CMISFacade {
-
+public class ChemistryCMISFacade implements CMISFacade 
+{
+	public static Logger log = Logger.getLogger(ChemistryCMISFacade.class);
+	
     private Session session;
     private Map<String, String> connectionParameters;
+    private String baseURL = null;
 
     public ChemistryCMISFacade(String username,
                                String password,
                                String repositoryId,
                                String baseURL,
-                               boolean useAtomPub) {
-        this.connectionParameters = paramMap(username, password, repositoryId, baseURL, useAtomPub);
-        this.session = createSession(connectionParameters);
-    }
+                               boolean useAtomPub,
+                               String connectionTimeout,
+                               String useAlfrescoExtension) 
+    {
+    	this.baseURL = baseURL;
+    	
+        this.connectionParameters = 
+        	paramMap(username, password, repositoryId, baseURL, useAtomPub, connectionTimeout, useAlfrescoExtension);
+    } // End ChemistryCMISFacade Constructor
 
-    public List<Repository> repositories() {
+    
+    public List<Repository> repositories() 
+    {
         return SessionFactoryImpl.newInstance().getRepositories(connectionParameters);
-    }
+    } // End repositories
+    
 
-    public RepositoryInfo repositoryInfo() {
-        return session.getRepositoryInfo();
-    }
+    public RepositoryInfo repositoryInfo() 
+    {
+    	RepositoryInfo repoInfo = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+    		repoInfo = session.getRepositoryInfo();
+    	}
+    	
+        return repoInfo;
+    } // End repositoryInfo
+    
 
-    public ChangeEvents changelog(String changeLogToken, boolean includeProperties) {
+    public ChangeEvents changelog(String changeLogToken, boolean includeProperties) 
+    {
         boolean hasMore = false;
         String token = changeLogToken;
-
-        List<ChangeEvent> changeEvents = new ArrayList<ChangeEvent>();
-        long totalNumItems = 0;
-        // follow the pages
-        do {
-            ChangeEvents events = session.getContentChanges(token, includeProperties, 50);
-            totalNumItems += events.getTotalNumItems();
-
-            changeEvents.addAll(events.getChangeEvents());
-            if (events.getHasMoreItems()) {
-                String t = events.getLatestChangeLogToken();
-                if (t != null && !t.equals(token)) {
-                    hasMore = true;
-                    token = t;
-                }
-            }
+        ChangeEvents returnEvents = null;
+        
+        Session session = this.getSession(this.connectionParameters);
+        if ( session != null )
+        {
+	        List<ChangeEvent> changeEvents = new ArrayList<ChangeEvent>();
+	        long totalNumItems = 0;
+	        // follow the pages
+	        do {
+	            ChangeEvents events = session.getContentChanges(token, includeProperties, 50);
+	            totalNumItems += events.getTotalNumItems();
+	
+	            changeEvents.addAll(events.getChangeEvents());
+	            if (events.getHasMoreItems()) {
+	                String t = events.getLatestChangeLogToken();
+	                if (t != null && !t.equals(token)) {
+	                    hasMore = true;
+	                    token = t;
+	                }
+	            }
+	        } while (hasMore);
+	        
+	        returnEvents = new ChangeEventsImpl(token, changeEvents, false, totalNumItems);
         }
-        while (hasMore);
 
-        return new ChangeEventsImpl(token, changeEvents, false, totalNumItems);
-    }
+        return returnEvents;
+    } // End changelog
+    
 
-    public CmisObject getObjectById(String objectId) {
-        try {
-            return session.getObject(session.createObjectId(objectId), createOperationContext(null, null));
-        } catch (CmisObjectNotFoundException e) {
-            return null;
-        }
-    }
+    public CmisObject getObjectById(String objectId) 
+    {
+    	CmisObject returnObj = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+	    	returnObj = session.getObject(session.createObjectId(objectId), createOperationContext(null, null));
+    	}
+        
+        return returnObj;
+    } // End getObjectById
+    
 
-    public CmisObject getObjectByPath(String path) {
-        try {
-            return session.getObjectByPath(path, createOperationContext(null, null));
-        } catch (CmisObjectNotFoundException e) {
-            return null;
-        } catch (CmisInvalidArgumentException e) {
-            return null;
-        }
-    }
+    public CmisObject getObjectByPath(String path) 
+    {
+    	CmisObject returnObj = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+	        returnObj = session.getObjectByPath(path, createOperationContext(null, null));
+    	}
+        
+        return returnObj;
+    } // End getObjectByPath
+    
 
     public ObjectId createDocumentById(String objectId,
                                        String filename,
@@ -127,13 +169,107 @@ public class ChemistryCMISFacade implements CMISFacade {
                                        String mimeType,
                                        org.mule.module.cmis.VersioningState versioningState,
                                        String objectType,
-                                       Map<String, String> properties) {
-        Validate.notEmpty(objectId, "objectId is empty");
+                                       Map<String, String> properties)
+    {
+    	ObjectId returnId = null;
+    	
+    	if ( content == null )
+    	{
+    		log.error ( "No document content was specified in the payload." );
+    		return null;
+    	}
+    	else if ( filename == null )
+    	{
+    		log.error ( "No filename was specified in the request." );
+    		return null;
+    	}
+    	else if ( mimeType == null )
+    	{
+    		log.error ( "No file mime type was specified in the request." );
+    		return null;
+    	}
+    	else if ( objectType == null )
+    	{
+    		log.error ( "No object type was specified in the request." );
+    		return null;
+    	}
 
-        return createDocument(
-                session.getObject(session.createObjectId(objectId)),
-                filename, content, mimeType, versioningState, objectType, properties);
-    }
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+	        Validate.notEmpty(objectId, "objectId is empty");
+	
+        	log.debug ( 
+		        "Preparing to create a document with file name \"" + filename + "\" in the folder with ID \"" + 
+		        objectId + "\"." );
+	        returnId =
+	        	createDocument(
+	                session.getObject(session.createObjectId(objectId)),
+	                				  filename, 
+	                				  content, 
+	                				  mimeType, 
+	                				  versioningState, 
+	                				  objectType, 
+	                				  properties);
+	        log.debug ( "The ID of the repository node after document creation is \"" + returnId.getId() + "\"." );
+    	}
+    	
+    	return returnId;
+    } // End createDocumentById
+    
+    
+    public ObjectId createDocumentByIdFromContent(String objectId,
+										          String filename,
+										          Object content,
+										          String mimeType,
+										          org.mule.module.cmis.VersioningState versioningState,
+										          String objectType,
+										          Map<String, String> properties) 
+    {
+    	ObjectId returnId = null;
+    	
+    	if ( content == null )
+    	{
+    		log.error ( "No document content was specified in the payload." );
+    		return null;
+    	}
+    	else if ( filename == null )
+    	{
+    		log.error ( "No filename was specified in the request." );
+    		return null;
+    	}
+    	else if ( mimeType == null )
+    	{
+    		log.error ( "No file mime type was specified in the request." );
+    		return null;
+    	}
+    	else if ( objectType == null )
+    	{
+    		log.error ( "No object type was specified in the request." );
+    		return null;
+    	}
+
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+			Validate.notEmpty(objectId, "objectId is empty");
+			
+			log.debug ( 
+	        	"Preparing to create a document with file name \"" + filename + "\" in the folder with ID \"" + 
+	        	objectId + "\"." );
+			returnId = createDocument(session.getObject(session.createObjectId(objectId)),
+									  filename, 
+									  content, 
+									  mimeType, 
+									  versioningState, 
+									  objectType, 
+									  properties);
+			log.debug ( "The ID of the repository node after document creation is \"" + returnId.getId() + "\"." );
+    	}
+    	
+    	return returnId;
+	} // End createDocumentByIdFromContent
+    
 
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
@@ -142,20 +278,132 @@ public class ChemistryCMISFacade implements CMISFacade {
                                          org.mule.module.cmis.VersioningState versioningState,
                                          String objectType,
                                          Map<String, String> properties,
-                                         boolean force) {
-        Validate.notEmpty(folderPath, "folderPath is empty");
-        return createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
-                filename, content, mimeType, versioningState, objectType, properties);
-    }
+                                         boolean force) 
+    {
+    	ObjectId returnId = null;
+    	
+    	if ( content == null )
+    	{
+    		log.error ( "No document content was specified in the payload." );
+    		return null;
+    	}
+    	else if ( filename == null )
+    	{
+    		log.error ( "No filename was specified in the request." );
+    		return null;
+    	}
+    	else if ( mimeType == null )
+    	{
+    		log.error ( "No file mime type was specified in the request." );
+    		return null;
+    	}
+    	else if ( objectType == null )
+    	{
+    		log.error ( "No object type was specified in the request." );
+    		return null;
+    	}
 
-    private CmisObject getOrCreateFolderByPath(String folderPath) {
-        try {
-            return session.getObjectByPath(folderPath);
-        } catch (CmisObjectNotFoundException e) {
-            return createFolderStructure(folderPath);
-        }
-    }
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+	        Validate.notEmpty(folderPath, "folderPath is empty");
+	        
+        	log.debug ( 
+        		"Preparing to create a document with file name \"" + filename + "\" in folder \"" + 
+        	    folderPath + "\"." );
+	        returnId = 
+	        	createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
+	        				   filename, 
+	        				   content, 
+	        				   mimeType, 
+	        				   versioningState, 
+	        				   objectType, 
+	        				   properties);
+	        log.debug ( "The ID of the repository node after document creation is \"" + returnId.getId() + "\"." );
+    	}
+    	
+    	return returnId;
+    } // End createDocumentByPath
+    
+    
+    public ObjectId createDocumentByPathFromContent(String folderPath,
+										            String filename,
+										            Object content,
+										            String mimeType,
+										            org.mule.module.cmis.VersioningState versioningState,
+										            String objectType,
+										            Map<String, String> properties,
+										            boolean force) 
+    {
+    	ObjectId returnId = null;
+    	
+    	if ( content == null )
+    	{
+    		log.error ( "No document content was specified in the payload." );
+    		return null;
+    	}
+    	else if ( filename == null )
+    	{
+    		log.error ( "No filename was specified in the request." );
+    		return null;
+    	}
+    	else if ( mimeType == null )
+    	{
+    		log.error ( "No file mime type was specified in the request." );
+    		return null;
+    	}
+    	else if ( objectType == null )
+    	{
+    		log.error ( "No object type was specified in the request." );
+    		return null;
+    	}
 
+    	Session session = this.getSession ( this.connectionParameters );
+    	if ( session != null )
+    	{
+			Validate.notEmpty(folderPath, "folderPath is empty");
+			
+			log.debug ( 
+	        	"Preparing to create a document with file name \"" + filename + "\" in folder \"" + 
+	            folderPath + "\"." );
+			returnId = 
+				createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
+							   filename, 
+							   content, 
+							   mimeType, 
+							   versioningState, 
+							   objectType, 
+							   properties);
+			log.debug ( "The ID of the repository node after document creation is \"" + returnId.getId() + "\"." );
+    	}
+    	
+    	return returnId;
+    } // End createDocumentByPathFromContent
+    
+
+    public CmisObject getOrCreateFolderByPath(String folderPath) 
+    {
+    	CmisObject returnObj = null;
+    	Session session = this.getSession ( this.connectionParameters );
+    	
+    	if ( session != null )
+    	{
+    		Validate.notEmpty(folderPath, "folderPath is empty");
+    		
+	        try 
+	        {
+	        	returnObj = session.getObjectByPath(folderPath);
+	        } 
+	        catch (CmisObjectNotFoundException e) 
+	        {
+	            return createFolderStructure(folderPath);
+	        }
+    	}
+        
+        return returnObj;
+    } // End getOrCreateFolderByPath
+
+    
     /**
      * For each folder in the given folder path, creates it if necessary.
      * Notice: this implementation checks that the folder exists, and if not creates it.
@@ -163,13 +411,25 @@ public class ChemistryCMISFacade implements CMISFacade {
      * and catch {@link CmisContentAlreadyExistsException}, but currently that exception
      * is not being thrown - it seems like a server's bug
      */
-    private CmisObject createFolderStructure(String folderPath) {
+    private CmisObject createFolderStructure(String folderPath) 
+    {
         String[] folderNames = StringUtils.split(folderPath, "/");
         String currentObjectId = getObjectByPath("/").getId();
         String currentPath = "/";
         for (String folder : folderNames) {
             currentPath = currentPath + folder + "/";
-            CmisObject currentObject = getObjectByPath(currentPath);
+            
+            CmisObject currentObject = null;
+            
+            try 
+            {
+            	currentObject = getObjectByPath(currentPath);
+            }
+            catch (CmisObjectNotFoundException ex) 
+            {
+            	log.debug("Path not found: " + currentPath);
+            }
+            
             currentObjectId = currentObject != null
                     ? currentObject.getId()
                     : createFolder(folder, currentObjectId).getId();
@@ -187,32 +447,47 @@ public class ChemistryCMISFacade implements CMISFacade {
             String mimeType,
             org.mule.module.cmis.VersioningState versioningState,
             String objectType,
-            Map<String, String> extraProperties) {
-        Validate.notNull(folder, "folder is null");
-        Validate.notEmpty(filename, "filename is empty");
-        Validate.notNull(content, "content is null");
-        Validate.notEmpty(mimeType, "did you mean application/octet-stream?");
-        Validate.notNull(versioningState, "versionState is null");
-        VersioningState vs = null;
-        try {
-            vs = VersioningState.valueOf(versioningState.name());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(String.format(
-                    "Illegal value for versioningState. Given `%s' could be: ",
-                    versioningState, Arrays.toString(VersioningState.values())), e);
-        }
+            Map<String, String> extraProperties) 
+    {
+    	ObjectId returnId = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+    	
+    	if ( session != null )
+    	{
+	        Validate.notNull(folder, "folder is null");
+	        Validate.notEmpty(filename, "filename is empty");
+	        Validate.notNull(content, "content is null");
+	        Validate.notEmpty(mimeType, "did you mean application/octet-stream?");
+	        Validate.notNull(versioningState, "versionState is null");
+	        VersioningState vs = null;
+	        try 
+	        {
+	            vs = VersioningState.valueOf(versioningState.name());
+	        } 
+	        catch (IllegalArgumentException e) 
+	        {
+	            throw new IllegalArgumentException(String.format(
+	                    "Illegal value for versioningState. Given `%s' could be: ",
+	                    versioningState, Arrays.toString(VersioningState.values())), e);
+	        }
+	
+	        Map<String, Object> properties = new HashMap<String, Object>();
+	        properties.put(PropertyIds.OBJECT_TYPE_ID, objectType);
+	        properties.put(PropertyIds.NAME, filename);
+	        if (extraProperties != null) 
+	        {
+	            properties.putAll( this.translateInboundProperties ( extraProperties ) );
+	        }
+	        returnId = session.createDocument(properties,
+	                session.createObjectId(folder.getId()),
+	                createContentStream(filename, mimeType, content), vs);
+    	}
+    	
+    	return returnId;
+    } // End createDocument
 
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put(PropertyIds.OBJECT_TYPE_ID, objectType);
-        properties.put(PropertyIds.NAME, filename);
-        if (extraProperties != null) {
-            properties.putAll(extraProperties);
-        }
-        return session.createDocument(properties,
-                session.createObjectId(folder.getId()),
-                createContentStream(filename, mimeType, content), vs);
-    }
-
+    
     public static ContentStream createContentStream(String filename,
                                                     String mimeType,
                                                     Object content) {
@@ -240,60 +515,124 @@ public class ChemistryCMISFacade implements CMISFacade {
         return ret;
     }
 
-    public ObjectId createFolder(String folderName, String parentObjectId) {
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put(PropertyIds.NAME, folderName);
-        properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-        try {
-            return session.createFolder(properties, session.getObject(
-                    session.createObjectId(parentObjectId)));
-        } catch (CmisContentAlreadyExistsException e) {
-            CmisObject object = session.getObject(session.createObjectId(parentObjectId));
-            if (!(object instanceof Folder)) {
-                throw new IllegalArgumentException(parentObjectId + " is not a folder");
-            }
-            Folder folder = (Folder) object;
-            for (CmisObject o : folder.getChildren()) {
-                if (o.getName().equals(folderName)) {
-                    return session.createObjectId(o.getId());
-                }
-            }
+    
+    public ObjectId createFolder(String folderName, String parentObjectId) 
+    {
+    	ObjectId returnId = null;
+	
+		Session session = this.getSession ( this.connectionParameters );
+		
+		if ( session != null )
+		{
+	        Map<String, Object> properties = new HashMap<String, Object>();
+	        properties.put(PropertyIds.NAME, folderName);
+	        properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
+	        try 
+	        {
+	        	returnId = session.createFolder(properties, session.getObject(
+	                    session.createObjectId(parentObjectId)));
+	        } 
+	        catch (CmisContentAlreadyExistsException e) 
+	        {
+	            CmisObject object = session.getObject(session.createObjectId(parentObjectId));
+	            if (!(object instanceof Folder)) 
+	            {
+	                throw new IllegalArgumentException(parentObjectId + " is not a folder");
+	            }
+	            Folder folder = (Folder) object;
+	            for (CmisObject o : folder.getChildren()) {
+	                if (o.getName().equals(folderName)) {
+	                    return session.createObjectId(o.getId());
+	                }
+	            }
+	        }
+		}
+		
+		return returnId;
+    } // End createFolder
+    
 
-            return null;
-        }
-    }
-
-    public ObjectType getTypeDefinition(String typeId) {
-        Validate.notEmpty(typeId, "typeId is empty");
-        return session.getTypeDefinition(typeId);
-    }
+    public ObjectType getTypeDefinition(String typeId) 
+    {
+    	ObjectType returnTypeDef = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+		
+		if ( session != null )
+		{
+	        Validate.notEmpty(typeId, "typeId is empty");
+	        returnTypeDef = session.getTypeDefinition(typeId);
+		}
+        
+        return returnTypeDef;
+    } // End getTypeDefinition
+    
 
     public ItemIterable<Document> getCheckoutDocs(String filter,
-                                                  String orderBy) {
-        return session.getCheckedOutDocs(createOperationContext(filter, orderBy));
-    }
+                                                  String orderBy) 
+    {
+    	ItemIterable<Document> docList = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+		
+		if ( session != null )
+		{
+			docList = session.getCheckedOutDocs(createOperationContext(filter, orderBy));
+		}
+		
+		return docList;
+    } // End getCheckoutDocs
 
+    
     public ItemIterable<QueryResult> query(String statement,
-                                           Boolean searchAllVersions, String filter,
-                                           String orderBy) {
-        Validate.notEmpty(statement, "statement is empty");
-        Validate.notNull(searchAllVersions, "searchAllVersions is empty");
+                                           Boolean searchAllVersions, 
+                                           String filter,
+                                           String orderBy) 
+    {
+    	ItemIterable<QueryResult> resultList = null;
+    	
+    	Session session = this.getSession ( this.connectionParameters );
+		
+		if ( session != null )
+		{
+	        Validate.notEmpty(statement, "statement is empty");
+	        Validate.notNull(searchAllVersions, "searchAllVersions is empty");
+	        
+        	log.debug ( "Preparing to execute the CMIS query \"" + statement + "\".");
+	        OperationContext ctx = createOperationContext(filter, orderBy);
+	        resultList = session.query(statement, searchAllVersions, ctx);
+	        log.debug ( "The result list contains " + resultList.getTotalNumItems() + " items.");
+	        
+	        for ( QueryResult currentResult : resultList )
+	        {
+	        	log.debug ( 
+	        		"Object with ID \"" + currentResult.getPropertyByQueryName ( "cmis:objectId" ) + 
+	        		"\" is in the result set." );
+	        }
+		}
+		
+		return resultList;
+    } // End query
+    
 
-        OperationContext ctx = createOperationContext(filter, orderBy);
-        return session.query(statement, searchAllVersions, ctx);
-    }
-
-    public List<Folder> getParentFolders(CmisObject cmisObject, String objectId) {
+    public List<Folder> getParentFolders(CmisObject cmisObject, String objectId) 
+    {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         CmisObject target = getCmisObject(cmisObject, objectId);
 
-        if (target != null && target instanceof FileableCmisObject) {
+        if (target != null && target instanceof FileableCmisObject) 
+        {
             return ((FileableCmisObject) target).getParents();
         }
+        else
+        {
+        	log.error ( "Unable to obtain the object reference, so no parent references could be obtained." );
+        }
         return null;
-    }
+    } // End getParentFolders
 
+    
     public Object folder(Folder folder, String folderId,
                          NavigationOptions get, Integer depth,
                          String filter, String orderBy) {
@@ -303,7 +642,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         Folder target = getCmisObject(folder, folderId, Folder.class);
         Object ret = null;
 
-        if (target != null) {
+        if (target != null) 
+        {
             if (get.equals(NavigationOptions.DESCENDANTS) || get.equals(NavigationOptions.TREE)) {
                 Validate.notNull(depth, "depth is null");
             }
@@ -331,8 +671,13 @@ public class ChemistryCMISFacade implements CMISFacade {
 
         CmisObject target = getCmisObject(cmisObject, objectId);
 
-        if (target != null && target instanceof Document) {
+        if (target != null && target instanceof Document) 
+        {
             return ((Document) target).getContentStream();
+        }
+        else
+        {
+        	log.error ( "Unable to obtain the object reference in order to obtain the content of the object." );
         }
         return null;
     }
@@ -347,25 +692,41 @@ public class ChemistryCMISFacade implements CMISFacade {
         Validate.notEmpty(targetFolderId, "targetFolderId is empty");
 
         FileableCmisObject target = getCmisObject(cmisObject, objectId, FileableCmisObject.class);
-        if (target != null) {
+        if (target != null) 
+        {
             return target.move(new ObjectIdImpl(sourceFolderId), new ObjectIdImpl(targetFolderId));
+        }
+        else
+        {
+        	log.error ( "Unable to obtain the object reference in order to perform the object move." );
         }
         return null;
     }
 
+    
     public CmisObject updateObjectProperties(CmisObject cmisObject,
                                              String objectId,
-                                             Map<String, String> properties) {
+                                             Map<String, String> properties) 
+    {
+    	CmisObject returnObj = null;
+    	
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         Validate.notNull(properties, "properties is null");
-
+        
         CmisObject target = getCmisObject(cmisObject, objectId);
-        if (target != null) {
-            return target.updateProperties(properties);
+        if (target != null) 
+        {
+        	AlfrescoDocument alfDocument = ( AlfrescoDocument ) target;
+        	returnObj = alfDocument.updateProperties ( this.translateInboundProperties ( properties ) );
         }
-        return null;
-    }
+        else
+        {
+        	log.error ( "Unable to obtain the object reference in order to update the properties of the object." );
+        }
+        return returnObj;
+    } // End updateObjectProperties
+    
 
     public void delete(CmisObject cmisObject, String objectId, boolean allVersions) {
         validateObjectOrId(cmisObject, objectId);
@@ -501,6 +862,122 @@ public class ChemistryCMISFacade implements CMISFacade {
             target.applyPolicy(policyIds.toArray(new ObjectId[policyIds.size()]));
         }
     }
+    
+    public void applyAspect ( String objectId,
+						      String aspectName,
+						      Map<String, String> properties ) 
+    {
+		validateObjectOrId(null, objectId);
+		
+		CmisObject target = getCmisObject ( null, objectId );
+		AlfrescoDocument alfDocument = ( AlfrescoDocument ) target;
+		if ( ( alfDocument != null ) && ( !alfDocument.hasAspect ( "P:" + aspectName ) ) ) 
+		{
+			alfDocument.addAspect ( "P:" + aspectName );
+			if ( properties != null )
+			{
+				alfDocument.updateProperties ( this.translateInboundProperties ( properties ) );
+			}
+		}
+    } // End applyAspect
+    
+    
+    public void createRelationship ( String parentObjectId, 
+						             String childObjectId, 
+						             String relationshipType)
+    {
+    	// Make sure that all of the required parameters were specified.
+    	if ( ( parentObjectId == null ) || ( parentObjectId.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"No value was specified for the required attribute \"parentObjectId\". " +
+    			"No relationship could be created." );
+    		return;
+    	}
+    	else if ( ( childObjectId == null ) || ( childObjectId.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"No value was specified for the required attribute \"childObjectId\". " +
+    			"No relationship could be created." );
+    		return;
+    	}
+    	else if ( ( relationshipType == null ) || ( relationshipType.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"No value was specified for the required attribute \"relationshipType\". " +
+    			"No relationship could be created." );
+    		return;
+    	}
+    	
+    	// Get a handle to the session object.
+    	Session session = this.getSession ( this.connectionParameters );
+		
+		if ( session != null )
+		{
+			// We were able to obtain a session handle. Make sure that the source and target objects exists.
+			try
+			{
+				CmisObject parentObj = this.getObjectById ( parentObjectId );
+				
+				if ( parentObj == null )
+				{
+					log.error ( 
+						"The parent object with ID \"" + parentObjectId + "\" doesn't exists in the repository. " +
+					    "No relationship will be created." );
+					return;
+				}
+			}
+			catch ( Exception objEx )
+			{
+				log.error ( 
+					"An error occurred while attempting to determine if an the parent object with ID \"" +
+					parentObjectId + "\" exists in the repository. " + objEx.getMessage () );
+				return;
+			}
+			
+			try
+			{
+				CmisObject childObj = this.getObjectById ( childObjectId );
+				
+				if ( childObj == null )
+				{
+					log.error ( 
+						"The child object with ID \"" + childObjectId + "\" doesn't exists in the repository. " +
+					    "No relationship will be created." );
+					return;
+				}
+			}
+			catch ( Exception objEx )
+			{
+				log.error ( 
+					"An error occurred while attempting to determine if an the child object with ID \"" +
+					childObjectId + "\" exists in the repository. " + objEx.getMessage () );
+				return;
+			}
+			
+			// Set-up the paramters in preparation for the "createRelationship" call.
+			Map<String, Serializable> relProps = new HashMap<String, Serializable>();
+			relProps.put("cmis:sourceId", parentObjectId);
+			relProps.put("cmis:targetId", childObjectId);
+			relProps.put("cmis:objectTypeId", "R:" + relationshipType);
+			
+			try
+			{
+				session.createRelationship(relProps, null, null, null);
+			}
+			catch ( Exception relEx )
+			{
+				log.error ( 
+					"An error occurred while attempting to create a relationship between the " +
+					"parent object with ID \"" + parentObjectId + "\" and the child object with " +
+					"ID \"" + childObjectId + "\". " + relEx.getMessage () );
+			}
+		}
+		else
+		{
+			log.error ( "Unable to obtain a repository session, so no relationship could be created." );
+		}
+    } // End createRelationship
 
 
     /**
@@ -532,12 +1009,17 @@ public class ChemistryCMISFacade implements CMISFacade {
      * @return
      */
     @SuppressWarnings("unchecked")
-    private <T> T getCmisObject(T object, String objectId, Class<T> clazz) {
-        if (object != null) {
+    private <T> T getCmisObject(T object, String objectId, Class<T> clazz) 
+    {
+        if (object != null) 
+        {
             return object;
-        } else {
+        } 
+        else 
+        {
             CmisObject obj = getObjectById(objectId);
-            if (clazz.isAssignableFrom(obj.getClass())) {
+            if ((obj != null) && clazz.isAssignableFrom(obj.getClass())) 
+            {
                 return (T) obj;
             }
             return null;
@@ -565,21 +1047,45 @@ public class ChemistryCMISFacade implements CMISFacade {
                                                 String password,
                                                 String repositoryId,
                                                 String baseURL,
-                                                boolean useAtomPub) {
-        Validate.notEmpty(username, "username is empty");
-        Validate.notEmpty(password, "password is empty");
-        Validate.notEmpty(repositoryId, "repository-id is empty");
-        Validate.notEmpty(baseURL, "base-url is empty");
+                                                boolean useAtomPub,
+                                                String connectionTimeout,
+                                                String useAlfrescoExtension) 
+    {
+    	if ( ( username == null ) || (username.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
+    		    "empty or missing. This configuration is required in order to provide repository connection " +
+    			"parameters to the connector. The connector is currently non-functional." );
+    		return null;
+    	}
+    	else if ( ( password == null ) || (password.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
+    		    "empty or missing. This configuration is required in order to provide repository connection " +
+    			"parameters to the connector. The connector is currently non-functional." );
+    		return null;
+    	}
+    	else if ( ( baseURL == null ) || (baseURL.trim().length() <= 0 ) )
+    	{
+    		log.error ( 
+    			"The \"baseURL\" attribute of the \"config\" element for the repository connector configuration is " +
+    		    "empty or missing. This configuration is required in order to provide repository connection " +
+    			"parameters to the connector. The connector is currently non-functional." );
+    		return null;
+    	}
 
         Map<String, String> parameters = new HashMap<String, String>();
 
         // user credentials
-        parameters.put(SessionParameter.USER, username);
-        parameters.put(SessionParameter.PASSWORD, password);
+        parameters.put(SessionParameter.USER, username.trim());
+        parameters.put(SessionParameter.PASSWORD, password.trim());
 
         // connection settings... we prefer SOAP over ATOMPUB because some rare
         // behaviurs with the ChangeEvents.getLatestChangeLogToken().
-        if (!useAtomPub) {
+        if (!useAtomPub) 
+        {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.WEBSERVICES.value());
             parameters.put(SessionParameter.WEBSERVICES_ACL_SERVICE, baseURL + "ACLService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_DISCOVERY_SERVICE, baseURL + "DiscoveryService?wsdl");
@@ -587,26 +1093,182 @@ public class ChemistryCMISFacade implements CMISFacade {
             parameters.put(SessionParameter.WEBSERVICES_NAVIGATION_SERVICE, baseURL + "NavigationService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_OBJECT_SERVICE, baseURL + "ObjectService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_POLICY_SERVICE, baseURL + "PolicyService?wsdl");
-            parameters.put(SessionParameter.WEBSERVICES_RELATIONSHIP_SERVICE, baseURL
-                    + "RelationshipService?wsdl");
+            parameters.put(SessionParameter.WEBSERVICES_RELATIONSHIP_SERVICE, baseURL + "RelationshipService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_REPOSITORY_SERVICE, baseURL + "RepositoryService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_VERSIONING_SERVICE, baseURL + "VersioningService?wsdl");
-        } else {
+        } 
+        else 
+        {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-            parameters.put(SessionParameter.ATOMPUB_URL, baseURL);
+            parameters.put(SessionParameter.ATOMPUB_URL, baseURL.trim());
         }
-
-        parameters.put(SessionParameter.REPOSITORY_ID, repositoryId);
-
-        // session locale
+        
+        // Session locale
         parameters.put(SessionParameter.LOCALE_ISO3166_COUNTRY, "");
         parameters.put(SessionParameter.LOCALE_ISO639_LANGUAGE, "en");
+        
+        if ( connectionTimeout != null )
+        {
+        	parameters.put(SessionParameter.CONNECT_TIMEOUT, connectionTimeout);
+        }
+
+        if ( repositoryId != null )
+        {
+        	parameters.put(SessionParameter.REPOSITORY_ID, repositoryId.trim());
+        }
+        else
+        {
+        	// No repository ID was specified. Go try an get the first ID in the repository list from the server.
+        	String repoID = getRepositoryID ( parameters, baseURL );
+        	if ( repoID != null )
+        	{
+        		parameters.put(SessionParameter.REPOSITORY_ID, repoID);
+        	}
+        }
+
+        // Determine if the use of the Alfresco extension for OpenCMIS was requested in the configuration.
+        if ( Boolean.parseBoolean ( useAlfrescoExtension.trim().toLowerCase () ) )
+        {
+        	// Have the Alfresco Extended CMIS factory used.
+        	parameters.put(SessionParameter.OBJECT_FACTORY_CLASS, "org.alfresco.cmis.client.impl.AlfrescoObjectFactoryImpl");
+        	log.debug ( "The Alfresco Object Factor CMIS extension has been included in the session parameters." );
+        }
 
         return parameters;
     }
+    
+    
+    public static String getRepositoryID ( Map<String, String> parameters, String baseURL )
+    {
+    	String repoID = null;
+    	
+    	try
+    	{
+    		log.debug ( "Attempting to dynamically obtain the repository ID." );
+    		List<Repository> repositoryList = SessionFactoryImpl.newInstance().getRepositories(parameters);
+    		
+    		if ( repositoryList.size() <= 0 )
+    		{
+    			log.error ( 
+                	"No repositories were returned at the CMIS server URL \"" + baseURL + "\". " +
+                	"The connector is currently non-functional." );
+    		}
+    		else
+    		{
+    			// Get the first repo in the list.
+    			Repository firstRepo = repositoryList.get ( 0 );
+    			
+    			// Extract the ID of this repo, and add it to the parameters list.
+    			repoID = firstRepo.getId();
+    			
+    			log.debug ( "The repository ID that will be used is " + repoID + "." );
+    		}
+    	}
+    	catch ( Exception repoIDEx )
+    	{
+    		log.error ( 
+        		"An error occurred while attempting to dynamically obtain a repository ID. " +
+        		"The connector is currently non-functional. " + repoIDEx.getMessage() );
+    	}
+    	
+    	return repoID;
+    } // end getRepositoryID
 
-    private static Session createSession(Map<String, String> parameters) {
-        Validate.notNull(parameters);
-        return SessionFactoryImpl.newInstance().createSession(parameters);
-    }
+    
+    private Session getSession(Map<String, String> parameters) 
+    {
+    	Session repoSession = this.session;
+    	
+    	if ( parameters == null )
+    	{
+    		log.error ( 
+    			"Repository sessions cannot be obtained through the connector because the connector configuration " +
+    		    "is missing or incorrectly specified in the mule application configuration file.");
+    		return null;
+    	}
+    	else if ( parameters.get(SessionParameter.REPOSITORY_ID) == null )
+    	{
+    		// There must have been a problem dynamically obtaining the repository ID.  
+    		// Try again.
+    		String repoID = getRepositoryID ( parameters, this.baseURL );
+    		
+    		if ( repoID != null )
+    		{
+    			parameters.put(SessionParameter.REPOSITORY_ID, repoID);
+    		}
+    		else
+    		{
+	    		log.error ( 
+	        		"Repository sessions cannot be obtained through the connector because the repository ID is missing " +
+	    		    "from the connector configuration.");
+    		}
+        	return null;
+    	}
+    	
+    	if ( repoSession == null )
+    	{
+	        Validate.notNull(parameters);
+	        try
+	        {
+	        	repoSession = SessionFactoryImpl.newInstance().createSession ( parameters );
+	        	this.session = repoSession;
+	        }
+	        catch ( Exception sessionEx )
+	        {
+	        	log.error ( 
+	        		"An error occurred while attempting to obtain a new repository session. " + 
+	        		sessionEx.getMessage ());
+	        }
+    	}
+    	
+    	return repoSession;
+    } // End getSession
+    
+    
+    //******************************************************************************
+    // Method: translateInboundProperties
+    // Description: Translates an inbound set of String based properties to Object 
+    //   properties. In situations where a multi-value property is signified
+    //   by an "M:" prefix to the property name, then the property value is assumed to be
+    //   a list of values and is converted to an Array object this added to the output map.
+    //******************************************************************************
+    private Map<String,Object> translateInboundProperties ( Map<String,String> inboundProperties )
+    {
+    	Map<String,Object> returnMap = new HashMap<String,Object> ();
+    	
+    	if ( inboundProperties == null )
+    	{
+    		returnMap = null;
+    	}
+    	else if ( inboundProperties.size() > 0 )
+    	{
+    		Iterator<String> keySetItr = inboundProperties.keySet().iterator();
+    		while ( keySetItr.hasNext() )
+    		{
+    			String currentKey = keySetItr.next ();
+    			String currentVal = inboundProperties.get ( currentKey );
+    			
+    			// Don't waste our time with empty properties.
+    			if ( currentVal != null )
+    			{
+	    			// Determine if this is a multi-valued property.
+	    			if ( currentKey.toLowerCase().startsWith("m:") )
+	    			{
+	    				// This is a multi-valued property. Each value is separated by a ','.
+	    				String [] valArray = currentVal.split ( "," );
+	    				
+	    				ArrayList<String> propArray = new ArrayList<String> ( Arrays.asList ( valArray ) );
+	    				returnMap.put ( currentKey.substring(2), propArray );
+	    			}
+	    			else
+	    			{
+	    				// Just add the property into the return list as is.
+	    				returnMap.put ( currentKey, currentVal );
+	    			}
+    			}
+    		}
+    	}
+    	
+    	return returnMap;
+    } // End translateInboundProperties
 }

@@ -8,6 +8,9 @@
 
 package org.mule.module.cmis;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -26,9 +29,6 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
-
-import java.util.List;
-import java.util.Map;
 
 public interface CMISFacade {
 
@@ -72,11 +72,12 @@ public interface CMISFacade {
     CmisObject getObjectByPath(String path);
 
     /**
-     * Creates a new document in the repository.
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by a repository path.
      *
      * @param folderPath      Folder in the repository that will hold the document
      * @param filename        name of the file
-     * @param content         file content (no byte array or input stream for now)
+     * @param content         file content as specified in the payload
      * @param mimeType        stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
      *                        o none:  The document MUST be created as a non-versionable document.
@@ -95,8 +96,41 @@ public interface CMISFacade {
                                   String mimeType,
                                   VersioningState versioningState,
                                   String objectType,
-                                  Map<String, String> properties, boolean force);
+                                  Map<String, String> properties, 
+                                  boolean force);
+    
+    
+    /**
+     * Creates a new document in the repository where the content is specified as the value of the "content"
+     * parameter and the target folder node is specified by a repository path.
+     *
+     * @param folderPath      Folder in the repository that will hold the document
+     * @param filename        Name of the file
+     * @param content         File content
+     * @param mimeType        Stream content-type
+     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param objectType      The type of the object.
+     * @param properties      the properties optional document properties to set
+     * @param force           if should folder structure must be created when there
+     *                        are missing intermediate folders
+     * @return the {@link ObjectId} of the created
+     */
+    ObjectId createDocumentByPathFromContent(String folderPath,
+			                                 String filename,
+			                                 Object content,
+			                                 String mimeType,
+			                                 VersioningState versioningState,
+			                                 String objectType,
+			                                 Map<String, String> properties,
+			                                 boolean force);
 
+    /**
+     * Creates a new folder in the repository if it doesn't already exist
+     *
+     * @param folderPath      Path to the folder
+     */
+    CmisObject getOrCreateFolderByPath(String folderPath);
+    
     /**
      * Creates a folder. Note that this is not recusive creation. You just create
      * one folder
@@ -108,11 +142,12 @@ public interface CMISFacade {
     ObjectId createFolder(String folderName, String parentObjectId);
 
     /**
-     * Creates a new document in the repository.
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by an object ID.
      *
      * @param folderId        Folder Object Id
      * @param filename        name of the file
-     * @param content         file content (no byte array or input stream for now)
+     * @param content         file content as specified in the payload
      * @param mimeType        stream content-type
      * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
      *                        o none:  The document MUST be created as a non-versionable document.
@@ -130,6 +165,32 @@ public interface CMISFacade {
                                 VersioningState versioningState,
                                 String objectType,
                                 Map<String, String> properties);
+    
+    
+    /**
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by an object ID.
+     *
+     * @param folderId        Folder Object Id
+     * @param filename        name of the file
+     * @param content         file content
+     * @param mimeType        stream content-type
+     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+     *                        o none:  The document MUST be created as a non-versionable document.
+     *                        o checkedout: The document MUST be created in the checked-out state.
+     *                        o major (default): The document MUST be created as a major version
+     *                        o minor: The document MUST be created as a minor version.
+     * @param objectType      the type of the object
+     * @param properties      the properties optional document properties to set
+     * @return the object id {@link ObjectId} of the created
+     */
+    ObjectId createDocumentByIdFromContent(String folderId,
+			                               String filename,
+			                               Object content,
+			                               String mimeType,
+			                               VersioningState versioningState,
+			                               String objectType,
+			                               Map<String, String> properties);
 
     /**
      * Returns the type definition of the given type id.
@@ -360,4 +421,27 @@ public interface CMISFacade {
      * @param policyIds  Policy ID's to apply
      */
     void applyPolicy(CmisObject cmisObject, String objectId, List<ObjectId> policyIds);
+    
+    /**
+     * Apply the specified aspect and set some properties (optional) for the aspect.
+     *
+     * @param objectId   The object's id.
+     * @param aspectName The name of the aspect.
+     * @param properties The properties to set. Can be null.
+     * @return The updated object (a repository might have created a new object)
+     */
+    void applyAspect(String objectId,
+                     String aspectName,
+                     Map<String, String> properties);
+    
+    
+    /**
+     * Creates a parent/child relationships between two nodes in the repository of the 
+     * specified relationship object type.
+     *
+     * @param parentObjectId The ID of the parent (or source) object in the relationship.
+     * @param childObjectId The ID of the child (or target) object in the relationship.
+     * @param relationshipType The name of the relationship type that should be associated with the objects.
+     */
+    void createRelationship(String parentObjectId, String childObjectId, String relationshipType);
 }

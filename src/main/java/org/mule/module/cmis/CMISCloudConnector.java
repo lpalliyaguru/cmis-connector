@@ -64,6 +64,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Configurable
     @Placement(group = "Connection")
+    @Optional
     private String repositoryId;
     /**
      * URL base for the SOAP connector.
@@ -76,6 +77,22 @@ public class CMISCloudConnector implements CMISFacade {
      * The type of endpoint
      */
     private String endpoint;
+    
+    /**
+     * The connection time-out specification.
+     */
+    @Configurable
+    @Optional
+    private String connectionTimeout = "10000";
+    
+    /**
+     * Specifies whether the Alfresco Object Factory implementation should be utilized. The
+     * Alfresco CMIS extension JAR must be included in your Mule application in order for
+     * this configuration to work.
+     */
+    @Configurable
+    @Optional
+    private String useAlfrescoExtension = "false";
 
     /**
      * Reference to a CMISFacade implementation in case you want to
@@ -98,7 +115,16 @@ public class CMISCloudConnector implements CMISFacade {
             } else {
                 throw new IllegalStateException("unknown endpoint type " + endpoint);
             }
-            facade = CMISFacadeAdaptor.adapt(new ChemistryCMISFacade(username, password, repositoryId, baseUrl, useAtomPub));
+            this.facade = 
+            	CMISFacadeAdaptor.adapt(
+            			new ChemistryCMISFacade(
+            					username, 
+            					password, 
+            					repositoryId, 
+            					baseUrl, 
+            					useAtomPub, 
+            					connectionTimeout, 
+            					useAlfrescoExtension));
         }
     }
 
@@ -175,20 +201,25 @@ public class CMISCloudConnector implements CMISFacade {
     }
 
     /**
-     * Creates a new document in the repository.
-     * <p/>
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by a repository path.
+     * * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentByPath}
      *
      * @param folderPath      Folder in the repository that will hold the document
-     * @param filename        Name of the file
-     * @param content         File content (no byte array or input stream for now)
-     * @param mimeType        Stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     * @param objectType      The type of the object.
+     * @param filename        name of the file
+     * @param content         file content as specified in the payload
+     * @param mimeType        stream content-type
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+     *                        o none:  The document MUST be created as a non-versionable document.
+     *                        o checked-out: The document MUST be created in the checked-out state.
+     *                        o major (default): The document MUST be created as a major version
+     *                        o minor: The document MUST be created as a minor version.
+     * @param objectType      the type of the object
      * @param properties      the properties optional document properties to set
      * @param force           if should folder structure must be created when there
      *                        are missing intermediate folders
-     * @return the {@link ObjectId} of the created
+     * @return the object id {@link ObjectId} of the created
      */
     @Override
     @Processor
@@ -203,20 +234,78 @@ public class CMISCloudConnector implements CMISFacade {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
     }
+    
+    
+    /**
+     * Creates a new document in the repository where the content is specified as the value of the "content"
+     * parameter and the target folder node is specified by a repository path.
+     * <p/>
+     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentByPathFromContent}
+     *
+     * @param folderPath      Folder in the repository that will hold the document
+     * @param filename        Name of the file
+     * @param content         File content
+     * @param mimeType        Stream content-type
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     * @param objectType      The type of the object.
+     * @param properties      the properties optional document properties to set
+     * @param force           if should folder structure must be created when there
+     *                        are missing intermediate folders
+     * @return the {@link ObjectId} of the created
+     */
+    @Override
+    @Processor
+    public ObjectId createDocumentByPathFromContent(String folderPath,
+			                                        String filename,
+			                                        Object content,
+			                                        String mimeType,
+			                                        VersioningState versioningState,
+			                                        String objectType,
+			                                        @Optional Map<String, String> properties,
+			                                        @Optional @Default("false") boolean force) {
+        return facade.createDocumentByPathFromContent(
+        		folderPath, 
+        		filename, 
+        		content, 
+        		mimeType, 
+        		versioningState,
+                objectType, 
+                properties, 
+                force);
+    }
 
     /**
-     * Creates a new document in the repository.
-     * <p/>
+     * Creates a new folder in the repository if it doesn't already exist.
+     *  <p/>
+     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getOrCreateFolderByPath}
+     * 
+     * @param folderPath      Path to the folder
+     * 
+     * @return the {@link ObjectId} of the created
+     */
+    @Processor
+    public CmisObject getOrCreateFolderByPath(String folderPath) {
+    	return facade.getOrCreateFolderByPath(folderPath);
+    }
+    
+    /**
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by an object ID.
+     *  <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentById}
      *
      * @param folderId        Folder Object Id
-     * @param filename        Name of the file
-     * @param content         File content (no byte array or input stream for now)
-     * @param mimeType        Stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     * @param objectType      The type of the object.
+     * @param filename        name of the file
+     * @param content         file content as specified in the payload
+     * @param mimeType        stream content-type
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+     *                        o none:  The document MUST be created as a non-versionable document.
+     *                        o checkedout: The document MUST be created in the checked-out state.
+     *                        o major (default): The document MUST be created as a major version
+     *                        o minor: The document MUST be created as a minor version.
+     * @param objectType      the type of the object
      * @param properties      the properties optional document properties to set
-     * @return the {@link ObjectId} of the created
+     * @return the object id {@link ObjectId} of the created
      */
     @Override
     @Processor
@@ -229,6 +318,37 @@ public class CMISCloudConnector implements CMISFacade {
                                        @Optional @Default("false")  @Placement(group = "Properties") Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
+    }
+    
+    /**
+     * Creates a new document in the repository where the content comes directly from the payload and
+     * the target folder node is specified by an object ID.
+     * *  <p/>
+     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentByIdFromContent}
+     *
+     * @param folderId        Folder Object Id
+     * @param filename        name of the file
+     * @param content         file content
+     * @param mimeType        stream content-type
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+     *                        o none:  The document MUST be created as a non-versionable document.
+     *                        o checkedout: The document MUST be created in the checked-out state.
+     *                        o major (default): The document MUST be created as a major version
+     *                        o minor: The document MUST be created as a minor version.
+     * @param objectType      the type of the object
+     * @param properties      the properties optional document properties to set
+     * @return the object id {@link ObjectId} of the created
+     */
+    @Override
+    @Processor
+    public ObjectId createDocumentByIdFromContent(String folderId,
+			                                      String filename,
+			                                      Object content,
+			                                      String mimeType,
+			                                      VersioningState versioningState,
+			                                      String objectType,
+			                                      @Optional @Default("false") Map<String, String> properties) {
+        return facade.createDocumentByIdFromContent(folderId, filename, content, mimeType, versioningState, objectType, properties);
     }
 
     /**
@@ -618,6 +738,45 @@ public class CMISCloudConnector implements CMISFacade {
                                    @Placement(order = 5) boolean continueOnFailure) {
         return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
     }
+    
+    /**
+    * Apply and aspect to an object and set some properties of that aspect.
+    * <p/>
+    * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:applyAspect}
+    *
+    * @param objectId   The object's id.
+    * @param aspectName The name of the aspect to be applied to the object.
+    * @param properties The properties to set.
+    * @return The ID of the object that was updated.
+    */
+    @Override
+    @Processor
+    public void applyAspect(String objectId,
+					            String aspectName,
+					            Map<String, String> properties) 
+    {
+        facade.applyAspect(objectId, aspectName, properties);
+    }
+    
+    /**
+     * Creates a parent/child relationships between two nodes in the repository of the 
+     * specified relationship object type.
+     * <p/>
+     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createRelationship}
+     *
+     * @param parentObjectId The ID of the parent (or source) object in the relationship.
+     * @param childObjectId The ID of the child (or target) object in the relationship.
+     * @param relationshipType The name of the relationship type that should be associated with the objects.
+     */
+    @Override
+    @Processor
+    public void createRelationship ( String parentObjectId, 
+    		                         String childObjectId, 
+    		                         String relationshipType )
+    {
+    	facade.createRelationship(parentObjectId, childObjectId, relationshipType);
+    } // End createRelationship
+    
 
     public String getUsername() {
         return username;
@@ -637,6 +796,14 @@ public class CMISCloudConnector implements CMISFacade {
 
     public String getRepositoryId() {
         return repositoryId;
+    }
+    
+    public String getConnectionTimeout(){
+    	return this.connectionTimeout;
+    }
+    
+    public String getUseAlfrescoExtension(){
+    	return this.useAlfrescoExtension;
     }
 
     public void setRepositoryId(String repositoryId) {
@@ -665,5 +832,15 @@ public class CMISCloudConnector implements CMISFacade {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+    
+    public void setConnectionTimeout(String connectionTimeout)
+    {
+    	this.connectionTimeout = connectionTimeout;
+    }
+    
+    public void setUseAlfrescoExtension(String useAlfrescoExtension)
+    {
+    	this.useAlfrescoExtension = useAlfrescoExtension;
     }
 }
