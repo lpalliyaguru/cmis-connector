@@ -10,7 +10,9 @@ package org.mule.module.cmis;
 
 public class CMISConnectorException extends RuntimeException {
 
-    public CMISConnectorException(Throwable cause)
+	private static final long serialVersionUID = -2284974690732034438L;
+
+	public CMISConnectorException(Throwable cause)
     {
         super(cause);
     }

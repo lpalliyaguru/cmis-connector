@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.apache.chemistry.opencmis</groupId>
             <artifactId>chemistry-opencmis-client-impl</artifactId>
-            <version>0.3.0</version>
+            <version>0.6.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.xml.ws</groupId>
@@ -41,25 +41,30 @@
             <artifactId>mule-module-ognl</artifactId>
             <version>${mule.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.alfresco.cmis.client</groupId>
+            <artifactId>alfresco-opencmis-extension</artifactId>
+            <version>0.3</version>
+            <type>jar</type>
+        </dependency>
+	</dependencies>
 
-    </dependencies>
-
-    <scm>
-        <connection>scm:git:git://github.com:mulesoft/cmis-connector.git
-        </connection>
-        <developerConnection>
+	<scm>
+          <connection>scm:git:git://github.com:mulesoft/cmis-connector.git
+          </connection>
+          <developerConnection>
             scm:git:git@github.com:mulesoft/cmis-connector.git
-        </developerConnection>
-        <url>http://github.com/mulesoft/cmis-connector</url>
-    </scm>
+          </developerConnection>
+          <url>http://github.com/mulesoft/cmis-connector</url>
+	</scm>
 
-    <repositories>
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>http://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases Repository</name>
+			<url>http://repository.mulesoft.org/releases/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 </project>

@@ -113,7 +113,22 @@ public class MockCMISFacade implements CMISFacade
     {
         throw new NotImplementedException();
     }
+    
+    public ObjectId createDocumentByPathFromContent(final String folderPath,
+										            final String filename,
+										            final Object content,
+										            final String mimeType,
+										            final VersioningState versioningState,
+										            final String objectType, Map<String, String> properties, boolean force)
+	{
+    	throw new NotImplementedException();
+	}
 
+    public CmisObject getOrCreateFolderByPath(String folderPath) 
+    {
+    	throw new NotImplementedException();
+    }
+    
     public ObjectId createDocumentById(final String objectId,
                                        final String filename,
                                        final Object content,
@@ -123,6 +138,16 @@ public class MockCMISFacade implements CMISFacade
     {
         throw new NotImplementedException();
     }
+    
+    public ObjectId createDocumentByIdFromContent(final String objectId,
+										          final String filename,
+										          final Object content,
+										          final String mimeType,
+										          final VersioningState versioningState,
+										          final String objectType, Map<String, String> properties)
+	{
+    	throw new NotImplementedException();
+	}
 
     public ObjectId createFolder(final String folderName, final String parentObjectId)
     {
@@ -248,6 +273,18 @@ public class MockCMISFacade implements CMISFacade
     public void applyPolicy(CmisObject cmisObject, String objectId,
             List<ObjectId> policyIds) 
     {
+    }
+    
+    public void applyAspect(String objectId, String aspectName, Map<String, String> properties)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public void createRelationship ( String parentObjectId, 
+						             String childObjectId, 
+						             String relationshipType )
+    {
+        throw new NotImplementedException();
     }
 
 }

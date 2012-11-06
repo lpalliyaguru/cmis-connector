@@ -58,10 +58,22 @@
             folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" />
     </flow>
+    
+    <flow name="createDocumentByPathFromContentFlow">
+        <cmis:create-document-by-path-from-content folderPath="/mule-cloud-connector" filename="file" content-ref="some content"
+            mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+    </flow>
 
     <flow name="createDocumentByIdFlow">
         <cmis:create-document-by-id filename="file"
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
+            versioningState="NONE" objectType="D:cmiscustom:document" />
+    </flow>
+    
+    <flow name="createDocumentByIdFromContentFlow">
+        <cmis:create-document-by-id-from-content folderId="1111111" filename="file" content-ref="Some Content"
+            mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" />
     </flow>
 
@@ -151,7 +163,7 @@
         <cmis:delete objectId="1111" allVersions="true" />
     </flow>
 
-    <flow name="applyAcl">
+    <flow name="applyAclFlow">
         <cmis:apply-acl aclPropagation="OBJECTONLY">
             <cmis:add-aces>
                 <cmis:add-ace value-ref="addAce1Ref" />
@@ -164,7 +176,7 @@
         </cmis:apply-acl>
     </flow>
 
-    <flow name="applyPolicy">
+    <flow name="applyPolicyFlow">
         <cmis:apply-policy>
             <cmis:policy-ids>
                 <cmis:policy-id value-ref="policyId1Ref" />
@@ -173,7 +185,11 @@
         </cmis:apply-policy>
     </flow>
 
-    <flow name="deleteTree">
+    <flow name="deleteTreeFlow">
         <cmis:delete-tree allversions="true" continueOnFailure="false" />
+    </flow>
+    
+    <flow name="createRelationshipFlow">
+        <cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/>
     </flow>
 </mule>
