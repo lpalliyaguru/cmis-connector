@@ -25,7 +25,7 @@
 <!-- END_INCLUDE(cmis:createDocumentByPath) -->
 
 <!-- BEGIN_INCLUDE(cmis:createDocumentByPathFromContent) -->
-        <cmis:create-document-by-path-from-content filename="file" content="some content"
+        <cmis:create-document-by-path-from-content filename="file" content-ref="some content"
             folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" />
 <!-- END_INCLUDE(cmis:createDocumentByPathFromContent) -->
@@ -41,7 +41,7 @@
 <!-- END_INCLUDE(cmis:createDocumentById) -->
 
 <!-- BEGIN_INCLUDE(cmis:createDocumentByIdFromContent) -->
-        <cmis:create-document-by-id-from-content filename="file" content="some content"
+        <cmis:create-document-by-id-from-content filename="file" content-ref="some content"
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" />
 <!-- END_INCLUDE(cmis:createDocumentByIdFromContent) -->
@@ -153,7 +153,7 @@
                 <cmis:property key="propkey1">propValue1</cmis:property>
                 <cmis:property key="propkey2">propValue2</cmis:property>
             </cmis:properties>
-        </cmis:update-object-properties>
+        </cmis:apply-aspect>
 <!-- END_INCLUDE(cmis:applyAspect) -->
 
 <!-- BEGIN_INCLUDE(cmis:createRelationship) -->
