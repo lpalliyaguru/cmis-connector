@@ -46,7 +46,7 @@ import java.util.Map;
  * @author MuleSoft, Inc.
  */
 @Module(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS", minMuleVersion = "3.4",
-        metaData = MetaDataSwitch.OFF, connectivityTesting = ConnectivityTesting.ON)
+        metaData = MetaDataSwitch.ON, connectivityTesting = ConnectivityTesting.ON)
 public class CMISCloudConnector implements CMISFacade, Testable {
     /**
      * Username
