@@ -26,15 +26,16 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Module;
-import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.Payload;
+import org.mule.common.DefaultTestResult;
+import org.mule.common.TestResult;
+import org.mule.common.Testable;
 
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,9 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Module(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS")
-public class CMISCloudConnector implements CMISFacade {
+@Module(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS", minMuleVersion = "3.4",
+        metaData = MetaDataSwitch.OFF, connectivityTesting = ConnectivityTesting.ON)
+public class CMISCloudConnector implements CMISFacade, Testable {
     /**
      * Username
      */
@@ -842,5 +844,21 @@ public class CMISCloudConnector implements CMISFacade {
     public void setUseAlfrescoExtension(String useAlfrescoExtension)
     {
     	this.useAlfrescoExtension = useAlfrescoExtension;
+    }
+
+    /**
+    * Method implemented for Mule Studio connectivity testing
+    * @return the connection test result
+    */
+    @Override
+    public TestResult test() {
+        initialiseConnector();
+        try {
+            repositories();
+        } catch (Exception e) {
+            return new DefaultTestResult(TestResult.Status.FAILURE, "Bad credentials");
+        }
+
+        return new DefaultTestResult(TestResult.Status.SUCCESS);
     }
 }
