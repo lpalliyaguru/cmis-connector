@@ -87,7 +87,7 @@ A new project opens with a blank canvas for building the flow, and the Palette w
 
 The first component (also called a message processor) in the flow is a HTTP Endpoint. This Endpoint will launch a web page at the URL you choose when deploying the project.
 
-1. Locate the **HTTP** component in the **Endpoints** category of the Palette. Drag and place it on the canvas. Since you are placing the first component on the canvas, Mule Studio will create a containing-box around it, and label it "**cmis-demo**". As you add additional components to the flow, you will want to place them inside this same containing box. 
+1. Locate the **HTTP** component in the **Endpoints** category of the Palette. Drag and place it on the canvas. Since you are placing the first component on the canvas, Mule Studio will create a containing-box around it, and label it "**cmis-demo**". As you add additional components to the flow, you will want to place them inside this same containing box.  
 ![](images/image008.jpg)
 
 2. Open the HTTP Endpoint configuration menu. To do so, double-click on the component you just placed on the canvas, or choose "Properties" from its context menu.
@@ -102,7 +102,7 @@ The first component (also called a message processor) in the flow is a HTTP Endp
 
 
 
-1. Locate the **CMIS** message processor in the **Cloud Connectors** category of the Palette. Drag and place it on the canvas to the right of the HTTP Endpoint.
+1. Locate the **CMIS** message processor in the **Cloud Connectors** category of the Palette. Drag and place it on the canvas to the right of the HTTP Endpoint.  
 ![](images/image010.jpg)
 2. Double-click on the CMIS cloud connector in your flow to open its properties menu.
 3. Note an error stating that "config-ref" is required, and an "x" next to the Config Reference form field. Click on the "+" icon next to this form field to create a "CMIS Global Element".
