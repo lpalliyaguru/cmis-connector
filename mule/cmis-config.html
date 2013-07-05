@@ -240,7 +240,7 @@ Summary:
           <th>Schema Version</th><td>1.1</td>
         </tr>
 <tr>
-          <th>Minimum Mule Version</th><td>3.2</td>
+          <th>Minimum Mule Version</th><td>3.4</td>
         </tr>
     </tbody></table>
   </div>
@@ -304,6 +304,16 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cmis-config.html#apply-aspect">&lt;cmis:apply-aspect&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Apply and aspect to an object and set some properties of that aspect.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#apply-policy">&lt;cmis:apply-policy&gt;</a></nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -312,7 +322,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#cancel-check-out">&lt;cmis:cancel-check-out&gt;</a></nobr>
         
@@ -323,7 +333,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#changelog">&lt;cmis:changelog&gt;</a></nobr>
         
@@ -333,7 +343,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#check-in">&lt;cmis:check-in&gt;</a></nobr>
         
@@ -343,7 +353,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#check-out">&lt;cmis:check-out&gt;</a></nobr>
         
@@ -353,11 +363,23 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#create-document-by-id">&lt;cmis:create-document-by-id&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cmis-config.html#create-document-by-id-from-content">&lt;cmis:create-document-by-id-from-content&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
         
   </td></tr>
 
@@ -367,7 +389,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#create-document-by-path">&lt;cmis:create-document-by-path&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
         
   </td></tr>
 
@@ -375,9 +398,31 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cmis-config.html#create-document-by-path-from-content">&lt;cmis:create-document-by-path-from-content&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#create-folder">&lt;cmis:create-folder&gt;</a></nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cmis-config.html#create-relationship">&lt;cmis:create-relationship&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
         
   </td></tr>
 
@@ -499,6 +544,16 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cmis-config.html#get-or-create-folder-by-path">&lt;cmis:get-or-create-folder-by-path&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#get-parent-folders">&lt;cmis:get-parent-folders&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object
@@ -509,7 +564,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#get-type-definition">&lt;cmis:get-type-definition&gt;</a></nobr>
         
@@ -519,7 +574,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#move-object">&lt;cmis:move-object&gt;</a></nobr>
         
@@ -529,7 +584,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#query">&lt;cmis:query&gt;</a></nobr>
         
@@ -541,7 +596,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#repositories">&lt;cmis:repositories&gt;</a></nobr>
         
@@ -551,7 +606,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#repository-info">&lt;cmis:repository-info&gt;</a></nobr>
         
@@ -561,7 +616,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/cmis-config.html#update-object-properties">&lt;cmis:update-object-properties&gt;</a></nobr>
         
@@ -641,9 +696,35 @@ specify which configuration to use.</p>
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>password</nobr></td>
+          <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
           <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">Password
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+          <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          </nobr></td>
+          <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+          <td class="jd-descrcol">ATOM</td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint
 </td>
           <td class="jd-descrcol"></td>
           <td class="jd-descrcol"></td>
@@ -654,10 +735,37 @@ specify which configuration to use.</p>
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>password</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%">Password
+</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
           <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
           <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">The identifier for the Repository that this connector instance works with
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with
 </td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
           <td class="jd-descrcol"></td>
           <td class="jd-descrcol"></td>
           <td class="jd-descrcol"></td>
@@ -833,6 +941,118 @@ specify which configuration to use.</p>
              <tr>
                 <td class="jd-descrcol">Acl</td>
                 <td class="jd-descrcol">the new access control list
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="apply-aspect"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cmis:apply-aspect&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Apply and aspect to an object and set some properties of that aspect.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-aspect objectId="1111" aspectName="somename"&gt;
+    &lt;cmis:properties&gt;
+        &lt;cmis:property key="propkey1"&gt;propValue1&lt;/cmis:property&gt;
+        &lt;cmis:property key="propkey2"&gt;propValue2&lt;/cmis:property&gt;
+    &lt;/cmis:properties&gt;
+&lt;/cmis:apply-aspect&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The object's id.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>aspectName</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The name of the aspect to be applied to the object.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cmis:properties&gt;</nobr></td>
+                        <td></td>
+                        <td>The properties to set.</td>
+                        <td>Map&lt;String,&nbsp;String&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">void</td>
+                <td class="jd-descrcol">The ID of the object that was updated.
 </td>
              </tr>
          </table>
@@ -1371,8 +1591,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
- <p/>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.
+  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id filename="file"
     folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
@@ -1419,7 +1640,7 @@ specify which configuration to use.</p>
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content (no byte array or input stream for now)</td>
+                        <td class="jd-descrcol">File content as specified in the payload</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1443,7 +1664,11 @@ specify which configuration to use.</p>
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>versioningState</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checkedout: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
                         <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1455,7 +1680,7 @@ specify which configuration to use.</p>
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>objectType</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The type of the object.</td>
+                        <td class="jd-descrcol">The type of the object</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1511,7 +1736,177 @@ specify which configuration to use.</p>
              </tr>
              <tr>
                 <td class="jd-descrcol">ObjectId</td>
-                <td class="jd-descrcol">the ObjectId of the created
+                <td class="jd-descrcol">the object id ObjectId of the created
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="create-document-by-id-from-content"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cmis:create-document-by-id-from-content&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.
+ *  <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id-from-content filename="file" content-ref="some content"
+    folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder Object Id</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">File content</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checkedout: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cmis:properties&gt;</nobr></td>
+                        <td>false</td>
+                        <td><i>Optional.&nbsp;</i>The properties optional document properties to set</td>
+                        <td>Map&lt;String,&nbsp;String&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the object id ObjectId of the created
 </td>
              </tr>
          </table>
@@ -1536,8 +1931,9 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
- <p/>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.
+ * <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path filename="file"
     folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
     versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
@@ -1584,7 +1980,7 @@ specify which configuration to use.</p>
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content (no byte array or input stream for now)</td>
+                        <td class="jd-descrcol">File content as specified in the payload</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1608,7 +2004,192 @@ specify which configuration to use.</p>
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>versioningState</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checked-out: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>force</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If should folder structure must be created when there
+                        are missing intermediate folders</td>
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cmis:properties&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>The properties optional document properties to set</td>
+                        <td>Map&lt;String,&nbsp;String&gt;</td>
+                    </tr>
+                
+                
+              
+                
+              
+          </table>
+      </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the object id ObjectId of the created
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="create-document-by-path-from-content"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cmis:create-document-by-path-from-content&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path-from-content filename="file" content-ref="some content"
+    folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderPath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder in the repository that will hold the document</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">File content</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
                         <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1779,6 +2360,88 @@ specify which configuration to use.</p>
              </tr>
          </table>
   </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="create-relationship"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cmis:create-relationship&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The ID of the parent (or source) object in the relationship.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>childObjectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The ID of the child (or target) object in the relationship.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>relationshipType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The name of the relationship type that should be associated with the objects.
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
     
   
 
@@ -2778,6 +3441,76 @@ specify which configuration to use.</p>
              <tr>
                 <td class="jd-descrcol">List&lt;Relationship&gt;</td>
                 <td class="jd-descrcol">list of the object's relationships
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="get-or-create-folder-by-path"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cmis:get-or-create-folder-by-path&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder in the repository if it doesn't already exist.
+  <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderPath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Path to the folder</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">CmisObject</td>
+                <td class="jd-descrcol">the ObjectId of the created
 </td>
              </tr>
          </table>

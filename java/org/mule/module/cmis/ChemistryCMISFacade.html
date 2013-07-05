@@ -207,11 +207,23 @@
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/package-summary.html">org.mule.module.cmis</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/adapter/package-summary.html">org.mule.module.cmis.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/adapters/package-summary.html">org.mule.module.cmis.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
@@ -241,6 +253,7 @@
               
     <li><h2>Enums</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/NavigationOptions.html">NavigationOptions</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></li>
       </ul>
@@ -467,8 +480,30 @@ Summary:
           private
           
           
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#baseURL">baseURL</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           Map&lt;String,&nbsp;String&gt;</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#connectionParameters">connectionParameters</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#log">log</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -509,7 +544,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)">ChemistryCMISFacade</a></span>(String username, String password, String repositoryId, String baseURL, boolean useAtomPub)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String)">ChemistryCMISFacade</a></span>(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</nobr>
         
   </td></tr>
 
@@ -556,6 +591,24 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply the specified aspect and set some properties (optional) for the aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -564,7 +617,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -583,7 +636,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -601,7 +654,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -619,7 +672,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -637,7 +690,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -653,7 +706,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -665,7 +718,27 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String objectId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String objectId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -683,7 +756,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -699,9 +773,47 @@ Summary:
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -912,6 +1024,24 @@ Summary:
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -919,6 +1049,22 @@ Summary:
         
         <div class="jd-descrdiv">Retrieves the parent folders of a fileable cmis object</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#getRepositoryID(java.util.Map<java.lang.String, java.lang.String>, java.lang.String)">getRepositoryID</a></span>(Map&lt;String,&nbsp;String&gt; parameters, String baseURL)</nobr>
+        
   </td></tr>
 
 
@@ -1322,6 +1468,24 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply the specified aspect and set some properties (optional) for the aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -1330,7 +1494,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1349,7 +1513,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1367,7 +1531,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1385,7 +1549,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1403,7 +1567,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1415,7 +1579,27 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -1433,7 +1617,8 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -1449,9 +1634,47 @@ From interface
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -1662,6 +1885,24 @@ From interface
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1673,7 +1914,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1691,7 +1932,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1709,7 +1950,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1727,7 +1968,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1743,7 +1984,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1762,7 +2003,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1817,6 +2058,36 @@ From interface
 
 
 
+<A NAME="baseURL"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        baseURL
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="connectionParameters"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1828,6 +2099,36 @@ From interface
         Map&lt;String,&nbsp;String&gt;
       </span>
         connectionParameters
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="log"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+        Logger
+      </span>
+        log
     </h4>
       <div class="api-level">
         
@@ -1886,7 +2187,7 @@ From interface
 
 
 
-<A NAME="ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)"></A>
+<A NAME="ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1899,7 +2200,7 @@ From interface
         
       </span>
       <span class="sympad">ChemistryCMISFacade</span>
-      <span class="normal">(String username, String password, String repositoryId, String baseURL, boolean useAtomPub)</span>
+      <span class="normal">(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1933,6 +2234,18 @@ From interface
         </tr>
         <tr>
           <th>useAtomPub</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>connectionTimeout</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>useAlfrescoExtension</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>cxfPortProvider</td>
           <td></td>
         </tr>
       </table>
@@ -2013,6 +2326,59 @@ From interface
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the new access control list
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">applyAspect</span>
+      <span class="normal">(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Apply the specified aspect and set some properties (optional) for the aspect.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objectId</td>
+          <td>The object's id.</td>
+        </tr>
+        <tr>
+          <th>aspectName</td>
+          <td>The name of the aspect.</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties to set. Can be null.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The updated object (a repository might have created a new object)
 </li></ul>
   </div>
 
@@ -2361,7 +2727,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2375,7 +2742,81 @@ From interface
         </tr>
         <tr>
           <th>content</td>
-          <td>File content (no byte array or input stream for now)</td>
+          <td>File content as specified in the payload</td>
+        </tr>
+        <tr>
+          <th>mimeType</td>
+          <td>Stream content-type</td>
+        </tr>
+        <tr>
+          <th>versioningState</td>
+          <td>An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checkedout: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
+        </tr>
+        <tr>
+          <th>objectType</td>
+          <td>The type of the object</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties optional document properties to set</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the object id ObjectId of the created
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ObjectId
+      </span>
+      <span class="sympad">createDocumentByIdFromContent</span>
+      <span class="normal">(String objectId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objectId</td>
+          <td>Folder Object Id</td>
+        </tr>
+        <tr>
+          <th>filename</td>
+          <td>Name of the file</td>
+        </tr>
+        <tr>
+          <th>content</td>
+          <td>File content</td>
         </tr>
         <tr>
           <th>mimeType</td>
@@ -2434,7 +2875,8 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -2448,7 +2890,7 @@ From interface
         </tr>
         <tr>
           <th>content</td>
-          <td>File content (no byte array or input stream for now)</td>
+          <td>File content as specified in the payload</td>
         </tr>
         <tr>
           <th>mimeType</td>
@@ -2480,6 +2922,81 @@ From interface
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the object id ObjectId of the created
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ObjectId
+      </span>
+      <span class="sympad">createDocumentByPathFromContent</span>
+      <span class="normal">(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>folderPath</td>
+          <td>Folder in the repository that will hold the document</td>
+        </tr>
+        <tr>
+          <th>filename</td>
+          <td>Name of the file</td>
+        </tr>
+        <tr>
+          <th>content</td>
+          <td>File content</td>
+        </tr>
+        <tr>
+          <th>mimeType</td>
+          <td>Stream content-type</td>
+        </tr>
+        <tr>
+          <th>versioningState</td>
+          <td>An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+        </tr>
+        <tr>
+          <th>objectType</td>
+          <td>The type of the object.</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties optional document properties to set</td>
+        </tr>
+        <tr>
+          <th>force</td>
+          <td>If should folder structure must be created when there
+                        are missing intermediate folders</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the ObjectId of the created
 </li></ul>
   </div>
 
@@ -2531,6 +3048,56 @@ From interface
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the object id ObjectId of the created
 </li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createRelationship(java.lang.String, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">createRelationship</span>
+      <span class="normal">(String parentObjectId, String childObjectId, String relationshipType)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>parentObjectId</td>
+          <td>The ID of the parent (or source) object in the relationship.</td>
+        </tr>
+        <tr>
+          <th>childObjectId</td>
+          <td>The ID of the child (or target) object in the relationship.</td>
+        </tr>
+        <tr>
+          <th>relationshipType</td>
+          <td>The name of the relationship type that should be associated with the objects.
+</td>
+        </tr>
+      </table>
   </div>
 
     </div>
@@ -3122,6 +3689,47 @@ From interface
 </div>
 
 
+<A NAME="getOrCreateFolderByPath(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        CmisObject
+      </span>
+      <span class="sympad">getOrCreateFolderByPath</span>
+      <span class="normal">(String folderPath)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder in the repository if it doesn't already exist</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>folderPath</td>
+          <td>Path to the folder
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3165,6 +3773,50 @@ From interface
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>a list of the object's parent folders.
 </li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getRepositoryID(java.util.Map<java.lang.String, java.lang.String>, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getRepositoryID</span>
+      <span class="normal">(Map&lt;String,&nbsp;String&gt; parameters, String baseURL)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>parameters</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>baseURL</td>
+          <td></td>
+        </tr>
+      </table>
   </div>
 
     </div>

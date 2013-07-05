@@ -206,12 +206,24 @@
   <a href="../../../../../../java/org/apache/chemistry/opencmis/commons/enums/transformers/package-summary.html">org.apache.chemistry.opencmis.commons.enums.transformers</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/package-summary.html">org.mule.module.cmis</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/adapter/package-summary.html">org.mule.module.cmis.adapter</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/adapters/package-summary.html">org.mule.module.cmis.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
@@ -310,12 +322,7 @@
    
   
   
-  
-  
-
-  
    
-  
   
   
   
@@ -348,10 +355,27 @@
   
 
   
+  
+  
+  
+
+  
    
   
   
+  
+  
+
+  
    
+  
+  
+  
+  
+
+  
+   
+  
   
   
   
@@ -665,10 +689,6 @@ Summary:
 
 
 
-
-
-
-
 <tr class="api apilevel-" >
 <td colspan="12">
 
@@ -794,6 +814,14 @@ org.mule.api.lifecycle.Stoppable
 
 
 
+
+
+
+
+
+
+
+
 </table>
 
 
@@ -846,6 +874,30 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#connectionTimeout">connectionTimeout</a></td>
+          <td class="jd-descrcol" width="100%">The connection time-out specification.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#cxfPortProvider">cxfPortProvider</a></td>
+          <td class="jd-descrcol" width="100%">Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#endpoint">endpoint</a></td>
           <td class="jd-descrcol" width="100%">The type of endpoint
 </td>
@@ -895,6 +947,19 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
+          <td class="jd-descrcol" width="100%">Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#username">username</a></td>
           <td class="jd-descrcol" width="100%">Username
 </td>
@@ -905,6 +970,10 @@ org.mule.api.lifecycle.Stoppable
   </div>
 </div>
 </td></tr>
+
+
+
+
 
 
 
@@ -1073,6 +1142,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorMetadataAdapater.html#getDevkitBuild()">getDevkitBuild</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the build of the DevKit used to create this module
+</div>
+  
   </td></tr>
 
 
@@ -1089,6 +1161,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorMetadataAdapater.html#getDevkitVersion()">getDevkitVersion</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the version of the DevKit used to create this module
+</div>
+  
   </td></tr>
 
 
@@ -1105,6 +1180,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorMetadataAdapater.html#getModuleName()">getModuleName</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the user-friendly name of this module
+</div>
+  
   </td></tr>
 
 
@@ -1121,6 +1199,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorMetadataAdapater.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the version of this module
+</div>
+  
   </td></tr>
 
 
@@ -1161,7 +1242,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.api.Capability)">isCapableOf</a></span>(Capability capability)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/adapters/CMISCloudConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.module.cmis.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/module/cmis/basic/Capability.html">Capability</a> capability)</nobr>
         
         <div class="jd-descrdiv">Returns true if this module implements such capability
  
@@ -1225,6 +1306,24 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply and aspect to an object and set some properties of that aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -1233,7 +1332,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1252,7 +1351,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1270,7 +1369,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1288,7 +1387,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1306,7 +1405,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1318,7 +1417,27 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -1336,7 +1455,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -1352,9 +1472,47 @@ From class
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -1513,13 +1671,11 @@ From class
             
             
             
-            ContentStream</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getContentStream</a></span>(CmisObject cmisObject, String objectId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves the content stream of a Document.</div>
-  
   </td></tr>
 
 
@@ -1531,7 +1687,41 @@ From class
             
             
             
+            ContentStream</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getContentStream</a></span>(CmisObject cmisObject, String objectId)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves the content stream of a Document.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getEndpoint()">getEndpoint</a></span>()</nobr>
@@ -1617,6 +1807,24 @@ From class
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1630,7 +1838,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1646,7 +1854,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1662,7 +1870,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1676,6 +1884,22 @@ From class
         
         <div class="jd-descrdiv">Returns the type definition of the given type id.</div>
   
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
+        
   </td></tr>
 
 
@@ -1812,7 +2036,39 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setEndpoint(java.lang.String)">setEndpoint</a></span>(String endpoint)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setConnectionTimeout(java.lang.String)">setConnectionTimeout</a></span>(String connectionTimeout)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setCxfPortProvider(java.lang.String)">setCxfPortProvider</a></span>(String cxfPortProvider)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setEndpoint(org.mule.module.cmis.CMISConnectionType)">setEndpoint</a></span>(<a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a> endpoint)</nobr>
         
   </td></tr>
 
@@ -1876,8 +2132,42 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUseAlfrescoExtension(java.lang.String)">setUseAlfrescoExtension</a></span>(String useAlfrescoExtension)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUsername(java.lang.String)">setUsername</a></span>(String username)</nobr>
         
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            TestResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#test()">test</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Method implemented for Mule Studio connectivity testing</div>
+  
   </td></tr>
 
 
@@ -2112,138 +2402,6 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.Capabilities" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.Capabilities-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.Capabilities
-
-<div id="inherited-methods-org.mule.api.Capabilities">
-  <div id="inherited-methods-org.mule.api.Capabilities-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.Capabilities-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isCapableOf</span>(Capability arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.MetadataAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.MetadataAware-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.MetadataAware
-
-<div id="inherited-methods-org.mule.api.MetadataAware">
-  <div id="inherited-methods-org.mule.api.MetadataAware-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.MetadataAware-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDevkitBuild</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDevkitVersion</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getModuleName</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getModuleVersion</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
           ><img id="inherited-methods-org.mule.api.lifecycle.Disposable-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -2410,6 +2568,50 @@ From interface
 
 
 
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.common.Testable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.common.Testable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.common.Testable
+
+<div id="inherited-methods-org.mule.common.Testable">
+  <div id="inherited-methods-org.mule.common.Testable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.common.Testable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            TestResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">test</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.CMISFacade" class="jd-expando-trigger closed"
@@ -2458,6 +2660,24 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply the specified aspect and set some properties (optional) for the aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -2466,7 +2686,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2485,7 +2705,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2503,7 +2723,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2521,7 +2741,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2539,7 +2759,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2551,7 +2771,27 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -2569,7 +2809,8 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -2585,9 +2826,47 @@ From interface
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -2798,6 +3077,24 @@ From interface
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -2809,7 +3106,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2827,7 +3124,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2845,7 +3142,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2863,7 +3160,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2879,7 +3176,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2898,7 +3195,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2911,6 +3208,153 @@ From interface
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISFacade.html#updateObjectProperties(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateObjectProperties</a></span>(CmisObject cmisObject, String objectId, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
         <div class="jd-descrdiv">Update an object's properties</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.basic.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.module.cmis.basic.Capabilities-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/module/cmis/basic/Capabilities.html">org.mule.module.cmis.basic.Capabilities</a>
+
+<div id="inherited-methods-org.mule.module.cmis.basic.Capabilities">
+  <div id="inherited-methods-org.mule.module.cmis.basic.Capabilities-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.module.cmis.basic.Capabilities-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/basic/Capabilities.html#isCapableOf(org.mule.module.cmis.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/module/cmis/basic/Capability.html">Capability</a> capability)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if this module implements such
+ capability</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.basic.MetadataAware" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.module.cmis.basic.MetadataAware-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/module/cmis/basic/MetadataAware.html">org.mule.module.cmis.basic.MetadataAware</a>
+
+<div id="inherited-methods-org.mule.module.cmis.basic.MetadataAware">
+  <div id="inherited-methods-org.mule.module.cmis.basic.MetadataAware-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.module.cmis.basic.MetadataAware-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/basic/MetadataAware.html#getDevkitBuild()">getDevkitBuild</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the build of the DevKit used to create this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/basic/MetadataAware.html#getDevkitVersion()">getDevkitVersion</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the version of the DevKit used to create this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/basic/MetadataAware.html#getModuleName()">getModuleName</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the user-friendly name of this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/basic/MetadataAware.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the version of this module
+</div>
   
   </td></tr>
 

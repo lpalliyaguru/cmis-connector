@@ -207,11 +207,23 @@
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/package-summary.html">org.mule.module.cmis</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/adapter/package-summary.html">org.mule.module.cmis.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/adapters/package-summary.html">org.mule.module.cmis.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
@@ -241,6 +253,7 @@
               
     <li><h2>Enums</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/NavigationOptions.html">NavigationOptions</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></li>
       </ul>
@@ -288,6 +301,18 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+  
+  
+
+  
+  
+  
+  
 
   
    
@@ -367,6 +392,8 @@ Summary:
   
   
       implements 
+      
+        Testable 
       
         <a href="../../../../../java/org/mule/module/cmis/CMISFacade.html">CMISFacade</a> 
       
@@ -549,6 +576,30 @@ Summary:
           
           
           String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#connectionTimeout">connectionTimeout</a></td>
+          <td class="jd-descrcol" width="100%">The connection time-out specification.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#cxfPortProvider">cxfPortProvider</a></td>
+          <td class="jd-descrcol" width="100%">Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#endpoint">endpoint</a></td>
           <td class="jd-descrcol" width="100%">The type of endpoint
 </td>
@@ -593,6 +644,19 @@ Summary:
       
     
       <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
+          <td class="jd-descrcol" width="100%">Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -676,6 +740,24 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply and aspect to an object and set some properties of that aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -684,7 +766,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -703,7 +785,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -721,7 +803,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -739,7 +821,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -757,7 +839,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -769,7 +851,27 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -787,7 +889,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -803,9 +906,47 @@ Summary:
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -964,13 +1105,11 @@ Summary:
             
             
             
-            ContentStream</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getContentStream</a></span>(CmisObject cmisObject, String objectId)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves the content stream of a Document.</div>
-  
   </td></tr>
 
 
@@ -982,7 +1121,41 @@ Summary:
             
             
             
+            ContentStream</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getContentStream</a></span>(CmisObject cmisObject, String objectId)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves the content stream of a Document.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getEndpoint()">getEndpoint</a></span>()</nobr>
@@ -1068,6 +1241,24 @@ Summary:
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1081,7 +1272,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1097,7 +1288,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1113,7 +1304,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1127,6 +1318,22 @@ Summary:
         
         <div class="jd-descrdiv">Returns the type definition of the given type id.</div>
   
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
+        
   </td></tr>
 
 
@@ -1263,7 +1470,39 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setEndpoint(java.lang.String)">setEndpoint</a></span>(String endpoint)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setConnectionTimeout(java.lang.String)">setConnectionTimeout</a></span>(String connectionTimeout)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setCxfPortProvider(java.lang.String)">setCxfPortProvider</a></span>(String cxfPortProvider)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setEndpoint(org.mule.module.cmis.CMISConnectionType)">setEndpoint</a></span>(<a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a> endpoint)</nobr>
         
   </td></tr>
 
@@ -1327,8 +1566,42 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUseAlfrescoExtension(java.lang.String)">setUseAlfrescoExtension</a></span>(String useAlfrescoExtension)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUsername(java.lang.String)">setUsername</a></span>(String username)</nobr>
         
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            TestResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISCloudConnector.html#test()">test</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Method implemented for Mule Studio connectivity testing</div>
+  
   </td></tr>
 
 
@@ -1569,6 +1842,50 @@ From class
 
 
 
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.common.Testable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.common.Testable-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.common.Testable
+
+<div id="inherited-methods-org.mule.common.Testable">
+  <div id="inherited-methods-org.mule.common.Testable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.common.Testable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            TestResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">test</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.CMISFacade" class="jd-expando-trigger closed"
@@ -1617,6 +1934,24 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect</a></span>(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Apply the specified aspect and set some properties (optional) for the aspect.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy</a></span>(CmisObject cmisObject, String objectId, List&lt;ObjectId&gt; policyIds)</nobr>
         
         <div class="jd-descrdiv">Applies policies to this object.</div>
@@ -1625,7 +1960,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1644,7 +1979,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1662,7 +1997,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1680,7 +2015,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1698,7 +2033,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1710,7 +2045,27 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent</a></span>(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.</div>
   
   </td></tr>
 
@@ -1728,7 +2083,8 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
         
-        <div class="jd-descrdiv">Creates a new document in the repository.</div>
+        <div class="jd-descrdiv">Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.</div>
   
   </td></tr>
 
@@ -1744,9 +2100,47 @@ From interface
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent</a></span>(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            ObjectId</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String folderName, String parentObjectId)</nobr>
         
         <div class="jd-descrdiv">Creates a folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship</a></span>(String parentObjectId, String childObjectId, String relationshipType)</nobr>
+        
+        <div class="jd-descrdiv">Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.</div>
   
   </td></tr>
 
@@ -1957,6 +2351,24 @@ From interface
             
             
             
+            CmisObject</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/CMISFacade.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath</a></span>(String folderPath)</nobr>
+        
+        <div class="jd-descrdiv">Creates a new folder in the repository if it doesn't already exist</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
             List&lt;Folder&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1968,7 +2380,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1986,7 +2398,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2004,7 +2416,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2022,7 +2434,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2038,7 +2450,7 @@ From interface
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2057,7 +2469,7 @@ From interface
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2143,7 +2555,7 @@ From interface
 
 
 
-<A NAME="endpoint"></A>
+<A NAME="connectionTimeout"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2152,6 +2564,69 @@ From interface
          
          
         String
+      </span>
+        connectionTimeout
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The connection time-out specification.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="cxfPortProvider"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        cxfPortProvider
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="endpoint"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        <a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a>
       </span>
         endpoint
     </h4>
@@ -2262,6 +2737,39 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>The identifier for the Repository that this connector instance works with
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="useAlfrescoExtension"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        useAlfrescoExtension
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.
 </p></div>
 
     
@@ -2412,6 +2920,61 @@ From interface
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the new access control list
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">applyAspect</span>
+      <span class="normal">(String objectId, String aspectName, Map&lt;String,&nbsp;String&gt; properties)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Apply and aspect to an object and set some properties of that aspect.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objectId</td>
+          <td>The object's id.</td>
+        </tr>
+        <tr>
+          <th>aspectName</td>
+          <td>The name of the aspect to be applied to the object.</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties to set.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The ID of the object that was updated.
 </li></ul>
   </div>
 
@@ -2722,8 +3285,9 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
- <p/>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.
+  <p/>
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -2738,7 +3302,7 @@ From interface
         </tr>
         <tr>
           <th>content</td>
-          <td>File content (no byte array or input stream for now)</td>
+          <td>File content as specified in the payload</td>
         </tr>
         <tr>
           <th>mimeType</td>
@@ -2746,11 +3310,15 @@ From interface
         </tr>
         <tr>
           <th>versioningState</td>
-          <td>An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+          <td>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checkedout: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
         </tr>
         <tr>
           <th>objectType</td>
-          <td>The type of the object.</td>
+          <td>The type of the object</td>
         </tr>
         <tr>
           <th>properties</td>
@@ -2760,7 +3328,83 @@ From interface
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the ObjectId of the created
+      <ul class="nolist"><li>the object id ObjectId of the created
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ObjectId
+      </span>
+      <span class="sympad">createDocumentByIdFromContent</span>
+      <span class="normal">(String folderId, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by an object ID.
+ *  <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>folderId</td>
+          <td>Folder Object Id</td>
+        </tr>
+        <tr>
+          <th>filename</td>
+          <td>Name of the file</td>
+        </tr>
+        <tr>
+          <th>content</td>
+          <td>File content</td>
+        </tr>
+        <tr>
+          <th>mimeType</td>
+          <td>Stream content-type</td>
+        </tr>
+        <tr>
+          <th>versioningState</td>
+          <td>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checkedout: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
+        </tr>
+        <tr>
+          <th>objectType</td>
+          <td>The type of the object</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties optional document properties to set</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the object id ObjectId of the created
 </li></ul>
   </div>
 
@@ -2793,7 +3437,89 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository.
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
+ the target folder node is specified by a repository path.
+ * <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>folderPath</td>
+          <td>Folder in the repository that will hold the document</td>
+        </tr>
+        <tr>
+          <th>filename</td>
+          <td>Name of the file</td>
+        </tr>
+        <tr>
+          <th>content</td>
+          <td>File content as specified in the payload</td>
+        </tr>
+        <tr>
+          <th>mimeType</td>
+          <td>Stream content-type</td>
+        </tr>
+        <tr>
+          <th>versioningState</td>
+          <td>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                        o none:  The document MUST be created as a non-versionable document.
+                        o checked-out: The document MUST be created in the checked-out state.
+                        o major (default): The document MUST be created as a major version
+                        o minor: The document MUST be created as a minor version.</td>
+        </tr>
+        <tr>
+          <th>objectType</td>
+          <td>The type of the object</td>
+        </tr>
+        <tr>
+          <th>properties</td>
+          <td>The properties optional document properties to set</td>
+        </tr>
+        <tr>
+          <th>force</td>
+          <td>If should folder structure must be created when there
+                        are missing intermediate folders</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the object id ObjectId of the created
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        ObjectId
+      </span>
+      <span class="sympad">createDocumentByPathFromContent</span>
+      <span class="normal">(String folderPath, String filename, Object content, String mimeType, <a href="../../../../../java/org/mule/module/cmis/VersioningState.html">VersioningState</a> versioningState, String objectType, Map&lt;String,&nbsp;String&gt; properties, boolean force)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content is specified as the value of the "content"
+ parameter and the target folder node is specified by a repository path.
  <p/>
  </p></div>
   <div class="jd-tagdata">
@@ -2809,7 +3535,7 @@ From interface
         </tr>
         <tr>
           <th>content</td>
-          <td>File content (no byte array or input stream for now)</td>
+          <td>File content</td>
         </tr>
         <tr>
           <th>mimeType</td>
@@ -2817,7 +3543,7 @@ From interface
         </tr>
         <tr>
           <th>versioningState</td>
-          <td>An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+          <td>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
         </tr>
         <tr>
           <th>objectType</td>
@@ -2890,6 +3616,58 @@ From interface
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>the ObjectId of the created
 </li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createRelationship(java.lang.String, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">createRelationship</span>
+      <span class="normal">(String parentObjectId, String childObjectId, String relationshipType)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a parent/child relationships between two nodes in the repository of the 
+ specified relationship object type.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>parentObjectId</td>
+          <td>The ID of the parent (or source) object in the relationship.</td>
+        </tr>
+        <tr>
+          <th>childObjectId</td>
+          <td>The ID of the child (or target) object in the relationship.</td>
+        </tr>
+        <tr>
+          <th>relationshipType</td>
+          <td>The name of the relationship type that should be associated with the objects.
+</td>
+        </tr>
+      </table>
   </div>
 
     </div>
@@ -3338,6 +4116,37 @@ From interface
 </div>
 
 
+<A NAME="getConnectionTimeout()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getConnectionTimeout</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 <A NAME="getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3389,7 +4198,7 @@ From interface
 </div>
 
 
-<A NAME="getEndpoint()"></A>
+<A NAME="getCxfPortProvider()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3400,6 +4209,37 @@ From interface
          
          
         String
+      </span>
+      <span class="sympad">getCxfPortProvider</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getEndpoint()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a>
       </span>
       <span class="sympad">getEndpoint</span>
       <span class="normal">()</span>
@@ -3596,6 +4436,53 @@ From interface
 </div>
 
 
+<A NAME="getOrCreateFolderByPath(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        CmisObject
+      </span>
+      <span class="sympad">getOrCreateFolderByPath</span>
+      <span class="normal">(String folderPath)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder in the repository if it doesn't already exist.
+  <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>folderPath</td>
+          <td>Path to the folder</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the ObjectId of the created
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3751,6 +4638,37 @@ From interface
       <ul class="nolist"><li>type of object ObjectType
 </li></ul>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="getUseAlfrescoExtension()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getUseAlfrescoExtension</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
@@ -4055,7 +4973,87 @@ From interface
 </div>
 
 
-<A NAME="setEndpoint(java.lang.String)"></A>
+<A NAME="setConnectionTimeout(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setConnectionTimeout</span>
+      <span class="normal">(String connectionTimeout)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>connectionTimeout</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setCxfPortProvider(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setCxfPortProvider</span>
+      <span class="normal">(String cxfPortProvider)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>cxfPortProvider</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setEndpoint(org.mule.module.cmis.CMISConnectionType)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4068,7 +5066,7 @@ From interface
         void
       </span>
       <span class="sympad">setEndpoint</span>
-      <span class="normal">(String endpoint)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a> endpoint)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4215,6 +5213,46 @@ From interface
 </div>
 
 
+<A NAME="setUseAlfrescoExtension(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUseAlfrescoExtension</span>
+      <span class="normal">(String useAlfrescoExtension)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>useAlfrescoExtension</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setUsername(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -4249,6 +5287,42 @@ From interface
           <td></td>
         </tr>
       </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="test()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        TestResult
+      </span>
+      <span class="sympad">test</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Method implemented for Mule Studio connectivity testing</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the connection test result
+</li></ul>
   </div>
 
     </div>
