@@ -73,12 +73,14 @@ public class ChemistryCMISFacade implements CMISFacade
                                String baseURL,
                                boolean useAtomPub,
                                String connectionTimeout,
-                               String useAlfrescoExtension) 
+                               String useAlfrescoExtension,
+                               String cxfPortProvider)
     {
     	this.baseURL = baseURL;
     	
         this.connectionParameters = 
-        	paramMap(username, password, repositoryId, baseURL, useAtomPub, connectionTimeout, useAlfrescoExtension);
+        	paramMap(username, password, repositoryId, baseURL, useAtomPub,
+                    connectionTimeout, useAlfrescoExtension, cxfPortProvider);
     } // End ChemistryCMISFacade Constructor
 
     
@@ -1049,7 +1051,8 @@ public class ChemistryCMISFacade implements CMISFacade
                                                 String baseURL,
                                                 boolean useAtomPub,
                                                 String connectionTimeout,
-                                                String useAlfrescoExtension) 
+                                                String useAlfrescoExtension,
+                                                String cxfPortProvider)
     {
     	if ( ( username == null ) || (username.trim().length() <= 0 ) )
     	{
@@ -1096,7 +1099,8 @@ public class ChemistryCMISFacade implements CMISFacade
             parameters.put(SessionParameter.WEBSERVICES_RELATIONSHIP_SERVICE, baseURL + "RelationshipService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_REPOSITORY_SERVICE, baseURL + "RepositoryService?wsdl");
             parameters.put(SessionParameter.WEBSERVICES_VERSIONING_SERVICE, baseURL + "VersioningService?wsdl");
-        } 
+            parameters.put(SessionParameter.WEBSERVICES_PORT_PROVIDER_CLASS, cxfPortProvider);
+        }
         else 
         {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());

@@ -26,6 +26,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.apache.cxf.transports.http.configuration.ConnectionType;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -78,7 +79,10 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     /**
      * The type of endpoint
      */
-    private String endpoint;
+    @Optional
+    @Configurable
+    @Default("ATOM")
+    private CMISConnectionType endpoint;
     
     /**
      * The connection time-out specification.
@@ -88,13 +92,22 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     private String connectionTimeout = "10000";
     
     /**
-     * Specifies whether the Alfresco Object Factory implementation should be utilized. The
+     * Specifies whether the Alfresco Object Factory implementation should be utilized, the
      * Alfresco CMIS extension JAR must be included in your Mule application in order for
      * this configuration to work.
      */
     @Configurable
     @Optional
     private String useAlfrescoExtension = "false";
+
+    /**
+     * Specifies CXF port provider, the CMIS connector includes a default implementation
+     * but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+     */
+    @Configurable
+    @Optional
+    @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
+    private String cxfPortProvider;
 
     /**
      * Reference to a CMISFacade implementation in case you want to
@@ -110,9 +123,9 @@ public class CMISCloudConnector implements CMISFacade, Testable {
             boolean useAtomPub = false;
             if (endpoint == null) {
                 useAtomPub = true;
-            } else if ("soap".equals(endpoint)) {
+            } else if (endpoint == CMISConnectionType.SOAP) {
                 useAtomPub = false;
-            } else if ("atompub".equals(endpoint)) {
+            } else if (endpoint == CMISConnectionType.ATOM) {
                 useAtomPub = true;
             } else {
                 throw new IllegalStateException("unknown endpoint type " + endpoint);
@@ -126,7 +139,8 @@ public class CMISCloudConnector implements CMISFacade, Testable {
             					baseUrl, 
             					useAtomPub, 
             					connectionTimeout, 
-            					useAlfrescoExtension));
+            					useAlfrescoExtension,
+                                cxfPortProvider));
         }
     }
 
@@ -828,11 +842,11 @@ public class CMISCloudConnector implements CMISFacade, Testable {
         this.facade = facade;
     }
 
-    public String getEndpoint() {
+    public CMISConnectionType getEndpoint() {
         return endpoint;
     }
 
-    public void setEndpoint(String endpoint) {
+    public void setEndpoint(CMISConnectionType endpoint) {
         this.endpoint = endpoint;
     }
     
@@ -846,10 +860,18 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     	this.useAlfrescoExtension = useAlfrescoExtension;
     }
 
+    public String getCxfPortProvider() {
+        return cxfPortProvider;
+    }
+
+    public void setCxfPortProvider(String cxfPortProvider) {
+        this.cxfPortProvider = cxfPortProvider;
+    }
+
     /**
-    * Method implemented for Mule Studio connectivity testing
-    * @return the connection test result
-    */
+     * Method implemented for Mule Studio connectivity testing
+     * @return the connection test result
+     */
     @Override
     public TestResult test() {
         initialiseConnector();

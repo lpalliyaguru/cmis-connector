@@ -12,15 +12,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.apache.chemistry.opencmis.client.api.ChangeEvents;
-import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Document;
-import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
-import org.apache.chemistry.opencmis.client.api.Folder;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectId;
-import org.apache.chemistry.opencmis.client.api.QueryResult;
-import org.apache.chemistry.opencmis.client.api.Tree;
+import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
@@ -42,10 +34,12 @@ public class CMISTestCaseDriver {
         cmis.setPassword("admin");
         cmis.setRepositoryId("371554cd-ac06-40ba-98b8-e6b60275cca7");
         cmis.setBaseUrl("https://cmis.alfresco.com/service/cmis");
-        cmis.setEndpoint("atompub");
+cmis.setEndpoint(CMISConnectionType.SOAP);
+        cmis.setCxfPortProvider("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
+
         cmis.initialiseConnector();
         
-        //cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
+        cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
         folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));
         cmis.createFolder("test", folder.getId());
         cmis.createDocumentByPath("/tmp-mule-tests/test", "SomeFile.txt", "Hello!", "text/plain",
@@ -75,6 +69,12 @@ public class CMISTestCaseDriver {
 
     @Test
     public void repositories() {
+        List<Repository> repositories = cmis.repositories();
+
+        for(Repository repository : repositories) {
+            System.out.println("Repository: " + repository.getId());
+        }
+
         assertNotNull(cmis.repositories());
     }
 
@@ -89,7 +89,7 @@ public class CMISTestCaseDriver {
     @SuppressWarnings("unchecked")
     @Test
     public void folderTree() {
-        String folderId = getObjectId("/tmp-mule-tests");
+        String folderId = getObjectId("/");
         List<Tree<FileableCmisObject>> tree = (List<Tree<FileableCmisObject>>) cmis.folder(null,
                 folderId, NavigationOptions.TREE, 1, null, null);
         assertNotNull(tree);
@@ -124,7 +124,7 @@ public class CMISTestCaseDriver {
     @Test
     @SuppressWarnings("unchecked")
     public void folderContent() {
-        String folderId = getObjectId("/tmp-mule-tests");
+        String folderId = getObjectId("/");
         ItemIterable<CmisObject> it = (ItemIterable<CmisObject>) cmis.folder(null, folderId,
                 NavigationOptions.CHILDREN, null, null, null);
         Assert.assertNotNull(it);
@@ -207,14 +207,14 @@ public class CMISTestCaseDriver {
 
     @Test
     public void createAndDeleteFolder() {
-        String parentId = getObjectId("/tmp-mule-tests");
+        String parentId = getObjectId("/");
         ObjectId toDelete = cmis.createFolder("delete me", parentId);
         cmis.delete(null, toDelete.getId(), true);
     }
 
     @Test
     public void createAndDeleteTree() {
-        String parentId = getObjectId("/tmp-mule-tests");
+        String parentId = getObjectId("/");
         ObjectId parentToDelete = cmis.createFolder("parent to delete", parentId);
         cmis.createFolder("delete me", parentToDelete.getId());
         cmis.deleteTree(null, parentToDelete.getId(), true, UnfileObject.UNFILE, true);
@@ -222,7 +222,7 @@ public class CMISTestCaseDriver {
 
     @Test
     public void createAndDeleteDocument() {
-        ObjectId id = cmis.createDocumentByPath("/tmp-mule-tests", "foo.txt", "txttxttxt",
+        ObjectId id = cmis.createDocumentByPath("/", "foo.txt", "txttxttxt",
                 "text/plain", VersioningState.NONE, "cmis:document", null, false);
         cmis.delete(null, id.getId(), true);
     }
@@ -283,5 +283,13 @@ public class CMISTestCaseDriver {
                 cmis.delete(null, document.getId(), true);
             }
         }
+    }
+
+    public static ObjectId getFolder() {
+        return folder;
+    }
+
+    public static void setFolder(ObjectId folder) {
+        CMISTestCaseDriver.folder = folder;
     }
 }

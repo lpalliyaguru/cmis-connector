@@ -18,9 +18,11 @@
     <url>http://www.muleforge.org/projects/mule-module-cmis</url>
 
     <properties>
-            <category>Community</category>
-            <licensePath>LICENSE.md</licensePath>
-            <devkit.studio.package.skip>false</devkit.studio.package.skip>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
+        <cxf.version>2.5.1</cxf.version>
+        <chemistry.version>0.9.0</chemistry.version>
     </properties>
 
     <dependencies>
@@ -28,11 +30,15 @@
         <dependency>
             <groupId>org.apache.chemistry.opencmis</groupId>
             <artifactId>chemistry-opencmis-client-impl</artifactId>
-            <version>0.6.0</version>
+            <version>${chemistry.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.xml.ws</groupId>
                     <artifactId>jaxws-rt</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -46,6 +52,18 @@
             <artifactId>alfresco-opencmis-extension</artifactId>
             <version>0.3</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
         </dependency>
 	</dependencies>
 
