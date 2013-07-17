@@ -33,7 +33,6 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.api.annotations.param.Payload;
 import org.mule.common.DefaultTestResult;
 import org.mule.common.TestResult;
 import org.mule.common.Testable;
@@ -241,7 +240,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Processor
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
-                                         @Payload Object content,
+                                         @Optional @Default("#[payload]")  Object content,
                                          String mimeType,
                                          VersioningState versioningState,
                                          String objectType,
@@ -273,7 +272,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Processor
     public ObjectId createDocumentByPathFromContent(String folderPath,
 			                                        String filename,
-			                                        Object content,
+			                                        @Optional @Default("#[payload]") Object content,
 			                                        String mimeType,
 			                                        VersioningState versioningState,
 			                                        String objectType,
@@ -327,7 +326,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Processor
     public ObjectId createDocumentById(String folderId,
                                        String filename,
-                                       @Payload Object content,
+                                       @Optional @Default("#[payload]")  Object content,
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
@@ -359,7 +358,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Processor
     public ObjectId createDocumentByIdFromContent(String folderId,
 			                                      String filename,
-			                                      Object content,
+			                                      @Optional @Default("#[payload]") Object content,
 			                                      String mimeType,
 			                                      VersioningState versioningState,
 			                                      String objectType,
@@ -447,7 +446,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
+    public List<Folder> getParentFolders(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
@@ -478,7 +477,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Object folder(@Placement(order = 2) @Optional Folder folder,
+    public Object folder(@Placement(order = 2) @Optional @Default("#[payload]") Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
                          @Placement(order = 4) @Optional Integer depth,
@@ -498,7 +497,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public ContentStream getContentStream(@Optional CmisObject cmisObject,
+    public ContentStream getContentStream(@Optional @Default("#[payload]") CmisObject cmisObject,
                                           @Optional String objectId) {
         return facade.getContentStream(cmisObject, objectId);
     }
@@ -536,7 +535,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
+    public CmisObject updateObjectProperties(@Optional @Default("#[payload]") CmisObject cmisObject,
                                              @Optional String objectId,
                                              @Placement(group = "Properties") Map<String, String> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
@@ -554,7 +553,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
+    public List<Relationship> getObjectRelationships(@Optional @Default("#[payload]") CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
     }
@@ -570,7 +569,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
+    public Acl getAcl(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
 
@@ -588,7 +587,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Document> getAllVersions(@Optional CmisObject document,
+    public List<Document> getAllVersions(@Optional @Default("#[payload]") CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
                                          @Optional String orderBy) {
@@ -606,7 +605,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public ObjectId checkOut(@Optional CmisObject document,
+    public ObjectId checkOut(@Optional @Default("#[payload]") CmisObject document,
                              @Optional String documentId) {
         return facade.checkOut(document, documentId);
     }
@@ -622,7 +621,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void cancelCheckOut(@Optional CmisObject document,
+    public void cancelCheckOut(@Optional @Default("#[payload]") CmisObject document,
                                @Optional String documentId) {
         facade.cancelCheckOut(document, documentId);
     }
@@ -647,7 +646,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Processor
     public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
-                            @Payload Object content,
+                            @Optional @Default("#[payload]") Object content,
                             String filename,
                             String mimeType,
                             boolean major,
@@ -671,7 +670,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl applyAcl(@Optional CmisObject cmisObject,
+    public Acl applyAcl(@Optional @Default("#[payload]") CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
                         @Placement(group = "Remove Aces") List<Ace> removeAces,
@@ -690,7 +689,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Policy> getAppliedPolicies(@Optional CmisObject cmisObject,
+    public List<Policy> getAppliedPolicies(@Optional @Default("#[payload]") CmisObject cmisObject,
                                            @Optional String objectId) {
         return facade.getAppliedPolicies(cmisObject, objectId);
     }
@@ -706,7 +705,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void applyPolicy(@Optional CmisObject cmisObject,
+    public void applyPolicy(@Optional @Default("#[payload]") CmisObject cmisObject,
                             @Optional String objectId,
                             @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
@@ -723,7 +722,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void delete(@Optional CmisObject cmisObject,
+    public void delete(@Optional @Default("#[payload]") CmisObject cmisObject,
                        @Optional String objectId,
                        @Optional @Default("false") boolean allVersions) {
         facade.delete(cmisObject, objectId, allVersions);
@@ -747,7 +746,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
+    public List<String> deleteTree(@Placement(order = 1) @Optional @Default("#[payload]")  CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,
@@ -768,8 +767,8 @@ public class CMISCloudConnector implements CMISFacade, Testable {
     @Override
     @Processor
     public void applyAspect(String objectId,
-					            String aspectName,
-					            Map<String, String> properties) 
+					        String aspectName,
+					        @Optional @Default("#[payload]") Map<String, String> properties) 
     {
         facade.applyAspect(objectId, aspectName, properties);
     }
