@@ -853,7 +853,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is intended to change.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1032,8 +1032,8 @@ specify which configuration to use.</p>
                 
                     <tr>
                         <td><nobr>&lt;cmis:properties&gt;</nobr></td>
-                        <td></td>
-                        <td>The properties to set.</td>
+                        <td>#[payload]</td>
+                        <td><i>Optional.&nbsp;</i>The properties to set.</td>
                         <td>Map&lt;String,&nbsp;String&gt;</td>
                     </tr>
                 
@@ -1103,7 +1103,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1198,7 +1198,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>document</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The checked out document. Can be null if "documentId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1377,8 +1377,8 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content (no byte array or input stream for now)</td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content (no byte array or input stream for now)</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1530,7 +1530,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>document</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document to be checked out. Can be null if "documentId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1639,8 +1639,8 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content as specified in the payload</td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1809,8 +1809,8 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content</td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1979,8 +1979,8 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content as specified in the payload</td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -2164,8 +2164,8 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>content</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">File content</td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
                         <td class="jd-descrcol">Object</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -2483,7 +2483,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object to be deleted. Can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2564,7 +2564,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>folder</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2686,7 +2686,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>folder</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
                         <td class="jd-descrcol">Folder</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2828,7 +2828,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is needed</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2910,7 +2910,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>document</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document whose versions are to be retrieved</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3017,7 +3017,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3182,7 +3182,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3404,7 +3404,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose relationships are needed</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3556,7 +3556,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose parent folders are needed. can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4044,7 +4044,7 @@ specify which configuration to use.</p>
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">#[payload]</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>Object to be updated. Can be null if "objectId" is set.</td>
                         <td class="jd-descrcol">CmisObject</td>
                         <td class="jd-descrcol">*/*</td>
