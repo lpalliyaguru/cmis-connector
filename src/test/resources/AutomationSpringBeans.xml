@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+                           
+	<util:map id="createFolder" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+	</util:map> 
+
+	<util:map id="delete" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="objectId" value="tmpObjectId" />
+		<entry key="allVersions" value="#{T(java.lang.Boolean).TRUE}" />
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+	</util:map> 
+	
+	<util:map id="repositoryInfo" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+<!-- 		empty -->
+	</util:map> 
+	
+	<util:map id="getObjectById" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+		<entry key="objectId" value="tmpObjectId" />
+	</util:map> 
+	
+</beans>
