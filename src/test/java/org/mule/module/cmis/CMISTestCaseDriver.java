@@ -10,6 +10,8 @@ package org.mule.module.cmis;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.*;
@@ -21,6 +23,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mule.api.ConnectionException;
 import org.mule.api.lifecycle.InitialisationException;
 
 public class CMISTestCaseDriver {
@@ -29,25 +32,19 @@ public class CMISTestCaseDriver {
     private static ObjectId folder;
 
     @BeforeClass
-    public static void setUpTests() {
-        cmis.setUsername("admin");
-        cmis.setPassword("admin");
-        cmis.setRepositoryId("371554cd-ac06-40ba-98b8-e6b60275cca7");
-        cmis.setBaseUrl("https://cmis.alfresco.com/service/cmis");
-cmis.setEndpoint(CMISConnectionType.SOAP);
-        cmis.setCxfPortProvider("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
-
-        cmis.initialiseConnector();
+    public static void setUpTests() throws ConnectionException {
+        cmis.connect("user", "bitnami", "http://192.168.56.101/alfresco/cmis/", "d88d6ab2-1d08-4e49-954d-1a221532ff2f",
+                "SOAP", null, "false", "org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
         
-        cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
-        folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));
-        cmis.createFolder("test", folder.getId());
-        cmis.createDocumentByPath("/tmp-mule-tests/test", "SomeFile.txt", "Hello!", "text/plain",
-                VersioningState.NONE, "cmis:document", null, true);
-        cmis.createFolder("move-this", folder.getId());
+//        cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
+//        folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));
+//        cmis.createFolder("test", folder.getId());
+//        cmis.createDocumentByPath("/tmp-mule-tests/test", "SomeFile.txt", "Hello!", "text/plain",
+//                VersioningState.NONE, "cmis:document", null, true);
+//        cmis.createFolder("move-this", folder.getId());
     }
 
-    @AfterClass
+//    @AfterClass
     public static void removeFolder() {
         cmis.deleteTree(null, folder.getId(), true, UnfileObject.UNFILE, true);
     }
@@ -75,7 +72,7 @@ cmis.setEndpoint(CMISConnectionType.SOAP);
             System.out.println("Repository: " + repository.getId());
         }
 
-        assertNotNull(cmis.repositories());
+        assertNotNull(repositories);
     }
 
     @Test
@@ -237,6 +234,12 @@ cmis.setEndpoint(CMISConnectionType.SOAP);
     @Test
     public void createDocumentExistentPath() throws Exception {
         assertCanCreateInFolder("/tmp-mule-tests/");
+    }
+
+    @Test
+    public void createDocumentFromStream() throws Exception {
+        cmis.createDocumentByPathFromContent("/", "newFile.txt", new ByteArrayInputStream(new byte[0]),
+                "text/plain", VersioningState.NONE, "cmis:document", null, false);
     }
 
     /**
