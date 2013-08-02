@@ -12,8 +12,8 @@ package org.mule.module.cmis;
  * Connection Type for CMIS
  */
 public enum CMISConnectionType {
-    ATOM("atompub"),
-    SOAP("soap");
+    ATOM("ATOM"),
+    SOAP("SOAP");
 
     private String value;
 
