@@ -35,7 +35,8 @@ public class CMISTestCaseDriver {
     public static void setUpTests() throws ConnectionException {
         cmis.connect("user", "bitnami", "http://192.168.56.101/alfresco/cmis/", "d88d6ab2-1d08-4e49-954d-1a221532ff2f",
                 "SOAP", null, "false", "org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
-        
+
+
 //        cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
 //        folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));
 //        cmis.createFolder("test", folder.getId());

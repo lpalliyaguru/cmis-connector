@@ -76,7 +76,7 @@ public class CMISCloudConnector implements CMISFacade {
                         @Placement(group = "Authentication") String password,
                         @Placement(group = "Repository Information") @ConnectionKey String baseUrl,
                         @Placement(group = "Repository Information") String repositoryId,
-                        @Placement(group = "Repository Information") @Optional @Default("ATOMPUB") String endpoint,
+                        @Placement(group = "Repository Information") @Optional @Default("ATOM") String endpoint,
                         @Optional @Default("10000") String connectionTimeout,
                         @Optional @Default("false") String useAlfrescoExtension,
                         @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider) throws ConnectionException {
