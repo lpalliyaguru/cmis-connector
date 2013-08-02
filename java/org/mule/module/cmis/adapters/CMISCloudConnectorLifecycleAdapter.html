@@ -221,6 +221,8 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/connectivity/package-summary.html">org.mule.module.cmis.connectivity</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
@@ -240,6 +242,7 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorCapabilitiesAdapter.html">CMISCloudConnectorCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorLifecycleAdapter.html">CMISCloudConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorMetadataAdapater.html">CMISCloudConnectorMetadataAdapater</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorProcessAdapter.html">CMISCloudConnectorProcessAdapter</a></li>
@@ -350,18 +353,6 @@
   
   
    
-  
-  
-  
-
-  
-  
-  
-  
-
-  
-   
-  
   
   
   
@@ -574,6 +565,37 @@ Summary:
 </td></tr></table>
 
 
+
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
+          ><img id="subclasses-indirect-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
+
+  <div id="subclasses-indirect">
+      <div id="subclasses-indirect-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>
+            
+          
+      </div>
+      <div id="subclasses-indirect-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>CMISCloudConnectorConnectionIdentifierAdapter</code> is a wrapper around <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code> that implements org.mule.devkit.dynamic.api.helper.Connection interface.&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
 
 
 <div class="jd-descr">
@@ -818,10 +840,6 @@ org.mule.api.lifecycle.Stoppable
 
 
 
-
-
-
-
 </table>
 
 
@@ -863,48 +881,12 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#baseUrl">baseUrl</a></td>
-          <td class="jd-descrcol" width="100%">URL base for the SOAP connector.</td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#connectionIdentifier">connectionIdentifier</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#connectionTimeout">connectionTimeout</a></td>
-          <td class="jd-descrcol" width="100%">The connection time-out specification.</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#cxfPortProvider">cxfPortProvider</a></td>
-          <td class="jd-descrcol" width="100%">Specifies CXF port provider, the CMIS connector includes a default implementation
- but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#endpoint">endpoint</a></td>
-          <td class="jd-descrcol" width="100%">The type of endpoint
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -917,63 +899,10 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#password">password</a></td>
-          <td class="jd-descrcol" width="100%">Password
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#repositoryId">repositoryId</a></td>
-          <td class="jd-descrcol" width="100%">The identifier for the Repository that this connector instance works with
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
-          <td class="jd-descrcol" width="100%">Specifies whether the Alfresco Object Factory implementation should be utilized, the
- Alfresco CMIS extension JAR must be included in your Mule application in order for
- this configuration to work.</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#username">username</a></td>
-          <td class="jd-descrcol" width="100%">Username
-</td>
-      </tr>
-      
-    
 </table>
   </div>
 </div>
 </td></tr>
-
-
-
-
 
 
 
@@ -1412,6 +1341,24 @@ From class
             
             
             
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">connect</a></span>(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</nobr>
+        
+        <div class="jd-descrdiv">Connects to CMIS</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             ObjectId</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1424,7 +1371,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1443,7 +1390,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1462,7 +1409,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1481,7 +1428,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1499,7 +1446,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1518,7 +1465,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1538,7 +1485,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1552,6 +1499,22 @@ From class
         
         <div class="jd-descrdiv">Deletes a folder and all subfolders.</div>
   
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#disconnect()">disconnect</a></span>()</nobr>
+        
   </td></tr>
 
 
@@ -1637,22 +1600,6 @@ From class
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getBaseUrl()">getBaseUrl</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             ItemIterable&lt;Document&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1664,7 +1611,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1674,13 +1621,13 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getConnectionIdentifier()">getConnectionIdentifier</a></span>()</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1698,39 +1645,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getEndpoint()">getEndpoint</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1746,7 +1661,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1764,7 +1679,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1782,7 +1697,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1800,7 +1715,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1818,7 +1733,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1838,39 +1753,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getPassword()">getPassword</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getRepositoryId()">getRepositoryId</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1888,22 +1771,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1911,32 +1778,16 @@ From class
             
             
             
-            String</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#getUsername()">getUsername</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#isConnected()">isConnected</a></span>()</nobr>
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#initialiseConnector()">initialiseConnector</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1954,7 +1805,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1974,7 +1825,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1992,7 +1843,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2010,22 +1861,6 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setBaseUrl(java.lang.String)">setBaseUrl</a></span>(String baseUrl)</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -2036,39 +1871,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setConnectionTimeout(java.lang.String)">setConnectionTimeout</a></span>(String connectionTimeout)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setCxfPortProvider(java.lang.String)">setCxfPortProvider</a></span>(String cxfPortProvider)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setEndpoint(org.mule.module.cmis.CMISConnectionType)">setEndpoint</a></span>(<a href="../../../../../../java/org/mule/module/cmis/CMISConnectionType.html">CMISConnectionType</a> endpoint)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setConnectionIdentifier(java.lang.String)">setConnectionIdentifier</a></span>(String connectionIdentifier)</nobr>
         
   </td></tr>
 
@@ -2091,88 +1894,6 @@ From class
 
 	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setPassword(java.lang.String)">setPassword</a></span>(String password)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setRepositoryId(java.lang.String)">setRepositoryId</a></span>(String repositoryId)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUseAlfrescoExtension(java.lang.String)">setUseAlfrescoExtension</a></span>(String useAlfrescoExtension)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#setUsername(java.lang.String)">setUsername</a></span>(String username)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            TestResult</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/CMISCloudConnector.html#test()">test</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Method implemented for Mule Studio connectivity testing</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2557,50 +2278,6 @@ From interface
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">stop</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.common.Testable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.common.Testable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.common.Testable
-
-<div id="inherited-methods-org.mule.common.Testable">
-  <div id="inherited-methods-org.mule.common.Testable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.common.Testable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            TestResult</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">test</span>()</nobr>
         
   </td></tr>
 

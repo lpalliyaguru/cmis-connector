@@ -666,131 +666,151 @@ similar to the following:</p>
 &lt;/mule&gt;
 </pre>
 
-<p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
-its own name.</p>
-<p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
-specify which configuration to use.</p>
+
+
+
+
+<!-- ========= CONNECTION MANAGEMENT DETAIL ======== -->
+<h2>Connection Pool</h2>
+<p>This connector offers automatic connection management via the use of a connection pool. The pool will act a storage mechanism for all the connections that are in-use by the user of
+this connector.</p>
+<p>Prior to execution of a processor, the connector will attempt to lookup an already established connection and if one doesn't exists it will
+create one. That lookup mechanism is done in the connection pool via the use of connection variables declared as keys.</p>
+<p>The user of the connector can configure the pool by adding a <code>connection-pooling-profile</code> to the connector configuration like this:</p>
+<pre>
+    &lt;cmis:connection-pooling-profile maxActive="10" maxIdle="10"
+                             exhaustedAction="WHEN_EXHAUSTED_GROW" maxWait="120" minEvictionMillis="60000" evictionCheckIntervalMillis="30000"/&gt;
+</pre>
+<p>The following is a list of connection attributes, each connection attribute can be configured at the config element level or
+they can also be added to each processor. If they are used at the processor level they get the benefit of full expression
+resolution.</p>
 <table id="lconfig" class="jd-sumtable">
-<tr><th colspan="12">Attributes</th></tr>
-<tr><th>Type</th><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-<td class="jd-typecol"><nobr>xs:string</nobr></td>
-<td class="jd-linkcol"><nobr>name</nobr></td>
+<tr><th colspan="12">Connection Attributes</th></tr>
+<tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+<tr><td class="jd-linkcol"><nobr>config-ref</nobr></td>
 <td class="jd-descrcol"></td>
-<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Give a name to this configuration so it can be later referenced.</td>
-<td/><td/><td/>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td><td/><td/><td/></tr>
 
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">URL base for the SOAP connector.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
+          <td class="jd-linkcol"><nobr>username</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">CMIS username</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
-          <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
- but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          </nobr></td>
-          <td class="jd-linkcol"><nobr>endpoint</nobr></td>
-          <td class="jd-descrcol">ATOM</td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
           <td class="jd-linkcol"><nobr>password</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">Password
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">CMIS password</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
       </tr>
       
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">URL base for the SOAP connector</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">The identifier for the Repository that this connector instance works with</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+          <td class="jd-descrcol"><nobr>ATOM</nobr></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+          <td class="jd-descrcol"><nobr>10000</nobr></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
           <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
-          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"><nobr>false</nobr></td>
           <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
  Alfresco CMIS extension JAR must be included in your Mule application in order for
  this configuration to work.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>username</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">Username
+          <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+          <td class="jd-descrcol"><nobr>org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</nobr></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
 </td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
       </tr>
       
     
-    
-    
 </table>
-
-
-
+<h2>Reconnection Strategies</h2>
+<p>Reconnection Strategies specify how a connector behaves when its connection fails. You can control how Mule attempts to reconnect by specifying a number of criteria:</p>
+<ul>
+<li>The type of exception</li>
+<li>Number and frequency of reconnection attempts</li>
+<li>The notifications generated, and more</li>
+</ul>
+<p>With a reconnection strategy, you can better control the behavior of a failed connection, by configuring it, for example,
+to re-attempt the connection only once every 15 minutes, and to give up after 30 attempts. You can also send an automatic
+notification to your IT administrator whenever this reconnection strategy goes into effect. You can even define a strategy that
+attempts to reconnect only during business hours. Such a setting can prove useful if your server is frequently shut down for
+ nightly maintenance.</p>
+<h3>Configuration</h3>
+<p>A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts.</p>
+<pre>
+    &lt;cmis:config&gt;
+         &lt;reconnect count="5" frequency="1000"/&gt;
+    &lt;/cmis:config&gt;
+</pre>
+<table id="lconfig" class="jd-sumtable">
+<tr><th colspan="12">Reconnect Attributes</th></tr>
+<tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+<tr class="api" >
+<td class="jd-linkcol"><nobr>frequency</nobr></td>
+<td class="jd-descrcol"><nobr>2000</nobr></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>How often (in ms) to reconnect</td>
+</tr>
+<tr class="api" >
+<td class="jd-linkcol"><nobr>count</nobr></td>
+<td class="jd-descrcol"><nobr>2</nobr></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>How many reconnection attempts to make</td>
+</tr>
+</table>
+<p>For more information about reconnection strategies in Mule, or even how to write your own custom reconnection strategy please check <a href="http://www.mulesoft.org/documentation/display/MULE3USER/Configuring+Reconnection+Strategies">this</a> section.</p>
 
 
 
@@ -890,6 +910,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1015,6 +1122,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -1127,6 +1321,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -1221,6 +1502,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -1289,6 +1657,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1437,6 +1892,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -1551,6 +2093,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1690,6 +2319,93 @@ specify which configuration to use.</p>
           
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1860,6 +2576,93 @@ specify which configuration to use.</p>
           
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2044,6 +2847,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -2225,6 +3115,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -2341,6 +3318,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -2437,6 +3501,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -2517,6 +3668,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2625,6 +3863,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2759,6 +4084,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -2849,6 +4261,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2957,6 +4456,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3038,6 +4624,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3122,6 +4795,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3204,6 +4964,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3274,6 +5121,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3343,6 +5277,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3426,6 +5447,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3495,6 +5603,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3578,6 +5773,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3647,6 +5929,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3754,6 +6123,93 @@ specify which configuration to use.</p>
                 
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3863,6 +6319,93 @@ specify which configuration to use.</p>
                 
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3921,6 +6464,93 @@ specify which configuration to use.</p>
           
           
           
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
           
         </table>
   </div>
@@ -3978,6 +6608,93 @@ specify which configuration to use.</p>
         </tr>
           
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4067,6 +6784,93 @@ specify which configuration to use.</p>
           
                 
           
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS username</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CMIS password</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>baseUrl</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>URL base for the SOAP connector</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The identifier for the Repository that this connector instance works with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>endpoint</nobr></td>
+                        <td class="jd-descrcol">ATOM</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The type of endpoint. Values: SOAP or ATOMPUB</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>connectionTimeout</nobr></td>
+                        <td class="jd-descrcol">10000</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The connection time-out specification</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>useAlfrescoExtension</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies whether the Alfresco Object Factory implementation should be utilized, the
+ Alfresco CMIS extension JAR must be included in your Mule application in order for
+ this configuration to work.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cxfPortProvider</nobr></td>
+                        <td class="jd-descrcol">org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies CXF port provider, the CMIS connector includes a default implementation
+ but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
