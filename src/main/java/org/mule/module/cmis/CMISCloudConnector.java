@@ -32,9 +32,6 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.common.DefaultTestResult;
-import org.mule.common.TestResult;
-import org.mule.common.Testable;
 
 import java.util.List;
 import java.util.Map;
