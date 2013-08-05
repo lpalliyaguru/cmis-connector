@@ -4,32 +4,36 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.module.cmis.VersioningState;
 
-public class CreateFolderTestCases extends CMISTestParent {
+public class CreateDocumentByIdTestCases extends CMISTestParent {
 	
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
-			testObjects = (HashMap<String, Object>) context.getBean("createFolder");
-			testObjects.put("parentObjectId", rootFolderId());
+			testObjects = (HashMap<String, Object>) context.getBean("createDocumentById");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-	public void testCreateFolder() {
+	public void testCreateDocumentById() {
 		try {
-			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
+			ObjectId result = createDocumentById(rootFolderId(), (String) testObjects.get("filename"), (String) testObjects.get("content"), (String) testObjects.get("mimeType"), 
+					(VersioningState) testObjects.get("versioningState"), (String) testObjects.get("objectType"), (Map<String, Object>) testObjects.get("propertiesRef"));
+					
 			assertNotNull(result);
 			testObjects.put("objectId", result.getId());
 		} catch (Exception e) {

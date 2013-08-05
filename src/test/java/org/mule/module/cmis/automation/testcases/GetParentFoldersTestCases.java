@@ -4,39 +4,41 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class GetObjectByIdTestCases extends CMISTestParent {
+public class GetParentFoldersTestCases extends CMISTestParent {
 	
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
-			testObjects = (HashMap<String, Object>) context.getBean("getObjectById");
+			testObjects = (HashMap<String, Object>) context.getBean("getParentFolders");
 			String rootFolderId = rootFolderId();
 			testObjects.put("parentObjectId", rootFolderId);
 			ObjectId createFolderResult = createFolder((String) testObjects.get("folderName"), rootFolderId);
 			
 			testObjects.put("objectId", createFolderResult.getId());
+			testObjects.put("cmisObject", getObjectById(createFolderResult.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
-	public void testGetObjectById() {
+	public void testGetParentFolders() {
 		try {
-			CmisObject result = getObjectById((String) testObjects.get("objectId"));
-			assertNotNull(result);
-			testObjects.put("cmisObject", result);
+			List<Folder> folders = getParentFolders((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			assertNotNull(folders);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -52,5 +54,4 @@ public class GetObjectByIdTestCases extends CMISTestParent {
 			fail();
 		}
 	}
-
 }

@@ -8,18 +8,25 @@
 
 package org.mule.module.cmis.automation.testcases;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.module.cmis.VersioningState;
 import org.mule.tck.junit4.FunctionalTestCase;
+import org.mule.transport.NullPayload;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -86,11 +93,140 @@ public class CMISTestParent extends FunctionalTestCase {
 		return response.getMessage().getPayload();
 	}
 	
+	@SuppressWarnings("unchecked")
+	protected List<Relationship> getObjectRelationships(CmisObject payload, String objectId) throws Exception {
+		testObjects.put("objectId", objectId);
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MessageProcessor flow = lookupFlowConstruct("get-object-relationships");
+		MuleEvent response = flow.process(event);
+		MuleMessage msg = response.getMessage();
+		Object resultPayload = msg.getPayload();
+		if(resultPayload == null || resultPayload instanceof NullPayload) {
+			return null;
+		} else {
+			return (List<Relationship>) resultPayload;
+		}
+	}
+	
 	protected String rootFolderId() throws Exception {
 		MessageProcessor flow = lookupFlowConstruct("repository-info");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 
 		RepositoryInfo result = (RepositoryInfo) response.getMessage().getPayload();
 		return result.getRootFolderId();
+	}
+	
+	protected Acl getAcl(CmisObject payload, String objectId) throws Exception {
+		testObjects.put("objectId", objectId);
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MessageProcessor flow = lookupFlowConstruct("get-acl");
+		MuleEvent response = flow.process(event);
+		return (Acl) response.getMessage().getPayload();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<Folder> getParentFolders(CmisObject payload, String objectId) throws Exception {
+		testObjects.put("objectId", objectId);
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MessageProcessor flow = lookupFlowConstruct("get-parent-folders");
+		MuleEvent response = flow.process(event);
+		return (List<Folder>) response.getMessage().getPayload();
+	}
+	
+	protected ObjectId createDocumentById(String folderId, String filename, String payload, String mimeType, 
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
+		testObjects.put("folderId", folderId);
+		testObjects.put("filename", filename);
+		testObjects.put("mimeType", mimeType);
+		testObjects.put("versioningState", versioningState);
+		testObjects.put("objectType", objectType);
+		testObjects.put("propertiesRef", propertiesRef);
+		
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MessageProcessor flow = lookupFlowConstruct("create-document-by-id");
+		MuleEvent response = flow.process(event);
+		return (ObjectId) response.getMessage().getPayload();
+	}
+	
+	protected ObjectId createDocumentByIdFromContent(String folderId, String filename, String contentRef, String mimeType, 
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
+		testObjects.put("folderId", folderId);
+		testObjects.put("filename", filename);
+		testObjects.put("mimeType", mimeType);
+		testObjects.put("versioningState", versioningState);
+		testObjects.put("objectType", objectType);
+		testObjects.put("propertiesRef", propertiesRef);
+		testObjects.put("contentRef", contentRef);
+		
+		MessageProcessor flow = lookupFlowConstruct("create-document-by-id-from-content");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ObjectId) response.getMessage().getPayload();
+	}
+	
+	protected ObjectId createDocumentByPath(String folderPath, String filename, String payload, String mimeType,
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
+		testObjects.put("folderPath", folderPath);
+		testObjects.put("filename", filename);
+		testObjects.put("mimeType", mimeType);
+		testObjects.put("versioningState", versioningState);
+		testObjects.put("objectType", objectType);
+		testObjects.put("propertiesRef", propertiesRef);
+		testObjects.put("force", force);
+		
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MessageProcessor flow = lookupFlowConstruct("create-document-by-path");
+		MuleEvent response = flow.process(event);
+		return (ObjectId) response.getMessage().getPayload();
+	}
+	
+	protected ObjectId createDocumentByPathFromContent(String folderPath, String filename, String contentRef, String mimeType,
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
+		testObjects.put("folderPath", folderPath);
+		testObjects.put("filename", filename);
+		testObjects.put("mimeType", mimeType);
+		testObjects.put("versioningState", versioningState);
+		testObjects.put("objectType", objectType);
+		testObjects.put("propertiesRef", propertiesRef);
+		testObjects.put("force", force);
+		testObjects.put("contentRef", contentRef);
+		
+		MessageProcessor flow = lookupFlowConstruct("create-document-by-path-from-content");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ObjectId) response.getMessage().getPayload();
+	}
+	
+	protected Object createRelationship(String parentObjectId, String childObjectId, String relationshipType) throws Exception {
+		testObjects.put("parentObjectId", parentObjectId);
+		testObjects.put("childObjectId", childObjectId);
+		testObjects.put("relationshipType", relationshipType);
+		
+		MessageProcessor flow = lookupFlowConstruct("create-relationship");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return response.getMessage().getPayload();
 	}
 }

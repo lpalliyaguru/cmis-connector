@@ -33,4 +33,136 @@
 		<entry key="objectId" value="tmpObjectId" />
 	</util:map> 
 	
+	<util:map id="createRelationship" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename1" value="fileForTesting1" />
+		<entry key="filename2" value="fileForTesting2" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+		<entry key="childObjectId" value="tmpChildObjectId" />
+		<entry key="relationshipType" value="cmiscustom:assoc" />
+		<entry key="folderPath" value="/" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="this is the file content" />
+	</util:map> 
+	
+	<util:map id="getObjectRelationships" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename1" value="fileForTesting1" />
+		<entry key="filename2" value="fileForTesting2" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+		<entry key="childObjectId" value="tmpChildObjectId" />
+		<entry key="relationshipType" value="cmiscustom:assoc" />
+		<entry key="folderPath" value="/" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+<!-- 		not bad request but get null: -->
+		<entry key="objectType" value="D:cmiscustom:document" />
+<!-- 		<entry key="objectType" value="D:cmis:document" /> -->
+<!-- 		<entry key="objectType" value="R:cmiscustom:assoc" /> -->
+<!-- 		R:cmiscustom:assoc -->
+
+<!-- 		<entry key="objectType" value="R:cmiscustom:document" /> -->
+<!-- 		<entry key="objectType" value="D:cmiscustom:assoc" /> -->
+<!-- 		<entry key="objectType" value="D:ws:article" /> -->
+<!-- 		<entry key="objectType" value="R:ws:relatedArticles" /> -->
+		<entry key="content" value="this is the file content" />
+	</util:map> 
+	
+	<util:map id="getAcl" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+	</util:map> 
+	
+	<util:map id="getParentFolders" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+	</util:map> 
+	
+	<util:map id="moveObject" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="targetFolderName" value="targetFolderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+		<entry key="targetFolderId" value="tmpTargetFolderId" />
+		<entry key="objectId" value="tmpObjectId" />
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderPath" value="/" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="this is the file content" />	
+	</util:map> 
+	
+	<util:map id="createDocumentById" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderId" value="tmpFolderId" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="this is the file content" />
+	</util:map> 
+	
+	<util:map id="createDocumentByIdFromContent" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderId" value="tmpFolderId" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="contentRef" value="this is the file content" />
+	</util:map> 
+	
+	<util:map id="createDocumentByPath" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderPath" value="/" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="this is the file content" />
+		<entry key="force" value="#{T(java.lang.Boolean).TRUE}" />
+	</util:map> 
+	
+	<util:map id="createDocumentByPathFromContent" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderPath" value="/" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="contentRef" value="this is the file content" />
+		<entry key="force" value="#{T(java.lang.Boolean).TRUE}" />
+	</util:map> 
 </beans>

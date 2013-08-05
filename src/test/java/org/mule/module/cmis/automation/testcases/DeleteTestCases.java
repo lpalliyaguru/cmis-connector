@@ -10,8 +10,6 @@ import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 
 public class DeleteTestCases extends CMISTestParent {
 	
@@ -21,13 +19,10 @@ public class DeleteTestCases extends CMISTestParent {
 		try {
 			testObjects = (HashMap<String, Object>) context.getBean("delete");
 			testObjects.put("parentObjectId", rootFolderId());
-			MessageProcessor createFolderFlow = lookupFlowConstruct("create-folder");
-			MuleEvent response = createFolderFlow.process(getTestEvent(testObjects));
-
-			ObjectId result = (ObjectId) response.getMessage().getPayload();
+			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
+			
 			testObjects.put("objectId", result.getId());
 			testObjects.put("cmisObject", getObjectById(result.getId()));
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

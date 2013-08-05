@@ -5,33 +5,38 @@ import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 
+import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class CreateFolderTestCases extends CMISTestParent {
+public class GetAclTestCases extends CMISTestParent {
 	
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
-			testObjects = (HashMap<String, Object>) context.getBean("createFolder");
+			testObjects = (HashMap<String, Object>) context.getBean("getAcl");
 			testObjects.put("parentObjectId", rootFolderId());
+			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
+			
+			testObjects.put("objectId", result.getId());
+			testObjects.put("cmisObject", getObjectById(result.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
-	public void testCreateFolder() {
+	public void testGetAcl() {
 		try {
-			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
+			Acl result = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
 			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -41,11 +46,11 @@ public class CreateFolderTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
+
 }
