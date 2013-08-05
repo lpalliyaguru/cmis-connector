@@ -8,7 +8,6 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,7 @@ import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Acl;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -228,5 +228,34 @@ public class CMISTestParent extends FunctionalTestCase {
 		MessageProcessor flow = lookupFlowConstruct("create-relationship");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return response.getMessage().getPayload();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<String> deleteTree(CmisObject payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
+		testObjects.put("folderId", folderId);
+		testObjects.put("allversions", allversions);
+		testObjects.put("continueOnFailure", continueOnFailure);
+		
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("delete-tree");
+		MuleEvent response = flow.process(event);
+		return (List<String>) response.getMessage().getPayload();
+	}
+	
+	protected ContentStream getContentStream(CmisObject payload, String objectId) throws Exception {
+		testObjects.put("objectId", objectId);
+		
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
+		MuleEvent response = flow.process(event);
+		return (ContentStream) response.getMessage().getPayload();
 	}
 }

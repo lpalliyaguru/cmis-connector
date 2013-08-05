@@ -33,7 +33,7 @@ public class DeleteTestCases extends CMISTestParent {
 	@Test
 	public void testDelete() {
 		try {
-			Object result = (Object) delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
+			Object result = delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
 			assertNotNull(result);
 		} catch (Exception e) {
 			e.printStackTrace();

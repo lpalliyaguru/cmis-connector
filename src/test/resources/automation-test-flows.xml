@@ -76,4 +76,20 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
                  <cmis:properties ref="#[payload.propertiesRef]" />
 		</cmis:create-document-by-path-from-content>
 	</flow>
+	
+	<flow name="delete-tree">
+		<cmis:delete-tree config-ref="CMIS" allversions="#[sessionVars.allversions]" continueOnFailure="#[sessionVars.continueOnFailure]" folderId="#[sessionVars.folderId]" />
+	</flow>
+	
+	<flow name="get-type-definition">
+		<cmis:get-type-definition config-ref="CMIS" typeId="#[payload.typeId]" />
+	</flow>
+	
+	<flow name="get-content-stream">
+		<cmis:get-content-stream config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+	</flow>
+	
+	<flow name="get-object-by-path">
+		<cmis:get-object-by-path config-ref="CMIS" path="#[payload.path]" />
+	</flow>
 </mule>
