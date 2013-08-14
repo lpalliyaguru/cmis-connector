@@ -94,7 +94,6 @@ public class ApplyAclTestCases extends CMISTestParent {
 		   
 		    List<String> permissions2 = new ArrayList<String>();
 		    permissions2.add("cmis:write");
-		    permissions2.add("{http://www.alfresco.org/model/content/1.0}cmobject.Consumer");
 		    AccessControlEntryImpl acei2 = new AccessControlEntryImpl(principal, permissions2);
 		    removeAces.add(acei2);
 			
