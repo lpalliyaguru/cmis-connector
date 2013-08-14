@@ -228,4 +228,9 @@
 		<entry key="content" value="this is the file content" />
 		<entry key="aclPropagation" value="#{T(org.apache.chemistry.opencmis.commons.enums.AclPropagation).OBJECTONLY}" />
 	</util:map> 
+	
+	<util:map id="getOrCreateFolderByPath" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderPath" value="/tmpFolderForTesting" />
+	</util:map> 
 </beans>
