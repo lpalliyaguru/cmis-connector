@@ -15,9 +15,12 @@ import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.Relationship;
+import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.chemistry.opencmis.commons.data.Principal;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
+import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
@@ -257,5 +260,32 @@ public class CMISTestParent extends FunctionalTestCase {
 		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
 		MuleEvent response = flow.process(event);
 		return (ContentStream) response.getMessage().getPayload();
+	}
+	
+	protected Acl applyAcl(CmisObject payload, String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
+		testObjects.put("objectId", objectId);
+		testObjects.put("aclPropagation", aclPropagation);
+		testObjects.put("removeAces", removeAces);
+		testObjects.put("addAces", addAces);
+		
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("apply-acl");
+		MuleEvent response = flow.process(event);
+		return (Acl) response.getMessage().getPayload();
+	}
+	
+	protected Principal getPrincipal(Acl acl) {
+		Principal principal = null;
+		if(acl != null) {
+			List<Ace> aces = acl.getAces();
+			if(aces != null && aces.size() > 0) {
+				principal = aces.get(0).getPrincipal();
+			}
+		}
+		return principal;
 	}
 }

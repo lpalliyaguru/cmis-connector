@@ -92,4 +92,11 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	<flow name="get-object-by-path">
 		<cmis:get-object-by-path config-ref="CMIS" path="#[payload.path]" />
 	</flow>
+	
+	<flow name="apply-acl">
+		<cmis:apply-acl config-ref="CMIS" aclPropagation="#[sessionVars.aclPropagation]">
+	        <cmis:add-aces ref="#[sessionVars.addAces]"/>
+	        <cmis:remove-aces ref="#[sessionVars.removeAces]"/>
+		</cmis:apply-acl>
+	</flow>
 </mule>
