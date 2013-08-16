@@ -111,4 +111,22 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	<flow name="changelog">
 		<cmis:changelog config-ref="CMIS" changeLogToken="#[payload.changeLogToken]" includeProperties="#[payload.includeProperties]"/>
 	</flow>
+	
+<!-- 	<cmis:apply-policy> -->
+<!-- 	    <cmis:policy-ids config-ref="CMIS" ref="#[payload]"/> -->
+<!-- 	</cmis:apply-policy> -->
+		
+	<flow name="get-applied-policies">
+		<cmis:get-applied-policies config-ref="CMIS" objectId="#[sessionVars.objectId]"/>
+	</flow>
+	
+	<flow name="apply-aspect">
+		<cmis:apply-aspect config-ref="CMIS" objectId="#[sessionVars.objectId]" aspectName="#[sessionVars.aspectName]">
+			<cmis:properties ref="#[sessionVars.properties]"/>
+		</cmis:apply-aspect>
+	</flow>
+	
+	<flow name="repositories">
+		<cmis:repositories config-ref="CMIS" />
+	</flow>
 </mule>

@@ -1,5 +1,6 @@
 package org.mule.module.cmis.automation.testcases;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
@@ -35,8 +36,7 @@ public class ChangeLogTestCases extends CMISTestParent {
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			ChangeEvents changeEvents = (ChangeEvents) response.getMessage().getPayload();
 			
-			System.out.println(changeEvents);
-			
+			assertNotNull(changeEvents);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

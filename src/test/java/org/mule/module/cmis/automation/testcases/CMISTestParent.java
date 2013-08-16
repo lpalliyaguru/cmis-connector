@@ -14,6 +14,7 @@ import java.util.Map;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
@@ -287,5 +288,33 @@ public class CMISTestParent extends FunctionalTestCase {
 			}
 		}
 		return principal;
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<Policy> getAppliedPolicies(String objectId, CmisObject cmisObject) throws Exception {
+		testObjects.put("objectId", objectId);
+		
+		MuleEvent event = getTestEvent(cmisObject);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("get-applied-policies");
+		MuleEvent response = flow.process(event);
+		return (List<Policy>) response.getMessage().getPayload();
+	}
+	
+	protected void applyAspect(String objectId, String aspectName, Map<String, String> properties) throws Exception {
+		testObjects.put("aspectName", aspectName);
+		testObjects.put("objectId", objectId);
+		testObjects.put("properties", properties);
+		
+		MuleEvent event = getTestEvent(testObjects);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("apply-aspect");
+		flow.process(event);
 	}
 }

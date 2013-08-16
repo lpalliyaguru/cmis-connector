@@ -250,4 +250,35 @@
 		<entry key="changeLogToken" value="tmp" />
 		<entry key="includeProperties" value="#{T(java.lang.Boolean).TRUE}" />
 	</util:map> 
+	
+	<util:map id="getAppliedPolicies" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="folderName" value="folderForTesting" />
+		<entry key="parentObjectId" value="tmpParentObjectId" />
+	</util:map> 
+	
+	<util:map id="applyAspect" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="aspectName" value="Lock Aspect" />
+		<entry key="properties">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+				<entry key="lock_owner" value="1" />
+			</map>
+		</entry>
+		<entry key="filename" value="filenameForTesting" />
+		<entry key="folderId" value="tmpFolderId" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="this is the file content" />
+	</util:map> 
+	
+	<util:map id="repositories" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+<!-- 		empty -->
+	</util:map> 
 </beans>
