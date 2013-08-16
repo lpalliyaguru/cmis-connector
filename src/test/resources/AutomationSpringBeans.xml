@@ -289,4 +289,10 @@
 		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="folderPath" value="/tmpFolderForTesting" />
 	</util:map> 
+	
+	<util:map id="changelog" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="changeLogToken" value="tmp" />
+		<entry key="includeProperties" value="#{T(java.lang.Boolean).TRUE}" />
+	</util:map> 
 </beans>

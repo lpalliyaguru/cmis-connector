@@ -124,4 +124,8 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	<flow name="get-or-create-folder-by-path">
 		<cmis:get-or-create-folder-by-path config-ref="CMIS" folderPath="#[payload.folderPath]"  />
 	</flow>
+	
+	<flow name="changelog">
+		<cmis:changelog config-ref="CMIS" changeLogToken="#[payload.changeLogToken]" includeProperties="#[payload.includeProperties]"/>
+	</flow>
 </mule>
