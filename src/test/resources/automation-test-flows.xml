@@ -100,6 +100,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:apply-acl>
 	</flow>
 	
+	<flow name="folder">
+		<cmis:folder config-ref="CMIS" get="#[payload.get]" folderId="#[payload.folderId]" />
+	</flow>
+	
 	<flow name="get-or-create-folder-by-path">
 		<cmis:get-or-create-folder-by-path config-ref="CMIS" folderPath="#[payload.folderPath]"  />
 	</flow>
