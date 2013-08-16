@@ -288,4 +288,20 @@ public class CMISTestParent extends FunctionalTestCase {
 		}
 		return principal;
 	}
+	
+	protected ObjectId checkIn(String checkinComment, String documentId, String filename, String content, String mimeType, boolean major, 
+			Map<String, Object> properties) throws Exception {
+
+		testObjects.put("checkinComment", checkinComment);
+		testObjects.put("documentId", documentId);
+		testObjects.put("filename", filename);
+		testObjects.put("mimeType", mimeType);
+		testObjects.put("content", content);
+		testObjects.put("major", major);
+		testObjects.put("propertiesRef", properties);
+		
+		MessageProcessor flow = lookupFlowConstruct("check-in");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ObjectId) response.getMessage().getPayload();
+	}
 }
