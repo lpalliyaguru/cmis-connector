@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -310,5 +312,11 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 		MessageProcessor flow = lookupFlowConstruct("check-out");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
+	}
+	
+	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {
+		MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
+		MuleEvent response = flow.process(getTestEvent(null));
+		return (ItemIterable<Document>) response.getMessage().getPayload();
 	}
 }

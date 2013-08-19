@@ -65,7 +65,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 		}
 	}
 	
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetCheckoutDocs() {
 		try {
