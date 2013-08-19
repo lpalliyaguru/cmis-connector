@@ -111,6 +111,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:check-out config-ref="CMIS" documentId="#[payload.documentId]" />
 	</flow>
 	
+	<flow name="get-checkout-docs">
+		<cmis:get-checkout-docs config-ref="CMIS" />
+	</flow>
+	
 	<flow name="update-object-properties">
 		<cmis:update-object-properties config-ref="CMIS" objectId="#[payload.objectId]">
 			<cmis:properties ref="#[propertiesRef]" />
