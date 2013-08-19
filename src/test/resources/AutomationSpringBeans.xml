@@ -257,6 +257,20 @@
 		</entry>
 	</util:map>
 	
+	<util:map id="cancelCheckOut" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="cancel_checkout_test_file" />
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="major" value="#{T(java.lang.Boolean).TRUE}" />
+		<entry key="checkinComment" value="Checking in a file for testing" />
+		<entry key="content" value="This is the file content" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+	</util:map>
+	
 	<util:map id="getCheckoutDocs" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="docs">
 			<list value-type="java.util.HashMap">

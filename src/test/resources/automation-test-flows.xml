@@ -111,6 +111,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:check-out config-ref="CMIS" documentId="#[payload.documentId]" />
 	</flow>
 	
+	<flow name="cancel-check-out">
+		<cmis:cancel-check-out config-ref="CMIS" documentId="#[payload.documentId]" />
+	</flow>
+	
 	<flow name="get-checkout-docs">
 		<cmis:get-checkout-docs config-ref="CMIS" />
 	</flow>
