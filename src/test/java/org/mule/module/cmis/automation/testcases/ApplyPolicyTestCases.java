@@ -49,6 +49,7 @@ public class ApplyPolicyTestCases extends CMISTestParent {
 			MessageProcessor flow = lookupFlowConstruct("apply-policy");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
+			fail("Perform assertions once exception is fixed");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
