@@ -304,4 +304,11 @@ public class CMISTestParent extends FunctionalTestCase {
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ObjectId) response.getMessage().getPayload();
 	}
+	
+	protected void checkOut(String documentId) throws Exception {
+		testObjects.put("documentId", documentId);
+		
+		MessageProcessor flow = lookupFlowConstruct("check-out");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+	}
 }
