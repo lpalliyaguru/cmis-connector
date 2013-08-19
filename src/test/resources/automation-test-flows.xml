@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 
 	<context:property-placeholder location="automation-credentials.properties" />
 	
-	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" />
+	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" useAlfrescoExtension="true" />
 	
 	<flow name="create-folder">
 		<cmis:create-folder config-ref="CMIS" folderName="#[payload.folderName]" parentObjectId="#[payload.parentObjectId]" />
@@ -47,6 +47,12 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	
 	<flow name="move-object">
 		<cmis:move-object config-ref="CMIS" sourceFolderId="#[payload.sourceFolderId]" targetFolderId="#[payload.targetFolderId]" objectId="#[payload.objectId]" />
+	</flow>
+	
+	<flow name="apply-aspect">
+		<cmis:apply-aspect config-ref="CMIS" objectId="#[payload.objectId]" aspectName="#[payload.aspectName]">
+			<cmis:properties ref="#[payload.propertiesRef]" />
+		</cmis:apply-aspect>
 	</flow>
 	
 	<flow name="apply-policy">
