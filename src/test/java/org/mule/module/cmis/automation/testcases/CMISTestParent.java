@@ -296,7 +296,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("documentId", documentId);
 		testObjects.put("filename", filename);
 		testObjects.put("mimeType", mimeType);
-		testObjects.put("content", content);
+		testObjects.put("contentRef", content);
 		testObjects.put("major", major);
 		testObjects.put("propertiesRef", properties);
 		

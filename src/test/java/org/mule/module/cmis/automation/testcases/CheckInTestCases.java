@@ -1,6 +1,7 @@
 package org.mule.module.cmis.automation.testcases;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
@@ -25,12 +26,12 @@ public class CheckInTestCases extends CMISTestParent {
 			String rootFolderId = rootFolderId();
 			String filename = testObjects.get("filename").toString();
 			String mimeType = testObjects.get("mimeType").toString();
-			String content = testObjects.get("content").toString();
+			String content = testObjects.get("contentRef").toString();
 			String objectType = testObjects.get("objectType").toString();
 			Map<String, Object> propertiesRef = (Map<String, Object>) testObjects.get("propertiesRef");
 			VersioningState versioningState = (VersioningState) testObjects.get("versioningState");
 			
-			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
+			ObjectId documentObjectId = createDocumentByIdFromContent(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
 			testObjects.put("documentObjectId", documentObjectId);
 			testObjects.put("documentId", documentObjectId.getId());
 		}
@@ -42,14 +43,13 @@ public class CheckInTestCases extends CMISTestParent {
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-	@Ignore
 	public void testCheckIn() {
 		try {
 			MessageProcessor flow = lookupFlowConstruct("check-in");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			ObjectId checkedInId = (ObjectId) response.getMessage().getPayload();
-			assertNotNull(checkedInId);
+			assertTrue(checkedInId != null && !checkedInId.getId().isEmpty() && !checkedInId.getId().trim().isEmpty());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

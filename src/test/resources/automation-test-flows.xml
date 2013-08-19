@@ -100,12 +100,12 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:apply-acl>
 	</flow>
 	
-<!-- 	<flow name="check-in"> -->
-<!-- 		<cmis:check-in config-ref="CMIS" checkinComment="#[payload.checkinComment]" documentId="#[payload.documentId]" filename="#[payload.filename]" -->
-<!-- 				major="#[payload.major]" mimeType="#[payload.mimeType]" content="#[payload.content]"> -->
-<!-- 			<cmis:properties ref="#[payload.propertiesRef]" /> -->
-<!-- 		</cmis:check-in> -->
-<!-- 	</flow> -->
+	<flow name="check-in">
+		<cmis:check-in config-ref="CMIS" checkinComment="#[payload.checkinComment]" documentId="#[payload.documentId]" filename="#[payload.filename]"
+				major="#[payload.major]" mimeType="#[payload.mimeType]" content-ref="#[payload.contentRef]">
+			<cmis:properties ref="#[payload.propertiesRef]" />
+		</cmis:check-in>
+	</flow>
 	
 	<flow name="check-out">
 		<cmis:check-out config-ref="CMIS" documentId="#[payload.documentId]" />
