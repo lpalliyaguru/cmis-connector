@@ -36,7 +36,7 @@ public class CheckOutTestCases extends CMISTestParent {
 			testObjects.put("documentId", documentObjectId.getId());
 			
 			String checkinComment = (String) testObjects.get("checkinComment");
-			boolean major = (Boolean) testObjects.get("major");
+			Boolean major = (Boolean) testObjects.get("major");
 			Map<String, Object> properties = (Map<String, Object>) testObjects.get("properties");
 			
 			ObjectId checkInObjectId = checkIn(checkinComment, documentObjectId.getId(), filename, content, mimeType, major, properties);
@@ -50,7 +50,6 @@ public class CheckOutTestCases extends CMISTestParent {
 	
 	@Category({RegressionTests.class})
 	@Test
-	@Ignore
 	public void testCheckOut() {
 		try {
 			ObjectId checkInObjectId = (ObjectId) testObjects.get("checkInObjectId");
