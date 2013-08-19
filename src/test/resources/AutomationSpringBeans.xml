@@ -106,6 +106,28 @@
 		</entry>
 	</util:map>
 	
+	<util:map id="getAppliedPolicies" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="getAppliedPoliciesTestFile" />
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="content" value="This is the file content" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="policyIdsRef">
+			<list value-type="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
+				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
+					<constructor-arg value="firstPolicy" />
+				</bean>
+				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
+					<constructor-arg value="secondPolicy" />
+				</bean>
+			</list>
+		</entry>
+	</util:map>
+	
 	<util:map id="moveObject" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="targetFolderName" value="targetFolderForTesting" />

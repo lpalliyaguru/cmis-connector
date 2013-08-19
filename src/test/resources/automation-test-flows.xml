@@ -55,6 +55,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:apply-policy>
 	</flow>
 	
+	<flow name="get-applied-policies">
+		<cmis:get-applied-policies config-ref="CMIS" objectId="#[payload.objectId]" />
+	</flow>
+	
 	<flow name="create-document-by-id">
 		<cmis:create-document-by-id config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
 		    versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]">

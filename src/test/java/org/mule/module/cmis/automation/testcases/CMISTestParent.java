@@ -319,4 +319,13 @@ public class CMISTestParent extends FunctionalTestCase {
 		MuleEvent response = flow.process(getTestEvent(null));
 		return (ItemIterable<Document>) response.getMessage().getPayload();
 	}
+	
+	protected void applyPolicy(String objectId, List<ObjectId> policies) throws Exception  {
+		testObjects.put("objectId", objectId);
+		testObjects.put("policyIdsRef", policies);
+		
+		MessageProcessor flow = lookupFlowConstruct("apply-policy");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+	}
+	
 }
