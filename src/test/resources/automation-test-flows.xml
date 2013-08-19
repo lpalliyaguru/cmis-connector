@@ -49,6 +49,12 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:move-object config-ref="CMIS" sourceFolderId="#[payload.sourceFolderId]" targetFolderId="#[payload.targetFolderId]" objectId="#[payload.objectId]" />
 	</flow>
 	
+	<flow name="apply-policy">
+		<cmis:apply-policy config-ref="CMIS" objectId="#[payload.objectId]">
+			<cmis:policy-ids ref="#[payload.policyIdsRef]"/>
+		</cmis:apply-policy>
+	</flow>
+	
 	<flow name="create-document-by-id">
 		<cmis:create-document-by-id config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
 		    versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]">
