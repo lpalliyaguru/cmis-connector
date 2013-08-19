@@ -285,6 +285,10 @@
 		</entry>
 	</util:map>
 	
+	<util:map id="repositories" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<!-- empty -->
+	</util:map>
+	
 	<util:map id="getOrCreateFolderByPath" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="folderPath" value="/tmpFolderForTesting" />
