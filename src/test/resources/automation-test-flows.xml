@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 
 	<context:property-placeholder location="automation-credentials.properties" />
 	
-	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" useAlfrescoExtension="true" />
+	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" />
 	
 	<flow name="create-folder">
 		<cmis:create-folder config-ref="CMIS" folderName="#[payload.folderName]" parentObjectId="#[payload.parentObjectId]" />
@@ -47,22 +47,6 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	
 	<flow name="move-object">
 		<cmis:move-object config-ref="CMIS" sourceFolderId="#[payload.sourceFolderId]" targetFolderId="#[payload.targetFolderId]" objectId="#[payload.objectId]" />
-	</flow>
-	
-	<flow name="apply-aspect">
-		<cmis:apply-aspect config-ref="CMIS" objectId="#[payload.objectId]" aspectName="#[payload.aspectName]">
-			<cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:apply-aspect>
-	</flow>
-	
-	<flow name="apply-policy">
-		<cmis:apply-policy config-ref="CMIS" objectId="#[payload.objectId]">
-			<cmis:policy-ids ref="#[payload.policyIdsRef]"/>
-		</cmis:apply-policy>
-	</flow>
-	
-	<flow name="get-applied-policies">
-		<cmis:get-applied-policies config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	
 	<flow name="create-document-by-id">
@@ -116,31 +100,6 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:apply-acl>
 	</flow>
 	
-	<flow name="check-in">
-		<cmis:check-in config-ref="CMIS" checkinComment="#[payload.checkinComment]" documentId="#[payload.documentId]" filename="#[payload.filename]"
-				major="#[payload.major]" mimeType="#[payload.mimeType]" content-ref="#[payload.contentRef]">
-			<cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:check-in>
-	</flow>
-	
-	<flow name="check-out">
-		<cmis:check-out config-ref="CMIS" documentId="#[payload.documentId]" />
-	</flow>
-	
-	<flow name="cancel-check-out">
-		<cmis:cancel-check-out config-ref="CMIS" documentId="#[payload.documentId]" />
-	</flow>
-	
-	<flow name="get-checkout-docs">
-		<cmis:get-checkout-docs config-ref="CMIS" />
-	</flow>
-	
-	<flow name="update-object-properties">
-		<cmis:update-object-properties config-ref="CMIS" objectId="#[payload.objectId]">
-			<cmis:properties ref="#[propertiesRef]" />
-		</cmis:update-object-properties>
-	</flow>
-	
 	<flow name="folder">
 		<cmis:folder config-ref="CMIS" get="#[payload.get]" folderId="#[payload.folderId]" />
 	</flow>
@@ -149,11 +108,29 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:get-or-create-folder-by-path config-ref="CMIS" folderPath="#[payload.folderPath]"  />
 	</flow>
 	
+	<flow name="changelog">
+		<cmis:changelog config-ref="CMIS" changeLogToken="#[payload.changeLogToken]" includeProperties="#[payload.includeProperties]"/>
+	</flow>
+	
+<!-- 	<cmis:apply-policy> -->
+<!-- 	    <cmis:policy-ids config-ref="CMIS" ref="#[payload]"/> -->
+<!-- 	</cmis:apply-policy> -->
+		
+	<flow name="get-applied-policies">
+		<cmis:get-applied-policies config-ref="CMIS" objectId="#[sessionVars.objectId]"/>
+	</flow>
+	
+	<flow name="apply-aspect">
+		<cmis:apply-aspect config-ref="CMIS" objectId="#[sessionVars.objectId]" aspectName="#[sessionVars.aspectName]">
+			<cmis:properties ref="#[sessionVars.properties]"/>
+		</cmis:apply-aspect>
+	</flow>
+	
 	<flow name="repositories">
 		<cmis:repositories config-ref="CMIS" />
 	</flow>
 	
-	<flow name="changelog">
-		<cmis:changelog config-ref="CMIS" changeLogToken="#[payload.changeLogToken]" includeProperties="#[payload.includeProperties]"/>
+	<flow name="query">
+		<cmis:query config-ref="CMIS" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" />
 	</flow>
 </mule>

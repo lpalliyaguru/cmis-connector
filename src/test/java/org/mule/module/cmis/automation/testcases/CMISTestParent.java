@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.Policy;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
@@ -291,41 +290,31 @@ public class CMISTestParent extends FunctionalTestCase {
 		return principal;
 	}
 	
-	protected ObjectId checkIn(String checkinComment, String documentId, String filename, String content, String mimeType, boolean major, 
-			Map<String, Object> properties) throws Exception {
-
-		testObjects.put("checkinComment", checkinComment);
-		testObjects.put("documentId", documentId);
-		testObjects.put("filename", filename);
-		testObjects.put("mimeType", mimeType);
-		testObjects.put("contentRef", content);
-		testObjects.put("major", major);
-		testObjects.put("propertiesRef", properties);
-		
-		MessageProcessor flow = lookupFlowConstruct("check-in");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
-		return (ObjectId) response.getMessage().getPayload();
-	}
-	
-	protected void checkOut(String documentId) throws Exception {
-		testObjects.put("documentId", documentId);
-		
-		MessageProcessor flow = lookupFlowConstruct("check-out");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
-	}
-	
-	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {
-		MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
-		MuleEvent response = flow.process(getTestEvent(null));
-		return (ItemIterable<Document>) response.getMessage().getPayload();
-	}
-	
-	protected void applyPolicy(String objectId, List<ObjectId> policies) throws Exception  {
+	@SuppressWarnings("unchecked")
+	protected List<Policy> getAppliedPolicies(String objectId, CmisObject cmisObject) throws Exception {
 		testObjects.put("objectId", objectId);
-		testObjects.put("policyIdsRef", policies);
 		
-		MessageProcessor flow = lookupFlowConstruct("apply-policy");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
+		MuleEvent event = getTestEvent(cmisObject);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("get-applied-policies");
+		MuleEvent response = flow.process(event);
+		return (List<Policy>) response.getMessage().getPayload();
 	}
 	
+	protected void applyAspect(String objectId, String aspectName, Map<String, String> properties) throws Exception {
+		testObjects.put("aspectName", aspectName);
+		testObjects.put("objectId", objectId);
+		testObjects.put("properties", properties);
+		
+		MuleEvent event = getTestEvent(testObjects);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		MessageProcessor flow = lookupFlowConstruct("apply-aspect");
+		flow.process(event);
+	}
 }
