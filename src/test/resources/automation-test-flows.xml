@@ -93,6 +93,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:create-document-by-path-from-content>
 	</flow>
 	
+	<flow name="get-all-versions">
+		<cmis:get-all-versions config-ref="CMIS" documentId="#[payload.documentId]"/>
+	</flow>
+	
 	<flow name="delete-tree">
 		<cmis:delete-tree config-ref="CMIS" allversions="#[sessionVars.allversions]" continueOnFailure="#[sessionVars.continueOnFailure]" folderId="#[sessionVars.folderId]" />
 	</flow>

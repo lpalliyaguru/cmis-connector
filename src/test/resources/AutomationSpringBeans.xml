@@ -144,6 +144,34 @@
 		</entry>
 	</util:map>
 	
+	<util:map id="getAllVersions" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+		<entry key="filename" value="getAllVersionsFile" />
+		<entry key="folderPath" value="/" />
+		<entry key="mimeType" value="text/plain;charset=UTF-8" />
+		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).MAJOR}" />
+		<entry key="objectType" value="D:cmiscustom:document" />
+		<entry key="content" value="Unmodified content" />
+		<entry key="force" value="#{T(java.lang.Boolean).TRUE}" />
+		<entry key="propertiesRef">
+			<map key-type="java.lang.String" value-type="java.lang.Object">
+			</map>
+		</entry>
+		<entry key="versions">
+			<list value-type="java.util.HashMap">
+				<map key-type="java.lang.String" value-type="java.lang.Object">
+					<entry key="content" value="First Modification"/>				
+					<entry key="checkinComment" value="Checking in first modification" />
+					<entry key="major" value="#{T(java.lang.Boolean).TRUE}" />
+				</map>
+				<map key-type="java.lang.String" value-type="java.lang.Object">
+					<entry key="content" value="Second Modification"/>				
+					<entry key="checkinComment" value="Checking in second modification" />
+					<entry key="major" value="#{T(java.lang.Boolean).MINOR}" />	
+				</map>
+			</list>
+		</entry>
+	</util:map>
+	
 	<util:map id="moveObject" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="targetFolderName" value="targetFolderForTesting" />
