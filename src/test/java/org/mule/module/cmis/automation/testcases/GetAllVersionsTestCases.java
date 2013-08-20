@@ -63,6 +63,8 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 			
 			List<Document> documentVersions = (List<Document>) response.getMessage().getPayload();
 			assertTrue(documentVersions.size() == versions.size());
+			
+			fail("Revisit test when other processors are fixed");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
