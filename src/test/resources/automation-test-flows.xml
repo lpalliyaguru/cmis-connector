@@ -129,4 +129,8 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	<flow name="repositories">
 		<cmis:repositories config-ref="CMIS" />
 	</flow>
+	
+	<flow name="query">
+		<cmis:query config-ref="CMIS" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" />
+	</flow>
 </mule>
