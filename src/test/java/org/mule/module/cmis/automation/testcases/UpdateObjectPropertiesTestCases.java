@@ -42,6 +42,7 @@ public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 	
 	@Category({RegressionTests.class})
 	@Test
+	@Ignore
 	public void testUpdateObjectProperties() {
 		try {
 			Map<String, Object> updatedProperties = (Map<String, Object>) testObjects.get("propertiesRefUpdated");

@@ -27,6 +27,7 @@ public class ChangeLogTestCases extends CMISTestParent {
 
 	@Category({RegressionTests.class})
 	@Test
+	@Ignore
 	public void testChangelog() {
 		testObjects.put("changeLogToken", "41784");
 		try {

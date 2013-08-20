@@ -59,6 +59,7 @@ public class GetObjectRelationshipsTestCases extends CMISTestParent {
 
 	@Category({RegressionTests.class})
 	@Test
+	@Ignore
 	public void testGetObjectRelationships() {
 		try {
 			List<Relationship> result = getObjectRelationships((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
