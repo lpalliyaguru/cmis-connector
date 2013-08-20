@@ -18,7 +18,7 @@ public class RepositoryInfoTestCases extends CMISTestParent {
 	@Before
 	public void setUp() {
 		try {
-			testObjects = (HashMap<String, Object>) context.getBean("delete");
+			testObjects = (HashMap<String, Object>) context.getBean("repositoryInfo");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -27,7 +27,7 @@ public class RepositoryInfoTestCases extends CMISTestParent {
 
 	@Category({RegressionTests.class})
 	@Test
-	public void testDelete() {
+	public void testRepositoryInfo() {
 		try {
 			MessageProcessor flow = lookupFlowConstruct("repository-info");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
