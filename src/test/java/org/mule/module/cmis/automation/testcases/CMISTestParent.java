@@ -154,7 +154,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
-	protected ObjectId createDocumentById(String folderId, String filename, String payload, String mimeType, 
+	protected ObjectId createDocumentById(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		testObjects.put("folderId", folderId);
 		testObjects.put("filename", filename);
@@ -169,7 +169,6 @@ public class CMISTestParent extends FunctionalTestCase {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
 		
-		MessageProcessor flow = lookupFlowConstruct("create-document-by-id");
 		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
 	}

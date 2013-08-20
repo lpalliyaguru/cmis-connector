@@ -56,6 +56,18 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:create-document-by-id>
 	</flow>
 	
+	<flow name="create-document-by-id-content-ref">
+		<cmis:create-document-by-id config-ref="CMIS" filename="#[payload.filename]" folderId="#[payload.folderId]" mimeType="#[payload.mimeType]"
+		    versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" content-ref="#[payload.content]">
+                 <cmis:properties ref="#[payload.propertiesRef]" />
+		</cmis:create-document-by-id>
+	</flow>
+	
+	<flow name="create-document-by-id-no-properties">
+		<cmis:create-document-by-id config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
+	    versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" />
+	</flow>
+	
 	<flow name="create-document-by-id-from-content">
 		<cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[payload.filename]" folderId="#[payload.folderId]" mimeType="#[payload.mimeType]"
 			content-ref="#[payload.contentRef]" versioningState="#[payload.versioningState]" objectType="#[payload.objectType]">
