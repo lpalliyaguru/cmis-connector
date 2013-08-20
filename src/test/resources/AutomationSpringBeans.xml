@@ -99,7 +99,7 @@
 			</map>
 		</entry>
 	</util:map>
-	
+ 
 	<util:map id="applyPolicy" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="filename" value="applyPolicyTestFile" />
 		<entry key="mimeType" value="text/plain;charset=UTF-8" />
@@ -166,7 +166,7 @@
 				<map key-type="java.lang.String" value-type="java.lang.Object">
 					<entry key="content" value="Second Modification"/>				
 					<entry key="checkinComment" value="Checking in second modification" />
-					<entry key="major" value="#{T(java.lang.Boolean).MINOR}" />	
+					<entry key="major" value="#{T(java.lang.Boolean).FALSE}" />	
 				</map>
 			</list>
 		</entry>
