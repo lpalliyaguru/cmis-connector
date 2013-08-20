@@ -201,7 +201,7 @@
 		<entry key="mimeType" value="text/plain;charset=UTF-8" />
 		<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
 		<entry key="objectType" value="D:cmiscustom:document" />
-		<entry key="content" value="this is the file content" />
+		<entry key="contentRef" value="this is the file content" />
 	</util:map> 
 	
 	<util:map id="createDocumentByIdFromContent" map-class="java.util.HashMap"
