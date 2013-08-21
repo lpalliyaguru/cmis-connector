@@ -44,7 +44,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 					lookupFlowConstruct("create-document-by-path"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
-					(String) testObjects.get("content"),
+					(String) testObjects.get("contentRef"),
 					(String) testObjects.get("mimeType"),
 					(VersioningState) testObjects.get("versioningState"),
 					(String) testObjects.get("objectType"),
@@ -69,7 +69,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 					lookupFlowConstruct("create-document-by-path"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
-					(String) testObjects.get("content"),
+					(String) testObjects.get("contentRef"),
 					(String) testObjects.get("mimeType"),
 					(VersioningState) testObjects.get("versioningState"),
 					(String) testObjects.get("objectType"),
@@ -119,6 +119,57 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Category({ RegressionTests.class })
+	@Test
+	public void testCreateDocumentByPath_assert_content_ref_attrib_is_valid() {
+		testObjects.put("folderPath", "/");
+		try {
+			ObjectId result = createDocumentByPath(
+					lookupFlowConstruct("create-document-by-path-content-ref"),
+					(String) testObjects.get("folderPath"),
+					(String) testObjects.get("filename"),
+					testObjects,
+					(String) testObjects.get("mimeType"),
+					(VersioningState) testObjects.get("versioningState"),
+					(String) testObjects.get("objectType"),
+					(Map<String, Object>) testObjects.get("propertiesRef"),
+					(Boolean) testObjects.get("force"));
+
+			assertNotNull(result);
+			testObjects.put("objectId", result.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Category({ RegressionTests.class })
+	@Test
+	// This tests asserts that the message processor can indeed be used without the properties child element
+	public void testCreateDocumentByPath_no_properties() {
+		testObjects.put("folderPath", "/");
+		try {
+			ObjectId result = createDocumentByPath(
+					lookupFlowConstruct("create-document-by-path-no-properties"),
+					(String) testObjects.get("folderPath"),
+					(String) testObjects.get("filename"),
+					(String) testObjects.get("contentRef"),
+					(String) testObjects.get("mimeType"),
+					(VersioningState) testObjects.get("versioningState"),
+					(String) testObjects.get("objectType"),
+					(Map<String, Object>) testObjects.get("propertiesRef"),
+					(Boolean) testObjects.get("force"));
+
+			assertNotNull(result);
+			testObjects.put("objectId", result.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
 	@After
 	public void tearDown() {
 		try {

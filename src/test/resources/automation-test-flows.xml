@@ -95,6 +95,18 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		</cmis:create-document-by-path>
 	</flow>
 	
+	<flow name="create-document-by-path-content-ref">
+		<cmis:create-document-by-path config-ref="CMIS" filename="#[payload.filename]" folderPath="#[payload.folderPath]" mimeType="#[payload.mimeType]"
+			versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" force="#[payload.force]" content-ref="#[payload.contentRef]">
+                 <cmis:properties ref="#[payload.propertiesRef]" />
+		</cmis:create-document-by-path>
+	</flow>
+	
+	<flow name="create-document-by-path-no-properties">
+		<cmis:create-document-by-path config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]" mimeType="#[sessionVars.mimeType]"
+			versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" />
+	</flow>
+	
 	<flow name="create-document-by-path-from-content">
 		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[payload.filename]" folderPath="#[payload.folderPath]" mimeType="#[payload.mimeType]"
 			content-ref="#[payload.contentRef]" versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" force="#[payload.force]">

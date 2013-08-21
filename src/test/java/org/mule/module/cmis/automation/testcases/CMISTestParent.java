@@ -154,6 +154,11 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
+	protected ObjectId createDocumentById(String folderId, String filename, Object payload, String mimeType, 
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
+		return createDocumentById(lookupFlowConstruct("create-document-by-id"), folderId, filename, payload, mimeType, versioningState, objectType, propertiesRef);
+	}
+	
 	protected ObjectId createDocumentById(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		testObjects.put("folderId", folderId);
@@ -173,6 +178,12 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
+	protected ObjectId createDocumentByIdFromContent(String folderId, String filename, Object payload, String mimeType, 
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
+		return createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content"), folderId, filename, payload, mimeType, 
+				versioningState, objectType, propertiesRef);
+	}
+	
 	protected ObjectId createDocumentByIdFromContent(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		testObjects.put("folderId", folderId);
@@ -190,6 +201,12 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
+	}
+	
+	protected ObjectId createDocumentByPath(String folderPath, String filename, Object payload, String mimeType,
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
+		return createDocumentByPath(lookupFlowConstruct("create-document-by-path"), folderPath, filename, payload, mimeType,
+				versioningState, objectType, propertiesRef, force);
 	}
 	
 	protected ObjectId createDocumentByPath(MessageProcessor flow, String folderPath, String filename, Object payload, String mimeType,
