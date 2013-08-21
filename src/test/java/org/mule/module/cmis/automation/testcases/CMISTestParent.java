@@ -154,7 +154,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
-	protected ObjectId createDocumentById(String folderId, String filename, String payload, String mimeType, 
+	protected ObjectId createDocumentById(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		testObjects.put("folderId", folderId);
 		testObjects.put("filename", filename);
@@ -169,12 +169,11 @@ public class CMISTestParent extends FunctionalTestCase {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
 		
-		MessageProcessor flow = lookupFlowConstruct("create-document-by-id");
 		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected ObjectId createDocumentByIdFromContent(String folderId, String filename, String contentRef, String mimeType, 
+	protected ObjectId createDocumentByIdFromContent(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		testObjects.put("folderId", folderId);
 		testObjects.put("filename", filename);
@@ -182,10 +181,14 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("versioningState", versioningState);
 		testObjects.put("objectType", objectType);
 		testObjects.put("propertiesRef", propertiesRef);
-		testObjects.put("contentRef", contentRef);
 		
-		MessageProcessor flow = lookupFlowConstruct("create-document-by-id-from-content");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
