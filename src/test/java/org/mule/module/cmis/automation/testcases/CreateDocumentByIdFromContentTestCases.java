@@ -28,7 +28,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Category({ RegressionTests.class })
+	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testCreateDocumentByIdFromContent_payload_is_String() {
 		try {
@@ -50,7 +50,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Category({ RegressionTests.class })
+	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testCreateDocumentByIdFromContent_assert_content_ref_attrib_is_valid() {
 		try {
@@ -73,7 +73,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 
 	
 	@SuppressWarnings("unchecked")
-	@Category({ RegressionTests.class })
+	@Category({SmokeTests.class, RegressionTests.class })
 	@Test
 	// If this test passes then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1037
 	public void testCreateDocumentByIdFromContent_payload_is_HashMap() {
@@ -96,7 +96,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Category({ RegressionTests.class })
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	// If this test passes then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1039
 	public void testCreateDocumentByIdFromContent_no_properties() {

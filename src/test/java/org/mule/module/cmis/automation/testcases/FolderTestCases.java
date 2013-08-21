@@ -52,6 +52,8 @@ public class FolderTestCases extends CMISTestParent {
 			
 			CmisObject subFolders = (CmisObject) response.getMessage().getPayload();
 			System.out.println(subFolders);
+			
+			fail("Revisit test when message processor is fixed");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

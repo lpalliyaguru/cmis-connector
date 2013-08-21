@@ -33,7 +33,7 @@ public class GetParentFoldersTestCases extends CMISTestParent {
 		}
 	}
 
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetParentFolders() {
 		try {

@@ -41,7 +41,7 @@ public class ApplyAspectTestCases extends CMISTestParent {
 		}
 	}
 
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
 	public void testApplyAspect() {
 		try {
