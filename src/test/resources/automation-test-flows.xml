@@ -10,7 +10,8 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 
 	<context:property-placeholder location="automation-credentials.properties" />
 	
-	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" useAlfrescoExtension="true" />
+	<cmis:config name="CMIS" username="${alfresco.username}" password="${alfresco.password}"
+					baseUrl="${alfresco.baseUrl}" useAlfrescoExtension="${alfresco.useExtension}" />
 	
 	<flow name="create-folder">
 		<cmis:create-folder config-ref="CMIS" folderName="#[payload.folderName]" parentObjectId="#[payload.parentObjectId]" />
