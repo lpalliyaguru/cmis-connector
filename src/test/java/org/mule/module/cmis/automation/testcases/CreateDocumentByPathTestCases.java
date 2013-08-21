@@ -19,14 +19,15 @@ import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.VersioningState;
 
 public class CreateDocumentByPathTestCases extends CMISTestParent {
-	
+
 	private static String TEST_FOLDER_NAME = "folder1";
-	
+
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
-			testObjects = (HashMap<String, Object>) context.getBean("createDocumentByPath");
+			testObjects = (HashMap<String, Object>) context
+					.getBean("createDocumentByPath");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -34,17 +35,22 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
+	@Category({ RegressionTests.class })
 	@Test
 	public void testCreateDocumentByPath_rootPath() {
 		testObjects.put("folderPath", "/");
 		try {
-			ObjectId result = createDocumentByPath((String) testObjects.get("folderPath"),
-					(String) testObjects.get("filename"), (String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"), (VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"), (Map<String, Object>) testObjects.get("propertiesRef"),
+			ObjectId result = createDocumentByPath(
+					lookupFlowConstruct("create-document-by-path"),
+					(String) testObjects.get("folderPath"),
+					(String) testObjects.get("filename"),
+					(String) testObjects.get("content"),
+					(String) testObjects.get("mimeType"),
+					(VersioningState) testObjects.get("versioningState"),
+					(String) testObjects.get("objectType"),
+					(Map<String, Object>) testObjects.get("propertiesRef"),
 					(Boolean) testObjects.get("force"));
-					
+
 			assertNotNull(result);
 			testObjects.put("objectId", result.getId());
 		} catch (Exception e) {
@@ -52,44 +58,75 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 			fail();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
+	@Category({ RegressionTests.class })
 	@Test
 	public void testCreateDocumentByPath_nonRootPath() {
 		testObjects.put("folderPath", "/" + TEST_FOLDER_NAME);
 		try {
-			ObjectId result = createDocumentByPath((String) testObjects.get("folderPath"),
-					(String) testObjects.get("filename"), (String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"), (VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"), (Map<String, Object>) testObjects.get("propertiesRef"),
+			ObjectId result = createDocumentByPath(
+					lookupFlowConstruct("create-document-by-path"),
+					(String) testObjects.get("folderPath"),
+					(String) testObjects.get("filename"),
+					(String) testObjects.get("content"),
+					(String) testObjects.get("mimeType"),
+					(VersioningState) testObjects.get("versioningState"),
+					(String) testObjects.get("objectType"),
+					(Map<String, Object>) testObjects.get("propertiesRef"),
 					(Boolean) testObjects.get("force"));
-					
+
 			assertNotNull(result);
 			String objectId = result.getId();
 			testObjects.put("objectId", objectId);
 			CmisObject cmisObject = getObjectById(objectId);
 			List<Folder> folders = getParentFolders(cmisObject, objectId);
-			
+
 			assertTrue(folders.size() == 1);
 			Folder folder = folders.get(0);
 			assertEquals(TEST_FOLDER_NAME, folder.getName());
-			
+
 			testObjects.put("parentFolder", folder);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Category({ RegressionTests.class })
+	@Test
+	// If this test passes, then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1040
+	public void testCreateDocumentByPath_payload_is_HashMap() {
+		testObjects.put("folderPath", "/");
+		try {
+			ObjectId result = createDocumentByPath(
+					lookupFlowConstruct("create-document-by-path"),
+					(String) testObjects.get("folderPath"),
+					(String) testObjects.get("filename"),
+					testObjects,
+					(String) testObjects.get("mimeType"),
+					(VersioningState) testObjects.get("versioningState"),
+					(String) testObjects.get("objectType"),
+					(Map<String, Object>) testObjects.get("propertiesRef"),
+					(Boolean) testObjects.get("force"));
+
+			assertNotNull(result);
+			testObjects.put("objectId", result.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 	@After
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
 			delete(getObjectById(objectId), objectId, true);
-			
+
 			Folder folder = (Folder) testObjects.get("parentFolder");
-			if(folder != null && TEST_FOLDER_NAME.equals(folder.getName())) {
+			if (folder != null && TEST_FOLDER_NAME.equals(folder.getName())) {
 				delete(getObjectById(folder.getId()), folder.getId(), true);
 			}
 		} catch (Exception e) {

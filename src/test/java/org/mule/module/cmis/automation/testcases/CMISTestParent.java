@@ -192,7 +192,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected ObjectId createDocumentByPath(String folderPath, String filename, String payload, String mimeType,
+	protected ObjectId createDocumentByPath(MessageProcessor flow, String folderPath, String filename, Object payload, String mimeType,
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
 		testObjects.put("folderPath", folderPath);
 		testObjects.put("filename", filename);
@@ -208,7 +208,6 @@ public class CMISTestParent extends FunctionalTestCase {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
 		
-		MessageProcessor flow = lookupFlowConstruct("create-document-by-path");
 		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
 	}
