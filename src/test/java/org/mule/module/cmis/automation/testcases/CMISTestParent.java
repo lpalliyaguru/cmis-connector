@@ -100,18 +100,13 @@ public class CMISTestParent extends FunctionalTestCase {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected List<Relationship> getObjectRelationships(CmisObject payload, String objectId) throws Exception {
+	protected List<Relationship> getObjectRelationships(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
-		MuleEvent event = getTestEvent(payload);
-		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
 		
 		MessageProcessor flow = lookupFlowConstruct("get-object-relationships");
-		MuleEvent response = flow.process(event);
-		MuleMessage msg = response.getMessage();
-		Object resultPayload = msg.getPayload();
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+
+		Object resultPayload = response.getMessage().getPayload();
 		if(resultPayload == null || resultPayload instanceof NullPayload) {
 			return null;
 		} else {
