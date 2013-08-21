@@ -31,7 +31,7 @@ public class GetAclTestCases extends CMISTestParent {
 		}
 	}
 
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetAcl() {
 		try {

@@ -34,7 +34,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testCreateDocumentByPathFromContent_rootPath() {
 		testObjects.put("folderPath", "/");
@@ -54,7 +54,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testCreateDocumentByPathFromContent_nonRootPath() {
 		testObjects.put("folderPath", "/" + TEST_FOLDER_NAME);

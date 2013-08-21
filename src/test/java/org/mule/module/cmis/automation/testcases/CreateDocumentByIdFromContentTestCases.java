@@ -27,7 +27,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
+	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testCreateDocumentByIdFromContent() {
 		try {
