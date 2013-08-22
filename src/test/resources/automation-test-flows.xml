@@ -50,8 +50,12 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
 	</flow>
 	
-	<flow name="get-parent-folders">
+	<flow name="get-parent-folders-sessionvars-no-cmis-object-ref">
 		<cmis:get-parent-folders config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+	</flow>
+	
+	<flow name="get-parent-folders-with-cmis-object-ref">
+		<cmis:get-parent-folders config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]"/>
 	</flow>
 	
 	<flow name="move-object">
