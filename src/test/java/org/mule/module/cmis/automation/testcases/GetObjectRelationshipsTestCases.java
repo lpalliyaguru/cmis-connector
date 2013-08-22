@@ -61,7 +61,8 @@ public class GetObjectRelationshipsTestCases extends CMISTestParent {
 	@Test
 	public void testGetObjectRelationships() {
 		try {
-			List<Relationship> result = getObjectRelationships((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			String objectId = (String) testObjects.get("objectId");
+			List<Relationship> result = getObjectRelationships(objectId);
 			assertNotNull(result);
 		} catch (Exception e) {
 			e.printStackTrace();
