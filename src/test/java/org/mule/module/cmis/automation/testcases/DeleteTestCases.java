@@ -22,7 +22,7 @@ public class DeleteTestCases extends CMISTestParent {
 			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
 			
 			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObject", getObjectById(result.getId()));
+			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -33,7 +33,7 @@ public class DeleteTestCases extends CMISTestParent {
 	@Test
 	public void testDelete() {
 		try {
-			Object result = delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
+			Object result = delete((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
 			assertNotNull(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,4 +41,36 @@ public class DeleteTestCases extends CMISTestParent {
 		}
 	}
 
+	@Category({SmokeTests.class, RegressionTests.class})
+	@Test
+	// If this test passes then this jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1044
+	public void testDelete_null_payload() {
+		try {
+			Object result = delete(null, (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
+			assertNotNull(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// We know it fails so clean up using a way we know works
+			try {
+				delete((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			} finally {
+				fail();
+			}
+		}
+	}
+	
+	@Category({SmokeTests.class, RegressionTests.class})
+	@Test
+	public void testDelete_with_cmisObjectRef() {
+		try {
+			Object result = delete(lookupFlowConstruct("delete-with-cmis-object-ref"), testObjects, 
+					(String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
+			assertNotNull(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 }

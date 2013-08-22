@@ -37,7 +37,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
 					(Map<String, Object>) testObjects.get("propertiesRef"));
 
 			testObjects.put("folderId", folderId);
-			testObjects.put("folder", getObjectById(folderId));
+			testObjects.put("folderRef", getObjectById(folderId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -48,8 +48,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
 	@Test
 	public void testDeleteTree() {
 		try {
-			List<String> objectsFailedToDelete = deleteTree(
-					(CmisObject) testObjects.get("folder"),
+			List<String> objectsFailedToDelete = deleteTree((CmisObject) testObjects.get("folderRef"),
 					(String) testObjects.get("folderId"),
 					(Boolean) testObjects.get("allversions"),
 					(Boolean) testObjects.get("continueOnFailure"));
@@ -61,4 +60,49 @@ public class DeleteTreeTestCases extends CMISTestParent {
 		}
 	}
 
+	@Category({ SmokeTests.class, RegressionTests.class })
+	@Test
+	// Passes when this jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1049
+	public void testDeleteTree_HashMap_payload_no_folder_ref_attribute() {
+		try {
+			List<String> objectsFailedToDelete = deleteTree(
+					lookupFlowConstruct("delete-tree-payload-no-folder-ref"),
+					testObjects,
+					(String) testObjects.get("folderId"),
+					(Boolean) testObjects.get("allversions"),
+					(Boolean) testObjects.get("continueOnFailure"));
+			assertNotNull(objectsFailedToDelete);
+			assertEquals(0, objectsFailedToDelete.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+			// we know this test fails for now so clean up properly
+			try {
+				deleteTree((CmisObject) testObjects.get("folderRef"),
+						(String) testObjects.get("folderId"),
+						(Boolean) testObjects.get("allversions"),
+						(Boolean) testObjects.get("continueOnFailure"));
+			} catch (Exception e1) {
+			} finally {
+				fail();
+			}
+		}
+	}
+	
+	@Category({ SmokeTests.class, RegressionTests.class })
+	@Test
+	public void testDeleteTree_assert_folder_ref_attribute_is_valid() {
+		try {
+			List<String> objectsFailedToDelete = deleteTree(
+					lookupFlowConstruct("delete-tree-payload-with-folder-ref"),
+					testObjects,
+					(String) testObjects.get("folderId"),
+					(Boolean) testObjects.get("allversions"),
+					(Boolean) testObjects.get("continueOnFailure"));
+			assertNotNull(objectsFailedToDelete);
+			assertEquals(0, objectsFailedToDelete.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 }

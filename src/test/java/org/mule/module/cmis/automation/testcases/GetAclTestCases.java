@@ -24,7 +24,7 @@ public class GetAclTestCases extends CMISTestParent {
 			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
 			
 			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObject", getObjectById(result.getId()));
+			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -35,7 +35,32 @@ public class GetAclTestCases extends CMISTestParent {
 	@Test
 	public void testGetAcl() {
 		try {
-			Acl result = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			Acl result = getAcl((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"));
+			assertNotNull(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	@Category({SmokeTests.class, RegressionTests.class})
+	@Test
+	// If this test works then this jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1046
+	public void testGetAcl_null_cmisObject() {
+		try {
+			Acl result = getAcl(null, (String) testObjects.get("objectId"));
+			assertNotNull(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}				
+	
+	@Category({SmokeTests.class, RegressionTests.class})
+	@Test
+	public void testGetAcl_with_cmisObjectRef() {
+		try {
+			Acl result = getAcl(lookupFlowConstruct("get-acl-with-cmis-object-ref"), testObjects, (String) testObjects.get("objectId"));
 			assertNotNull(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +71,7 @@ public class GetAclTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), true);
+			delete((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

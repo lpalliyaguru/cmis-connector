@@ -71,30 +71,6 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 		}
 	}
 
-	
-	@SuppressWarnings("unchecked")
-	@Category({SmokeTests.class, RegressionTests.class })
-	@Test
-	// If this test passes then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1037
-	public void testCreateDocumentByIdFromContent_payload_is_HashMap() {
-		try {
-			ObjectId result = createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content"),
-					rootFolderId(),
-					(String) testObjects.get("filename"),
-					testObjects,
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test

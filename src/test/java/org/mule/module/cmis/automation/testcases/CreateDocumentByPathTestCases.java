@@ -96,32 +96,6 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 	@SuppressWarnings("unchecked")
 	@Category({ RegressionTests.class })
 	@Test
-	// If this test passes, then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1040
-	public void testCreateDocumentByPath_payload_is_HashMap() {
-		testObjects.put("folderPath", "/");
-		try {
-			ObjectId result = createDocumentByPath(
-					lookupFlowConstruct("create-document-by-path"),
-					(String) testObjects.get("folderPath"),
-					(String) testObjects.get("filename"),
-					testObjects,
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"),
-					(Boolean) testObjects.get("force"));
-
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Category({ RegressionTests.class })
-	@Test
 	public void testCreateDocumentByPath_assert_content_ref_attrib_is_valid() {
 		testObjects.put("folderPath", "/");
 		try {

@@ -81,16 +81,16 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 	}
 	
-	protected Object delete(CmisObject payload, String objectId, boolean allVersions) throws Exception {
-		MessageProcessor flow = lookupFlowConstruct("delete");
+	protected Object delete(Object payload, String objectId, boolean allVersions) throws Exception {
+		return delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
+	}
+	
+	protected Object delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
 		MuleEvent event = getTestEvent(payload);
 	
-		// putting in testObjects as a precaution. objectId and allVersions need to be in event's session scope.
 		testObjects.put("objectId", objectId);
 		testObjects.put("allVersions", allVersions);
 		
-		// objectId and allVersions need to be session variables as that is how they are being accessed from automation-test-flows.xml
-		// This is being done because a HashMap cannot be the payload (the payload must be a CmisObject)
 		for(String key : testObjects.keySet()) {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
@@ -127,7 +127,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return result.getRootFolderId();
 	}
 	
-	protected Acl getAcl(CmisObject payload, String objectId) throws Exception {
+	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		MuleEvent event = getTestEvent(payload);
 		
@@ -135,9 +135,12 @@ public class CMISTestParent extends FunctionalTestCase {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
 		
-		MessageProcessor flow = lookupFlowConstruct("get-acl");
 		MuleEvent response = flow.process(event);
 		return (Acl) response.getMessage().getPayload();
+	}
+	
+	protected Acl getAcl(Object payload, String objectId) throws Exception {
+		return getAcl(lookupFlowConstruct("get-acl"), payload, objectId);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -229,7 +232,13 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected ObjectId createDocumentByPathFromContent(String folderPath, String filename, String contentRef, String mimeType,
+	protected ObjectId createDocumentByPathFromContent(String folderPath, String filename, Object payload, String mimeType,
+			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
+		return createDocumentByPathFromContent(lookupFlowConstruct("create-document-by-path-from-content"), folderPath,
+				filename, payload, mimeType, versioningState, objectType, propertiesRef, force);
+	}
+	
+	protected ObjectId createDocumentByPathFromContent(MessageProcessor flow, String folderPath, String filename, Object payload, String mimeType,
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
 		testObjects.put("folderPath", folderPath);
 		testObjects.put("filename", filename);
@@ -238,10 +247,14 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("objectType", objectType);
 		testObjects.put("propertiesRef", propertiesRef);
 		testObjects.put("force", force);
-		testObjects.put("contentRef", contentRef);
 		
-		MessageProcessor flow = lookupFlowConstruct("create-document-by-path-from-content");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
+		MuleEvent event = getTestEvent(payload);
+		
+		for(String key : testObjects.keySet()) {
+			event.setSessionVariable(key, testObjects.get(key));
+		}
+		
+		MuleEvent response = flow.process(event);
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
@@ -255,8 +268,12 @@ public class CMISTestParent extends FunctionalTestCase {
 		return response.getMessage().getPayload();
 	}
 	
+	protected List<String> deleteTree(Object payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
+		return deleteTree(lookupFlowConstruct("delete-tree-session-vars"), payload, folderId, allversions, continueOnFailure);
+	}
+	
 	@SuppressWarnings("unchecked")
-	protected List<String> deleteTree(CmisObject payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
+	protected List<String> deleteTree(MessageProcessor flow, Object payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
 		testObjects.put("folderId", folderId);
 		testObjects.put("allversions", allversions);
 		testObjects.put("continueOnFailure", continueOnFailure);
@@ -266,12 +283,12 @@ public class CMISTestParent extends FunctionalTestCase {
 		for(String key : testObjects.keySet()) {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
-		MessageProcessor flow = lookupFlowConstruct("delete-tree");
+		
 		MuleEvent response = flow.process(event);
 		return (List<String>) response.getMessage().getPayload();
 	}
 	
-	protected ContentStream getContentStream(CmisObject payload, String objectId) throws Exception {
+	protected ContentStream getContentStream(MessageProcessor flow, Object payload, String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
 		MuleEvent event = getTestEvent(payload);
@@ -279,9 +296,13 @@ public class CMISTestParent extends FunctionalTestCase {
 		for(String key : testObjects.keySet()) {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
-		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
+		
 		MuleEvent response = flow.process(event);
 		return (ContentStream) response.getMessage().getPayload();
+	}
+	
+	protected ContentStream getContentStream(Object payload, String objectId) throws Exception {
+		return getContentStream(lookupFlowConstruct("get-content-stream-sessionvars-no-cmis-object-ref"), payload, objectId);
 	}
 	
 	protected Acl applyAcl(CmisObject payload, String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {

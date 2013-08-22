@@ -21,6 +21,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:delete config-ref="CMIS" objectId="#[sessionVars.objectId]" allVersions="#[sessionVars.allVersions]" />
 	</flow>
 	
+	<flow name="delete-with-cmis-object-ref">
+		<cmis:delete config-ref="CMIS" objectId="#[payload.objectId]" allVersions="#[payload.allVersions]" cmisObject-ref="#[payload.cmisObjectRef]" />
+	</flow>
+	
 	<flow name="repository-info">
 		<cmis:repository-info config-ref="CMIS" />
 	</flow>
@@ -40,6 +44,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	
 	<flow name="get-acl">
 		<cmis:get-acl config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+	</flow>
+	
+	<flow name="get-acl-with-cmis-object-ref">
+		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
 	</flow>
 	
 	<flow name="get-parent-folders">
@@ -108,6 +116,18 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="create-document-by-path-from-content">
+		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]"
+			mimeType="#[sessionVars.mimeType]" versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]">
+                 <cmis:properties ref="#[sessionVars.propertiesRef]" />
+		</cmis:create-document-by-path-from-content>
+	</flow>
+	
+	<flow name="create-document-by-path-from-content-no-properties">
+		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]"
+			mimeType="#[sessionVars.mimeType]" versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" />
+	</flow>
+	
+	<flow name="create-document-by-path-from-content-content-ref">
 		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[payload.filename]" folderPath="#[payload.folderPath]" mimeType="#[payload.mimeType]"
 			content-ref="#[payload.contentRef]" versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" force="#[payload.force]">
                  <cmis:properties ref="#[payload.propertiesRef]" />
@@ -118,16 +138,35 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:get-all-versions config-ref="CMIS" documentId="#[payload.documentId]"/>
 	</flow>
 	
-	<flow name="delete-tree">
-		<cmis:delete-tree config-ref="CMIS" allversions="#[sessionVars.allversions]" continueOnFailure="#[sessionVars.continueOnFailure]" folderId="#[sessionVars.folderId]" />
+	<flow name="delete-tree-session-vars">
+		<cmis:delete-tree config-ref="CMIS" allversions="#[sessionVars.allversions]" 
+			continueOnFailure="#[sessionVars.continueOnFailure]" folderId="#[sessionVars.folderId]" />
+	</flow>
+	
+	<flow name="delete-tree-payload-no-folder-ref">
+		<cmis:delete-tree config-ref="CMIS" allversions="#[payload.allversions]" 
+			continueOnFailure="#[payload.continueOnFailure]" folderId="#[payload.folderId]" />
+	</flow>
+	
+	<flow name="delete-tree-payload-with-folder-ref">
+		<cmis:delete-tree config-ref="CMIS" allversions="#[payload.allversions]" 
+			continueOnFailure="#[payload.continueOnFailure]" folderId="#[payload.folderId]" folder-ref="#[payload.folderRef]" />
 	</flow>
 	
 	<flow name="get-type-definition">
 		<cmis:get-type-definition config-ref="CMIS" typeId="#[payload.typeId]" />
 	</flow>
 	
-	<flow name="get-content-stream">
+	<flow name="get-content-stream-with-cmis-object-ref">
+		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
+	</flow>
+	
+	<flow name="get-content-stream-sessionvars-no-cmis-object-ref">
 		<cmis:get-content-stream config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+	</flow>
+	
+	<flow name="get-content-stream-no-cmis-object-ref">
+		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	
 	<flow name="get-object-by-path">
