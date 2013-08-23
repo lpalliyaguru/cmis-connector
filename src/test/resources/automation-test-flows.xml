@@ -216,6 +216,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:query config-ref="CMIS" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" />
 	</flow>
 	
+	<flow name="query-filtered">
+		<cmis:query config-ref="CMIS" filter="#[payload.filter]" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" />
+	</flow>
+	
 	<flow name="check-in">
 		<cmis:check-in config-ref="CMIS" checkinComment="#[payload.checkinComment]" documentId="#[payload.documentId]" filename="#[payload.filename]"
 				major="#[payload.major]" mimeType="#[payload.mimeType]" content-ref="#[payload.contentRef]">
