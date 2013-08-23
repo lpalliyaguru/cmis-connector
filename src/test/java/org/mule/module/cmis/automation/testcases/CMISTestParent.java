@@ -114,12 +114,16 @@ public class CMISTestParent extends FunctionalTestCase {
 		}
 	}
 	
-	protected String rootFolderId() throws Exception {
+	protected RepositoryInfo getRepositoryInfo() throws Exception {
 		MessageProcessor flow = lookupFlowConstruct("repository-info");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 
 		RepositoryInfo result = (RepositoryInfo) response.getMessage().getPayload();
-		return result.getRootFolderId();
+		return result;
+	}
+	
+	protected String rootFolderId() throws Exception {
+		return getRepositoryInfo().getRootFolderId();
 	}
 	
 	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
