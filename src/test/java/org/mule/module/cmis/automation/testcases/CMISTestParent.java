@@ -28,7 +28,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.api.MuleEvent;
-import org.mule.api.MuleMessage;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.VersioningState;
 import org.mule.tck.junit4.FunctionalTestCase;

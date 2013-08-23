@@ -1,6 +1,5 @@
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

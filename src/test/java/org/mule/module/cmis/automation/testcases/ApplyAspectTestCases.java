@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
-import org.apache.chemistry.opencmis.client.api.ObjectType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
