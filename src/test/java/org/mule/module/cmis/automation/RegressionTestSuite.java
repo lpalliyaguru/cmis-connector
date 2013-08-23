@@ -31,6 +31,7 @@ import org.mule.module.cmis.automation.testcases.GetOrCreateFolderByPathTestCase
 import org.mule.module.cmis.automation.testcases.GetParentFoldersTestCases;
 import org.mule.module.cmis.automation.testcases.GetTypeDefinitionTestCases;
 import org.mule.module.cmis.automation.testcases.MoveObjectTestCases;
+import org.mule.module.cmis.automation.testcases.QueryTestCases;
 import org.mule.module.cmis.automation.testcases.RegressionTests;
 import org.mule.module.cmis.automation.testcases.RepositoriesTestCases;
 import org.mule.module.cmis.automation.testcases.RepositoryInfoTestCases;
@@ -66,6 +67,7 @@ import org.mule.module.cmis.automation.testcases.UpdateObjectPropertiesTestCases
 	GetParentFoldersTestCases.class,
 	GetTypeDefinitionTestCases.class,
 	MoveObjectTestCases.class,
+	QueryTestCases.class,
 	RepositoriesTestCases.class,
 	RepositoryInfoTestCases.class,
 	UpdateObjectPropertiesTestCases.class
