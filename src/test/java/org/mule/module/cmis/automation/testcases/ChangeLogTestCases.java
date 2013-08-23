@@ -29,7 +29,6 @@ public class ChangeLogTestCases extends CMISTestParent {
 			RepositoryInfo repositoryInfo = getRepositoryInfo();
 			String changeLogToken = repositoryInfo.getLatestChangeLogToken();
 			
-			testObjects.put("repositoryInfo", repositoryInfo);
 			testObjects.put("changeLogToken", changeLogToken);
 			
 			String folderName = (String) testObjects.get("folderName");
