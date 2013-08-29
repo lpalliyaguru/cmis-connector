@@ -746,7 +746,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<String> deleteTree(@Placement(order = 1) @Optional @Default("#[payload]")  CmisObject folder,
+    public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,

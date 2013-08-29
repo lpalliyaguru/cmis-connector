@@ -113,10 +113,7 @@
 		<entry key="policyIdsRef">
 			<list value-type="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
 				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
-					<constructor-arg value="firstPolicy" />
-				</bean>
-				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
-					<constructor-arg value="secondPolicy" />
+					<constructor-arg value="cm:translatable" />
 				</bean>
 			</list>
 		</entry>
