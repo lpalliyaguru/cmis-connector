@@ -535,7 +535,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public CmisObject updateObjectProperties(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
                                              @Optional String objectId,
                                              @Placement(group = "Properties") Map<String, String> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);

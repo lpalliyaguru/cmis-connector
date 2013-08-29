@@ -115,6 +115,9 @@
 				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
 					<constructor-arg value="cm:translatable" />
 				</bean>
+				<bean class="org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl">
+					<constructor-arg value="secondPolicy" />
+				</bean>
 			</list>
 		</entry>
 	</util:map>
@@ -398,11 +401,6 @@
 		<entry key="objectType" value="D:cmiscustom:document" />
 		<entry key="propertiesRef">
 			<map key-type="java.lang.String" value-type="java.lang.Object">
-			</map>
-		</entry>
-		<entry key="propertiesRefUpdated">
-			<map key-type="java.lang.String" value-type="java.lang.Object">
-				<entry key="myProperty" value="myValue" />
 			</map>
 		</entry>
 	</util:map>

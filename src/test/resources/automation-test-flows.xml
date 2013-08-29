@@ -179,7 +179,7 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	
 	<flow name="update-object-properties">
 		<cmis:update-object-properties config-ref="CMIS" objectId="#[payload.objectId]">
-			<cmis:properties ref="#[propertiesRef]" />
+			<cmis:properties ref="#[payload.propertiesRef]" />
 		</cmis:update-object-properties>
 	</flow>
 	
