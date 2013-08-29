@@ -446,7 +446,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Folder> getParentFolders(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
