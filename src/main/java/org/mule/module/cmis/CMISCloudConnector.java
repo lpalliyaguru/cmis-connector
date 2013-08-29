@@ -330,7 +330,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Optional @Default("false")  @Placement(group = "Properties") Map<String, String> properties) {
+                                       @Optional @Placement(group = "Properties") Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
