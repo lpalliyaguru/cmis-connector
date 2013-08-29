@@ -1,5 +1,6 @@
 package org.mule.module.cmis.automation.testcases;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
@@ -46,11 +47,13 @@ public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 			Map<String, Object> updatedProperties = (Map<String, Object>) testObjects.get("propertiesRefUpdated");
 			testObjects.put("propertiesRef", updatedProperties);
 			
+			String titleRenamed = (String) updatedProperties.get("cmis:name");
+			
 			MessageProcessor flow = lookupFlowConstruct("update-object-properties");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			CmisObject cmisObject = (CmisObject) response.getMessage().getPayload();
-			System.out.println(cmisObject);
+			assertTrue(titleRenamed.equals(cmisObject.getName()));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
