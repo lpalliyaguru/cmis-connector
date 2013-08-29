@@ -477,7 +477,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Object folder(@Placement(order = 2) @Optional @Default("#[payload]") Folder folder,
+    public Object folder(@Placement(order = 2) @Optional Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
                          @Placement(order = 4) @Optional Integer depth,

@@ -1,5 +1,7 @@
 package org.mule.module.cmis.automation.testcases;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.runtime.util.AbstractIterator;
+import org.apache.chemistry.opencmis.client.runtime.util.CollectionIterable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +21,7 @@ import org.mule.api.processor.MessageProcessor;
 
 public class FolderTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
@@ -25,7 +30,9 @@ public class FolderTestCases extends CMISTestParent {
 			List<String> subFolders = (List<String>) testObjects.get("subfolders");
 			List<ObjectId> subFolderIds = new ArrayList<ObjectId>();
 			
-			String parentFolderId = rootFolderId();
+			String rootFolderId = rootFolderId();
+			String parentFolderId = createFolder((String) testObjects.get("parentFolder"), rootFolderId).getId();
+			
 			testObjects.put("folderId", parentFolderId);
 			
 			for (String subFolder : subFolders) {
@@ -41,19 +48,31 @@ public class FolderTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testFolder() {
 		try {
-			List<ObjectId> subfolderIds = (List<ObjectId>) testObjects.get("subFolderIds");
-			
 			MessageProcessor flow = lookupFlowConstruct("folder");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
-			CmisObject subFolders = (CmisObject) response.getMessage().getPayload();
-			System.out.println(subFolders);
+			CollectionIterable<CmisObject> cmisObjs = (CollectionIterable<CmisObject>) response.getMessage().getPayload();
 			
-			fail("Revisit test when message processor is fixed");
+			AbstractIterator<CmisObject> ai = cmisObjs.iterator();
+			
+			List<String> cmisObjsNames = new ArrayList<String>();
+			
+			while(ai.hasNext()) {
+				CmisObject cmisObj = ai.next();
+				cmisObjsNames.add(cmisObj.getName());
+			}
+			
+			assertEquals(2, cmisObjsNames.size());
+			
+			List<String> subFolders = (List<String>) testObjects.get("subfolders");
+			
+			assertTrue(cmisObjsNames.contains(subFolders.get(0)));
+			assertTrue(cmisObjsNames.contains(subFolders.get(1)));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -64,11 +83,7 @@ public class FolderTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			List<ObjectId> subFolderIds = (List<ObjectId>) testObjects.get("subFolderIds");
-			for (ObjectId subFolderId : subFolderIds) {
-				String id = subFolderId.getId();
-				delete(getObjectById(id), id, true);
-			}
+			deleteTree(null, (String) testObjects.get("folderId"), true, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

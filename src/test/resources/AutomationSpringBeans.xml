@@ -408,6 +408,7 @@
 	<!-- test case counts the number of child folders of root folder -->
 	<util:map id="folder" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
 		<entry key="get" value="#{T(org.mule.module.cmis.NavigationOptions).CHILDREN}" />
+		<entry key="parentFolder" value="parentFolder" />
 		<entry key="subfolders">
 			<list value-type="java.lang.String">
 				<value>folderOne</value>
