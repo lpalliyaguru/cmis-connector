@@ -386,7 +386,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	
 	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {
 		MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
-		MuleEvent response = flow.process(getTestEvent(null));
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ItemIterable<Document>) response.getMessage().getPayload();
 	}
 	

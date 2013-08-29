@@ -36,13 +36,6 @@ public class CancelCheckOutTestCases extends CMISTestParent {
 			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
 			testObjects.put("documentId", documentObjectId.getId());
 			
-			String checkinComment = (String) testObjects.get("checkinComment");
-			Boolean major = (Boolean) testObjects.get("major");
-			Map<String, Object> properties = (Map<String, Object>) testObjects.get("properties");
-			
-			ObjectId checkInObjectId = checkIn(checkinComment, documentObjectId.getId(), filename, content, mimeType, major, properties);
-			testObjects.put("checkInObjectId", checkInObjectId);
-			
 			checkOut(documentObjectId.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
