@@ -605,7 +605,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public ObjectId checkOut(@Optional @Default("#[payload]") CmisObject document,
+    public ObjectId checkOut(@Optional CmisObject document,
                              @Optional String documentId) {
         return facade.checkOut(document, documentId);
     }
@@ -621,7 +621,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void cancelCheckOut(@Optional @Default("#[payload]") CmisObject document,
+    public void cancelCheckOut(@Optional CmisObject document,
                                @Optional String documentId) {
         facade.cancelCheckOut(document, documentId);
     }
@@ -705,7 +705,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void applyPolicy(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public void applyPolicy(@Optional CmisObject cmisObject,
                             @Optional String objectId,
                             @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
@@ -722,7 +722,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public void delete(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public void delete(@Optional CmisObject cmisObject,
                        @Optional String objectId,
                        @Optional @Default("false") boolean allVersions) {
         facade.delete(cmisObject, objectId, allVersions);
