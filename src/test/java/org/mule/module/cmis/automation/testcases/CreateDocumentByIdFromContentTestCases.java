@@ -74,7 +74,6 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	@SuppressWarnings("unchecked")
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-	// If this test passes then this jira is solved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1039
 	public void testCreateDocumentByIdFromContent_no_properties() {
 		try {
 			ObjectId result = createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content-no-properties"),
