@@ -32,13 +32,6 @@ public class CheckOutTestCases extends CMISTestParent {
 			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
 			testObjects.put("documentObjectId", documentObjectId);
 			testObjects.put("documentId", documentObjectId.getId());
-			
-			String checkinComment = (String) testObjects.get("checkinComment");
-			Boolean major = (Boolean) testObjects.get("major");
-			Map<String, Object> properties = (Map<String, Object>) testObjects.get("properties");
-			
-			ObjectId checkInObjectId = checkIn(checkinComment, documentObjectId.getId(), filename, content, mimeType, major, properties);
-			testObjects.put("checkInObjectId", checkInObjectId);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -50,13 +43,12 @@ public class CheckOutTestCases extends CMISTestParent {
 	@Test
 	public void testCheckOut() {
 		try {
-			ObjectId checkInObjectId = (ObjectId) testObjects.get("checkInObjectId");
-			
 			MessageProcessor flow = lookupFlowConstruct("check-out");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			ObjectId pwcObjectId = (ObjectId) response.getMessage().getPayload();
-			assertTrue(pwcObjectId.getId().equals(checkInObjectId.toString()));
+			assertTrue(pwcObjectId != null);
+			assertTrue(pwcObjectId.getId() != null && !pwcObjectId.getId().isEmpty() && !pwcObjectId.getId().trim().isEmpty());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -68,6 +60,7 @@ public class CheckOutTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("documentId");
+			cancelCheckOut(objectId);
 			delete(getObjectById(objectId), objectId, true);
 		}
 		catch (Exception e) {
