@@ -569,7 +569,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl getAcl(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
 
