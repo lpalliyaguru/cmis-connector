@@ -19,6 +19,7 @@ import org.mule.module.cmis.VersioningState;
 
 public class GetAllVersionsTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
@@ -42,7 +43,7 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 				String checkInComment = (String) version.get("checkinComment");
 				Boolean major = (Boolean) version.get("major");
 				
-				ObjectId checkInId = checkIn(checkInComment, documentId.getId(), filename, checkInContent, mimeType, major, properties);
+				checkIn(checkInComment, documentId.getId(), filename, checkInContent, mimeType, major, properties);
 				checkOut(documentId.getId());
 			}
 		}
@@ -52,6 +53,7 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testGetAllVersions() {

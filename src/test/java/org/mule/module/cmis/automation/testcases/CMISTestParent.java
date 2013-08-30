@@ -385,6 +385,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {
 		MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
@@ -395,7 +396,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("documentId", documentId);
 		
 		MessageProcessor flow = lookupFlowConstruct("cancel-check-out");
-		MuleEvent response = flow.process(getTestEvent(testObjects));
+		flow.process(getTestEvent(testObjects));
 	}
 	
 	protected void applyPolicy(String objectId, List<ObjectId> policies) throws Exception  {

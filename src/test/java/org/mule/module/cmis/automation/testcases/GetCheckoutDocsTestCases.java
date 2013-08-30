@@ -1,12 +1,10 @@
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +21,7 @@ import org.mule.module.cmis.VersioningState;
 
 public class GetCheckoutDocsTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
@@ -60,6 +59,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetCheckoutDocs() {
@@ -88,6 +88,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 		}
 	}
 			
+	@SuppressWarnings("unchecked")
 	@After
 	public void tearDown() {
 		try {

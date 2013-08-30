@@ -41,6 +41,7 @@ public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testUpdateObjectProperties() {

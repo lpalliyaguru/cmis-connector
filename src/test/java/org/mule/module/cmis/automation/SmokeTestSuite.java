@@ -24,11 +24,11 @@ import org.mule.module.cmis.automation.testcases.RepositoryInfoTestCases;
 @RunWith(Categories.class)
 @IncludeCategory(RegressionTests.class)
 @SuiteClasses({
-	CreateDocumentByIdTestCases.class,
-	CreateDocumentByIdFromContentTestCases.class,
 	ApplyPolicyTestCases.class,
 	CheckInTestCases.class,
 	CheckOutTestCases.class,
+	CreateDocumentByIdFromContentTestCases.class,
+	CreateDocumentByIdTestCases.class,
 	CreateDocumentByPathFromContentTestCases.class,
 	CreateFolderTestCases.class,
 	CreateRelationshipTestCases.class,
