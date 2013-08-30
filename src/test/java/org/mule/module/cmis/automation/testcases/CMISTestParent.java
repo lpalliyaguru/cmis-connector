@@ -309,8 +309,8 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected Acl applyAcl(String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
 		testObjects.put("objectId", objectId);
 		testObjects.put("aclPropagation", aclPropagation);
-		testObjects.put("removeAces", removeAces);
-		testObjects.put("addAces", addAces);
+		testObjects.put("removeAcesRef", removeAces);
+		testObjects.put("addAcesRef", addAces);
 		
 		MessageProcessor flow = lookupFlowConstruct("apply-acl");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
@@ -320,8 +320,8 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected Acl applyAcl(CmisObject cmisObjectRef, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
 		testObjects.put("cmisObjectRef", cmisObjectRef);
 		testObjects.put("aclPropagation", aclPropagation);
-		testObjects.put("removeAces", removeAces);
-		testObjects.put("addAces", addAces);
+		testObjects.put("removeAcesRef", removeAces);
+		testObjects.put("addAcesRef", addAces);
 		
 		MessageProcessor flow = lookupFlowConstruct("apply-acl");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
