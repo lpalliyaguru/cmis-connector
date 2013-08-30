@@ -97,19 +97,6 @@ public class CMISTestParent extends FunctionalTestCase {
 		flow.process(getTestEvent(testObjects));
 	}
 	
-//	protected void delete(Object payload, String objectId, boolean allVersions) throws Exception {
-//		delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
-//	}
-//	
-//	protected void delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
-//		MuleEvent event = getTestEvent(payload);
-//	
-//		testObjects.put("objectId", objectId);
-//		testObjects.put("allVersions", allVersions);
-//
-//		MuleEvent response = flow.process(event);
-//	}
-	
 	@SuppressWarnings("unchecked")
 	protected List<Relationship> getObjectRelationships(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
