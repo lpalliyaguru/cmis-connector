@@ -18,6 +18,7 @@ import org.mule.module.cmis.automation.testcases.CreateDocumentByPathTestCases;
 import org.mule.module.cmis.automation.testcases.CreateFolderTestCases;
 import org.mule.module.cmis.automation.testcases.CreateRelationshipTestCases;
 import org.mule.module.cmis.automation.testcases.DeleteTestCases;
+import org.mule.module.cmis.automation.testcases.DeleteTreeTestCases;
 import org.mule.module.cmis.automation.testcases.FolderTestCases;
 import org.mule.module.cmis.automation.testcases.GetAclTestCases;
 import org.mule.module.cmis.automation.testcases.GetAllVersionsTestCases;
@@ -47,13 +48,14 @@ import org.mule.module.cmis.automation.testcases.UpdateObjectPropertiesTestCases
 	ChangeLogTestCases.class,
 	CheckInTestCases.class,
 	CheckOutTestCases.class,
-	CreateDocumentByIdTestCases.class,
 	CreateDocumentByIdFromContentTestCases.class,
-	CreateDocumentByPathTestCases.class,
+	CreateDocumentByIdTestCases.class,
 	CreateDocumentByPathFromContentTestCases.class,
+	CreateDocumentByPathTestCases.class,
 	CreateFolderTestCases.class,
 	CreateRelationshipTestCases.class,
 	DeleteTestCases.class,
+	DeleteTreeTestCases.class,
 	FolderTestCases.class,
 	GetAclTestCases.class,
 	GetAllVersionsTestCases.class,

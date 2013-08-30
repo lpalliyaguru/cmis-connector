@@ -20,6 +20,7 @@ import org.mule.module.cmis.VersioningState;
 
 public class GetAllVersionsTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {

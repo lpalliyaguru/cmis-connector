@@ -17,6 +17,7 @@ import org.mule.api.processor.MessageProcessor;
 
 public class QueryTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
@@ -33,6 +34,7 @@ public class QueryTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testQuery() {
@@ -55,6 +57,7 @@ public class QueryTestCases extends CMISTestParent {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testQuery_Filtered() {

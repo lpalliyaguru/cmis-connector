@@ -45,6 +45,7 @@ public class GetAppliedPoliciesTestCases extends CMISTestParent {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testGetAppliedPolicies() {
