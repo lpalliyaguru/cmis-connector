@@ -306,19 +306,25 @@ public class CMISTestParent extends FunctionalTestCase {
 		return getContentStream(lookupFlowConstruct("get-content-stream-sessionvars-no-cmis-object-ref"), payload, objectId);
 	}
 	
-	protected Acl applyAcl(CmisObject payload, String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
+	protected Acl applyAcl(String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
 		testObjects.put("objectId", objectId);
 		testObjects.put("aclPropagation", aclPropagation);
 		testObjects.put("removeAces", removeAces);
 		testObjects.put("addAces", addAces);
 		
-		MuleEvent event = getTestEvent(payload);
-		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
 		MessageProcessor flow = lookupFlowConstruct("apply-acl");
-		MuleEvent response = flow.process(event);
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (Acl) response.getMessage().getPayload();
+	}
+	
+	protected Acl applyAcl(CmisObject cmisObjectRef, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		testObjects.put("aclPropagation", aclPropagation);
+		testObjects.put("removeAces", removeAces);
+		testObjects.put("addAces", addAces);
+		
+		MessageProcessor flow = lookupFlowConstruct("apply-acl");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
 	

@@ -184,9 +184,16 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="apply-acl">
-		<cmis:apply-acl config-ref="CMIS" aclPropagation="#[sessionVars.aclPropagation]">
-	        <cmis:add-aces ref="#[sessionVars.addAces]"/>
-	        <cmis:remove-aces ref="#[sessionVars.removeAces]"/>
+		<cmis:apply-acl config-ref="CMIS" objectId="#[payload.objectId]" aclPropagation="#[payload.aclPropagation]">
+	        <cmis:add-aces ref="#[payload.addAces]"/>
+	        <cmis:remove-aces ref="#[payload.removeAces]"/>
+		</cmis:apply-acl>
+	</flow>
+	
+	<flow name="apply-acl-with-cmis-object-ref">
+		<cmis:apply-acl config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" aclPropagation="#[payload.aclPropagation]">
+	        <cmis:add-aces ref="#[payload.addAces]"/>
+	        <cmis:remove-aces ref="#[payload.removeAces]"/>
 		</cmis:apply-acl>
 	</flow>
 	
