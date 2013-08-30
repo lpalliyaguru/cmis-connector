@@ -66,7 +66,7 @@ public class ApplyAspectTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String documentId = (String) testObjects.get("objectId");
-			delete(getObjectById(documentId), documentId, true);
+			delete(documentId, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

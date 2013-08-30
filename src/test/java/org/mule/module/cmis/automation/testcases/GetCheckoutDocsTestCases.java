@@ -95,7 +95,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 			List<String> documentObjectIds = (List<String>) testObjects.get("documentObjectIds");
 			for (String documentId : documentObjectIds) {
 				cancelCheckOut(documentId);
-				delete(getObjectById(documentId), documentId, true);
+				delete(documentId, true);
 			}
 		}
 		catch (Exception e) {

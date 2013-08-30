@@ -147,11 +147,11 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 
 			Folder folder = (Folder) testObjects.get("parentFolder");
 			if (folder != null && TEST_FOLDER_NAME.equals(folder.getName())) {
-				delete(getObjectById(folder.getId()), folder.getId(), true);
+				delete(folder.getId(), true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

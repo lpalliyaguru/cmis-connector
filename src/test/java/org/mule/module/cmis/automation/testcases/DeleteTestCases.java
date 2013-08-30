@@ -1,12 +1,15 @@
 package org.mule.module.cmis.automation.testcases;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -33,23 +36,18 @@ public class DeleteTestCases extends CMISTestParent {
 	@Test
 	public void testDelete() {
 		try {
-			Object result = delete((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
-			assertNotNull(result);
+			String objectId = (String) testObjects.get("objectId");
+			Boolean allVersions = (Boolean) testObjects.get("allVersions");
+			
+			delete(objectId, allVersions);			
+			
+			CmisObject deletedObject = getObjectById(objectId);
+			fail("Object should not have been found");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
-	@Category({SmokeTests.class, RegressionTests.class})
-	@Test
-	public void testDelete_null_payload() {
-		try {
-			Object result = delete(null, (String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
-			assertNotNull(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			if (!(e.getCause() instanceof CmisObjectNotFoundException)) {
+				e.printStackTrace();
+				fail();
+			}
 		}
 	}
 	
@@ -57,12 +55,19 @@ public class DeleteTestCases extends CMISTestParent {
 	@Test
 	public void testDelete_with_cmisObjectRef() {
 		try {
-			Object result = delete(lookupFlowConstruct("delete-with-cmis-object-ref"), testObjects, 
-					(String) testObjects.get("objectId"), (Boolean) testObjects.get("allVersions"));
-			assertNotNull(result);
+			String objectId = (String) testObjects.get("objectId");
+			Boolean allVersions = (Boolean) testObjects.get("allVersions");
+			Object cmisObjectRef = testObjects.get("cmisObjectRef");
+			
+			delete(objectId, cmisObjectRef, allVersions);
+
+			CmisObject deletedObject = getObjectById(objectId);
+			fail("Object should not have been found");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			if (!(e.getCause() instanceof CmisObjectNotFoundException)) {
+				e.printStackTrace();
+				fail();
+			}
 		}
 	}
 }

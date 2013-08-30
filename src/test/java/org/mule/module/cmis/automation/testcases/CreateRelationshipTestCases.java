@@ -66,8 +66,8 @@ public class CreateRelationshipTestCases extends CMISTestParent {
 		try {
 			String parentObjectId = (String) testObjects.get("parentObjectId");
 			String childObjectId = (String) testObjects.get("childObjectId");
-			delete(getObjectById(parentObjectId), parentObjectId, true);
-			delete(getObjectById(childObjectId), childObjectId, true);
+			delete(parentObjectId, true);
+			delete(childObjectId, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

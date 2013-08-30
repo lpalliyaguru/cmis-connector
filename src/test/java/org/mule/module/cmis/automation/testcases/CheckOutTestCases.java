@@ -61,7 +61,7 @@ public class CheckOutTestCases extends CMISTestParent {
 		try {
 			String objectId = (String) testObjects.get("documentId");
 			cancelCheckOut(objectId);
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

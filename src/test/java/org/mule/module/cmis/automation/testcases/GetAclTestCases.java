@@ -70,7 +70,7 @@ public class GetAclTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			delete((CmisObject) testObjects.get("cmisObjectRef"), (String) testObjects.get("objectId"), true);
+			delete((String) testObjects.get("objectId"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

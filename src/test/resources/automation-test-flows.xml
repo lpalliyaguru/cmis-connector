@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 
 	<flow name="delete">
-		<cmis:delete config-ref="CMIS" objectId="#[sessionVars.objectId]" allVersions="#[sessionVars.allVersions]" />
+		<cmis:delete config-ref="CMIS" objectId="#[payload.objectId]" allVersions="#[payload.allVersions]" />
 	</flow>
 	
 	<flow name="delete-with-cmis-object-ref">

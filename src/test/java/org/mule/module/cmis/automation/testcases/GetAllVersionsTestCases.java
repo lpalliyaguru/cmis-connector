@@ -81,7 +81,7 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String documentId = (String) testObjects.get("documentId");
-			delete(getObjectById(documentId), documentId, true);
+			delete(documentId, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

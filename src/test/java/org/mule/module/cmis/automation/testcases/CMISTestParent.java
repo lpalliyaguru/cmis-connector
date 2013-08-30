@@ -80,22 +80,35 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 	}
 	
-	protected void delete(Object payload, String objectId, boolean allVersions) throws Exception {
-		delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
-	}
-	
-	protected void delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
-		MuleEvent event = getTestEvent(payload);
-	
+	protected void delete (String objectId, boolean allVersions) throws Exception {
 		testObjects.put("objectId", objectId);
 		testObjects.put("allVersions", allVersions);
 		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
-		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("delete");
+		flow.process(getTestEvent(testObjects));
 	}
+	
+	protected void delete (String objectId, Object cmisObjectRef, boolean allVersions) throws Exception {
+		testObjects.put("objectId", objectId);
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		testObjects.put("allVersions", allVersions);
+		
+		MessageProcessor flow = lookupFlowConstruct("delete-with-cmis-object-ref");
+		flow.process(getTestEvent(testObjects));
+	}
+	
+//	protected void delete(Object payload, String objectId, boolean allVersions) throws Exception {
+//		delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
+//	}
+//	
+//	protected void delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
+//		MuleEvent event = getTestEvent(payload);
+//	
+//		testObjects.put("objectId", objectId);
+//		testObjects.put("allVersions", allVersions);
+//
+//		MuleEvent response = flow.process(event);
+//	}
 	
 	@SuppressWarnings("unchecked")
 	protected List<Relationship> getObjectRelationships(String objectId) throws Exception {
