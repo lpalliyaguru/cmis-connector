@@ -377,11 +377,12 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected void checkOut(String documentId) throws Exception {
+	protected ObjectId checkOut(String documentId) throws Exception {
 		testObjects.put("documentId", documentId);
 		
 		MessageProcessor flow = lookupFlowConstruct("check-out");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ObjectId) response.getMessage().getPayload();
 	}
 	
 	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {

@@ -364,8 +364,6 @@
 				<map key-type="java.lang.String" value-type="java.lang.Object">
 					<entry key="filename" value="Doc_1" />
 					<entry key="mimeType" value="text/plain;charset=UTF-8" />
-					<entry key="major" value="#{T(java.lang.Boolean).TRUE}" />
-					<entry key="checkinComment" value="Checking in the first document" />
 					<entry key="content" value="The first document" />
 					<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
 					<entry key="objectType" value="D:cmiscustom:document" />
@@ -377,8 +375,6 @@
 				<map key-type="java.lang.String" value-type="java.lang.Object">
 					<entry key="filename" value="Doc_2" />
 					<entry key="mimeType" value="text/plain;charset=UTF-8" />
-					<entry key="major" value="#{T(java.lang.Boolean).TRUE}" />
-					<entry key="checkinComment" value="Checking in the second document" />
 					<entry key="content" value="The second document" />
 					<entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).NONE}" />
 					<entry key="objectType" value="D:cmiscustom:document" />
