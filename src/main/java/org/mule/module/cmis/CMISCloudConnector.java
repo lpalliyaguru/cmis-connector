@@ -587,7 +587,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Document> getAllVersions(@Optional @Default("#[payload]") CmisObject document,
+    public List<Document> getAllVersions(@Optional CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
                                          @Optional String orderBy) {
