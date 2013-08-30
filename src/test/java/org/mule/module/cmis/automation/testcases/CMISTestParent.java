@@ -80,11 +80,11 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 	}
 	
-	protected Object delete(Object payload, String objectId, boolean allVersions) throws Exception {
-		return delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
+	protected void delete(Object payload, String objectId, boolean allVersions) throws Exception {
+		delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
 	}
 	
-	protected Object delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
+	protected void delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
 		MuleEvent event = getTestEvent(payload);
 	
 		testObjects.put("objectId", objectId);
@@ -95,7 +95,6 @@ public class CMISTestParent extends FunctionalTestCase {
 		}
 		
 		MuleEvent response = flow.process(event);
-		return response.getMessage().getPayload();
 	}
 	
 	@SuppressWarnings("unchecked")
