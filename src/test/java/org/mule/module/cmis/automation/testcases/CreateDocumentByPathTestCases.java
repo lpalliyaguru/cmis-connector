@@ -121,7 +121,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 	@SuppressWarnings("unchecked")
 	@Category({ RegressionTests.class })
 	@Test
-	// This tests asserts that the message processor can indeed be used without the properties child element
+	// This tests asserts that the message processor can be used without the properties child element
 	public void testCreateDocumentByPath_no_properties() {
 		testObjects.put("folderPath", "/");
 		try {

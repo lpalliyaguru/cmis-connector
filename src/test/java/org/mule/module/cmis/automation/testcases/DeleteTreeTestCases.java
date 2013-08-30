@@ -74,16 +74,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
 			assertEquals(0, objectsFailedToDelete.size());
 		} catch (Exception e) {
 			e.printStackTrace();
-			// we know this test fails for now so clean up properly
-			try {
-				deleteTree((CmisObject) testObjects.get("folderRef"),
-						(String) testObjects.get("folderId"),
-						(Boolean) testObjects.get("allversions"),
-						(Boolean) testObjects.get("continueOnFailure"));
-			} catch (Exception e1) {
-			} finally {
-				fail();
-			}
+			fail();
 		}
 	}
 	
