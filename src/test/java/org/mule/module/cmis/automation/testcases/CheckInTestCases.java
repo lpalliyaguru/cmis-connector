@@ -32,6 +32,8 @@ public class CheckInTestCases extends CMISTestParent {
 			ObjectId documentObjectId = createDocumentByIdFromContent(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
 			testObjects.put("documentObjectId", documentObjectId);
 			testObjects.put("documentId", documentObjectId.getId());
+			
+			checkOut(documentObjectId.getId());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

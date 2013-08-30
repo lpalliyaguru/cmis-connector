@@ -1,10 +1,12 @@
 package org.mule.module.cmis.automation.testcases;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 			
 			String rootFolderId = rootFolderId();
 			List<String> documentObjectIds = new ArrayList<String>();
-			List<String> checkinObjectIds = new ArrayList<String>();
+			List<String> checkoutObjectIds = new ArrayList<String>();
 			
 			for (HashMap<String, Object> document : documents) {
 				String filename = document.get("filename").toString();
@@ -46,18 +48,11 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 				documentObjectIds.add(documentObjectId.getId());
 				testObjects.put("documentObjectIds", documentObjectIds);
 				
-				String checkinComment = (String) document.get("checkinComment");
-				Boolean major = (Boolean) document.get("major");
-				Map<String, Object> properties = (Map<String, Object>) document.get("properties");
-				
-				// Check in the created document
-				ObjectId checkinObjectId = checkIn(checkinComment, documentObjectId.getId(), filename, content, mimeType, major, properties);
-				checkinObjectIds.add(checkinObjectId.getId());
-				
 				// Check out the document
-				checkOut(documentObjectId.getId());
+				ObjectId pwcObjectId = checkOut(documentObjectId.getId());
+				checkoutObjectIds.add(pwcObjectId.getId());
+				testObjects.put("checkoutObjectIds", checkoutObjectIds);
 			}
-			testObjects.put("checkinObjectIds", checkinObjectIds);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +64,10 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 	@Test
 	public void testGetCheckoutDocs() {
 		try {
-			List<String> documents = (List<String>) testObjects.get("documentObjectIds");
+			// Wait for Alfresco to index the checked out documents
+			Thread.sleep(20000);
+			
+			List<String> pwcObjectIds = (List<String>) testObjects.get("checkoutObjectIds");
 			
 			MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
@@ -79,22 +77,23 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 			ItemIterable<Document> checkedOutDocuments = (ItemIterable<Document>) response.getMessage().getPayload();
 			for (Document doc : checkedOutDocuments) {
 				listSize++;
-				assertTrue(documents.contains(doc.getId()));
+				assertTrue(pwcObjectIds.contains(doc.getId()));
 			}
 			
-			assertTrue(documents.size() == listSize);
+			assertTrue(pwcObjectIds.size() == listSize);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-		
+			
 	@After
 	public void tearDown() {
 		try {
 			List<String> documentObjectIds = (List<String>) testObjects.get("documentObjectIds");
 			for (String documentId : documentObjectIds) {
+				cancelCheckOut(documentId);
 				delete(getObjectById(documentId), documentId, true);
 			}
 		}
