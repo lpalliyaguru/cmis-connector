@@ -79,8 +79,8 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 			assertNotNull(result);
 			String objectId = result.getId();
 			testObjects.put("objectId", objectId);
-			CmisObject cmisObject = getObjectById(objectId);
-			List<Folder> folders = getParentFolders(cmisObject, objectId);
+//			CmisObject cmisObject = getObjectById(objectId);
+			List<Folder> folders = getParentFolders(objectId);
 
 			assertTrue(folders.size() == 1);
 			Folder folder = folders.get(0);
