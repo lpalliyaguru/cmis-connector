@@ -61,7 +61,6 @@ public class GetContentStreamTestCases extends CMISTestParent {
 
 	@Category({ RegressionTests.class })
 	@Test
-	// test passes when following jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1051
 	public void testGetContentStream_HashMap_payload() {
 		try {
 			ContentStream result = getContentStream(

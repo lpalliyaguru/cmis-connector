@@ -446,7 +446,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Folder> getParentFolders(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
@@ -477,7 +477,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Object folder(@Placement(order = 2) @Optional @Default("#[payload]") Folder folder,
+    public Object folder(@Placement(order = 2) @Optional Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
                          @Placement(order = 4) @Optional Integer depth,
@@ -497,7 +497,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public ContentStream getContentStream(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public ContentStream getContentStream(@Optional CmisObject cmisObject,
                                           @Optional String objectId) {
         return facade.getContentStream(cmisObject, objectId);
     }
@@ -569,7 +569,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl getAcl(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
 
@@ -746,7 +746,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<String> deleteTree(@Placement(order = 1) @Optional @Default("#[payload]")  CmisObject folder,
+    public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,

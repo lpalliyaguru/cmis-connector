@@ -45,7 +45,6 @@ public class GetAclTestCases extends CMISTestParent {
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-	// If this test works then this jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1046
 	public void testGetAcl_null_cmisObject() {
 		try {
 			Acl result = getAcl(null, (String) testObjects.get("objectId"));

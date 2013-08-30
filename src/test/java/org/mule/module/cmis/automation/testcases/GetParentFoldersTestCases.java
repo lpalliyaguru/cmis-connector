@@ -53,7 +53,6 @@ public class GetParentFoldersTestCases extends CMISTestParent {
 
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
-	// this test passes when the following jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1054
 	public void testGetParentFolders_HashMap_payload() {
 		try {
 			List<Folder> folders = getParentFolders(

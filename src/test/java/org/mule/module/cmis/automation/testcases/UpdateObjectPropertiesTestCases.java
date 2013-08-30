@@ -17,6 +17,7 @@ import org.mule.module.cmis.VersioningState;
 
 public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		try {
@@ -48,7 +49,7 @@ public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 			testObjects.put("propertiesRef", updatedProperties);
 			
 			String titleRenamed = (String) updatedProperties.get("cmis:name");
-			
+
 			MessageProcessor flow = lookupFlowConstruct("update-object-properties");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			

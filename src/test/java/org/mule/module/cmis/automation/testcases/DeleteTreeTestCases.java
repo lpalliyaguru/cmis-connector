@@ -62,7 +62,6 @@ public class DeleteTreeTestCases extends CMISTestParent {
 
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
-	// Passes when this jira is resolved: https://www.mulesoft.org/jira/browse/CLDCONNECT-1049
 	public void testDeleteTree_HashMap_payload_no_folder_ref_attribute() {
 		try {
 			List<String> objectsFailedToDelete = deleteTree(
