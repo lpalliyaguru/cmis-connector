@@ -162,14 +162,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="get-content-stream-with-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
+		<cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" />
 	</flow>
 	
-	<flow name="get-content-stream-sessionvars-no-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[sessionVars.objectId]" />
-	</flow>
-	
-	<flow name="get-content-stream-no-cmis-object-ref">
+	<flow name="get-content-stream">
 		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	

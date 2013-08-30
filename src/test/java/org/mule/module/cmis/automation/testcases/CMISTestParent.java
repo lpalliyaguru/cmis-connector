@@ -289,21 +289,20 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<String>) response.getMessage().getPayload();
 	}
 	
-	protected ContentStream getContentStream(MessageProcessor flow, Object payload, String objectId) throws Exception {
+	protected ContentStream getContentStream(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MuleEvent event = getTestEvent(payload);
-		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
-		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ContentStream) response.getMessage().getPayload();
 	}
 	
-	protected ContentStream getContentStream(Object payload, String objectId) throws Exception {
-		return getContentStream(lookupFlowConstruct("get-content-stream-sessionvars-no-cmis-object-ref"), payload, objectId);
+	protected ContentStream getContentStream(CmisObject cmisObjectRef) throws Exception {
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		
+		MessageProcessor flow = lookupFlowConstruct("get-content-stream-with-cmis-object-ref");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ContentStream) response.getMessage().getPayload();
 	}
 	
 	protected Acl applyAcl(String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
