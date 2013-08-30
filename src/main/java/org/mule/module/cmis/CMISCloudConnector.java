@@ -670,7 +670,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl applyAcl(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public Acl applyAcl(@Optional CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
                         @Placement(group = "Remove Aces") List<Ace> removeAces,
