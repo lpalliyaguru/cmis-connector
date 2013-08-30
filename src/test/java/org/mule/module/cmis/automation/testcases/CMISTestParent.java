@@ -141,22 +141,6 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (Acl) response.getMessage().getPayload();
 	}
 	
-//	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
-//		testObjects.put("objectId", objectId);
-//		MuleEvent event = getTestEvent(payload);
-//		
-//		for(String key : testObjects.keySet()) {
-//			event.setSessionVariable(key, testObjects.get(key));
-//		}
-//		
-//		MuleEvent response = flow.process(event);
-//		return (Acl) response.getMessage().getPayload();
-//	}
-//	
-//	protected Acl getAcl(Object payload, String objectId) throws Exception {
-//		return getAcl(lookupFlowConstruct("get-acl"), payload, objectId);
-//	}
-	
 	protected List<Folder> getParentFolders(Object payload, String objectId) throws Exception {
 		return getParentFolders(lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"), payload, objectId);
 	}
