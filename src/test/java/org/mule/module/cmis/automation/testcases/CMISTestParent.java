@@ -158,23 +158,6 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
-//	protected List<Folder> getParentFolders(Object payload, String objectId) throws Exception {
-//		return getParentFolders(lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"), payload, objectId);
-//	}
-//	
-//	@SuppressWarnings("unchecked")
-//	protected List<Folder> getParentFolders(MessageProcessor flow, Object payload, String objectId) throws Exception {
-//		testObjects.put("objectId", objectId);
-//		MuleEvent event = getTestEvent(payload);
-//		
-//		for(String key : testObjects.keySet()) {
-//			event.setSessionVariable(key, testObjects.get(key));
-//		}
-//		
-//		MuleEvent response = flow.process(event);
-//		return (List<Folder>) response.getMessage().getPayload();
-//	}
-	
 	protected ObjectId createDocumentById(String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
 		return createDocumentById(lookupFlowConstruct("create-document-by-id"), folderId, filename, payload, mimeType, versioningState, objectType, propertiesRef);
