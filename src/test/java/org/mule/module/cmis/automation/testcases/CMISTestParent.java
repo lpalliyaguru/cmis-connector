@@ -124,21 +124,38 @@ public class CMISTestParent extends FunctionalTestCase {
 		return getRepositoryInfo().getRootFolderId();
 	}
 	
-	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
+	protected Acl getAcl(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
-		MuleEvent event = getTestEvent(payload);
 		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
-		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("get-acl");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
 	
-	protected Acl getAcl(Object payload, String objectId) throws Exception {
-		return getAcl(lookupFlowConstruct("get-acl"), payload, objectId);
+	protected Acl getAcl(String objectId, Object cmisObjectRef) throws Exception {
+		testObjects.put("objectId", objectId);
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		
+		MessageProcessor flow = lookupFlowConstruct("get-acl-with-cmis-object-ref");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (Acl) response.getMessage().getPayload();
 	}
+	
+//	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
+//		testObjects.put("objectId", objectId);
+//		MuleEvent event = getTestEvent(payload);
+//		
+//		for(String key : testObjects.keySet()) {
+//			event.setSessionVariable(key, testObjects.get(key));
+//		}
+//		
+//		MuleEvent response = flow.process(event);
+//		return (Acl) response.getMessage().getPayload();
+//	}
+//	
+//	protected Acl getAcl(Object payload, String objectId) throws Exception {
+//		return getAcl(lookupFlowConstruct("get-acl"), payload, objectId);
+//	}
 	
 	protected List<Folder> getParentFolders(Object payload, String objectId) throws Exception {
 		return getParentFolders(lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"), payload, objectId);

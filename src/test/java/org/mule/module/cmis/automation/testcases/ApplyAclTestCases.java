@@ -34,7 +34,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 			testObjects.put("objectId", result.getId());
 			testObjects.put("cmisObject", getObjectById(result.getId()));
 			
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			Acl acl = getAcl(result.getId());
 		    assertEquals(2, acl.getAces().size());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 	@Test
 	public void testApplyAclAdd() {
 		try {
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+		    Acl acl = getAcl((String) testObjects.get("objectId"));
 		    
 		    List<Ace> removeAces = new ArrayList<Ace>();
 		    List<Ace> addAces = new ArrayList<Ace>();
@@ -72,7 +72,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 	@Test
 	public void testApplyAclRemove() {
 		try {
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+		    Acl acl = getAcl((String) testObjects.get("objectId"));
 		    
 		    List<Ace> removeAces = new ArrayList<Ace>();
 		    List<Ace> addAces = new ArrayList<Ace>();
