@@ -259,14 +259,14 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected Object createRelationship(String parentObjectId, String childObjectId, String relationshipType) throws Exception {
+	protected ObjectId createRelationship(String parentObjectId, String childObjectId, String relationshipType) throws Exception {
 		testObjects.put("parentObjectId", parentObjectId);
 		testObjects.put("childObjectId", childObjectId);
 		testObjects.put("relationshipType", relationshipType);
 		
 		MessageProcessor flow = lookupFlowConstruct("create-relationship");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
-		return response.getMessage().getPayload();
+		return (ObjectId) response.getMessage().getPayload();
 	}
 	
 	protected List<String> deleteTree(Object payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {

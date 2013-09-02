@@ -51,7 +51,7 @@ public class CreateRelationshipTestCases extends CMISTestParent {
 	@Test
 	public void testCreateRelationship() {
 		try {
-			Object result = createRelationship((String) testObjects.get("parentObjectId"), 
+			ObjectId result = createRelationship((String) testObjects.get("parentObjectId"), 
 					(String) testObjects.get("childObjectId"), 
 					(String) testObjects.get("relationshipType"));
 			assertNotNull(result);
