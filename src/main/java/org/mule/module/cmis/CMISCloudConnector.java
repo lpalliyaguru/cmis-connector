@@ -553,7 +553,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Relationship> getObjectRelationships(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
     }
