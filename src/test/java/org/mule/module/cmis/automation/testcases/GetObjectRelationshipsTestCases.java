@@ -9,12 +9,14 @@
 package org.mule.module.cmis.automation.testcases;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.junit.After;
@@ -51,11 +53,11 @@ public class GetObjectRelationshipsTestCases extends CMISTestParent {
 					(String) testObjects.get("objectType"),
 					(Map<String, Object>) testObjects.get("propertiesRef"));
 			
-			createRelationship(file1ObjectId.getId(), file2ObjectId.getId(), 
+			ObjectId relationshipId = createRelationship(file1ObjectId.getId(), file2ObjectId.getId(), 
 					(String) testObjects.get("relationshipType"));
 			
-			testObjects.put("objectId", file2ObjectId.getId());
-			testObjects.put("cmisObject", getObjectById(file2ObjectId.getId()));
+			testObjects.put("objectId", file1ObjectId.getId());
+			testObjects.put("relationshipId", relationshipId.getId());
 			testObjects.put("folderId", folderId);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,8 +70,18 @@ public class GetObjectRelationshipsTestCases extends CMISTestParent {
 	public void testGetObjectRelationships() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
+			String relationshipId = (String) testObjects.get("relationshipId");
+			
 			List<Relationship> result = getObjectRelationships(objectId);
-			assertNotNull(result);
+			
+			boolean found = false;
+			for (Relationship relationship : result) {
+				if (relationship.getId().equals(relationshipId)) {
+					found = true;
+					break;
+				}
+			}
+			assertTrue(found);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

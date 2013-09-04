@@ -105,7 +105,7 @@ public class CreateDocumentByIdTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

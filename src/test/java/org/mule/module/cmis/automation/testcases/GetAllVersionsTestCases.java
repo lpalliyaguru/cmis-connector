@@ -11,6 +11,7 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,12 +48,12 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 			
 			List<HashMap<String, Object>> versions = (List<HashMap<String, Object>>) testObjects.get("versions");
 			for (HashMap<String, Object> version : versions) {
+				checkOut(documentId.getId());
+
 				String checkInContent = (String) version.get("content");
 				String checkInComment = (String) version.get("checkinComment");
 				Boolean major = (Boolean) version.get("major");
-				
-				checkIn(checkInComment, documentId.getId(), filename, checkInContent, mimeType, major, properties);
-				checkOut(documentId.getId());
+				ObjectId checkInId = checkIn(checkInComment, documentId.getId(), filename, checkInContent, mimeType, major, properties);
 			}
 		}
 		catch (Exception e) {
@@ -66,15 +67,17 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 	@Test
 	public void testGetAllVersions() {
 		try {
-			Map<String, Object> versions = (Map<String, Object>) testObjects.get("versions");
+			List versions = (List) testObjects.get("versions");
 			
 			MessageProcessor flow = lookupFlowConstruct("get-all-versions");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			List<Document> documentVersions = (List<Document>) response.getMessage().getPayload();
-			assertTrue(documentVersions.size() == versions.size());
 			
-			fail("Revisit test when other processors are fixed");
+			// Assert that there are the same number of versions as was inserted.
+			// Updated versions + original version
+			// version updates + 1
+			assertTrue(documentVersions.size() == versions.size() + 1);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +89,7 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String documentId = (String) testObjects.get("documentId");
-			delete(getObjectById(documentId), documentId, true);
+			delete(documentId, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

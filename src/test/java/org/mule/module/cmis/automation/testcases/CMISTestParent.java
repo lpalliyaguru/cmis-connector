@@ -80,22 +80,21 @@ public class CMISTestParent extends FunctionalTestCase {
 		
 	}
 	
-	protected Object delete(Object payload, String objectId, boolean allVersions) throws Exception {
-		return delete(lookupFlowConstruct("delete"), payload, objectId, allVersions);
-	}
-	
-	protected Object delete(MessageProcessor flow, Object payload, String objectId, boolean allVersions) throws Exception {
-		MuleEvent event = getTestEvent(payload);
-	
+	protected void delete (String objectId, boolean allVersions) throws Exception {
 		testObjects.put("objectId", objectId);
 		testObjects.put("allVersions", allVersions);
 		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
+		MessageProcessor flow = lookupFlowConstruct("delete");
+		flow.process(getTestEvent(testObjects));
+	}
+	
+	protected void delete (String objectId, Object cmisObjectRef, boolean allVersions) throws Exception {
+		testObjects.put("objectId", objectId);
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		testObjects.put("allVersions", allVersions);
 		
-		MuleEvent response = flow.process(event);
-		return response.getMessage().getPayload();
+		MessageProcessor flow = lookupFlowConstruct("delete-with-cmis-object-ref");
+		flow.process(getTestEvent(testObjects));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -125,36 +124,37 @@ public class CMISTestParent extends FunctionalTestCase {
 		return getRepositoryInfo().getRootFolderId();
 	}
 	
-	protected Acl getAcl(MessageProcessor flow, Object payload, String objectId) throws Exception {
+	protected Acl getAcl(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
-		MuleEvent event = getTestEvent(payload);
 		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
-		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("get-acl");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
 	
-	protected Acl getAcl(Object payload, String objectId) throws Exception {
-		return getAcl(lookupFlowConstruct("get-acl"), payload, objectId);
-	}
-	
-	protected List<Folder> getParentFolders(Object payload, String objectId) throws Exception {
-		return getParentFolders(lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"), payload, objectId);
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected List<Folder> getParentFolders(MessageProcessor flow, Object payload, String objectId) throws Exception {
+	protected Acl getAcl(String objectId, Object cmisObjectRef) throws Exception {
 		testObjects.put("objectId", objectId);
-		MuleEvent event = getTestEvent(payload);
+		testObjects.put("cmisObjectRef", cmisObjectRef);
 		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
+		MessageProcessor flow = lookupFlowConstruct("get-acl-with-cmis-object-ref");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (Acl) response.getMessage().getPayload();
+	}
+	
+	protected List<Folder> getParentFolders(String objectId) throws Exception {
+		testObjects.put("objectId", objectId);
 		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("get-parent-folders");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (List<Folder>) response.getMessage().getPayload();
+	}
+	
+	protected List<Folder> getParentFolders(String objectId, Object cmisObjectRef) throws Exception {
+		testObjects.put("objectId", objectId);
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+
+		MessageProcessor flow = lookupFlowConstruct("get-parent-folders-with-cmis-object-ref");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
@@ -259,14 +259,14 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
-	protected Object createRelationship(String parentObjectId, String childObjectId, String relationshipType) throws Exception {
+	protected ObjectId createRelationship(String parentObjectId, String childObjectId, String relationshipType) throws Exception {
 		testObjects.put("parentObjectId", parentObjectId);
 		testObjects.put("childObjectId", childObjectId);
 		testObjects.put("relationshipType", relationshipType);
 		
 		MessageProcessor flow = lookupFlowConstruct("create-relationship");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
-		return response.getMessage().getPayload();
+		return (ObjectId) response.getMessage().getPayload();
 	}
 	
 	protected List<String> deleteTree(Object payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
@@ -289,36 +289,41 @@ public class CMISTestParent extends FunctionalTestCase {
 		return (List<String>) response.getMessage().getPayload();
 	}
 	
-	protected ContentStream getContentStream(MessageProcessor flow, Object payload, String objectId) throws Exception {
+	protected ContentStream getContentStream(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MuleEvent event = getTestEvent(payload);
-		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
-		
-		MuleEvent response = flow.process(event);
+		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ContentStream) response.getMessage().getPayload();
 	}
 	
-	protected ContentStream getContentStream(Object payload, String objectId) throws Exception {
-		return getContentStream(lookupFlowConstruct("get-content-stream-sessionvars-no-cmis-object-ref"), payload, objectId);
+	protected ContentStream getContentStream(CmisObject cmisObjectRef) throws Exception {
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		
+		MessageProcessor flow = lookupFlowConstruct("get-content-stream-with-cmis-object-ref");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (ContentStream) response.getMessage().getPayload();
 	}
 	
-	protected Acl applyAcl(CmisObject payload, String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
+	protected Acl applyAcl(String objectId, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
 		testObjects.put("objectId", objectId);
 		testObjects.put("aclPropagation", aclPropagation);
-		testObjects.put("removeAces", removeAces);
-		testObjects.put("addAces", addAces);
+		testObjects.put("removeAcesRef", removeAces);
+		testObjects.put("addAcesRef", addAces);
 		
-		MuleEvent event = getTestEvent(payload);
-		
-		for(String key : testObjects.keySet()) {
-			event.setSessionVariable(key, testObjects.get(key));
-		}
 		MessageProcessor flow = lookupFlowConstruct("apply-acl");
-		MuleEvent response = flow.process(event);
+		MuleEvent response = flow.process(getTestEvent(testObjects));
+		return (Acl) response.getMessage().getPayload();
+	}
+	
+	protected Acl applyAcl(CmisObject cmisObjectRef, AclPropagation aclPropagation, List<Ace> removeAces, List<Ace> addAces) throws Exception {
+		testObjects.put("cmisObjectRef", cmisObjectRef);
+		testObjects.put("aclPropagation", aclPropagation);
+		testObjects.put("removeAcesRef", removeAces);
+		testObjects.put("addAcesRef", addAces);
+		
+		MessageProcessor flow = lookupFlowConstruct("apply-acl");
+		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
 	

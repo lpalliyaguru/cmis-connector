@@ -53,10 +53,8 @@ public class GetContentStreamTestCases extends CMISTestParent {
 	@Test
 	public void testGetContentStream() {
 		try {
-			ContentStream result = getContentStream(
-					(CmisObject) testObjects.get("cmisObjectRef"),
-					(String) testObjects.get("objectId"));
-
+			String objectId = (String) testObjects.get("objectId");
+			ContentStream result = getContentStream(objectId);
 			assertNotNull(result);
 
 			String content = IOUtils.toString(result.getStream());
@@ -67,49 +65,28 @@ public class GetContentStreamTestCases extends CMISTestParent {
 		}
 	}
 
-	@Category({ RegressionTests.class })
+	@Category({RegressionTests.class})
 	@Test
-	public void testGetContentStream_HashMap_payload() {
+	public void testGetContentStream_With_CmisObject() {
 		try {
-			ContentStream result = getContentStream(
-					lookupFlowConstruct("get-content-stream-no-cmis-object-ref"),
-					testObjects,
-					(String) testObjects.get("objectId"));
-
+			CmisObject cmisObject = (CmisObject) testObjects.get("cmisObjectRef");
+			ContentStream result = getContentStream(cmisObject);
 			assertNotNull(result);
 
 			String content = IOUtils.toString(result.getStream());
 			assertEquals((String) testObjects.get("content"), content);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-	
-	@Category({ RegressionTests.class })
-	@Test
-	public void testGetContentStream_assert_cmisObject_ref_is_valid_attribute() {
-		try {
-			ContentStream result = getContentStream(
-					lookupFlowConstruct("get-content-stream-with-cmis-object-ref"),
-					testObjects,
-					(String) testObjects.get("objectId"));
-
-			assertNotNull(result);
-
-			String content = IOUtils.toString(result.getStream());
-			assertEquals((String) testObjects.get("content"), content);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
+		
 	@After
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

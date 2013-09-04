@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 
 	<flow name="delete">
-		<cmis:delete config-ref="CMIS" objectId="#[sessionVars.objectId]" allVersions="#[sessionVars.allVersions]" />
+		<cmis:delete config-ref="CMIS" objectId="#[payload.objectId]" allVersions="#[payload.allVersions]" />
 	</flow>
 	
 	<flow name="delete-with-cmis-object-ref">
@@ -43,15 +43,15 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="get-acl">
-		<cmis:get-acl config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	
 	<flow name="get-acl-with-cmis-object-ref">
 		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
 	</flow>
 	
-	<flow name="get-parent-folders-sessionvars-no-cmis-object-ref">
-		<cmis:get-parent-folders config-ref="CMIS" objectId="#[sessionVars.objectId]" />
+	<flow name="get-parent-folders">
+		<cmis:get-parent-folders config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	
 	<flow name="get-parent-folders-with-cmis-object-ref">
@@ -162,14 +162,10 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="get-content-stream-with-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" />
+		<cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" />
 	</flow>
 	
-	<flow name="get-content-stream-sessionvars-no-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[sessionVars.objectId]" />
-	</flow>
-	
-	<flow name="get-content-stream-no-cmis-object-ref">
+	<flow name="get-content-stream">
 		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" />
 	</flow>
 	
@@ -184,9 +180,16 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="apply-acl">
-		<cmis:apply-acl config-ref="CMIS" aclPropagation="#[sessionVars.aclPropagation]">
-	        <cmis:add-aces ref="#[sessionVars.addAces]"/>
-	        <cmis:remove-aces ref="#[sessionVars.removeAces]"/>
+		<cmis:apply-acl config-ref="CMIS" objectId="#[payload.objectId]" aclPropagation="#[payload.aclPropagation]">
+	        <cmis:add-aces ref="#[payload.addAcesRef]"/>
+	        <cmis:remove-aces ref="#[payload.removeAcesRef]"/>
+		</cmis:apply-acl>
+	</flow>
+	
+	<flow name="apply-acl-with-cmis-object-ref">
+		<cmis:apply-acl config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" aclPropagation="#[payload.aclPropagation]">
+	        <cmis:add-aces ref="#[payload.addAcesRef]"/>
+	        <cmis:remove-aces ref="#[payload.removeAcesRef]"/>
 		</cmis:apply-acl>
 	</flow>
 	

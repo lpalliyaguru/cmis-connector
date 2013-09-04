@@ -27,6 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.VersioningState;
 
 public class ApplyAclTestCases extends CMISTestParent {
@@ -40,9 +41,9 @@ public class ApplyAclTestCases extends CMISTestParent {
 					(VersioningState) testObjects.get("versioningState"), (String) testObjects.get("objectType"), (Map<String, Object>) testObjects.get("propertiesRef"));
 			
 			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObject", getObjectById(result.getId()));
+			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
 			
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			Acl acl = getAcl(result.getId());
 		    assertEquals(2, acl.getAces().size());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +55,9 @@ public class ApplyAclTestCases extends CMISTestParent {
 	@Test
 	public void testApplyAclAdd() {
 		try {
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+			String objectId = (String) testObjects.get("objectId");
+			AclPropagation aclPropagation = (AclPropagation) testObjects.get("aclPropagation");
+		    Acl acl = getAcl(objectId);
 		    
 		    List<Ace> removeAces = new ArrayList<Ace>();
 		    List<Ace> addAces = new ArrayList<Ace>();
@@ -66,8 +69,35 @@ public class ApplyAclTestCases extends CMISTestParent {
 			AccessControlEntryImpl acei = new AccessControlEntryImpl(principal, permissions1);
 		    addAces.add(acei);
 			
-			Acl result = applyAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), 
-					(AclPropagation) testObjects.get("aclPropagation"), removeAces, addAces);
+			Acl result = applyAcl(objectId, aclPropagation, removeAces, addAces);
+			
+			assertEquals(4, result.getAces().size());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	@Category({RegressionTests.class})
+	@Test
+	public void testApplyAclAdd_With_CmisObjectRef() {
+		try {
+		    String objectId = (String) testObjects.get("objectId");
+		    AclPropagation aclPropagation = (AclPropagation) testObjects.get("aclPropagation");
+		    CmisObject cmisObjectRef = (CmisObject) testObjects.get("cmisObjectRef");
+		    Acl acl = getAcl(objectId);
+		    
+		    List<Ace> removeAces = new ArrayList<Ace>();
+		    List<Ace> addAces = new ArrayList<Ace>();
+		    
+		    Principal principal = getPrincipal(acl);
+		    
+		    List<String> permissions1 = new ArrayList<String>();
+		    permissions1.add("cmis:write");
+			AccessControlEntryImpl acei = new AccessControlEntryImpl(principal, permissions1);
+		    addAces.add(acei);
+			
+			Acl result = applyAcl(cmisObjectRef, aclPropagation, removeAces, addAces);
 			
 			assertEquals(4, result.getAces().size());
 		} catch (Exception e) {
@@ -80,7 +110,9 @@ public class ApplyAclTestCases extends CMISTestParent {
 	@Test
 	public void testApplyAclRemove() {
 		try {
-		    Acl acl = getAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"));
+		    String objectId = (String) testObjects.get("objectId");
+		    AclPropagation aclPropagation = (AclPropagation) testObjects.get("aclPropagation");
+		    Acl acl = getAcl(objectId);
 		    
 		    List<Ace> removeAces = new ArrayList<Ace>();
 		    List<Ace> addAces = new ArrayList<Ace>();
@@ -91,9 +123,8 @@ public class ApplyAclTestCases extends CMISTestParent {
 		    permissions1.add("cmis:write");
 			AccessControlEntryImpl acei = new AccessControlEntryImpl(principal, permissions1);
 		    addAces.add(acei);
-			
-			Acl result = applyAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), 
-					(AclPropagation) testObjects.get("aclPropagation"), removeAces, addAces);
+
+			Acl result = applyAcl(objectId, aclPropagation, removeAces, addAces);
 			
 			assertEquals(4, result.getAces().size());
 			
@@ -105,8 +136,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 		    AccessControlEntryImpl acei2 = new AccessControlEntryImpl(principal, permissions2);
 		    removeAces.add(acei2);
 			
-			Acl result2 = applyAcl((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), 
-					(AclPropagation) testObjects.get("aclPropagation"), removeAces2, addAces2);
+			Acl result2 = applyAcl(objectId, aclPropagation, removeAces2, addAces2);
 			
 			assertEquals(2, result2.getAces().size());
 		} catch (Exception e) {
@@ -119,7 +149,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

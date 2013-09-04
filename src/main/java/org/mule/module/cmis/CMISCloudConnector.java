@@ -553,7 +553,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Relationship> getObjectRelationships(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
     }
@@ -587,7 +587,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public List<Document> getAllVersions(@Optional @Default("#[payload]") CmisObject document,
+    public List<Document> getAllVersions(@Optional CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
                                          @Optional String orderBy) {
@@ -670,7 +670,7 @@ public class CMISCloudConnector implements CMISFacade, Testable {
      */
     @Override
     @Processor
-    public Acl applyAcl(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public Acl applyAcl(@Optional CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
                         @Placement(group = "Remove Aces") List<Ace> removeAces,

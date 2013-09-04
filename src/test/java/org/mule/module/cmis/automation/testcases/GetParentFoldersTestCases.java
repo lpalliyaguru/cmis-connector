@@ -48,25 +48,21 @@ public class GetParentFoldersTestCases extends CMISTestParent {
 	@Test
 	public void testGetParentFolders() {
 		try {
-			List<Folder> folders = getParentFolders(
-					lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"),
-					(CmisObject) testObjects.get("cmisObjectRef"),
-					(String) testObjects.get("objectId"));
+			List<Folder> folders = getParentFolders((String) testObjects.get("objectId"));
 			assertNotNull(folders);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-
+	
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
-	public void testGetParentFolders_HashMap_payload() {
+	public void testGetParentFolders_With_CmisObjectRef() {
 		try {
-			List<Folder> folders = getParentFolders(
-					lookupFlowConstruct("get-parent-folders-sessionvars-no-cmis-object-ref"),
-					testObjects,
-					(String) testObjects.get("objectId"));
+			String objectId = (String) testObjects.get("objectId");
+			CmisObject cmisObjectRef = (CmisObject) testObjects.get("cmisObjectRef");
+			List<Folder> folders = getParentFolders(objectId, cmisObjectRef);
 			assertNotNull(folders);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,8 +73,7 @@ public class GetParentFoldersTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			delete((CmisObject) testObjects.get("cmisObjectRef"),
-					(String) testObjects.get("objectId"), true);
+			delete((String) testObjects.get("objectId"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

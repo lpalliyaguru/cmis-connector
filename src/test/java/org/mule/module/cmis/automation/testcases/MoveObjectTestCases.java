@@ -72,10 +72,10 @@ public class MoveObjectTestCases extends CMISTestParent {
 	public void tearDown() {
 		try {
 			String objectId = (String) testObjects.get("objectId");
-			delete(getObjectById(objectId), objectId, true);
+			delete(objectId, true);
 			
 			String targetFolderId = (String) testObjects.get("targetFolderId");
-			delete(getObjectById(targetFolderId), targetFolderId, true);
+			delete(targetFolderId, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

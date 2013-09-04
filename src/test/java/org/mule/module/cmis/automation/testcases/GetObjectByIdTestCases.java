@@ -44,7 +44,6 @@ public class GetObjectByIdTestCases extends CMISTestParent {
 		try {
 			CmisObject result = getObjectById((String) testObjects.get("objectId"));
 			assertNotNull(result);
-			testObjects.put("cmisObject", result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -54,7 +53,7 @@ public class GetObjectByIdTestCases extends CMISTestParent {
 	@After
 	public void tearDown() {
 		try {
-			delete((CmisObject) testObjects.get("cmisObject"), (String) testObjects.get("objectId"), true);
+			delete((String) testObjects.get("objectId"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
