@@ -63,7 +63,7 @@
 <!-- END_INCLUDE(cmis:query) -->
 
 <!-- BEGIN_INCLUDE(cmis:getParentFolders) -->
-        <cmis:get-parent-folders objectId="1111" />
+        <cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" />
 <!-- END_INCLUDE(cmis:getParentFolders) -->
 
 <!-- BEGIN_INCLUDE(cmis:folder) -->
