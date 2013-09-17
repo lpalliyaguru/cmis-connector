@@ -8,6 +8,9 @@
 
 package org.mule.module.cmis;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -27,14 +30,18 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.ConnectionException;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.ConnectivityTesting;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.MetaDataSwitch;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.
@@ -760,15 +767,16 @@ public class CMISCloudConnector implements CMISFacade {
      * @param parentObjectId The ID of the parent (or source) object in the relationship.
      * @param childObjectId The ID of the child (or target) object in the relationship.
      * @param relationshipType The name of the relationship type that should be associated with the objects.
+     * @return The {@link ObjectId} that is the result of the relationship
      */
     @Override
     @Processor
-    public void createRelationship ( String parentObjectId, 
+    public ObjectId createRelationship ( String parentObjectId, 
     		                         String childObjectId, 
     		                         String relationshipType )
     {
-    	facade.createRelationship(parentObjectId, childObjectId, relationshipType);
-    } // End createRelationship
+    	return facade.createRelationship(parentObjectId, childObjectId, relationshipType);
+    }
     
     public CMISFacade getFacade() {
         return facade;

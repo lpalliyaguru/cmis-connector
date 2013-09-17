@@ -884,102 +884,82 @@ public class ChemistryCMISFacade implements CMISFacade
     } // End applyAspect
     
     
-    public void createRelationship ( String parentObjectId, 
+    public ObjectId createRelationship ( String parentObjectId, 
 						             String childObjectId, 
 						             String relationshipType)
     {
-    	// Make sure that all of the required parameters were specified.
-    	if ( ( parentObjectId == null ) || ( parentObjectId.trim().length() <= 0 ) )
-    	{
-    		log.error ( 
-    			"No value was specified for the required attribute \"parentObjectId\". " +
-    			"No relationship could be created." );
-    		return;
+    	if (StringUtils.isEmpty(parentObjectId)) {
+    		log.error("No value was specified for the required attribute \"parentObjectId\". No relationship could be created.");
+    		return null;
     	}
-    	else if ( ( childObjectId == null ) || ( childObjectId.trim().length() <= 0 ) )
-    	{
-    		log.error ( 
-    			"No value was specified for the required attribute \"childObjectId\". " +
-    			"No relationship could be created." );
-    		return;
+    	
+    	if (StringUtils.isEmpty(childObjectId)) {
+    		log.error("No value was specified for the required attribute \"childObjectId\". No relationship could be created.");
+        	return null;
     	}
-    	else if ( ( relationshipType == null ) || ( relationshipType.trim().length() <= 0 ) )
-    	{
-    		log.error ( 
-    			"No value was specified for the required attribute \"relationshipType\". " +
-    			"No relationship could be created." );
-    		return;
+    	
+    	if (StringUtils.isEmpty(relationshipType)) {
+    		log.error("No value was specified for the required attribute \"relationshipType\". No relationship could be created." );
+        	return null;
     	}
     	
     	// Get a handle to the session object.
     	Session session = this.getSession ( this.connectionParameters );
 		
-		if ( session != null )
+		if ( session == null ) {
+			log.error("Unable to obtain a repository session, so no relationship could be created.");
+			return null;
+		}
+		
+		// We were able to obtain a session handle. Make sure that the source and target objects exists.
+		try
 		{
-			// We were able to obtain a session handle. Make sure that the source and target objects exists.
-			try
-			{
-				CmisObject parentObj = this.getObjectById ( parentObjectId );
-				
-				if ( parentObj == null )
-				{
-					log.error ( 
-						"The parent object with ID \"" + parentObjectId + "\" doesn't exists in the repository. " +
-					    "No relationship will be created." );
-					return;
-				}
-			}
-			catch ( Exception objEx )
-			{
-				log.error ( 
-					"An error occurred while attempting to determine if an the parent object with ID \"" +
-					parentObjectId + "\" exists in the repository. " + objEx.getMessage () );
-				return;
-			}
+			CmisObject parentObj = this.getObjectById ( parentObjectId );
 			
-			try
+			if ( parentObj == null )
 			{
-				CmisObject childObj = this.getObjectById ( childObjectId );
-				
-				if ( childObj == null )
-				{
-					log.error ( 
-						"The child object with ID \"" + childObjectId + "\" doesn't exists in the repository. " +
-					    "No relationship will be created." );
-					return;
-				}
-			}
-			catch ( Exception objEx )
-			{
-				log.error ( 
-					"An error occurred while attempting to determine if an the child object with ID \"" +
-					childObjectId + "\" exists in the repository. " + objEx.getMessage () );
-				return;
-			}
-			
-			// Set-up the paramters in preparation for the "createRelationship" call.
-			Map<String, Serializable> relProps = new HashMap<String, Serializable>();
-			relProps.put("cmis:sourceId", parentObjectId);
-			relProps.put("cmis:targetId", childObjectId);
-			relProps.put("cmis:objectTypeId", "R:" + relationshipType);
-			
-			try
-			{
-				session.createRelationship(relProps, null, null, null);
-			}
-			catch ( Exception relEx )
-			{
-				log.error ( 
-					"An error occurred while attempting to create a relationship between the " +
-					"parent object with ID \"" + parentObjectId + "\" and the child object with " +
-					"ID \"" + childObjectId + "\". " + relEx.getMessage () );
+				log.error ("The parent object with ID \"" + parentObjectId + "\" doesn't exists in the repository. No relationship will be created." );
+				return null;
 			}
 		}
-		else
+		catch ( Exception objEx )
 		{
-			log.error ( "Unable to obtain a repository session, so no relationship could be created." );
+			log.error("An error occurred while attempting to determine if an the parent object with ID \"" + parentObjectId + "\" exists in the repository. " + objEx.getMessage () );
+			return null;
 		}
-    } // End createRelationship
+		
+		try
+		{
+			CmisObject childObj = this.getObjectById ( childObjectId );
+			
+			if ( childObj == null )
+			{
+				log.error("The child object with ID \"" + childObjectId + "\" doesn't exists in the repository. No relationship will be created." );
+				return null;
+			}
+		}
+		catch ( Exception objEx )
+		{
+			log.error ("An error occurred while attempting to determine if an the child object with ID \"" + childObjectId + "\" exists in the repository. " + objEx.getMessage () );
+			return null;
+		}
+		
+		// Set-up the paramters in preparation for the "createRelationship" call.
+		Map<String, Serializable> relProps = new HashMap<String, Serializable>();
+		relProps.put("cmis:sourceId", parentObjectId);
+		relProps.put("cmis:targetId", childObjectId);
+		relProps.put("cmis:objectTypeId", "R:" + relationshipType);
+		
+		try
+		{
+			return session.createRelationship(relProps, null, null, null);
+		}
+		catch ( Exception relEx )
+		{
+			log.error ("An error occurred while attempting to create a relationship between the parent object with ID \"" + parentObjectId + "\" and the child object with ID \"" + childObjectId + "\". " + relEx.getMessage () );
+			return null;
+		}
+    } 
 
 
     /**

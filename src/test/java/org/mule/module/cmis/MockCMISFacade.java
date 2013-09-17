@@ -280,7 +280,7 @@ public class MockCMISFacade implements CMISFacade
         throw new NotImplementedException();
     }
     
-    public void createRelationship ( String parentObjectId, 
+    public ObjectId createRelationship ( String parentObjectId, 
 						             String childObjectId, 
 						             String relationshipType )
     {
