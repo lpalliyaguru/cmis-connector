@@ -145,7 +145,7 @@
 <!-- END_INCLUDE(cmis:delete) -->
 
 <!-- BEGIN_INCLUDE(cmis:deleteTree) -->
-        <cmis:delete-tree allversions="true" continueOnFailure="false" />
+        <cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" />
 <!-- END_INCLUDE(cmis:deleteTree) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAspect) -->
