@@ -110,7 +110,8 @@
 <!-- BEGIN_INCLUDE(cmis:checkIn) -->
         <cmis:check-in filename="#[payload:name]"
                         checkinComment="change on file" major="true"
-                        mimeType="application/octet-stream;charset=UTF-8" />
+                        mimeType="application/octet-stream;charset=UTF-8"
+                        content-ref="#[payload:content]" />
 <!-- END_INCLUDE(cmis:checkIn) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAcl) -->
