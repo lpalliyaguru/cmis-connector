@@ -141,7 +141,7 @@
 <!-- END_INCLUDE(cmis:applyPolicy) -->
 
 <!-- BEGIN_INCLUDE(cmis:delete) -->
-        <cmis:delete objectId="1111" allVersions="true" />
+        <cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:delete) -->
 
 <!-- BEGIN_INCLUDE(cmis:deleteTree) -->
