@@ -61,6 +61,13 @@ public class CMISCloudConnector implements CMISFacade {
     private CMISFacade facade;
 
     private String connectionIdentifier;
+    
+    // This object will be used to hold the concurrency for the connection manager features
+    private Object threadSafeLock;
+    
+    public CMISCloudConnector() {
+    	threadSafeLock = new Object();
+    }
 
     /**
      * Connects to CMIS
@@ -86,41 +93,53 @@ public class CMISCloudConnector implements CMISFacade {
                         @Optional @Default("10000") String connectionTimeout,
                         @Optional @Default("false") String useAlfrescoExtension,
                         @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider) throws ConnectionException {
-
-        boolean useAtomPub;
-        if (endpoint == null) {
-            useAtomPub = true;
-        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.SOAP) {
-            useAtomPub = false;
-        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.ATOM) {
-            useAtomPub = true;
-        } else {
-            throw new IllegalStateException("unknown endpoint type " + endpoint + ". Please use SOAP or ATOMPUB");
-        }
-
-        setConnectionIdentifier(username + "@" + baseUrl);
-
-        this.facade =
-            CMISFacadeAdaptor.adapt(
-                    new ChemistryCMISFacade(
-                            username,
-                            password,
-                            repositoryId,
-                            baseUrl,
-                            useAtomPub,
-                            connectionTimeout,
-                            useAlfrescoExtension,
-                            cxfPortProvider));
+    	
+    	synchronized (threadSafeLock) {
+    		// Prevent re-initialization
+    		if (facade == null) {
+		        boolean useAtomPub;
+		        if (endpoint == null) {
+		            useAtomPub = true;
+		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.SOAP) {
+		            useAtomPub = false;
+		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.ATOM) {
+		            useAtomPub = true;
+		        } else {
+		            throw new IllegalStateException("unknown endpoint type " + endpoint + ". Please use SOAP or ATOMPUB");
+		        }
+		
+		        setConnectionIdentifier(username + "@" + baseUrl);
+		
+		        this.facade =
+		            CMISFacadeAdaptor.adapt(
+		                    new ChemistryCMISFacade(
+		                            username,
+		                            password,
+		                            repositoryId,
+		                            baseUrl,
+		                            useAtomPub,
+		                            connectionTimeout,
+		                            useAlfrescoExtension,
+		                            cxfPortProvider));
+		        
+		        // Force a call to an operation in order to create the client and force authentication
+		        repositoryInfo();
+    		}
+    	}
     }
 
     @Disconnect
     public void disconnect() {
-        setFacade(null);
+    	synchronized (threadSafeLock) {
+    		facade = null;
+    	}
     }
 
     @ValidateConnection
     public boolean isConnected() {
-        return getFacade() != null;
+    	synchronized (threadSafeLock) {
+    		return facade != null;
+		}
     }
 
     @ConnectionIdentifier
