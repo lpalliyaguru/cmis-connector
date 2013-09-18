@@ -71,7 +71,7 @@
 <!-- END_INCLUDE(cmis:folder) -->
 
 <!-- BEGIN_INCLUDE(cmis:getContentStream) -->
-        <cmis:get-content-stream objectId="11111" />
+        <cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:getContentStream) -->
 
 <!-- BEGIN_INCLUDE(cmis:moveObject) -->
