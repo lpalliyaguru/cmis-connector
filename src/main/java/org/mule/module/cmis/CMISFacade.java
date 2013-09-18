@@ -442,6 +442,7 @@ public interface CMISFacade {
      * @param parentObjectId The ID of the parent (or source) object in the relationship.
      * @param childObjectId The ID of the child (or target) object in the relationship.
      * @param relationshipType The name of the relationship type that should be associated with the objects.
-     */
-    void createRelationship(String parentObjectId, String childObjectId, String relationshipType);
+     * @return The {@link ObjectId} that is the result of the relationship
+     */    
+    ObjectId createRelationship(String parentObjectId, String childObjectId, String relationshipType);
 }

@@ -8,6 +8,9 @@
 
 package org.mule.module.cmis;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -27,14 +30,18 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.ConnectionException;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.ConnectivityTesting;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.MetaDataSwitch;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.
@@ -54,6 +61,13 @@ public class CMISCloudConnector implements CMISFacade {
     private CMISFacade facade;
 
     private String connectionIdentifier;
+    
+    // This object will be used to hold the concurrency for the connection manager features
+    private Object threadSafeLock;
+    
+    public CMISCloudConnector() {
+    	threadSafeLock = new Object();
+    }
 
     /**
      * Connects to CMIS
@@ -79,41 +93,53 @@ public class CMISCloudConnector implements CMISFacade {
                         @Optional @Default("10000") String connectionTimeout,
                         @Optional @Default("false") String useAlfrescoExtension,
                         @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider) throws ConnectionException {
-
-        boolean useAtomPub;
-        if (endpoint == null) {
-            useAtomPub = true;
-        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.SOAP) {
-            useAtomPub = false;
-        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.ATOM) {
-            useAtomPub = true;
-        } else {
-            throw new IllegalStateException("unknown endpoint type " + endpoint + ". Please use SOAP or ATOMPUB");
-        }
-
-        setConnectionIdentifier(username + "@" + baseUrl);
-
-        this.facade =
-            CMISFacadeAdaptor.adapt(
-                    new ChemistryCMISFacade(
-                            username,
-                            password,
-                            repositoryId,
-                            baseUrl,
-                            useAtomPub,
-                            connectionTimeout,
-                            useAlfrescoExtension,
-                            cxfPortProvider));
+    	
+    	synchronized (threadSafeLock) {
+    		// Prevent re-initialization
+    		if (facade == null) {
+		        boolean useAtomPub;
+		        if (endpoint == null) {
+		            useAtomPub = true;
+		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.SOAP) {
+		            useAtomPub = false;
+		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.ATOM) {
+		            useAtomPub = true;
+		        } else {
+		            throw new IllegalStateException("unknown endpoint type " + endpoint + ". Please use SOAP or ATOMPUB");
+		        }
+		
+		        setConnectionIdentifier(username + "@" + baseUrl);
+		
+		        this.facade =
+		            CMISFacadeAdaptor.adapt(
+		                    new ChemistryCMISFacade(
+		                            username,
+		                            password,
+		                            repositoryId,
+		                            baseUrl,
+		                            useAtomPub,
+		                            connectionTimeout,
+		                            useAlfrescoExtension,
+		                            cxfPortProvider));
+		        
+		        // Force a call to an operation in order to create the client and force authentication
+		        repositoryInfo();
+    		}
+    	}
     }
 
     @Disconnect
     public void disconnect() {
-        setFacade(null);
+    	synchronized (threadSafeLock) {
+    		facade = null;
+    	}
     }
 
     @ValidateConnection
     public boolean isConnected() {
-        return getFacade() != null;
+    	synchronized (threadSafeLock) {
+    		return facade != null;
+		}
     }
 
     @ConnectionIdentifier
@@ -308,7 +334,7 @@ public class CMISCloudConnector implements CMISFacade {
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Optional @Placement(group = "Properties") Map<String, String> properties) {
+                                       @Optional @Default("") @Placement(group = "Properties") Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
@@ -740,7 +766,6 @@ public class CMISCloudConnector implements CMISFacade {
     * @param objectId   The object's id.
     * @param aspectName The name of the aspect to be applied to the object.
     * @param properties The properties to set.
-    * @return The ID of the object that was updated.
     */
     @Override
     @Processor
@@ -760,15 +785,16 @@ public class CMISCloudConnector implements CMISFacade {
      * @param parentObjectId The ID of the parent (or source) object in the relationship.
      * @param childObjectId The ID of the child (or target) object in the relationship.
      * @param relationshipType The name of the relationship type that should be associated with the objects.
+     * @return The {@link ObjectId} that is the result of the relationship
      */
     @Override
     @Processor
-    public void createRelationship ( String parentObjectId, 
+    public ObjectId createRelationship ( String parentObjectId, 
     		                         String childObjectId, 
     		                         String relationshipType )
     {
-    	facade.createRelationship(parentObjectId, childObjectId, relationshipType);
-    } // End createRelationship
+    	return facade.createRelationship(parentObjectId, childObjectId, relationshipType);
+    }
     
     public CMISFacade getFacade() {
         return facade;

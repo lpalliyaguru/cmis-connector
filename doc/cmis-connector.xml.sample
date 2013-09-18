@@ -63,7 +63,7 @@
 <!-- END_INCLUDE(cmis:query) -->
 
 <!-- BEGIN_INCLUDE(cmis:getParentFolders) -->
-        <cmis:get-parent-folders objectId="1111" />
+        <cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" />
 <!-- END_INCLUDE(cmis:getParentFolders) -->
 
 <!-- BEGIN_INCLUDE(cmis:folder) -->
@@ -71,7 +71,7 @@
 <!-- END_INCLUDE(cmis:folder) -->
 
 <!-- BEGIN_INCLUDE(cmis:getContentStream) -->
-        <cmis:get-content-stream objectId="11111" />
+        <cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:getContentStream) -->
 
 <!-- BEGIN_INCLUDE(cmis:moveObject) -->
@@ -79,7 +79,7 @@
 <!-- END_INCLUDE(cmis:moveObject) -->
 
 <!-- BEGIN_INCLUDE(cmis:updateObjectProperties) -->
-        <cmis:update-object-properties objectId="1111">
+        <cmis:update-object-properties objectId="1111" cmisObject-ref="#[payload:cmisObject]">
             <cmis:properties>
                 <cmis:property key="propkey1">propValue1</cmis:property>
                 <cmis:property key="propkey2">propValue2</cmis:property>
@@ -88,11 +88,11 @@
 <!-- END_INCLUDE(cmis:updateObjectProperties) -->
 
 <!-- BEGIN_INCLUDE(cmis:getObjectRelationships) -->
-        <cmis:get-object-relationships objectId="2222" />
+        <cmis:get-object-relationships objectId="2222" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:getObjectRelationships) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAcl) -->
-        <cmis:get-acl objectId="2222" />
+        <cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:getAcl) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAllVersions) -->
@@ -110,7 +110,8 @@
 <!-- BEGIN_INCLUDE(cmis:checkIn) -->
         <cmis:check-in filename="#[payload:name]"
                         checkinComment="change on file" major="true"
-                        mimeType="application/octet-stream;charset=UTF-8" />
+                        mimeType="application/octet-stream;charset=UTF-8"
+                        content-ref="#[payload:content]" />
 <!-- END_INCLUDE(cmis:checkIn) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAcl) -->
@@ -140,11 +141,11 @@
 <!-- END_INCLUDE(cmis:applyPolicy) -->
 
 <!-- BEGIN_INCLUDE(cmis:delete) -->
-        <cmis:delete objectId="1111" allVersions="true" />
+        <cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:delete) -->
 
 <!-- BEGIN_INCLUDE(cmis:deleteTree) -->
-        <cmis:delete-tree allversions="true" continueOnFailure="false" />
+        <cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" />
 <!-- END_INCLUDE(cmis:deleteTree) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAspect) -->
