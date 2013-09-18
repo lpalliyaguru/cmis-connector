@@ -79,7 +79,7 @@
 <!-- END_INCLUDE(cmis:moveObject) -->
 
 <!-- BEGIN_INCLUDE(cmis:updateObjectProperties) -->
-        <cmis:update-object-properties objectId="1111">
+        <cmis:update-object-properties objectId="1111" cmisObject-ref="#[payload:cmisObject]">
             <cmis:properties>
                 <cmis:property key="propkey1">propValue1</cmis:property>
                 <cmis:property key="propkey2">propValue2</cmis:property>
