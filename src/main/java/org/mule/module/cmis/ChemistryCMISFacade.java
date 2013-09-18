@@ -55,7 +55,6 @@ import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
-import org.mule.api.annotations.param.Optional;
 
 /**
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
@@ -741,7 +740,7 @@ public class ChemistryCMISFacade implements CMISFacade
         }
     }
 
-    public List<String> deleteTree(@Optional CmisObject folder, @Optional String folderId,
+    public List<String> deleteTree(CmisObject folder, String folderId,
                                    boolean allversions, UnfileObject unfile, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
