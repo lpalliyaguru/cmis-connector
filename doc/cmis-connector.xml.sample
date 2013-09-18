@@ -92,7 +92,7 @@
 <!-- END_INCLUDE(cmis:getObjectRelationships) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAcl) -->
-        <cmis:get-acl objectId="2222" />
+        <cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" />
 <!-- END_INCLUDE(cmis:getAcl) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAllVersions) -->
