@@ -315,7 +315,7 @@ public class CMISCloudConnector implements CMISFacade {
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Optional @Placement(group = "Properties") Map<String, String> properties) {
+                                       @Optional @Default("") @Placement(group = "Properties") Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
