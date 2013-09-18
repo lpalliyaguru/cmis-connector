@@ -747,7 +747,6 @@ public class CMISCloudConnector implements CMISFacade {
     * @param objectId   The object's id.
     * @param aspectName The name of the aspect to be applied to the object.
     * @param properties The properties to set.
-    * @return The ID of the object that was updated.
     */
     @Override
     @Processor
