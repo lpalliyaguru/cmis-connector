@@ -77,7 +77,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 			
 			List<String> pwcObjectIds = (List<String>) testObjects.get("checkoutObjectIds");
 			
-			MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
+			MessageProcessor flow = lookupMessageProcessor("get-checkout-docs");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			int listSize = 0;

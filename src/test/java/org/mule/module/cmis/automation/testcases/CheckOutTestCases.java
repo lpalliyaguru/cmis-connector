@@ -51,7 +51,7 @@ public class CheckOutTestCases extends CMISTestParent {
 	@Test
 	public void testCheckOut() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("check-out");
+			MessageProcessor flow = lookupMessageProcessor("check-out");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			ObjectId pwcObjectId = (ObjectId) response.getMessage().getPayload();

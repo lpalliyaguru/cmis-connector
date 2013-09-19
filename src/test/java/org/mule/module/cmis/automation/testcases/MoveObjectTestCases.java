@@ -57,7 +57,7 @@ public class MoveObjectTestCases extends CMISTestParent {
 	@Test
 	public void testMoveObject() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("move-object");
+			MessageProcessor flow = lookupMessageProcessor("move-object");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			FileableCmisObject result = (FileableCmisObject) response.getMessage().getPayload();
 

@@ -59,7 +59,7 @@ public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 			
 			String titleRenamed = (String) updatedProperties.get("cmis:name");
 
-			MessageProcessor flow = lookupFlowConstruct("update-object-properties");
+			MessageProcessor flow = lookupMessageProcessor("update-object-properties");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			CmisObject cmisObject = (CmisObject) response.getMessage().getPayload();

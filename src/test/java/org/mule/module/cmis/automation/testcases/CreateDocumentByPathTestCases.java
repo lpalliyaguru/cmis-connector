@@ -49,7 +49,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPath(
-					lookupFlowConstruct("create-document-by-path"),
+					lookupMessageProcessor("create-document-by-path"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),
@@ -74,7 +74,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/" + TEST_FOLDER_NAME);
 		try {
 			ObjectId result = createDocumentByPath(
-					lookupFlowConstruct("create-document-by-path"),
+					lookupMessageProcessor("create-document-by-path"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),
@@ -108,7 +108,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPath(
-					lookupFlowConstruct("create-document-by-path-content-ref"),
+					lookupMessageProcessor("create-document-by-path-content-ref"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					testObjects,
@@ -134,7 +134,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPath(
-					lookupFlowConstruct("create-document-by-path-no-properties"),
+					lookupMessageProcessor("create-document-by-path-no-properties"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),

@@ -60,7 +60,7 @@ public class GetAppliedPoliciesTestCases extends CMISTestParent {
 		try {
 			List<ObjectId> policyIds = (List<ObjectId>) testObjects.get("policyIdsRef");
 			
-			MessageProcessor flow = lookupFlowConstruct("get-applied-policies");
+			MessageProcessor flow = lookupMessageProcessor("get-applied-policies");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			List<Policy> policies = (List<Policy>) response.getMessage().getPayload();

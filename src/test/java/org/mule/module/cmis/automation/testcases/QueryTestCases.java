@@ -50,7 +50,7 @@ public class QueryTestCases extends CMISTestParent {
 
 			Thread.sleep(20000);
 			
-			MessageProcessor flow = lookupFlowConstruct("query");
+			MessageProcessor flow = lookupMessageProcessor("query");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			ItemIterable<QueryResult> payload = (ItemIterable<QueryResult>) response.getMessage().getPayload();
@@ -72,7 +72,7 @@ public class QueryTestCases extends CMISTestParent {
 		try {
 			Thread.sleep(20000);
 			
-			MessageProcessor flow = lookupFlowConstruct("query-filtered");
+			MessageProcessor flow = lookupMessageProcessor("query-filtered");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			ItemIterable<QueryResult> payload = (ItemIterable<QueryResult>) response.getMessage().getPayload();

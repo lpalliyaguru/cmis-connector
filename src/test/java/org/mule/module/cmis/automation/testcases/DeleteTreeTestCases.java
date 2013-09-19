@@ -73,7 +73,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
 	public void testDeleteTree_HashMap_payload_no_folder_ref_attribute() {
 		try {
 			List<String> objectsFailedToDelete = deleteTree(
-					lookupFlowConstruct("delete-tree-payload-no-folder-ref"),
+					lookupMessageProcessor("delete-tree-payload-no-folder-ref"),
 					testObjects,
 					(String) testObjects.get("folderId"),
 					(Boolean) testObjects.get("allversions"),
@@ -91,7 +91,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
 	public void testDeleteTree_assert_folder_ref_attribute_is_valid() {
 		try {
 			List<String> objectsFailedToDelete = deleteTree(
-					lookupFlowConstruct("delete-tree-payload-with-folder-ref"),
+					lookupMessageProcessor("delete-tree-payload-with-folder-ref"),
 					testObjects,
 					(String) testObjects.get("folderId"),
 					(Boolean) testObjects.get("allversions"),

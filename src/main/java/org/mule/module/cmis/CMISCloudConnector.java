@@ -48,7 +48,7 @@ import org.mule.api.annotations.param.Optional;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS", minMuleVersion = "3.4",
+@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS", minMuleVersion = "3.5",
         metaData = MetaDataSwitch.ON, connectivityTesting = ConnectivityTesting.ON)
 public class CMISCloudConnector implements CMISFacade {
 

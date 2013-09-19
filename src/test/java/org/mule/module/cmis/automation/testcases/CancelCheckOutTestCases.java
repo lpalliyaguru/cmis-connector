@@ -57,7 +57,7 @@ public class CancelCheckOutTestCases extends CMISTestParent {
 		try {
 			String documentId = (String) testObjects.get("documentId");
 			
-			MessageProcessor flow = lookupFlowConstruct("cancel-check-out");
+			MessageProcessor flow = lookupMessageProcessor("cancel-check-out");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			ItemIterable<Document> checkedOutDocs = getCheckedOutDocuments();		

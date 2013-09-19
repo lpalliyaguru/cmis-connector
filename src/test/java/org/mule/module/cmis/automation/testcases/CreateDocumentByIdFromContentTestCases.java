@@ -40,7 +40,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	@Test
 	public void testCreateDocumentByIdFromContent_payload_is_String() {
 		try {
-			ObjectId result = createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content"),
+			ObjectId result = createDocumentByIdFromContent(lookupMessageProcessor("create-document-by-id-from-content"),
 					rootFolderId(),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),
@@ -62,7 +62,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	@Test
 	public void testCreateDocumentByIdFromContent_assert_content_ref_attrib_is_valid() {
 		try {
-			ObjectId result = createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content-content-ref"),
+			ObjectId result = createDocumentByIdFromContent(lookupMessageProcessor("create-document-by-id-from-content-content-ref"),
 					rootFolderId(),
 					(String) testObjects.get("filename"),
 					testObjects,
@@ -84,7 +84,7 @@ public class CreateDocumentByIdFromContentTestCases extends CMISTestParent {
 	@Test
 	public void testCreateDocumentByIdFromContent_no_properties() {
 		try {
-			ObjectId result = createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content-no-properties"),
+			ObjectId result = createDocumentByIdFromContent(lookupMessageProcessor("create-document-by-id-from-content-no-properties"),
 					rootFolderId(),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),

@@ -53,7 +53,7 @@ public class CheckInTestCases extends CMISTestParent {
 	@Test
 	public void testCheckIn() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("check-in");
+			MessageProcessor flow = lookupMessageProcessor("check-in");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			ObjectId checkedInId = (ObjectId) response.getMessage().getPayload();

@@ -38,7 +38,7 @@ public class GetOrCreateFolderByPathTestCases extends CMISTestParent {
 	@Test
 	public void testGetOrCreateFolderByPath() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("get-or-create-folder-by-path");
+			MessageProcessor flow = lookupMessageProcessor("get-or-create-folder-by-path");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			CmisObject cmisObj = (CmisObject) response.getMessage().getPayload();

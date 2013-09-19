@@ -61,7 +61,7 @@ public class FolderTestCases extends CMISTestParent {
 	@Test
 	public void testFolder() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("folder");
+			MessageProcessor flow = lookupMessageProcessor("folder");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			CollectionIterable<CmisObject> cmisObjs = (CollectionIterable<CmisObject>) response.getMessage().getPayload();

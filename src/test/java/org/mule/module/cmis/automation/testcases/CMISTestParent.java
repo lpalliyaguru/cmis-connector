@@ -50,7 +50,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		return "automation-test-flows.xml";
 	}
 
-	protected MessageProcessor lookupFlowConstruct(String name) {
+	protected MessageProcessor lookupMessageProcessor(String name) {
 		return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
 	}
 	
@@ -66,7 +66,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected ObjectId createFolder(String folderName, String parentObjectId) throws Exception {
 		testObjects.put("folderName", folderName);
 		testObjects.put("parentObjectId", parentObjectId);
-		MessageProcessor flow = lookupFlowConstruct("create-folder");
+		MessageProcessor flow = lookupMessageProcessor("create-folder");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 
 		return (ObjectId) response.getMessage().getPayload();
@@ -74,7 +74,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	
 	protected CmisObject getObjectById(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
-		MessageProcessor flow = lookupFlowConstruct("get-object-by-id");
+		MessageProcessor flow = lookupMessageProcessor("get-object-by-id");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (CmisObject) response.getMessage().getPayload();
 		
@@ -84,7 +84,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("objectId", objectId);
 		testObjects.put("allVersions", allVersions);
 		
-		MessageProcessor flow = lookupFlowConstruct("delete");
+		MessageProcessor flow = lookupMessageProcessor("delete");
 		flow.process(getTestEvent(testObjects));
 	}
 	
@@ -93,7 +93,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("cmisObjectRef", cmisObjectRef);
 		testObjects.put("allVersions", allVersions);
 		
-		MessageProcessor flow = lookupFlowConstruct("delete-with-cmis-object-ref");
+		MessageProcessor flow = lookupMessageProcessor("delete-with-cmis-object-ref");
 		flow.process(getTestEvent(testObjects));
 	}
 	
@@ -101,7 +101,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected List<Relationship> getObjectRelationships(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-object-relationships");
+		MessageProcessor flow = lookupMessageProcessor("get-object-relationships");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 
 		Object resultPayload = response.getMessage().getPayload();
@@ -113,7 +113,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	}
 	
 	protected RepositoryInfo getRepositoryInfo() throws Exception {
-		MessageProcessor flow = lookupFlowConstruct("repository-info");
+		MessageProcessor flow = lookupMessageProcessor("repository-info");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 
 		RepositoryInfo result = (RepositoryInfo) response.getMessage().getPayload();
@@ -127,7 +127,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected Acl getAcl(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-acl");
+		MessageProcessor flow = lookupMessageProcessor("get-acl");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
@@ -136,7 +136,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("objectId", objectId);
 		testObjects.put("cmisObjectRef", cmisObjectRef);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-acl-with-cmis-object-ref");
+		MessageProcessor flow = lookupMessageProcessor("get-acl-with-cmis-object-ref");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
@@ -144,7 +144,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected List<Folder> getParentFolders(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-parent-folders");
+		MessageProcessor flow = lookupMessageProcessor("get-parent-folders");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (List<Folder>) response.getMessage().getPayload();
 	}
@@ -153,14 +153,14 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("objectId", objectId);
 		testObjects.put("cmisObjectRef", cmisObjectRef);
 
-		MessageProcessor flow = lookupFlowConstruct("get-parent-folders-with-cmis-object-ref");
+		MessageProcessor flow = lookupMessageProcessor("get-parent-folders-with-cmis-object-ref");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (List<Folder>) response.getMessage().getPayload();
 	}
 	
 	protected ObjectId createDocumentById(String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
-		return createDocumentById(lookupFlowConstruct("create-document-by-id"), folderId, filename, payload, mimeType, versioningState, objectType, propertiesRef);
+		return createDocumentById(lookupMessageProcessor("create-document-by-id"), folderId, filename, payload, mimeType, versioningState, objectType, propertiesRef);
 	}
 	
 	protected ObjectId createDocumentById(MessageProcessor flow, String folderId, String filename, Object payload, String mimeType, 
@@ -184,7 +184,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	
 	protected ObjectId createDocumentByIdFromContent(String folderId, String filename, Object payload, String mimeType, 
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef) throws Exception {
-		return createDocumentByIdFromContent(lookupFlowConstruct("create-document-by-id-from-content"), folderId, filename, payload, mimeType, 
+		return createDocumentByIdFromContent(lookupMessageProcessor("create-document-by-id-from-content"), folderId, filename, payload, mimeType, 
 				versioningState, objectType, propertiesRef);
 	}
 	
@@ -209,7 +209,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	
 	protected ObjectId createDocumentByPath(String folderPath, String filename, Object payload, String mimeType,
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
-		return createDocumentByPath(lookupFlowConstruct("create-document-by-path"), folderPath, filename, payload, mimeType,
+		return createDocumentByPath(lookupMessageProcessor("create-document-by-path"), folderPath, filename, payload, mimeType,
 				versioningState, objectType, propertiesRef, force);
 	}
 	
@@ -235,7 +235,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	
 	protected ObjectId createDocumentByPathFromContent(String folderPath, String filename, Object payload, String mimeType,
 			VersioningState versioningState, String objectType, Map<String, Object> propertiesRef, Boolean force) throws Exception {
-		return createDocumentByPathFromContent(lookupFlowConstruct("create-document-by-path-from-content"), folderPath,
+		return createDocumentByPathFromContent(lookupMessageProcessor("create-document-by-path-from-content"), folderPath,
 				filename, payload, mimeType, versioningState, objectType, propertiesRef, force);
 	}
 	
@@ -264,13 +264,13 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("childObjectId", childObjectId);
 		testObjects.put("relationshipType", relationshipType);
 		
-		MessageProcessor flow = lookupFlowConstruct("create-relationship");
+		MessageProcessor flow = lookupMessageProcessor("create-relationship");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
 	protected List<String> deleteTree(Object payload, String folderId, Boolean allversions, Boolean continueOnFailure) throws Exception {
-		return deleteTree(lookupFlowConstruct("delete-tree-session-vars"), payload, folderId, allversions, continueOnFailure);
+		return deleteTree(lookupMessageProcessor("delete-tree-session-vars"), payload, folderId, allversions, continueOnFailure);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -292,7 +292,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected ContentStream getContentStream(String objectId) throws Exception {
 		testObjects.put("objectId", objectId);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-content-stream");
+		MessageProcessor flow = lookupMessageProcessor("get-content-stream");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ContentStream) response.getMessage().getPayload();
 	}
@@ -300,7 +300,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected ContentStream getContentStream(CmisObject cmisObjectRef) throws Exception {
 		testObjects.put("cmisObjectRef", cmisObjectRef);
 		
-		MessageProcessor flow = lookupFlowConstruct("get-content-stream-with-cmis-object-ref");
+		MessageProcessor flow = lookupMessageProcessor("get-content-stream-with-cmis-object-ref");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ContentStream) response.getMessage().getPayload();
 	}
@@ -311,7 +311,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("removeAcesRef", removeAces);
 		testObjects.put("addAcesRef", addAces);
 		
-		MessageProcessor flow = lookupFlowConstruct("apply-acl");
+		MessageProcessor flow = lookupMessageProcessor("apply-acl");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
@@ -322,7 +322,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("removeAcesRef", removeAces);
 		testObjects.put("addAcesRef", addAces);
 		
-		MessageProcessor flow = lookupFlowConstruct("apply-acl");
+		MessageProcessor flow = lookupMessageProcessor("apply-acl");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (Acl) response.getMessage().getPayload();
 	}
@@ -347,7 +347,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		for(String key : testObjects.keySet()) {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
-		MessageProcessor flow = lookupFlowConstruct("get-applied-policies");
+		MessageProcessor flow = lookupMessageProcessor("get-applied-policies");
 		MuleEvent response = flow.process(event);
 		return (List<Policy>) response.getMessage().getPayload();
 	}
@@ -362,7 +362,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		for(String key : testObjects.keySet()) {
 			event.setSessionVariable(key, testObjects.get(key));
 		}
-		MessageProcessor flow = lookupFlowConstruct("apply-aspect");
+		MessageProcessor flow = lookupMessageProcessor("apply-aspect");
 		flow.process(event);
 	}
 		
@@ -377,7 +377,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("major", major);
 		testObjects.put("propertiesRef", properties);
 		
-		MessageProcessor flow = lookupFlowConstruct("check-in");
+		MessageProcessor flow = lookupMessageProcessor("check-in");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ObjectId) response.getMessage().getPayload();
 	}
@@ -385,14 +385,14 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected ObjectId checkOut(String documentId) throws Exception {
 		testObjects.put("documentId", documentId);
 		
-		MessageProcessor flow = lookupFlowConstruct("check-out");
+		MessageProcessor flow = lookupMessageProcessor("check-out");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ObjectId) response.getMessage().getPayload();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected ItemIterable<Document> getCheckedOutDocuments() throws Exception {
-		MessageProcessor flow = lookupFlowConstruct("get-checkout-docs");
+		MessageProcessor flow = lookupMessageProcessor("get-checkout-docs");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 		return (ItemIterable<Document>) response.getMessage().getPayload();
 	}
@@ -400,7 +400,7 @@ public class CMISTestParent extends FunctionalTestCase {
 	protected void cancelCheckOut(String documentId) throws Exception {
 		testObjects.put("documentId", documentId);
 		
-		MessageProcessor flow = lookupFlowConstruct("cancel-check-out");
+		MessageProcessor flow = lookupMessageProcessor("cancel-check-out");
 		flow.process(getTestEvent(testObjects));
 	}
 	
@@ -408,7 +408,7 @@ public class CMISTestParent extends FunctionalTestCase {
 		testObjects.put("objectId", objectId);
 		testObjects.put("policyIdsRef", policies);
 		
-		MessageProcessor flow = lookupFlowConstruct("apply-policy");
+		MessageProcessor flow = lookupMessageProcessor("apply-policy");
 		MuleEvent response = flow.process(getTestEvent(testObjects));
 	}
 }

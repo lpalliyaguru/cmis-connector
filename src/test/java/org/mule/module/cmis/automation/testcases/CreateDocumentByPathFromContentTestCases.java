@@ -49,7 +49,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPathFromContent(
-					lookupFlowConstruct("create-document-by-path-from-content"),
+					lookupMessageProcessor("create-document-by-path-from-content"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),
@@ -74,7 +74,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/" + TEST_FOLDER_NAME);
 		try {
 			ObjectId result = createDocumentByPathFromContent(
-					lookupFlowConstruct("create-document-by-path-from-content"),
+					lookupMessageProcessor("create-document-by-path-from-content"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),
@@ -108,7 +108,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPathFromContent(
-					lookupFlowConstruct("create-document-by-path-from-content-content-ref"),
+					lookupMessageProcessor("create-document-by-path-from-content-content-ref"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					testObjects,
@@ -133,7 +133,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
 		testObjects.put("folderPath", "/");
 		try {
 			ObjectId result = createDocumentByPathFromContent(
-					lookupFlowConstruct("create-document-by-path-from-content-no-properties"),
+					lookupMessageProcessor("create-document-by-path-from-content-no-properties"),
 					(String) testObjects.get("folderPath"),
 					(String) testObjects.get("filename"),
 					(String) testObjects.get("contentRef"),

@@ -39,7 +39,7 @@ public class RepositoriesTestCases extends CMISTestParent {
 	@Test
 	public void testRepositories() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("repositories");
+			MessageProcessor flow = lookupMessageProcessor("repositories");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			List<Repository> result = (List<Repository>) response.getMessage().getPayload();

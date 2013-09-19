@@ -69,7 +69,7 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 		try {
 			List versions = (List) testObjects.get("versions");
 			
-			MessageProcessor flow = lookupFlowConstruct("get-all-versions");
+			MessageProcessor flow = lookupMessageProcessor("get-all-versions");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			List<Document> documentVersions = (List<Document>) response.getMessage().getPayload();

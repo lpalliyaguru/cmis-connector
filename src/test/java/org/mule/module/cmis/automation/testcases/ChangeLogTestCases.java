@@ -54,7 +54,7 @@ public class ChangeLogTestCases extends CMISTestParent {
 		try {
 			String objectId = (String) testObjects.get("objectId");
 			
-			MessageProcessor flow = lookupFlowConstruct("changelog");
+			MessageProcessor flow = lookupMessageProcessor("changelog");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			ChangeEvents changeEvents = (ChangeEvents) response.getMessage().getPayload();
 

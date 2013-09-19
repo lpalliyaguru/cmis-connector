@@ -37,7 +37,7 @@ public class GetTypeDefinitionTestCases extends CMISTestParent {
 	@Test
 	public void testGetTypeDefinition() {
 		try {
-			MessageProcessor flow = lookupFlowConstruct("get-type-definition");
+			MessageProcessor flow = lookupMessageProcessor("get-type-definition");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			ObjectType objType = (ObjectType) response.getMessage().getPayload();

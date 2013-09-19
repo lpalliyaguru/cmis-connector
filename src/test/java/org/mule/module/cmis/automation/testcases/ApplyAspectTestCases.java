@@ -58,7 +58,7 @@ public class ApplyAspectTestCases extends CMISTestParent {
 			Map<String, String> aspectProperties = (Map<String, String>) testObjects.get("aspectProperties");
 			testObjects.put("propertiesRef", aspectProperties);
 			
-			MessageProcessor flow = lookupFlowConstruct("apply-aspect");
+			MessageProcessor flow = lookupMessageProcessor("apply-aspect");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
 			// We are using alfresco, so type cast it specifically to an alfresco document

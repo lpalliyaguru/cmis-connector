@@ -51,7 +51,7 @@ public class GetObjectByPathTestCases extends CMISTestParent {
 		try {
 			testObjects.put("path", "/" + (String) testObjects.get("folderName") + "/" + (String) testObjects.get("filename"));
 			
-			MessageProcessor flow = lookupFlowConstruct("get-object-by-path");
+			MessageProcessor flow = lookupMessageProcessor("get-object-by-path");
 			MuleEvent response = flow.process(getTestEvent(testObjects));
 
 			CmisObject cmisObj = (CmisObject) response.getMessage().getPayload();
