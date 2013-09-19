@@ -117,7 +117,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  ChangelogMessageProcessor
+  AbstractPagedConnectedProcessor
 
 
 | Mule CMIS Connector
@@ -288,12 +288,12 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAclMessageProcessor.html">ApplyAclMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAspectMessageProcessor.html">ApplyAspectMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyPolicyMessageProcessor.html">ApplyPolicyMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CancelCheckOutMessageProcessor.html">CancelCheckOutMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ChangelogMessageProcessor.html">ChangelogMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ChangelogMessageProcessor.html">ChangelogMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckInMessageProcessor.html">CheckInMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckOutMessageProcessor.html">CheckOutMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByIdFromContentMessageProcessor.html">CreateDocumentByIdFromContentMessageProcessor</a></li>
@@ -446,30 +446,6 @@
   
   
 
-  
-   
-  
-  
-  
-  
-
-  
-  
-  
-  
-
-  
-   
-  
-  
-  
-  
-
-  
-  
-  
-  
-
 
 <div class="sum-details-links">
 
@@ -525,9 +501,9 @@ Summary:
     public
      
      
-    
+    abstract
     class
-<h1>ChangelogMessageProcessor</h1>
+<h1>AbstractPagedConnectedProcessor</h1>
 
 
 
@@ -544,19 +520,12 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/module/cmis/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a><br/>
+    extends AbstractDevkitBasedPageableMessageProcessor<br/>
   
   
   
 
   
-  
-      implements 
-      
-        MessageProcessor 
-      
-        OperationMetaDataEnabled 
-      
   
   
 
@@ -601,7 +570,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractConnectedProcessor.html">org.mule.module.cmis.processors.AbstractConnectedProcessor</a></td>
+        <td colspan="2" class="jd-inheritance-class-cell">org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor</td>
     </tr>
     
 
@@ -615,7 +584,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.cmis.processors.ChangelogMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.cmis.processors.AbstractPagedConnectedProcessor</td>
     </tr>
     
 
@@ -629,11 +598,6 @@ Summary:
 
 <div class="jd-descr">
 
-
-<h2>Class Overview</h2>
-<p>ChangelogMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#changelog(java.lang.String, boolean)">changelog(java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
- 
-</p>
 
 
 
@@ -817,14 +781,6 @@ org.mule.api.lifecycle.Stoppable
 </td></tr>
 
 
-
-
-
-
-
-
-
-
 </table>
 
 
@@ -841,7 +797,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#_changeLogTokenType">_changeLogTokenType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_baseUrlType">_baseUrlType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -851,8 +807,74 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
-          boolean</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#_includePropertiesType">_includePropertiesType</a></td>
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_connectionTimeoutType">_connectionTimeoutType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_cxfPortProviderType">_cxfPortProviderType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_endpointType">_endpointType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_passwordType">_passwordType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_repositoryIdType">_repositoryIdType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_useAlfrescoExtensionType">_useAlfrescoExtensionType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_usernameType">_usernameType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -863,7 +885,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#changeLogToken">changeLogToken</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#baseUrl">baseUrl</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -874,7 +896,73 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#includeProperties">includeProperties</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#connectionTimeout">connectionTimeout</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#cxfPortProvider">cxfPortProvider</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#endpoint">endpoint</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#password">password</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#repositoryId">repositoryId</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#username">username</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -895,192 +983,27 @@ org.mule.api.lifecycle.Stoppable
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.module.cmis.processors.AbstractConnectedProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.module.cmis.processors.AbstractConnectedProcessor-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>From class
-<a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html">org.mule.module.cmis.processors.AbstractConnectedProcessor</a>
-<div id="inherited-fields-org.mule.module.cmis.processors.AbstractConnectedProcessor">
-  <div id="inherited-fields-org.mule.module.cmis.processors.AbstractConnectedProcessor-list"
+org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor
+<div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor">
+  <div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-fields-org.mule.module.cmis.processors.AbstractConnectedProcessor-summary" style="display: none;">
+  <div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
-          protected
+          private
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_baseUrlType">_baseUrlType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_connectionTimeoutType">_connectionTimeoutType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_cxfPortProviderType">_cxfPortProviderType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_endpointType">_endpointType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_passwordType">_passwordType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_repositoryIdType">_repositoryIdType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_useAlfrescoExtensionType">_useAlfrescoExtensionType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#_usernameType">_usernameType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#baseUrl">baseUrl</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#connectionTimeout">connectionTimeout</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#cxfPortProvider">cxfPortProvider</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#endpoint">endpoint</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#password">password</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#repositoryId">repositoryId</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#username">username</a></td>
+          <td class="jd-linkcol">fetchSize</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1186,14 +1109,6 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 
-
-
-
-
-
-
-
-
 </table>
 
 
@@ -1215,7 +1130,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#ChangelogMessageProcessor(java.lang.String)">ChangelogMessageProcessor</a></span>(String operationName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#AbstractPagedConnectedProcessor(java.lang.String)">AbstractPagedConnectedProcessor</a></span>(String operationName)</nobr>
         
   </td></tr>
 
@@ -1241,78 +1156,14 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             
             
             
-            void</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getBaseUrl()">getBaseUrl</a></span>()</nobr>
         
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#doProcess(org.mule.api.MuleEvent)">doProcess</a></span>(MuleEvent event)</nobr>
-        
-        <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#getInputMetaData()">getInputMetaData</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#getOutputMetaData(org.mule.common.metadata.MetaData)">getOutputMetaData</a></span>(MetaData inputMetadata)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
+        <div class="jd-descrdiv">Retrieves baseUrl
+ 
+</div>
   
   </td></tr>
 
@@ -1325,12 +1176,134 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             
             
             
-            void</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#setChangeLogToken(java.lang.Object)">setChangeLogToken</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Sets changeLogToken</div>
+        <div class="jd-descrdiv">Retrieves connectionTimeout
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves cxfPortProvider
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getEndpoint()">getEndpoint</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves endpoint
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getPassword()">getPassword</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves password
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getRepositoryId()">getRepositoryId</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves repositoryId
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves useAlfrescoExtension
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getUsername()">getUsername</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves username
+ 
+</div>
   
   </td></tr>
 
@@ -1346,9 +1319,9 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#setIncludeProperties(java.lang.Object)">setIncludeProperties</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setBaseUrl(java.lang.Object)">setBaseUrl</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets includeProperties</div>
+        <div class="jd-descrdiv">Sets baseUrl</div>
   
   </td></tr>
 
@@ -1364,8 +1337,10 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setConnectionTimeout(java.lang.Object)">setConnectionTimeout</a></span>(Object value)</nobr>
         
+        <div class="jd-descrdiv">Sets connectionTimeout</div>
+  
   </td></tr>
 
 
@@ -1380,8 +1355,100 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ChangelogMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setCxfPortProvider(java.lang.Object)">setCxfPortProvider</a></span>(Object value)</nobr>
         
+        <div class="jd-descrdiv">Sets cxfPortProvider</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setEndpoint(java.lang.Object)">setEndpoint</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets endpoint</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setPassword(java.lang.Object)">setPassword</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets password</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setRepositoryId(java.lang.Object)">setRepositoryId</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets repositoryId</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setUseAlfrescoExtension(java.lang.Object)">setUseAlfrescoExtension</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets useAlfrescoExtension</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setUsername(java.lang.Object)">setUsername</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets username</div>
+  
   </td></tr>
 
 
@@ -1402,19 +1469,19 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.processors.AbstractConnectedProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.module.cmis.processors.AbstractConnectedProcessor-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html">org.mule.module.cmis.processors.AbstractConnectedProcessor</a>
+  org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor
 
-<div id="inherited-methods-org.mule.module.cmis.processors.AbstractConnectedProcessor">
-  <div id="inherited-methods-org.mule.module.cmis.processors.AbstractConnectedProcessor-list"
+<div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor">
+  <div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.module.cmis.processors.AbstractConnectedProcessor-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1424,158 +1491,30 @@ From class
         <td class="jd-typecol"><nobr>
             
             
+            final
             
             
-            
-            Object</nobr>
+            MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getBaseUrl()">getBaseUrl</a></span>()</nobr>
+        <span class="sympad">doProcess</span>(MuleEvent arg0)</nobr>
         
-        <div class="jd-descrdiv">Retrieves baseUrl
- 
-</div>
-  
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
+            abstract
             
             
             
             
-            
-            Object</nobr>
+            PagingDelegate&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
+        <span class="sympad">getPagingDelegate</span>(MuleEvent arg0, PagingConfiguration arg1)</nobr>
         
-        <div class="jd-descrdiv">Retrieves connectionTimeout
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves cxfPortProvider
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getEndpoint()">getEndpoint</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves endpoint
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getPassword()">getPassword</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves password
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getRepositoryId()">getRepositoryId</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves repositoryId
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves useAlfrescoExtension
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#getUsername()">getUsername</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves username
- 
-</div>
-  
   </td></tr>
 
 
@@ -1590,136 +1529,8 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setBaseUrl(java.lang.Object)">setBaseUrl</a></span>(Object value)</nobr>
+        <span class="sympad">setFetchSize</span>(String arg0)</nobr>
         
-        <div class="jd-descrdiv">Sets baseUrl</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setConnectionTimeout(java.lang.Object)">setConnectionTimeout</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets connectionTimeout</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setCxfPortProvider(java.lang.Object)">setCxfPortProvider</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets cxfPortProvider</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setEndpoint(java.lang.Object)">setEndpoint</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets endpoint</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setPassword(java.lang.Object)">setPassword</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets password</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setRepositoryId(java.lang.Object)">setRepositoryId</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets repositoryId</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setUseAlfrescoExtension(java.lang.Object)">setUseAlfrescoExtension</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets useAlfrescoExtension</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractConnectedProcessor.html#setUsername(java.lang.Object)">setUsername</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets username</div>
-  
   </td></tr>
 
 
@@ -2683,110 +2494,6 @@ From interface
 </td></tr>
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.processor.MessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.processor.MessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.processor.MessageProcessor
-
-<div id="inherited-methods-org.mule.api.processor.MessageProcessor">
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.processor.MessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">process</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.common.metadata.MetaDataDescriptor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.common.metadata.MetaDataDescriptor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.common.metadata.MetaDataDescriptor
-
-<div id="inherited-methods-org.mule.common.metadata.MetaDataDescriptor">
-  <div id="inherited-methods-org.mule.common.metadata.MetaDataDescriptor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.common.metadata.MetaDataDescriptor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getInputMetaData</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getOutputMetaData</span>(MetaData arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-
 </table>
 
 
@@ -2819,7 +2526,7 @@ From interface
 
 
 
-<A NAME="_changeLogTokenType"></A>
+<A NAME="_baseUrlType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2829,7 +2536,7 @@ From interface
          
         String
       </span>
-        _changeLogTokenType
+        _baseUrlType
     </h4>
       <div class="api-level">
         
@@ -2849,7 +2556,7 @@ From interface
 
 
 
-<A NAME="_includePropertiesType"></A>
+<A NAME="_connectionTimeoutType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2857,9 +2564,9 @@ From interface
         protected 
          
          
-        boolean
+        String
       </span>
-        _includePropertiesType
+        _connectionTimeoutType
     </h4>
       <div class="api-level">
         
@@ -2879,7 +2586,187 @@ From interface
 
 
 
-<A NAME="changeLogToken"></A>
+<A NAME="_cxfPortProviderType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _cxfPortProviderType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_endpointType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _endpointType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_passwordType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _passwordType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_repositoryIdType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _repositoryIdType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_useAlfrescoExtensionType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _useAlfrescoExtensionType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_usernameType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _usernameType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="baseUrl"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2889,7 +2776,7 @@ From interface
          
         Object
       </span>
-        changeLogToken
+        baseUrl
     </h4>
       <div class="api-level">
         
@@ -2909,7 +2796,7 @@ From interface
 
 
 
-<A NAME="includeProperties"></A>
+<A NAME="connectionTimeout"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2919,7 +2806,187 @@ From interface
          
         Object
       </span>
-        includeProperties
+        connectionTimeout
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="cxfPortProvider"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        cxfPortProvider
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="endpoint"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        endpoint
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="password"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        password
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="repositoryId"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        repositoryId
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="useAlfrescoExtension"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        useAlfrescoExtension
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="username"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        username
     </h4>
       <div class="api-level">
         
@@ -2948,7 +3015,7 @@ From interface
 
 
 
-<A NAME="ChangelogMessageProcessor(java.lang.String)"></A>
+<A NAME="AbstractPagedConnectedProcessor(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2960,7 +3027,7 @@ From interface
          
         
       </span>
-      <span class="sympad">ChangelogMessageProcessor</span>
+      <span class="sympad">AbstractPagedConnectedProcessor</span>
       <span class="normal">(String operationName)</span>
     </h4>
       <div class="api-level">
@@ -3003,7 +3070,7 @@ From interface
 
 
 
-<A NAME="dispose()"></A>
+<A NAME="getBaseUrl()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3013,9 +3080,9 @@ From interface
          
          
          
-        void
+        Object
       </span>
-      <span class="sympad">dispose</span>
+      <span class="sympad">getBaseUrl</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -3028,13 +3095,15 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves baseUrl
+ 
+</p></div>
 
     </div>
 </div>
 
 
-<A NAME="doProcess(org.mule.api.MuleEvent)"></A>
+<A NAME="getConnectionTimeout()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3044,58 +3113,9 @@ From interface
          
          
          
-        MuleEvent
+        Object
       </span>
-      <span class="sympad">doProcess</span>
-      <span class="normal">(MuleEvent event)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Invokes the MessageProcessor.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>event</td>
-          <td>MuleEvent to be processed</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="getInputMetaData()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Result&lt;MetaData&gt;
-      </span>
-      <span class="sympad">getInputMetaData</span>
+      <span class="sympad">getConnectionTimeout</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -3108,13 +3128,15 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionTimeout
+ 
+</p></div>
 
     </div>
 </div>
 
 
-<A NAME="getOutputMetaData(org.mule.common.metadata.MetaData)"></A>
+<A NAME="getCxfPortProvider()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3124,49 +3146,9 @@ From interface
          
          
          
-        Result&lt;MetaData&gt;
+        Object
       </span>
-      <span class="sympad">getOutputMetaData</span>
-      <span class="normal">(MetaData inputMetadata)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>inputMetadata</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="initialise()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">initialise</span>
+      <span class="sympad">getCxfPortProvider</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -3179,22 +3161,180 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Obtains the expression manager from the Mule context and initialises the connector. If a target object  has not been set already it will search the Mule registry for a default one.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>InitialisationException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves cxfPortProvider
+ 
+</p></div>
 
     </div>
 </div>
 
 
-<A NAME="setChangeLogToken(java.lang.Object)"></A>
+<A NAME="getEndpoint()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getEndpoint</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves endpoint
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getPassword()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getPassword</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves password
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getRepositoryId()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getRepositoryId</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves repositoryId
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getUseAlfrescoExtension()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getUseAlfrescoExtension</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves useAlfrescoExtension
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getUsername()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getUsername</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves username
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="setBaseUrl(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3206,7 +3346,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setChangeLogToken</span>
+      <span class="sympad">setBaseUrl</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -3219,7 +3359,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets changeLogToken</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets baseUrl</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -3235,7 +3375,7 @@ From interface
 </div>
 
 
-<A NAME="setIncludeProperties(java.lang.Object)"></A>
+<A NAME="setConnectionTimeout(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3247,7 +3387,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setIncludeProperties</span>
+      <span class="sympad">setConnectionTimeout</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -3260,7 +3400,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets includeProperties</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets connectionTimeout</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -3276,7 +3416,7 @@ From interface
 </div>
 
 
-<A NAME="start()"></A>
+<A NAME="setCxfPortProvider(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3288,8 +3428,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">start</span>
-      <span class="normal">()</span>
+      <span class="sympad">setCxfPortProvider</span>
+      <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3301,13 +3441,14 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets cxfPortProvider</p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
         <tr>
-            <th>MuleException</td>
-            <td></td>
+          <th>value</td>
+          <td>Value to set
+</td>
         </tr>
       </table>
   </div>
@@ -3316,7 +3457,7 @@ From interface
 </div>
 
 
-<A NAME="stop()"></A>
+<A NAME="setEndpoint(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3328,8 +3469,8 @@ From interface
          
         void
       </span>
-      <span class="sympad">stop</span>
-      <span class="normal">()</span>
+      <span class="sympad">setEndpoint</span>
+      <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3341,13 +3482,178 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets endpoint</p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
         <tr>
-            <th>MuleException</td>
-            <td></td>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setPassword(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setPassword</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets password</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setRepositoryId(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setRepositoryId</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets repositoryId</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setUseAlfrescoExtension(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUseAlfrescoExtension</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets useAlfrescoExtension</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setUsername(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUsername</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets username</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
         </tr>
       </table>
   </div>
