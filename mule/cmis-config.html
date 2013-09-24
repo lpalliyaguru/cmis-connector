@@ -1348,7 +1348,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       
         Applies policies to this object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy cmisObject-ref="#[payload:cmisObject]"&gt;
     &lt;cmis:policy-ids&gt;
         &lt;cmis:policy-id value-ref="policyId1Ref" /&gt;
         &lt;cmis:policy-id value-ref="policyId2Ref" /&gt;
