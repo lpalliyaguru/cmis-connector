@@ -30,12 +30,12 @@ import org.junit.rules.Timeout;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.VersioningState;
-import org.mule.tck.junit4.FunctionalTestCase;
+import org.mule.modules.tests.ConnectorTestCase;
 import org.mule.transport.NullPayload;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class CMISTestParent extends FunctionalTestCase {
+public class CMISTestParent extends ConnectorTestCase {
 
 	// Set global timeout of tests to 10minutes
     @Rule
