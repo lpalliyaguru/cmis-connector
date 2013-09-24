@@ -132,7 +132,7 @@
 <!-- END_INCLUDE(cmis:getAppliedPolicies) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyPolicy) -->
-        <cmis:apply-policy>
+        <cmis:apply-policy cmisObject-ref="#[payload:cmisObject]">
             <cmis:policy-ids>
                 <cmis:policy-id value-ref="policyId1Ref" />
                 <cmis:policy-id value-ref="policyId2Ref" />
