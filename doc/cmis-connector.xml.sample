@@ -37,7 +37,7 @@
 <!-- BEGIN_INCLUDE(cmis:createDocumentById) -->
         <cmis:create-document-by-id filename="file"
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+            versioningState="NONE" objectType="D:cmiscustom:document" content-ref="#[payload]" />
 <!-- END_INCLUDE(cmis:createDocumentById) -->
 
 <!-- BEGIN_INCLUDE(cmis:createDocumentByIdFromContent) -->
