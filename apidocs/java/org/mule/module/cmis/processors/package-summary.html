@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule CMIS Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
+<title>
+
+  org.mule.module.cmis.processors
+
+
+| Mule CMIS Connector
+
+</title>
+<link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
+<script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../../../../../../", "../../../../../../assets/");
+</script>
+<script src="../../../../../../assets/mule-developer-reference.js" type="text/javascript"></script>
+<script src="../../../../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../../../../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule CMIS Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule CMIS Connector</span>
+    
+    <ul id="header-tabs" class="java">
+    
+    	<li id="guide"><a href="../../../../../../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../../../../../../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../../../../../../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../../../../../../')"
+                      onkeyup="return search_changed(event, false, '../../../../../../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links">
+                <a href="../../../../../../java/packages.html"  >Package Index</a> |
+                <a href="../../../../../../java/classes.html" >Class Index</a>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/apache/chemistry/opencmis/commons/enums/transformers/package-summary.html">org.apache.chemistry.opencmis.commons.enums.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/package-summary.html">org.mule.module.cmis</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/adapter/package-summary.html">org.mule.module.cmis.adapter</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/adapters/package-summary.html">org.mule.module.cmis.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/connectivity/package-summary.html">org.mule.module.cmis.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/processors/package-summary.html">org.mule.module.cmis.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/module/cmis/transformers/package-summary.html">org.mule.module.cmis.transformers</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+            <ul>
+              
+              
+    <li><h2>Classes</h2>
+      <ul>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAclMessageProcessor.html">ApplyAclMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAspectMessageProcessor.html">ApplyAspectMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyPolicyMessageProcessor.html">ApplyPolicyMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CancelCheckOutMessageProcessor.html">CancelCheckOutMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ChangelogMessageProcessor.html">ChangelogMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckInMessageProcessor.html">CheckInMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckOutMessageProcessor.html">CheckOutMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByIdFromContentMessageProcessor.html">CreateDocumentByIdFromContentMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByIdMessageProcessor.html">CreateDocumentByIdMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByPathFromContentMessageProcessor.html">CreateDocumentByPathFromContentMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByPathMessageProcessor.html">CreateDocumentByPathMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateRelationshipMessageProcessor.html">CreateRelationshipMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/DeleteTreeMessageProcessor.html">DeleteTreeMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/FolderMessageProcessor.html">FolderMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAclMessageProcessor.html">GetAclMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAllVersionsMessageProcessor.html">GetAllVersionsMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAppliedPoliciesMessageProcessor.html">GetAppliedPoliciesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetCheckoutDocsMessageProcessor.html">GetCheckoutDocsMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetContentStreamMessageProcessor.html">GetContentStreamMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectByIdMessageProcessor.html">GetObjectByIdMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectByPathMessageProcessor.html">GetObjectByPathMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectRelationshipsMessageProcessor.html">GetObjectRelationshipsMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetOrCreateFolderByPathMessageProcessor.html">GetOrCreateFolderByPathMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetParentFoldersMessageProcessor.html">GetParentFoldersMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/GetTypeDefinitionMessageProcessor.html">GetTypeDefinitionMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/MoveObjectMessageProcessor.html">MoveObjectMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/QueryMessageProcessor.html">QueryMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/RepositoriesMessageProcessor.html">RepositoriesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/RepositoryInfoMessageProcessor.html">RepositoryInfoMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/UpdateObjectPropertiesMessageProcessor.html">UpdateObjectPropertiesMessageProcessor</a></li>
+      </ul>
+    </li>
+              
+              
+              
+              
+            </ul><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links">
+            <a href="../../../../../../packages.html"  >Package Index</a> | 
+            <a href="../../../../../../classes.html" >Class Index</a>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../../../../../../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="api-info-block">
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div>
+
+<div id="jd-header">
+  package
+  <h1>org.mule.module.cmis.processors</h1>
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+
+
+
+
+
+
+  
+
+
+  
+    <h2>Classes</h2>
+    <div class="jd-sumtable">
+    
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAclMessageProcessor.html">ApplyAclMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">ApplyAclMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#applyAcl(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.commons.data.Ace>, java.util.List<org.apache.chemistry.opencmis.commons.data.Ace>, org.apache.chemistry.opencmis.commons.enums.AclPropagation)">applyAcl(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List, java.util.List, org.apache.chemistry.opencmis.commons.enums.AclPropagation)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAspectMessageProcessor.html">ApplyAspectMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">ApplyAspectMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#applyAspect(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">applyAspect(java.lang.String, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyPolicyMessageProcessor.html">ApplyPolicyMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">ApplyPolicyMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List<org.apache.chemistry.opencmis.client.api.ObjectId>)">applyPolicy(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CancelCheckOutMessageProcessor.html">CancelCheckOutMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CancelCheckOutMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#cancelCheckOut(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">cancelCheckOut(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/ChangelogMessageProcessor.html">ChangelogMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">ChangelogMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#changelog(java.lang.String, boolean)">changelog(java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckInMessageProcessor.html">CheckInMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CheckInMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#checkIn(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, boolean, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">checkIn(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, boolean, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CheckOutMessageProcessor.html">CheckOutMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CheckOutMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#checkOut(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">checkOut(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByIdFromContentMessageProcessor.html">CreateDocumentByIdFromContentMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateDocumentByIdFromContentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentByIdFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByIdMessageProcessor.html">CreateDocumentByIdMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateDocumentByIdMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">createDocumentById(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByPathFromContentMessageProcessor.html">CreateDocumentByPathFromContentMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateDocumentByPathFromContentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateDocumentByPathMessageProcessor.html">CreateDocumentByPathMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateDocumentByPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, boolean)">createDocumentByPath(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createFolder(java.lang.String, java.lang.String)">createFolder(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/CreateRelationshipMessageProcessor.html">CreateRelationshipMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">CreateRelationshipMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#createRelationship(java.lang.String, java.lang.String, java.lang.String)">createRelationship(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#delete(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean)">delete(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/DeleteTreeMessageProcessor.html">DeleteTreeMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">DeleteTreeMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#deleteTree(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean, org.apache.chemistry.opencmis.commons.enums.UnfileObject, boolean)">deleteTree(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean, org.apache.chemistry.opencmis.commons.enums.UnfileObject, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/FolderMessageProcessor.html">FolderMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">FolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#folder(org.apache.chemistry.opencmis.client.api.Folder, java.lang.String, org.mule.module.cmis.NavigationOptions, java.lang.Integer, java.lang.String, java.lang.String)">folder(org.apache.chemistry.opencmis.client.api.Folder, java.lang.String, org.mule.module.cmis.NavigationOptions, java.lang.Integer, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAclMessageProcessor.html">GetAclMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetAclMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getAcl(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getAcl(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAllVersionsMessageProcessor.html">GetAllVersionsMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetAllVersionsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getAllVersions(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.String, java.lang.String)">getAllVersions(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetAppliedPoliciesMessageProcessor.html">GetAppliedPoliciesMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetAppliedPoliciesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getAppliedPolicies(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getAppliedPolicies(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetCheckoutDocsMessageProcessor.html">GetCheckoutDocsMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetCheckoutDocsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getCheckoutDocs(java.lang.String, java.lang.String)">getCheckoutDocs(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetContentStreamMessageProcessor.html">GetContentStreamMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetContentStreamMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getContentStream(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectByIdMessageProcessor.html">GetObjectByIdMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetObjectByIdMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getObjectById(java.lang.String)">getObjectById(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectByPathMessageProcessor.html">GetObjectByPathMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetObjectByPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getObjectByPath(java.lang.String)">getObjectByPath(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetObjectRelationshipsMessageProcessor.html">GetObjectRelationshipsMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetObjectRelationshipsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getObjectRelationships(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getObjectRelationships(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetOrCreateFolderByPathMessageProcessor.html">GetOrCreateFolderByPathMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetOrCreateFolderByPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getOrCreateFolderByPath(java.lang.String)">getOrCreateFolderByPath(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetParentFoldersMessageProcessor.html">GetParentFoldersMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetParentFoldersMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)">getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/GetTypeDefinitionMessageProcessor.html">GetTypeDefinitionMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetTypeDefinitionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#getTypeDefinition(java.lang.String)">getTypeDefinition(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/MoveObjectMessageProcessor.html">MoveObjectMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">MoveObjectMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#moveObject(org.apache.chemistry.opencmis.client.api.FileableCmisObject, java.lang.String, java.lang.String, java.lang.String)">moveObject(org.apache.chemistry.opencmis.client.api.FileableCmisObject, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/QueryMessageProcessor.html">QueryMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">QueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#query(java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)">query(java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/RepositoriesMessageProcessor.html">RepositoriesMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">RepositoriesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#repositories()">repositories()</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/RepositoryInfoMessageProcessor.html">RepositoryInfoMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">RepositoryInfoMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#repositoryInfo()">repositoryInfo()</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/module/cmis/processors/UpdateObjectPropertiesMessageProcessor.html">UpdateObjectPropertiesMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">UpdateObjectPropertiesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html#updateObjectProperties(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.Map<java.lang.String, java.lang.String>)">updateObjectProperties(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/module/cmis/CMISCloudConnector.html">CMISCloudConnector</a></code>.&nbsp;</td>
+          </tr>
+  </table>
+    </div>
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div><!-- end jd-content -->
+</div><!-- doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>
