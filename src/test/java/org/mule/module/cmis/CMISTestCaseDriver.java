@@ -12,7 +12,9 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Acl;
@@ -30,12 +32,15 @@ public class CMISTestCaseDriver {
 
     private static final CMISCloudConnector cmis = new CMISCloudConnector();
     private static ObjectId folder;
+    private static final String DEFAULT_TESTING_FOLDER = "/mule-testing";
 
     @BeforeClass
     public static void setUpTests() throws ConnectionException {
-        cmis.connect("user", "bitnami", "http://192.168.56.101/alfresco/cmis/", "d88d6ab2-1d08-4e49-954d-1a221532ff2f",
-                "SOAP", null, "false", "org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
+        cmis.connect("admin", "admin", "http://cmis.alfresco.com/service/cmis", "bb212ecb-122d-47ea-b5c1-128affb9cd8f",
+                "ATOM", null, "true", "org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
 
+//        cmis.connect("user", "bitnami", "http://192.168.56.101/alfresco/cmis/", "d88d6ab2-1d08-4e49-954d-1a221532ff2f",
+//                "SOAP", null, "false", "org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
 
 //        cmis.deleteTree(null, getObjectId("/tmp-mule-tests"), true, UnfileObject.UNFILE, true);
 //        folder = cmis.createFolder("tmp-mule-tests", getObjectId("/"));
@@ -239,8 +244,8 @@ public class CMISTestCaseDriver {
 
     @Test
     public void createDocumentFromStream() throws Exception {
-        cmis.createDocumentByPathFromContent("/", "newFile.txt", new ByteArrayInputStream(new byte[0]),
-                "text/plain", VersioningState.NONE, "cmis:document", null, false);
+        cmis.createDocumentByPathFromContent(DEFAULT_TESTING_FOLDER, "newFile.txt", new ByteArrayInputStream(new byte[0]),
+                "text/plain", VersioningState.NONE, "cmis:document,P:cm:titled", null, false);
     }
 
     /**

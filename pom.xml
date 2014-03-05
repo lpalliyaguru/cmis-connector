@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.alfresco.cmis.client</groupId>
 			<artifactId>alfresco-opencmis-extension</artifactId>
-			<version>0.3</version>
+			<version>0.7</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -83,6 +83,11 @@
 			<url>http://repository.mulesoft.org/releases/</url>
 			<layout>default</layout>
 		</repository>
+        <repository>
+            <id>maven.alfresco.com</id>
+            <name>Alfresco Maven Repository</name>
+            <url>http://maven.alfresco.com/nexus/content/groups/public/</url>
+        </repository>
 	</repositories>
 
 </project>
