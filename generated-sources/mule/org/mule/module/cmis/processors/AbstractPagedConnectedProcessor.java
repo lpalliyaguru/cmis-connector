@@ -4,7 +4,7 @@ package org.mule.module.cmis.processors;
 import javax.annotation.Generated;
 import org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public abstract class AbstractPagedConnectedProcessor
     extends AbstractDevkitBasedPageableMessageProcessor
 {
@@ -25,6 +25,8 @@ public abstract class AbstractPagedConnectedProcessor
     protected String _useAlfrescoExtensionType;
     protected Object cxfPortProvider;
     protected String _cxfPortProviderType;
+    protected Object useCookies;
+    protected Boolean _useCookiesType;
 
     public AbstractPagedConnectedProcessor(String operationName) {
         super(operationName);
@@ -96,6 +98,23 @@ public abstract class AbstractPagedConnectedProcessor
      */
     public Object getUseAlfrescoExtension() {
         return this.useAlfrescoExtension;
+    }
+
+    /**
+     * Sets useCookies
+     * 
+     * @param value Value to set
+     */
+    public void setUseCookies(Object value) {
+        this.useCookies = value;
+    }
+
+    /**
+     * Retrieves useCookies
+     * 
+     */
+    public Object getUseCookies() {
+        return this.useCookies;
     }
 
     /**

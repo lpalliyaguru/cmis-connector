@@ -65,7 +65,12 @@
           </xs:attribute>
           <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
             <xs:annotation>
-              <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+              <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+            <xs:annotation>
+              <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
             </xs:annotation>
           </xs:attribute>
         </xs:extension>
@@ -123,7 +128,12 @@
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -180,7 +190,12 @@
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -247,7 +262,12 @@
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -309,7 +329,12 @@
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -371,7 +396,12 @@
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -495,7 +525,12 @@ the target folder node is specified by a repository path.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -619,7 +654,12 @@ parameter and the target folder node is specified by a repository path.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -681,7 +721,12 @@ parameter and the target folder node is specified by a repository path.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -800,7 +845,12 @@ the target folder node is specified by an object ID.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -919,7 +969,12 @@ the target folder node is specified by an object ID.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -987,7 +1042,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1049,7 +1109,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1116,7 +1181,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1193,7 +1263,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1260,7 +1335,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1347,7 +1427,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1414,7 +1499,12 @@ one folder
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1492,7 +1582,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1590,7 +1685,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1657,7 +1757,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1724,7 +1829,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1801,7 +1911,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1868,7 +1983,12 @@ object may be filled in several locations. Thats why you must specify a source f
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -1936,7 +2056,12 @@ will be reversed. Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2060,7 +2185,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2188,7 +2318,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2255,7 +2390,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2355,7 +2495,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2427,7 +2572,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2509,7 +2659,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2607,7 +2762,12 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2680,7 +2840,12 @@ specified relationship object type.
         </xs:attribute>
         <xs:attribute name="cxfPortProvider" default="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" use="optional" type="xs:string">
           <xs:annotation>
-            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
+            <xs:documentation>Specifies CXF port provider, the CMIS connector includes a default implementation</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="useCookies" default="false" use="optional" type="booleanType">
+          <xs:annotation>
+            <xs:documentation>Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider</xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2706,6 +2871,40 @@ specified relationship object type.
           <xs:enumeration value="DELETE">
             <xs:annotation>
               <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="VersioningStateEnumType">
+    <xs:annotation>
+      <xs:documentation>Enum holding all the possible versioning states</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NONE">
+            <xs:annotation>
+              <xs:documentation>The document MUST be created as a non-versionable document.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MAJOR">
+            <xs:annotation>
+              <xs:documentation>The document MUST be created as a major version</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MINOR">
+            <xs:annotation>
+              <xs:documentation>The document MUST be created as a minor version.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CHECKEDOUT">
+            <xs:annotation>
+              <xs:documentation>The document MUST be created in the checked-out state.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -2769,40 +2968,6 @@ specified relationship object type.
           <xs:enumeration value="TREE">
             <xs:annotation>
               <xs:documentation>Returns the folder tree starting with this folder.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="VersioningStateEnumType">
-    <xs:annotation>
-      <xs:documentation>Enum holding all the possible versioning states</xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="NONE">
-            <xs:annotation>
-              <xs:documentation>The document MUST be created as a non-versionable document.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="MAJOR">
-            <xs:annotation>
-              <xs:documentation>The document MUST be created as a major version</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="MINOR">
-            <xs:annotation>
-              <xs:documentation>The document MUST be created as a minor version.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CHECKEDOUT">
-            <xs:annotation>
-              <xs:documentation>The document MUST be created in the checked-out state.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>

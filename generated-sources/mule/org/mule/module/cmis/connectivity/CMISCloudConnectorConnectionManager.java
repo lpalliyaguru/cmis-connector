@@ -36,7 +36,7 @@ import org.mule.module.cmis.processors.AbstractConnectedProcessor;
  * A {@code CMISCloudConnectorConnectionManager} is a wrapper around {@link CMISCloudConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CMISCloudConnectorConnectionManager
     extends ExpressionEvaluatorSupport
     implements MetadataAware, MuleContextAware, ProcessAdapter<CMISCloudConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectionManager<CMISCloudConnectorConnectionKey, CMISCloudConnectorConnectionIdentifierAdapter>
@@ -74,6 +74,10 @@ public class CMISCloudConnectorConnectionManager
      * 
      */
     private String cxfPortProvider;
+    /**
+     * 
+     */
+    private Boolean useCookies;
     /**
      * Mule Context
      * 
@@ -234,6 +238,23 @@ public class CMISCloudConnectorConnectionManager
     }
 
     /**
+     * Sets useCookies
+     * 
+     * @param value Value to set
+     */
+    public void setUseCookies(Boolean value) {
+        this.useCookies = value;
+    }
+
+    /**
+     * Retrieves useCookies
+     * 
+     */
+    public Boolean getUseCookies() {
+        return this.useCookies;
+    }
+
+    /**
      * Sets cxfPortProvider
      * 
      * @param value Value to set
@@ -364,7 +385,7 @@ public class CMISCloudConnectorConnectionManager
 
     @Override
     public CMISCloudConnectorConnectionKey getDefaultConnectionKey() {
-        return new CMISCloudConnectorConnectionKey(getUsername(), getPassword(), getBaseUrl(), getRepositoryId(), getEndpoint(), getConnectionTimeout(), getUseAlfrescoExtension(), getCxfPortProvider());
+        return new CMISCloudConnectorConnectionKey(getUsername(), getPassword(), getBaseUrl(), getRepositoryId(), getEndpoint(), getConnectionTimeout(), getUseAlfrescoExtension(), getCxfPortProvider(), getUseCookies());
     }
 
     @Override
@@ -392,7 +413,8 @@ public class CMISCloudConnectorConnectionManager
             final String _transformedConnectionTimeout = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_connectionTimeoutType").getGenericType(), null, getConnectionTimeout()));
             final String _transformedUseAlfrescoExtension = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useAlfrescoExtensionType").getGenericType(), null, getUseAlfrescoExtension()));
             final String _transformedCxfPortProvider = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_cxfPortProviderType").getGenericType(), null, getCxfPortProvider()));
-            return new CMISCloudConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedBaseUrl, _transformedRepositoryId, _transformedEndpoint, _transformedConnectionTimeout, _transformedUseAlfrescoExtension, _transformedCxfPortProvider);
+            final Boolean _transformedUseCookies = ((Boolean) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useCookiesType").getGenericType(), null, getUseCookies()));
+            return new CMISCloudConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedBaseUrl, _transformedRepositoryId, _transformedEndpoint, _transformedConnectionTimeout, _transformedUseAlfrescoExtension, _transformedCxfPortProvider, _transformedUseCookies);
         }
         return getDefaultConnectionKey();
     }

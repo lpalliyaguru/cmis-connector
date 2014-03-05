@@ -20,7 +20,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ManagedConnectionProcessInterceptor<T >
     extends ExpressionEvaluatorSupport
     implements ProcessInterceptor<T, CMISCloudConnectorConnectionIdentifierAdapter>
@@ -64,7 +64,8 @@ public class ManagedConnectionProcessInterceptor<T >
             final String _transformedConnectionTimeout = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_connectionTimeoutType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getConnectionTimeout()));
             final String _transformedUseAlfrescoExtension = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useAlfrescoExtensionType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUseAlfrescoExtension()));
             final String _transformedCxfPortProvider = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_cxfPortProviderType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getCxfPortProvider()));
-            key = new CMISCloudConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedBaseUrl, _transformedRepositoryId, _transformedEndpoint, _transformedConnectionTimeout, _transformedUseAlfrescoExtension, _transformedCxfPortProvider);
+            final Boolean _transformedUseCookies = ((Boolean) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useCookiesType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUseCookies()));
+            key = new CMISCloudConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedBaseUrl, _transformedRepositoryId, _transformedEndpoint, _transformedConnectionTimeout, _transformedUseAlfrescoExtension, _transformedCxfPortProvider, _transformedUseCookies);
         } else {
             key = connectionManager.getEvaluatedConnectionKey(event);
         }

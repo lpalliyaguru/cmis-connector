@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * A <code>CMISCloudConnectorLifecycleAdapter</code> is a wrapper around {@link CMISCloudConnector } that adds lifecycle methods to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CMISCloudConnectorLifecycleAdapter
     extends CMISCloudConnectorMetadataAdapater
     implements Disposable, Initialisable, Startable, Stoppable

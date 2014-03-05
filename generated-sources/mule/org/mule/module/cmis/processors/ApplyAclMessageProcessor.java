@@ -37,7 +37,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * ApplyAclMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#applyAcl(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.util.List, java.util.List, org.apache.chemistry.opencmis.commons.enums.AclPropagation)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ApplyAclMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled

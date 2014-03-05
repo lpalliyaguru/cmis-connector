@@ -12,7 +12,7 @@ import org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapt
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CMISCloudConnectorConnectionFactory implements KeyedPoolableObjectFactory
 {
 
@@ -45,7 +45,7 @@ public class CMISCloudConnectorConnectionFactory implements KeyedPoolableObjectF
             ((Startable) connector).start();
         }
         if (!connector.isConnected()) {
-            connector.connect(((CMISCloudConnectorConnectionKey) key).getUsername(), ((CMISCloudConnectorConnectionKey) key).getPassword(), ((CMISCloudConnectorConnectionKey) key).getBaseUrl(), ((CMISCloudConnectorConnectionKey) key).getRepositoryId(), ((CMISCloudConnectorConnectionKey) key).getEndpoint(), ((CMISCloudConnectorConnectionKey) key).getConnectionTimeout(), ((CMISCloudConnectorConnectionKey) key).getUseAlfrescoExtension(), ((CMISCloudConnectorConnectionKey) key).getCxfPortProvider());
+            connector.connect(((CMISCloudConnectorConnectionKey) key).getUsername(), ((CMISCloudConnectorConnectionKey) key).getPassword(), ((CMISCloudConnectorConnectionKey) key).getBaseUrl(), ((CMISCloudConnectorConnectionKey) key).getRepositoryId(), ((CMISCloudConnectorConnectionKey) key).getEndpoint(), ((CMISCloudConnectorConnectionKey) key).getConnectionTimeout(), ((CMISCloudConnectorConnectionKey) key).getUseAlfrescoExtension(), ((CMISCloudConnectorConnectionKey) key).getCxfPortProvider(), ((CMISCloudConnectorConnectionKey) key).getUseCookies());
         }
         return connector;
     }
@@ -111,7 +111,7 @@ public class CMISCloudConnectorConnectionFactory implements KeyedPoolableObjectF
         }
         try {
             if (!((CMISCloudConnectorConnectionIdentifierAdapter) obj).isConnected()) {
-                ((CMISCloudConnectorConnectionIdentifierAdapter) obj).connect(((CMISCloudConnectorConnectionKey) key).getUsername(), ((CMISCloudConnectorConnectionKey) key).getPassword(), ((CMISCloudConnectorConnectionKey) key).getBaseUrl(), ((CMISCloudConnectorConnectionKey) key).getRepositoryId(), ((CMISCloudConnectorConnectionKey) key).getEndpoint(), ((CMISCloudConnectorConnectionKey) key).getConnectionTimeout(), ((CMISCloudConnectorConnectionKey) key).getUseAlfrescoExtension(), ((CMISCloudConnectorConnectionKey) key).getCxfPortProvider());
+                ((CMISCloudConnectorConnectionIdentifierAdapter) obj).connect(((CMISCloudConnectorConnectionKey) key).getUsername(), ((CMISCloudConnectorConnectionKey) key).getPassword(), ((CMISCloudConnectorConnectionKey) key).getBaseUrl(), ((CMISCloudConnectorConnectionKey) key).getRepositoryId(), ((CMISCloudConnectorConnectionKey) key).getEndpoint(), ((CMISCloudConnectorConnectionKey) key).getConnectionTimeout(), ((CMISCloudConnectorConnectionKey) key).getUseAlfrescoExtension(), ((CMISCloudConnectorConnectionKey) key).getCxfPortProvider(), ((CMISCloudConnectorConnectionKey) key).getUseCookies());
             }
         } catch (Exception e) {
             throw e;

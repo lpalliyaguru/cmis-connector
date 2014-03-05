@@ -17,7 +17,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * A <code>CMISCloudConnectorProcessAdapter</code> is a wrapper around {@link CMISCloudConnector } that enables custom processing strategies.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CMISCloudConnectorProcessAdapter
     extends CMISCloudConnectorLifecycleAdapter
     implements ProcessAdapter<CMISCloudConnectorCapabilitiesAdapter>

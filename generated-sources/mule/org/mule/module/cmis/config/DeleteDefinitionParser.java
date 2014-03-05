@@ -15,7 +15,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class DeleteDefinitionParser
     extends AbstractDevkitBasedDefinitionParser
 {
@@ -59,6 +59,7 @@ public class DeleteDefinitionParser
         parseProperty(builder, element, "connectionTimeout", "connectionTimeout");
         parseProperty(builder, element, "useAlfrescoExtension", "useAlfrescoExtension");
         parseProperty(builder, element, "cxfPortProvider", "cxfPortProvider");
+        parseProperty(builder, element, "useCookies", "useCookies");
         BeanDefinition definition = builder.getBeanDefinition();
         setNoRecurseOnDefinition(definition);
         attachProcessorDefinition(parserContext, definition);

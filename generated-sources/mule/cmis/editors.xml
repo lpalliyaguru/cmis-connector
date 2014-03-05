@@ -44,7 +44,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
     <attribute-category description="Pooling profile options." caption="Pooling Profile">
@@ -135,7 +136,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -158,7 +160,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -183,7 +186,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -205,7 +209,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -227,7 +232,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -257,7 +263,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -279,7 +286,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -313,7 +321,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -345,7 +354,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -380,7 +390,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -413,7 +424,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -435,7 +447,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -458,7 +471,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -481,7 +495,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -510,7 +525,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -541,7 +557,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -563,7 +580,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -587,7 +605,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -609,7 +628,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -631,7 +651,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -653,7 +674,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -674,7 +696,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -695,7 +718,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -717,7 +741,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -738,7 +763,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -760,7 +786,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -781,7 +808,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -805,7 +833,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -829,7 +858,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -846,7 +876,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -863,7 +894,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -888,7 +920,8 @@
         <string defaultValue="ATOM" javaType="java.lang.String" required="false" description="The type of endpoint. Values: SOAP or ATOMPUB." caption="Endpoint" name="endpoint"></string>
         <string defaultValue="10000" javaType="java.lang.String" required="false" description="The connection time-out specification." caption="Connection Timeout" name="connectionTimeout"></string>
         <string defaultValue="false" javaType="java.lang.String" required="false" description="Specifies whether the Alfresco Object Factory implementation should be utilized, the Alfresco CMIS extension JAR must be included in your Mule application in order for this configuration to work." caption="Use Alfresco Extension" name="useAlfrescoExtension"></string>
-        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" javaType="java.lang.String" required="false" description="Specifies CXF port provider, the CMIS connector includes a default implementation." caption="Cxf Port Provider" name="cxfPortProvider"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Turn on-off cookies support but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider." caption="Use Cookies" name="useCookies"></boolean>
       </group>
     </attribute-category>
   </cloud-connector>

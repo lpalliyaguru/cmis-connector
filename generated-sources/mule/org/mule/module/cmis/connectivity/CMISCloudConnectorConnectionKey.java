@@ -8,7 +8,7 @@ import javax.annotation.Generated;
  * A tuple of connection parameters
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:05:47-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CMISCloudConnectorConnectionKey {
 
     /**
@@ -43,8 +43,12 @@ public class CMISCloudConnectorConnectionKey {
      * 
      */
     private String cxfPortProvider;
+    /**
+     * 
+     */
+    private Boolean useCookies;
 
-    public CMISCloudConnectorConnectionKey(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider) {
+    public CMISCloudConnectorConnectionKey(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider, Boolean useCookies) {
         this.username = username;
         this.password = password;
         this.baseUrl = baseUrl;
@@ -53,6 +57,7 @@ public class CMISCloudConnectorConnectionKey {
         this.connectionTimeout = connectionTimeout;
         this.useAlfrescoExtension = useAlfrescoExtension;
         this.cxfPortProvider = cxfPortProvider;
+        this.useCookies = useCookies;
     }
 
     /**
@@ -124,6 +129,23 @@ public class CMISCloudConnectorConnectionKey {
     }
 
     /**
+     * Sets useCookies
+     * 
+     * @param value Value to set
+     */
+    public void setUseCookies(Boolean value) {
+        this.useCookies = value;
+    }
+
+    /**
+     * Retrieves useCookies
+     * 
+     */
+    public Boolean getUseCookies() {
+        return this.useCookies;
+    }
+
+    /**
      * Sets cxfPortProvider
      * 
      * @param value Value to set
@@ -191,19 +213,14 @@ public class CMISCloudConnectorConnectionKey {
         return this.endpoint;
     }
 
+    @Override
     public int hashCode() {
-        int hash = 1;
-        hash = (hash* 31);
-        if (this.username!= null) {
-            hash += this.username.hashCode();
-        }
-        hash = (hash* 31);
-        if (this.baseUrl!= null) {
-            hash += this.baseUrl.hashCode();
-        }
-        return hash;
+        int result = ((this.username!= null)?this.username.hashCode(): 0);
+        result = ((31 *result)+((this.baseUrl!= null)?this.baseUrl.hashCode(): 0));
+        return result;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
