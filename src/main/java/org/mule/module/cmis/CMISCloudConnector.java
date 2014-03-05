@@ -63,7 +63,7 @@ public class CMISCloudConnector implements CMISFacade {
     private String connectionIdentifier;
     
     // This object will be used to hold the concurrency for the connection manager features
-    private Object threadSafeLock;
+    private final Object threadSafeLock;
     
     public CMISCloudConnector() {
     	threadSafeLock = new Object();
@@ -82,6 +82,7 @@ public class CMISCloudConnector implements CMISFacade {
      * Alfresco CMIS extension JAR must be included in your Mule application in order for
      * this configuration to work.
      * @param cxfPortProvider Specifies CXF port provider, the CMIS connector includes a default implementation
+     * @param useCookies Turn on-off cookies support
      * but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
      */
     @Connect
@@ -92,7 +93,8 @@ public class CMISCloudConnector implements CMISFacade {
                         @Placement(group = "Repository Information") @Optional @Default("ATOM") String endpoint,
                         @Optional @Default("10000") String connectionTimeout,
                         @Optional @Default("false") String useAlfrescoExtension,
-                        @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider) throws ConnectionException {
+                        @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider,
+                        @Optional @Default("false") Boolean useCookies) throws ConnectionException {
     	
     	synchronized (threadSafeLock) {
     		// Prevent re-initialization
@@ -120,7 +122,8 @@ public class CMISCloudConnector implements CMISFacade {
 		                            useAtomPub,
 		                            connectionTimeout,
 		                            useAlfrescoExtension,
-		                            cxfPortProvider));
+		                            cxfPortProvider,
+                                    useCookies));
 		        
 		        // Force a call to an operation in order to create the client and force authentication
 		        repositoryInfo();

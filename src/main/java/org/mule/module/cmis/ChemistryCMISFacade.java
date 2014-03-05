@@ -74,13 +74,14 @@ public class ChemistryCMISFacade implements CMISFacade
                                boolean useAtomPub,
                                String connectionTimeout,
                                String useAlfrescoExtension,
-                               String cxfPortProvider)
+                               String cxfPortProvider,
+                               boolean useCookies)
     {
     	this.baseURL = baseURL;
     	
         this.connectionParameters = 
         	paramMap(username, password, repositoryId, baseURL, useAtomPub,
-                    connectionTimeout, useAlfrescoExtension, cxfPortProvider);
+                    connectionTimeout, useAlfrescoExtension, cxfPortProvider, useCookies);
     } // End ChemistryCMISFacade Constructor
 
     
@@ -1032,7 +1033,8 @@ public class ChemistryCMISFacade implements CMISFacade
                                                 boolean useAtomPub,
                                                 String connectionTimeout,
                                                 String useAlfrescoExtension,
-                                                String cxfPortProvider)
+                                                String cxfPortProvider,
+                                                boolean useCookies)
     {
     	if ( ( username == null ) || (username.trim().length() <= 0 ) )
     	{
@@ -1064,6 +1066,7 @@ public class ChemistryCMISFacade implements CMISFacade
         // user credentials
         parameters.put(SessionParameter.USER, username.trim());
         parameters.put(SessionParameter.PASSWORD, password.trim());
+        parameters.put(SessionParameter.COOKIES, String.valueOf(useCookies));
 
         // connection settings... we prefer SOAP over ATOMPUB because some rare
         // behaviurs with the ChangeEvents.getLatestChangeLogToken().
