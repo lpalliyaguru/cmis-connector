@@ -11,7 +11,7 @@
 	<artifactId>mule-module-cmis</artifactId>
 	<packaging>mule-module</packaging>
 	<name>Mule CMIS Connector</name>
-	<version>1.2.2-SNAPSHOT</version>
+	<version>1.2.2</version>
 	<description>The CMIS Connector provides an easy to integrate with CMS Repositories that have a CMIS Endpoint
         activated, such Alfresco.
     </description>
