@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -283,7 +240,7 @@ Summary:
           <th>Schema Version</th><td>1.1</td>
         </tr>
 <tr>
-          <th>Minimum Mule Version</th><td>3.5</td>
+          <th>Minimum Mule Version</th><td>3.4</td>
         </tr>
     </tbody></table>
   </div>
@@ -864,11 +821,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
 
 
 
-
-
-
-
-
 <!-- ========= MESSAGE PROCESSOR DETAIL ======== -->
 <!-- Message Processors -->
 <h2>Message Processors</h2>
@@ -891,9 +843,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Set the permissions associated with an object.
+  <div class="jd-tagdata jd-tagdescr"><p>Set the permissions associated with an object.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-acl aclPropagation="OBJECTONLY"&gt;
     &lt;cmis:add-aces&gt;
@@ -904,9 +854,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         &lt;cmis:remove-ace value-ref="removeAce1Ref" /&gt;
         &lt;cmis:remove-ace value-ref="removeAce2Ref" /&gt;
     &lt;/cmis:remove-aces&gt;
-&lt;/cmis:apply-acl&gt;</pre></div>
-      
-  </p></div>
+&lt;/cmis:apply-acl&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -923,30 +871,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is intended to change.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is intended to change.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -955,16 +899,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>aclPropagation</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE</td>
-                            <td class="jd-descrcol">AclPropagation</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>aclPropagation</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE</td>
+                        <td class="jd-descrcol">AclPropagation</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -1104,12 +1046,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">Acl</td>
-                    <td class="jd-descrcol">the new access control list
+                <td class="jd-descrcol">Acl</td>
+                <td class="jd-descrcol">the new access control list
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -1133,18 +1072,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Apply and aspect to an object and set some properties of that aspect.
+  <div class="jd-tagdata jd-tagdescr"><p>Apply and aspect to an object and set some properties of that aspect.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-aspect objectId="1111" aspectName="somename"&gt;
     &lt;cmis:properties&gt;
         &lt;cmis:property key="propkey1"&gt;propValue1&lt;/cmis:property&gt;
         &lt;cmis:property key="propkey2"&gt;propValue2&lt;/cmis:property&gt;
     &lt;/cmis:properties&gt;
-&lt;/cmis:apply-aspect&gt;</pre></div>
-      
-  </p></div>
+&lt;/cmis:apply-aspect&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1161,30 +1096,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The object's id.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The object's id.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>aspectName</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The name of the aspect to be applied to the object.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>aspectName</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The name of the aspect to be applied to the object.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1315,12 +1246,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">void</td>
-                    <td class="jd-descrcol">The updated object (a repository might have created a new object)
+                <td class="jd-descrcol">void</td>
+                <td class="jd-descrcol">The updated object (a repository might have created a new object)
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -1344,18 +1272,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Applies policies to this object.
+  <div class="jd-tagdata jd-tagdescr"><p>Applies policies to this object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy cmisObject-ref="#[payload:cmisObject]"&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:apply-policy&gt;
     &lt;cmis:policy-ids&gt;
         &lt;cmis:policy-id value-ref="policyId1Ref" /&gt;
         &lt;cmis:policy-id value-ref="policyId2Ref" /&gt;
     &lt;/cmis:policy-ids&gt;
-&lt;/cmis:apply-policy&gt;</pre></div>
-      
-  </p></div>
+&lt;/cmis:apply-policy&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1372,30 +1296,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1538,14 +1458,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        If applied to a PWC (private working copy) of the document, the check out
+  <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) of the document, the check out
  will be reversed. Otherwise, an exception will be thrown.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:cancel-check-out documentId="1111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:cancel-check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1562,31 +1478,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>document</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The checked out document. Can be null if "documentId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>document</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The checked out document. Can be null if "documentId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>documentId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the checked out document. Can be null if "document" is set.
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>documentId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the checked out document. Can be null if "document" is set.
 </td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1703,13 +1615,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Gets repository changes.
+  <div class="jd-tagdata jd-tagdescr"><p>Gets repository changes.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:changelog changeLogToken="41784" includeProperties="false"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:changelog changeLogToken="41784" includeProperties="false"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1726,31 +1634,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>changeLogToken</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The change log token to start from or <code>null</code></td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>changeLogToken</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The change log token to start from or <code>null</code></td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>includeProperties</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Indicates if changed properties should be included in
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>includeProperties</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Indicates if changed properties should be included in
                           the result</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -1855,12 +1759,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ChangeEvents</td>
-                    <td class="jd-descrcol">a ChangeEvents instance
+                <td class="jd-descrcol">ChangeEvents</td>
+                <td class="jd-descrcol">a ChangeEvents instance
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -1884,17 +1785,13 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        If applied to a PWC (private working copy) it performs a check in.
+  <div class="jd-tagdata jd-tagdescr"><p>If applied to a PWC (private working copy) it performs a check in.
  Otherwise, an exception will be thrown.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-in filename="#[payload:name]"
                 checkinComment="change on file" major="true"
                 mimeType="application/octet-stream;charset=UTF-8"
-                content-ref="#[payload:content]" /&gt;</pre></div>
-      
-  </p></div>
+                content-ref="#[payload:content]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1911,100 +1808,86 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>document</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document to check-in. Can be null if "documentId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>document</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document to check-in. Can be null if "documentId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>documentId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document to check-in. Can be null if "document" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>documentId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document to check-in. Can be null if "document" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>content</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content (no byte array or input stream for now)</td>
-                            <td class="jd-descrcol">Object</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content (no byte array or input stream for now)</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filename</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the file</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>mimeType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Stream content-type</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>major</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Whether it is major</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>major</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Whether it is major</td>
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>checkinComment</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Check-in comment</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>checkinComment</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Check-in comment</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -2144,12 +2027,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the ObjectId of the checkedin document
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the ObjectId of the checkedin document
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -2173,13 +2053,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Checks out the document and returns the object id of the PWC (private working copy).
+  <div class="jd-tagdata jd-tagdescr"><p>Checks out the document and returns the object id of the PWC (private working copy).
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-out documentId="1111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:check-out documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2196,30 +2072,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>document</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document to be checked out. Can be null if "documentId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>document</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document to be checked out. Can be null if "documentId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>documentId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document to be checked out. Can be null if "document" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>documentId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document to be checked out. Can be null if "document" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -2324,12 +2196,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">PWC ObjectId
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">PWC ObjectId
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -2353,16 +2222,12 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a new document in the repository where the content comes directly from the payload and
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
  the target folder node is specified by an object ID.
   <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id filename="file"
     folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-    versioningState="NONE" objectType="D:cmiscustom:document" content-ref="#[payload]" /&gt;</pre></div>
-      
-  </p></div>
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2379,90 +2244,78 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Folder Object Id</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder Object Id</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filename</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the file</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>content</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
-                            <td class="jd-descrcol">Object</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>mimeType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Stream content-type</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>versioningState</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
                         o none:  The document MUST be created as a non-versionable document.
                         o checkedout: The document MUST be created in the checked-out state.
                         o major (default): The document MUST be created as a major version
                         o minor: The document MUST be created as a minor version.</td>
-                            <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The type of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -2600,12 +2453,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the object id ObjectId of the created
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the object id ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -2629,16 +2479,12 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a new document in the repository where the content comes directly from the payload and
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
  the target folder node is specified by an object ID.
  *  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-id-from-content filename="file" content-ref="some content"
     folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div>
-      
-  </p></div>
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2655,90 +2501,78 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Folder Object Id</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder Object Id</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filename</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the file</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>content</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
-                            <td class="jd-descrcol">Object</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>mimeType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Stream content-type</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>versioningState</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
                         o none:  The document MUST be created as a non-versionable document.
                         o checkedout: The document MUST be created in the checked-out state.
                         o major (default): The document MUST be created as a major version
                         o minor: The document MUST be created as a minor version.</td>
-                            <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The type of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -2876,12 +2710,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the object id ObjectId of the created
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the object id ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -2905,16 +2736,12 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a new document in the repository where the content comes directly from the payload and
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content comes directly from the payload and
  the target folder node is specified by a repository path.
  * <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path filename="file"
     folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
-    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div>
-      
-  </p></div>
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2931,107 +2758,93 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderPath</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Folder in the repository that will hold the document</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderPath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder in the repository that will hold the document</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filename</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the file</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>content</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
-                            <td class="jd-descrcol">Object</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content as specified in the payload</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>mimeType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Stream content-type</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>versioningState</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
                         o none:  The document MUST be created as a non-versionable document.
                         o checked-out: The document MUST be created in the checked-out state.
                         o major (default): The document MUST be created as a major version
                         o minor: The document MUST be created as a minor version.</td>
-                            <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The type of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>force</nobr></td>
-                            <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>If should folder structure must be created when there
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>force</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If should folder structure must be created when there
                         are missing intermediate folders</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -3169,12 +2982,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the object id ObjectId of the created
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the object id ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -3198,16 +3008,12 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a new document in the repository where the content is specified as the value of the "content"
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new document in the repository where the content is specified as the value of the "content"
  parameter and the target folder node is specified by a repository path.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-document-by-path-from-content filename="file" content-ref="some content"
     folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
-    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div>
-      
-  </p></div>
+    versioningState="NONE" objectType="D:cmiscustom:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3224,103 +3030,89 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderPath</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Folder in the repository that will hold the document</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderPath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder in the repository that will hold the document</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filename</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the file</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filename</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the file</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>content</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
-                            <td class="jd-descrcol">Object</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>File content</td>
+                        <td class="jd-descrcol">Object</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>mimeType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Stream content-type</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>mimeType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Stream content-type</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>versioningState</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
-                            <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>versioningState</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.</td>
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/VersioningState.html">VersioningState</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The type of the object.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The type of the object.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>force</nobr></td>
-                            <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>If should folder structure must be created when there
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>force</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If should folder structure must be created when there
                         are missing intermediate folders</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -3458,12 +3250,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the ObjectId of the created
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -3487,14 +3276,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a folder. Note that this is not recusive creation. You just create
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a folder. Note that this is not recusive creation. You just create
  one folder
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-folder folderName="new folder" parentObjectId="11111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-folder folderName="new folder" parentObjectId="11111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3511,30 +3296,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderName</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Folder name (eg: "my documents")</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderName</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Folder name (eg: "my documents")</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Parent folder for the folder being created (eg: repository.rootFolder)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Parent folder for the folder being created (eg: repository.rootFolder)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -3639,12 +3420,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">the ObjectId of the created
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">the ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -3668,14 +3446,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a parent/child relationships between two nodes in the repository of the 
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a parent/child relationships between two nodes in the repository of the 
  specified relationship object type.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3692,44 +3466,38 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The ID of the parent (or source) object in the relationship.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>parentObjectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The ID of the parent (or source) object in the relationship.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>childObjectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The ID of the child (or target) object in the relationship.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>childObjectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The ID of the child (or target) object in the relationship.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>relationshipType</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The name of the relationship type that should be associated with the objects.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>relationshipType</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The name of the relationship type that should be associated with the objects.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -3834,12 +3602,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectId</td>
-                    <td class="jd-descrcol">The ObjectId that is the result of the relationship
+                <td class="jd-descrcol">ObjectId</td>
+                <td class="jd-descrcol">The ObjectId that is the result of the relationship
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -3863,13 +3628,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Remove an object
+  <div class="jd-tagdata jd-tagdescr"><p>Remove an object
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -3886,45 +3647,39 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object to be deleted. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object to be deleted. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>allVersions</nobr></td>
-                            <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>If true, deletes all version history of the object. Defaults to "false".
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>allVersions</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If true, deletes all version history of the object. Defaults to "false".
 </td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -4041,13 +3796,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Deletes a folder and all subfolders.
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes a folder and all subfolders.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4064,76 +3815,66 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folder</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folder</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>allversions</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">If true, then delete all versions of the document.
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>allversions</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">If true, then delete all versions of the document.
                           If false, delete only the document object specified.</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>unfile</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Specifies how the repository must process file-able child-
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>unfile</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Specifies how the repository must process file-able child-
                           or descendant-objects.</td>
-                            <td class="jd-descrcol">UnfileObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">UnfileObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>continueOnFailure</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Specified whether to continue attempting to perform
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>continueOnFailure</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Specified whether to continue attempting to perform
                           this operation even if deletion of a child- or descendant-object
                           in the specified folder cannot be deleted or not.</td>
-                            <td class="jd-descrcol">boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
@@ -4238,12 +3979,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;String&gt;</td>
-                    <td class="jd-descrcol">a list of object ids which failed to be deleted.
+                <td class="jd-descrcol">List&lt;String&gt;</td>
+                <td class="jd-descrcol">a list of object ids which failed to be deleted.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -4267,13 +4005,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Navigates the folder structure.
+  <div class="jd-tagdata jd-tagdescr"><p>Navigates the folder structure.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:folder get="CHILDREN" folderId="#[payload:id]"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:folder get="CHILDREN" folderId="#[payload:id]"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4290,89 +4024,77 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folder</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
-                            <td class="jd-descrcol">Folder</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folder</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object. Can be null if "folderId" is set.</td>
+                        <td class="jd-descrcol">Folder</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Folder Object id. Can be null if "folder" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>get</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">NavigationOptions that specifies whether to get the parent folder,
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>get</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">NavigationOptions that specifies whether to get the parent folder,
                  the list of immediate children or the whole descendants tree</td>
-                            <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/NavigationOptions.html">NavigationOptions</a></td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol"><a href="../java/org/mule/module/cmis/NavigationOptions.html">NavigationOptions</a></td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>depth</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>If "get" value is DESCENDANTS, represents the depth of the
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>depth</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If "get" value is DESCENDANTS, represents the depth of the
                  descendants tree</td>
-                            <td class="jd-descrcol">Integer</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filter</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filter</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>orderBy</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>orderBy</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
                  "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -4477,9 +4199,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">Object</td>
-                    <td class="jd-descrcol">the following, depending on the value of "get" parameter:
+                <td class="jd-descrcol">Object</td>
+                <td class="jd-descrcol">the following, depending on the value of "get" parameter:
          <ul>
          <li>PARENT: returns the parent Folder</li>
          <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
@@ -4490,8 +4211,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
          </li>
          </ul>
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -4515,13 +4234,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns the ACL if it has been fetched for an object.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the ACL if it has been fetched for an object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4538,30 +4253,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is needed</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose Acl is needed</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -4666,12 +4377,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">Acl</td>
-                    <td class="jd-descrcol">the object's Acl
+                <td class="jd-descrcol">Acl</td>
+                <td class="jd-descrcol">the object's Acl
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -4695,13 +4403,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Retrieve an object's version history
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieve an object's version history
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-all-versions documentId="1111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-all-versions documentId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4718,59 +4422,51 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>document</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document whose versions are to be retrieved</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>document</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document whose versions are to be retrieved</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>documentId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document whose versions are to be retrieved</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>documentId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document whose versions are to be retrieved</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filter</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filter</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>orderBy</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>orderBy</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
                    "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -4875,12 +4571,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;Document&gt;</td>
-                    <td class="jd-descrcol">versions of the document.
+                <td class="jd-descrcol">List&lt;Document&gt;</td>
+                <td class="jd-descrcol">versions of the document.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -4904,13 +4597,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Get the policies that are applied to an object.
+  <div class="jd-tagdata jd-tagdescr"><p>Get the policies that are applied to an object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-applied-policies objectId="1111"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-applied-policies objectId="1111"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -4927,30 +4616,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5055,12 +4740,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;Policy&gt;</td>
-                    <td class="jd-descrcol">List of applied policies
+                <td class="jd-descrcol">List&lt;Policy&gt;</td>
+                <td class="jd-descrcol">List of applied policies
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5084,13 +4766,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Retrieve list of checked out documents.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieve list of checked out documents.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-checkout-docs /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-checkout-docs /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5107,31 +4785,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filter</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filter</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>orderBy</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>orderBy</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
                 "ASC" or the descending modifier "DESC" for each query name</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5236,12 +4910,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ItemIterable&lt;Document&gt;</td>
-                    <td class="jd-descrcol">list of Document.
+                <td class="jd-descrcol">ItemIterable&lt;Document&gt;</td>
+                <td class="jd-descrcol">list of Document.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5265,13 +4936,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Retrieves the content stream of a Document.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the content stream of a Document.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5288,30 +4955,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The document from which to get the stream. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the document from which to get the stream. Can be null if "object" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5416,12 +5079,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ContentStream</td>
-                    <td class="jd-descrcol">The content stream of the document.
+                <td class="jd-descrcol">ContentStream</td>
+                <td class="jd-descrcol">The content stream of the document.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5445,13 +5105,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns a CMIS object from the repository and puts it into the cache.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-id objectId="1234" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-id objectId="1234" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5468,16 +5124,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The object id</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The object id</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5582,12 +5236,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">CmisObject</td>
-                    <td class="jd-descrcol">a CmisObject instance
+                <td class="jd-descrcol">CmisObject</td>
+                <td class="jd-descrcol">a CmisObject instance
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5611,13 +5262,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns a CMIS object from the repository and puts it into the cache.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a CMIS object from the repository and puts it into the cache.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-path path="/mule-cloud-connector" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-by-path path="/mule-cloud-connector" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5634,16 +5281,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>path</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Path of the object to retrieve</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>path</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Path of the object to retrieve</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5748,12 +5393,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">CmisObject</td>
-                    <td class="jd-descrcol">a CmisObject instance
+                <td class="jd-descrcol">CmisObject</td>
+                <td class="jd-descrcol">a CmisObject instance
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5777,13 +5419,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns the relationships if they have been fetched for an object.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the relationships if they have been fetched for an object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-relationships objectId="2222" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-object-relationships objectId="2222" cmisObject-ref="#[payload:cmisObject]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5800,30 +5438,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose relationships are needed</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose relationships are needed</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The id of the object</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -5928,12 +5562,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;Relationship&gt;</td>
-                    <td class="jd-descrcol">list of the object's relationships
+                <td class="jd-descrcol">List&lt;Relationship&gt;</td>
+                <td class="jd-descrcol">list of the object's relationships
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -5957,13 +5588,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Creates a new folder in the repository if it doesn't already exist.
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder in the repository if it doesn't already exist.
   <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -5980,16 +5607,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>folderPath</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Path to the folder</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>folderPath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Path to the folder</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -6094,12 +5719,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">CmisObject</td>
-                    <td class="jd-descrcol">the ObjectId of the created
+                <td class="jd-descrcol">CmisObject</td>
+                <td class="jd-descrcol">the ObjectId of the created
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -6123,13 +5745,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Retrieves the parent folders of a fileable cmis object
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the parent folders of a fileable cmis object
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -6146,30 +5764,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose parent folders are needed. can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object whose parent folders are needed. can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the object whose parent folders are needed. can be null if "object" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Id of the object whose parent folders are needed. can be null if "object" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -6274,12 +5888,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;Folder&gt;</td>
-                    <td class="jd-descrcol">a list of the object's parent folders.
+                <td class="jd-descrcol">List&lt;Folder&gt;</td>
+                <td class="jd-descrcol">a list of the object's parent folders.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -6303,13 +5914,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns the type definition of the given type id.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the type definition of the given type id.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-type-definition typeId="1111" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:get-type-definition typeId="1111" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -6326,16 +5933,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>typeId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Object type Id</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>typeId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Object type Id</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -6440,12 +6045,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ObjectType</td>
-                    <td class="jd-descrcol">type of object ObjectType
+                <td class="jd-descrcol">ObjectType</td>
+                <td class="jd-descrcol">type of object ObjectType
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -6469,14 +6071,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Moves a fileable cmis object from one location to another. Take into account that a fileable
+  <div class="jd-tagdata jd-tagdescr"><p>Moves a fileable cmis object from one location to another. Take into account that a fileable
  object may be filled in several locations. Thats why you must specify a source folder.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -6493,58 +6091,50 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object to move. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">FileableCmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object to move. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">FileableCmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>sourceFolderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Id of the source folder</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sourceFolderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Id of the source folder</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>targetFolderId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Id of the target folder</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>targetFolderId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Id of the target folder</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -6649,12 +6239,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">FileableCmisObject</td>
-                    <td class="jd-descrcol">The object moved (FileableCmisObject)
+                <td class="jd-descrcol">FileableCmisObject</td>
+                <td class="jd-descrcol">The object moved (FileableCmisObject)
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -6678,13 +6265,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Sends a query to the repository
+  <div class="jd-tagdata jd-tagdescr"><p>Sends a query to the repository
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -6701,60 +6284,52 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>statement</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The query statement (CMIS query language)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>statement</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The query statement (CMIS query language)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>searchAllVersions</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Specifies if the latest and non-latest versions
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>searchAllVersions</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Specifies if the latest and non-latest versions
                           of document objects should be included</td>
-                            <td class="jd-descrcol">Boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>filter</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>filter</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of properties to filter</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>orderBy</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>orderBy</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Comma-separated list of query names and the ascending modifier
                           "ASC" or the descending modifier "DESC" for each query name</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -6859,12 +6434,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">ItemIterable&lt;QueryResult&gt;</td>
-                    <td class="jd-descrcol">an iterable of QueryResult
+                <td class="jd-descrcol">ItemIterable&lt;QueryResult&gt;</td>
+                <td class="jd-descrcol">an iterable of QueryResult
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -6888,13 +6460,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns all repositories that are available at the endpoint.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns all repositories that are available at the endpoint.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repositories /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -7011,12 +6579,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">List&lt;Repository&gt;</td>
-                    <td class="jd-descrcol">a list of Repository.
+                <td class="jd-descrcol">List&lt;Repository&gt;</td>
+                <td class="jd-descrcol">a list of Repository.
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -7040,13 +6605,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
+  <div class="jd-tagdata jd-tagdescr"><p>Returns information about the CMIS repository, the optional capabilities it supports and its Access Control information if applicable.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:repository-info /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -7163,12 +6724,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">RepositoryInfo</td>
-                    <td class="jd-descrcol">a RepositoryInfo instance
+                <td class="jd-descrcol">RepositoryInfo</td>
+                <td class="jd-descrcol">a RepositoryInfo instance
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -7192,18 +6750,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Update an object's properties
+  <div class="jd-tagdata jd-tagdescr"><p>Update an object's properties
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cmis:update-object-properties objectId="1111" cmisObject-ref="#[payload:cmisObject]"&gt;
     &lt;cmis:properties&gt;
         &lt;cmis:property key="propkey1"&gt;propValue1&lt;/cmis:property&gt;
         &lt;cmis:property key="propkey2"&gt;propValue2&lt;/cmis:property&gt;
     &lt;/cmis:properties&gt;
-&lt;/cmis:update-object-properties&gt;</pre></div>
-      
-  </p></div>
+&lt;/cmis:update-object-properties&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -7220,30 +6774,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Object to be updated. Can be null if "objectId" is set.</td>
-                            <td class="jd-descrcol">CmisObject</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>cmisObject</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Object to be updated. Can be null if "objectId" is set.</td>
+                        <td class="jd-descrcol">CmisObject</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>objectId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>objectId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The object's id. Can be null if "cmisObject" is set.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -7373,12 +6923,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">CmisObject</td>
-                    <td class="jd-descrcol">The updated object (a repository might have created a new object)
+                <td class="jd-descrcol">CmisObject</td>
+                <td class="jd-descrcol">The updated object (a repository might have created a new object)
 </td>
-                
-
              </tr>
          </table>
   </div>
