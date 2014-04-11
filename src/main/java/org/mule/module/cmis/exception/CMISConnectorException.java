@@ -6,7 +6,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.module.cmis;
+package org.mule.module.cmis.exception;
 
 public class CMISConnectorException extends RuntimeException {
 
