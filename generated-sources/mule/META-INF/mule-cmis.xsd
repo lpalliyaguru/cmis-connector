@@ -475,7 +475,7 @@ the target folder node is specified by a repository path.
         </xs:attribute>
         <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="versioningState" use="required" type="VersioningStateEnumType">
           <xs:annotation>
-            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checked-out: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
+            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checked-out: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="objectType" use="required" type="xs:string">
@@ -800,7 +800,7 @@ the target folder node is specified by an object ID.
         </xs:attribute>
         <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="versioningState" use="required" type="VersioningStateEnumType">
           <xs:annotation>
-            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
+            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="objectType" use="required" type="xs:string">
@@ -924,7 +924,7 @@ the target folder node is specified by an object ID.
         </xs:attribute>
         <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="versioningState" use="required" type="VersioningStateEnumType">
           <xs:annotation>
-            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
+            <xs:documentation>An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="objectType" use="required" type="xs:string">
@@ -2278,7 +2278,7 @@ Otherwise, an exception will be thrown.
         </xs:attribute>
         <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/cmis" name="aclPropagation" use="required" type="AclPropagationEnumType">
           <xs:annotation>
-            <xs:documentation>wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE</xs:documentation>
+            <xs:documentation>wheter to propagate changes or not. can be REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="username" use="optional" type="xs:string">
@@ -2851,24 +2851,58 @@ specified relationship object type.
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="UnfileObjectEnumType">
+  <xs:simpleType name="NavigationOptionsEnumType">
+    <xs:annotation>
+      <xs:documentation>Enum holding all the possible navigation options</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PARENT">
+            <xs:annotation>
+              <xs:documentation>Returns the parent Folder</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CHILDREN">
+            <xs:annotation>
+              <xs:documentation>Returns a list of objects contained in the current folder</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DESCENDANTS">
+            <xs:annotation>
+              <xs:documentation>Returns the whole descentants tree of the current folder</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TREE">
+            <xs:annotation>
+              <xs:documentation>Returns the folder tree starting with this folder.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AclPropagationEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="UNFILE">
+          <xs:enumeration value="REPOSITORYDETERMINED">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="DELETESINGLEFILED">
+          <xs:enumeration value="OBJECTONLY">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="DELETE">
+          <xs:enumeration value="PROPAGATE">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
@@ -2914,60 +2948,26 @@ specified relationship object type.
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="AclPropagationEnumType">
+  <xs:simpleType name="UnfileObjectEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="REPOSITORYDETERMINED">
+          <xs:enumeration value="UNFILE">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="OBJECTONLY">
+          <xs:enumeration value="DELETESINGLEFILED">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="PROPAGATE">
+          <xs:enumeration value="DELETE">
             <xs:annotation>
               <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="NavigationOptionsEnumType">
-    <xs:annotation>
-      <xs:documentation>Enum holding all the possible navigation options</xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="PARENT">
-            <xs:annotation>
-              <xs:documentation>Returns the parent Folder</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CHILDREN">
-            <xs:annotation>
-              <xs:documentation>Returns a list of objects contained in the current folder</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="DESCENDANTS">
-            <xs:annotation>
-              <xs:documentation>Returns the whole descentants tree of the current folder</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="TREE">
-            <xs:annotation>
-              <xs:documentation>Returns the folder tree starting with this folder.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>

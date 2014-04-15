@@ -12,7 +12,7 @@ import org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapt
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class CMISCloudConnectorConnectionFactory implements KeyedPoolableObjectFactory
 {
 

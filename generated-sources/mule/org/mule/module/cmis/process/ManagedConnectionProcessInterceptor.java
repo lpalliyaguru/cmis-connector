@@ -15,12 +15,12 @@ import org.mule.module.cmis.connection.ConnectionManager;
 import org.mule.module.cmis.connection.UnableToAcquireConnectionException;
 import org.mule.module.cmis.connection.UnableToReleaseConnectionException;
 import org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionKey;
-import org.mule.module.cmis.processors.AbstractConnectedProcessor;
+import org.mule.module.cmis.processors.ConnectivityProcessor;
 import org.mule.security.oauth.callback.ProcessCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class ManagedConnectionProcessInterceptor<T >
     extends ExpressionEvaluatorSupport
     implements ProcessInterceptor<T, CMISCloudConnectorConnectionIdentifierAdapter>
@@ -44,27 +44,28 @@ public class ManagedConnectionProcessInterceptor<T >
         CMISCloudConnectorConnectionIdentifierAdapter connection = null;
         CMISCloudConnectorConnectionKey key = null;
         if (hasConnectionKeysOverride(messageProcessor)) {
-            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_usernameType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUsername()));
+            ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_usernameType"), null, connectivityProcessor.getUsername()));
             if (_transformedUsername == null) {
                 throw new UnableToAcquireConnectionException("Parameter username in method connect can't be null because is not @Optional");
             }
-            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_passwordType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getPassword()));
+            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_passwordType"), null, connectivityProcessor.getPassword()));
             if (_transformedPassword == null) {
                 throw new UnableToAcquireConnectionException("Parameter password in method connect can't be null because is not @Optional");
             }
-            final String _transformedBaseUrl = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_baseUrlType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getBaseUrl()));
+            final String _transformedBaseUrl = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_baseUrlType"), null, connectivityProcessor.getBaseUrl()));
             if (_transformedBaseUrl == null) {
                 throw new UnableToAcquireConnectionException("Parameter baseUrl in method connect can't be null because is not @Optional");
             }
-            final String _transformedRepositoryId = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_repositoryIdType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getRepositoryId()));
+            final String _transformedRepositoryId = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_repositoryIdType"), null, connectivityProcessor.getRepositoryId()));
             if (_transformedRepositoryId == null) {
                 throw new UnableToAcquireConnectionException("Parameter repositoryId in method connect can't be null because is not @Optional");
             }
-            final String _transformedEndpoint = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_endpointType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getEndpoint()));
-            final String _transformedConnectionTimeout = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_connectionTimeoutType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getConnectionTimeout()));
-            final String _transformedUseAlfrescoExtension = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useAlfrescoExtensionType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUseAlfrescoExtension()));
-            final String _transformedCxfPortProvider = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_cxfPortProviderType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getCxfPortProvider()));
-            final Boolean _transformedUseCookies = ((Boolean) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_useCookiesType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUseCookies()));
+            final String _transformedEndpoint = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_endpointType"), null, connectivityProcessor.getEndpoint()));
+            final String _transformedConnectionTimeout = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_connectionTimeoutType"), null, connectivityProcessor.getConnectionTimeout()));
+            final String _transformedUseAlfrescoExtension = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_useAlfrescoExtensionType"), null, connectivityProcessor.getUseAlfrescoExtension()));
+            final String _transformedCxfPortProvider = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_cxfPortProviderType"), null, connectivityProcessor.getCxfPortProvider()));
+            final Boolean _transformedUseCookies = ((Boolean) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_useCookiesType"), null, connectivityProcessor.getUseCookies()));
             key = new CMISCloudConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedBaseUrl, _transformedRepositoryId, _transformedEndpoint, _transformedConnectionTimeout, _transformedUseAlfrescoExtension, _transformedCxfPortProvider, _transformedUseCookies);
         } else {
             key = connectionManager.getEvaluatedConnectionKey(event);
@@ -121,16 +122,17 @@ public class ManagedConnectionProcessInterceptor<T >
      * @param messageProcessor
      *     the message processor to test against the keys
      * @return
+     *     true if any of the parameters in @Connect method annotated with @ConnectionKey was override in the XML, false otherwise  
      */
     private Boolean hasConnectionKeysOverride(MessageProcessor messageProcessor) {
-        if ((messageProcessor == null)||(!(messageProcessor instanceof AbstractConnectedProcessor))) {
+        if ((messageProcessor == null)||(!(messageProcessor instanceof ConnectivityProcessor))) {
             return false;
         }
-        AbstractConnectedProcessor abstractConnectedProcessor = ((AbstractConnectedProcessor) messageProcessor);
-        if (abstractConnectedProcessor.getUsername()!= null) {
+        ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+        if (connectivityProcessor.getUsername()!= null) {
             return true;
         }
-        if (abstractConnectedProcessor.getBaseUrl()!= null) {
+        if (connectivityProcessor.getBaseUrl()!= null) {
             return true;
         }
         return false;

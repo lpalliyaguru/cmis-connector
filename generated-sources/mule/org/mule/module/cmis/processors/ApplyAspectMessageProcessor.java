@@ -35,7 +35,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * ApplyAspectMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#applyAspect(java.lang.String, java.lang.String, java.util.Map)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class ApplyAspectMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -123,7 +123,7 @@ public class ApplyAspectMessageProcessor
             final String _transformedObjectId = ((String) evaluateAndTransform(getMuleContext(), event, ApplyAspectMessageProcessor.class.getDeclaredField("_objectIdType").getGenericType(), null, objectId));
             final String _transformedAspectName = ((String) evaluateAndTransform(getMuleContext(), event, ApplyAspectMessageProcessor.class.getDeclaredField("_aspectNameType").getGenericType(), null, aspectName));
             final Map<String, String> _transformedProperties = ((Map<String, String> ) evaluateAndTransform(getMuleContext(), event, ApplyAspectMessageProcessor.class.getDeclaredField("_propertiesType").getGenericType(), null, properties));
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

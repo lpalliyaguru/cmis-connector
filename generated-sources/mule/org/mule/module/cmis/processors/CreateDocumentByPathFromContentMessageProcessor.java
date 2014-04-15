@@ -36,7 +36,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * CreateDocumentByPathFromContentMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#createDocumentByPathFromContent(java.lang.String, java.lang.String, java.lang.Object, java.lang.String, org.mule.module.cmis.VersioningState, java.lang.String, java.util.Map, boolean)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class CreateDocumentByPathFromContentMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -185,7 +185,7 @@ public class CreateDocumentByPathFromContentMessageProcessor
             final Map<String, String> _transformedProperties = ((Map<String, String> ) evaluateAndTransform(getMuleContext(), event, CreateDocumentByPathFromContentMessageProcessor.class.getDeclaredField("_propertiesType").getGenericType(), null, properties));
             final Boolean _transformedForce = ((Boolean) evaluateAndTransform(getMuleContext(), event, CreateDocumentByPathFromContentMessageProcessor.class.getDeclaredField("_forceType").getGenericType(), null, force));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

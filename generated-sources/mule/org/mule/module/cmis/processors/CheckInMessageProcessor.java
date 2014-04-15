@@ -36,7 +36,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * CheckInMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#checkIn(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, boolean, java.lang.String, java.util.Map)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class CheckInMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -185,7 +185,7 @@ public class CheckInMessageProcessor
             final String _transformedCheckinComment = ((String) evaluateAndTransform(getMuleContext(), event, CheckInMessageProcessor.class.getDeclaredField("_checkinCommentType").getGenericType(), null, checkinComment));
             final Map<String, String> _transformedProperties = ((Map<String, String> ) evaluateAndTransform(getMuleContext(), event, CheckInMessageProcessor.class.getDeclaredField("_propertiesType").getGenericType(), null, properties));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

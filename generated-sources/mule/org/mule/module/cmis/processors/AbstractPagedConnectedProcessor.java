@@ -1,12 +1,14 @@
 
 package org.mule.module.cmis.processors;
 
+import java.lang.reflect.Type;
 import javax.annotation.Generated;
 import org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public abstract class AbstractPagedConnectedProcessor
     extends AbstractDevkitBasedPageableMessageProcessor
+    implements ConnectivityProcessor
 {
 
     protected Object username;
@@ -45,6 +47,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves baseUrl
      * 
      */
+    @Override
     public Object getBaseUrl() {
         return this.baseUrl;
     }
@@ -62,6 +65,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves username
      * 
      */
+    @Override
     public Object getUsername() {
         return this.username;
     }
@@ -79,6 +83,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves connectionTimeout
      * 
      */
+    @Override
     public Object getConnectionTimeout() {
         return this.connectionTimeout;
     }
@@ -96,6 +101,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves useAlfrescoExtension
      * 
      */
+    @Override
     public Object getUseAlfrescoExtension() {
         return this.useAlfrescoExtension;
     }
@@ -113,6 +119,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves useCookies
      * 
      */
+    @Override
     public Object getUseCookies() {
         return this.useCookies;
     }
@@ -130,6 +137,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves cxfPortProvider
      * 
      */
+    @Override
     public Object getCxfPortProvider() {
         return this.cxfPortProvider;
     }
@@ -147,6 +155,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves repositoryId
      * 
      */
+    @Override
     public Object getRepositoryId() {
         return this.repositoryId;
     }
@@ -164,6 +173,7 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves password
      * 
      */
+    @Override
     public Object getPassword() {
         return this.password;
     }
@@ -181,8 +191,20 @@ public abstract class AbstractPagedConnectedProcessor
      * Retrieves endpoint
      * 
      */
+    @Override
     public Object getEndpoint() {
         return this.endpoint;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public Type typeFor(String fieldName)
+        throws NoSuchFieldException
+    {
+        return AbstractPagedConnectedProcessor.class.getDeclaredField(fieldName).getGenericType();
     }
 
 }

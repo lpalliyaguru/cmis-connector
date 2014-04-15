@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" prefix="cmis" url="http://www.mulesoft.org/schema/mule/cmis">
-  <global-cloud-connector metaData="static" connectivityTesting="on" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" abstract="true" image="" localId="parentConfig" icon="" description="" caption="CMIS" versions="[3.5.0,8.0.0]"></global-cloud-connector>
+  <global-cloud-connector extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" abstract="true" image="" localId="parentConfig" icon="" description="" caption="CMIS" versions="[3.5.0,8.0.0]"></global-cloud-connector>
   <nested abstract="true" localId="connection-pooling-profile" description="" caption="">
-    <label description="" caption="Define connection pool configuration" name="poolingProfileLabel"></label>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." caption="Max active" name="maxActive"></integer>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." caption="Max idle" name="maxIdle"></integer>
-    <enum defaultValue="INITIALISE_ONE" alwaysFill="true" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" caption="Initialisation policy" name="initialisationPolicy">
+    <radioBoolean fillLine="true" description="Use default connection pool configuration." caption="Use default connection pool configuration" name="defaultPoolingProfile"></radioBoolean>
+    <radioBoolean fillLine="true" description="Define connection pool configuration." caption="Define connection pool configuration" name="customPoolingProfile"></radioBoolean>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." caption="Max active" name="maxActive"></integer>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." caption="Max idle" name="maxIdle"></integer>
+    <enum defaultValue="INITIALISE_ONE" indented="true" controlled="customPoolingProfile" alwaysFill="true" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" caption="Initialisation policy" name="initialisationPolicy">
       <option value="INITIALISE_NONE"></option>
       <option value="INITIALISE_ONE"></option>
       <option value="INITIALISE_ALL"></option>
     </enum>
-    <enum defaultValue="WHEN_EXHAUSTED_GROW" alwaysFill="true" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." caption="Exhausted action" name="exhaustedAction">
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" indented="true" controlled="customPoolingProfile" alwaysFill="true" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." caption="Exhausted action" name="exhaustedAction">
       <option value="WHEN_EXHAUSTED_WAIT"></option>
       <option value="WHEN_EXHAUSTED_FAIL"></option>
       <option value="WHEN_EXHAUSTED_GROW"></option>
     </enum>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." caption="Max wait" name="maxWait"></integer>
-    <integer step="0" min="0" defaultValue="1800000" fillLine="true" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." caption="Min eviction (ms)" name="minEvictionMillis"></integer>
-    <integer step="0" min="0" defaultValue="-1" fillLine="true" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." caption="Eviction check interval (ms)" name="evictionCheckIntervalMillis"></integer>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." caption="Max wait" name="maxWait"></integer>
+    <integer step="0" min="0" defaultValue="1800000" fillLine="true" indented="true" controlled="customPoolingProfile" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." caption="Min eviction (ms)" name="minEvictionMillis"></integer>
+    <integer step="0" min="0" defaultValue="-1" fillLine="true" indented="true" controlled="customPoolingProfile" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." caption="Eviction check interval (ms)" name="evictionCheckIntervalMillis"></integer>
   </nested>
   <nested abstract="true" localId="reconnectionStrategyElement" description="" caption="">
     <label description="" caption="Define how mule should attempt to handle a connection failure" name="connectionLabel"></label>
@@ -33,7 +34,7 @@
   </nested>
   <global-cloud-connector metaData="static" connectivityTesting="on" extends="http://www.mulesoft.org/schema/mule/cmis/parentConfig" abstract="false" image="icons/large/cmis-connector-48x32.png" localId="config" icon="icons/small/cmis-connector-24x16.png" description="Global CMIS configuration information." caption="CMIS" versions="[3.5.0,8.0.0]">
     <attribute-category description="Cmis configuration properties." caption="General">
-      <group caption="Generic" id="cmisGenericProperties">
+      <group caption="Basic Settings" id="cmisGenericProperties">
         <name required="true" description="Give a name to this configuration so it can be later referenced by config-ref." caption="Name" name="name"></name>
       </group>
       <group caption="Connection" id="connection">
@@ -50,7 +51,7 @@
     </attribute-category>
     <attribute-category description="Pooling profile options." caption="Pooling Profile">
       <group caption="Pooling Profile" id="poolingProfile">
-        <childElement inplace="true" description="" caption="" name="http://www.mulesoft.org/schema/mule/cmis/connection-pooling-profile"></childElement>
+        <childElement inplace="true" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence" description="" caption="" name="http://www.mulesoft.org/schema/mule/cmis/connection-pooling-profile"></childElement>
       </group>
     </attribute-category>
     <attribute-category description="Reconnection options." caption="Reconnection">
@@ -62,14 +63,14 @@
   </global-cloud-connector>
   <cloud-connector abstract="true" image="icons/large/cmis-connector-48x32.png" localId="abstractCmisConnectorGeneric" icon="icons/small/cmis-connector-24x16.png" description="Interact with Cmis." caption="Abstractcmisconnectorgeneric">
     <attribute-category description="General." caption="General">
-      <group caption="Generic" id="abstractCmisConnectorGeneric">
-        <globalRef requiredType="http://www.mulesoft.org/schema/mule/cmis/config" required="true" description="Specify which configuration to use for this invocation." caption="Config Reference" name="config-ref"></globalRef>
+      <group caption="Basic Settings" id="abstractCmisConnectorGeneric">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/cmis/config" required="true" description="Specify which configuration to use for this invocation." caption="Connector Configuration" name="config-ref"></globalRef>
       </group>
     </attribute-category>
   </cloud-connector>
   <cloud-connector extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" image="icons/large/cmis-connector-48x32.png" localId="cmis-connector" icon="icons/small/cmis-connector-24x16.png" description="CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems." caption="CMIS" aliasId="org.mule.tooling.ui.modules.core.pattern.cmis" versions="[3.5.0,8.0.0]">
     <attribute-category description="General." caption="General">
-      <group caption="Generic" id="cmisConnectorGeneric">
+      <group caption="Basic Settings" id="cmisConnectorGeneric">
         <modeSwitch alwaysCombo="true" description="Operation." caption="Operation" name="Cmis operations to execute">
           <mode modeLabel="Apply acl" modeId="http://www.mulesoft.org/schema/mule/cmis/apply-acl"></mode>
           <mode modeLabel="Apply aspect" modeId="http://www.mulesoft.org/schema/mule/cmis/apply-aspect"></mode>
@@ -112,7 +113,7 @@
       <group caption="General" id="general">
         <string javaType="org.apache.chemistry.opencmis.client.api.CmisObject" required="false" description="The object whose Acl is intended to change." caption="Cmis Object Reference" name="cmisObject-ref"></string>
         <string javaType="java.lang.String" required="false" description="The id of the object." caption="Object Id" name="objectId"></string>
-        <enum allowsCustom="true" javaType="org.apache.chemistry.opencmis.commons.enums.AclPropagation" required="true" supportsExpressions="true" description="Wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE." caption="Acl Propagation" name="aclPropagation">
+        <enum allowsCustom="true" javaType="org.apache.chemistry.opencmis.commons.enums.AclPropagation" required="true" supportsExpressions="true" description="Wheter to propagate changes or not. can be REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE." caption="Acl Propagation" name="aclPropagation">
           <option value="OBJECTONLY"></option>
           <option value="PROPAGATE"></option>
           <option value="REPOSITORYDETERMINED"></option>
@@ -125,10 +126,8 @@
         <element-controller-list listName="remove-aces" itemName="remove-ace" localName="apply-acl-remove-aces" javaType="java.util.List&lt;org.apache.chemistry.opencmis.commons.data.Ace&gt;" required="true" description="Removed access control entities." caption="Remove Aces"></element-controller-list>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -149,10 +148,8 @@
         <element-controller-map mapName="properties" defaultValue="#[payload]" itemName="property" localName="apply-aspect-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="The properties to set." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -175,10 +172,8 @@
         <element-controller-list listName="policy-ids" itemName="policy-id" localName="apply-policy-policy-ids" javaType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.ObjectId&gt;" required="true" description="Policy ID's to apply." caption="Policy Ids"></element-controller-list>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -198,10 +193,8 @@
         <string javaType="java.lang.String" required="false" description="Id of the checked out document. Can be null if &quot;document&quot; is set." caption="Document Id" name="documentId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -221,10 +214,8 @@
         <boolean javaType="boolean" required="true" supportsExpressions="true" description="Indicates if changed properties should be included in the result." caption="Include Properties" name="includeProperties"></boolean>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -252,10 +243,8 @@
         <element-controller-map mapName="properties" itemName="property" localName="check-in-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="Custom properties." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -275,10 +264,8 @@
         <string javaType="java.lang.String" required="false" description="Id of the document to be checked out. Can be null if &quot;document&quot; is set." caption="Document Id" name="documentId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -299,7 +286,7 @@
         <string defaultValue="#[payload]" javaType="java.lang.Object" required="false" description="File content as specified in the payload." caption="Content Reference" name="content-ref"></string>
         <string javaType="java.lang.String" required="true" description="Stream content-type." caption="Mime Type" name="mimeType"></string>
         <string javaType="java.lang.String" required="true" description="The type of the object." caption="Object Type" name="objectType"></string>
-        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
+        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
           <option value="CHECKEDOUT"></option>
           <option value="MAJOR"></option>
           <option value="MINOR"></option>
@@ -310,10 +297,8 @@
         <element-controller-map mapName="properties" defaultValue="" itemName="property" localName="create-document-by-id-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="The properties optional document properties to set." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -334,7 +319,7 @@
         <string defaultValue="#[payload]" javaType="java.lang.Object" required="false" description="File content." caption="Content Reference" name="content-ref"></string>
         <string javaType="java.lang.String" required="true" description="Stream content-type." caption="Mime Type" name="mimeType"></string>
         <string javaType="java.lang.String" required="true" description="The type of the object." caption="Object Type" name="objectType"></string>
-        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
+        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checkedout: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
           <option value="CHECKEDOUT"></option>
           <option value="MAJOR"></option>
           <option value="MINOR"></option>
@@ -343,10 +328,8 @@
         <element-controller-map mapName="properties" itemName="property" localName="create-document-by-id-from-content-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="The properties optional document properties to set." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -367,7 +350,7 @@
         <string defaultValue="#[payload]" javaType="java.lang.Object" required="false" description="File content as specified in the payload." caption="Content Reference" name="content-ref"></string>
         <string javaType="java.lang.String" required="true" description="Stream content-type." caption="Mime Type" name="mimeType"></string>
         <string javaType="java.lang.String" required="true" description="The type of the object." caption="Object Type" name="objectType"></string>
-        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are: o none:  The document MUST be created as a non-versionable document. o checked-out: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
+        <enum allowsCustom="true" javaType="org.mule.module.cmis.VersioningState" required="true" supportsExpressions="true" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter. Valid values are: o none: The document MUST be created as a non-versionable document. o checked-out: The document MUST be created in the checked-out state. o major (default): The document MUST be created as a major version o minor: The document MUST be created as a minor version." caption="Versioning State" name="versioningState">
           <option value="CHECKEDOUT"></option>
           <option value="MAJOR"></option>
           <option value="MINOR"></option>
@@ -379,10 +362,8 @@
         <element-controller-map mapName="properties" itemName="property" localName="create-document-by-path-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="The properties optional document properties to set." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -413,10 +394,8 @@
         <element-controller-map mapName="properties" itemName="property" localName="create-document-by-path-from-content-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="false" description="The properties optional document properties to set." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -436,10 +415,8 @@
         <string javaType="java.lang.String" required="true" description="Parent folder for the folder being created (eg: repository.rootFolder)." caption="Parent Object Id" name="parentObjectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -460,10 +437,8 @@
         <string javaType="java.lang.String" required="true" description="The name of the relationship type that should be associated with the objects." caption="Relationship Type" name="relationshipType"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -484,10 +459,8 @@
         <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="If true, deletes all version history of the object. Defaults to &quot;false&quot;." caption="All Versions" name="allVersions"></boolean>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -514,10 +487,8 @@
         <boolean javaType="boolean" required="true" supportsExpressions="true" description="Specified whether to continue attempting to perform this operation even if deletion of a child- or descendant-object in the specified folder cannot be deleted or not." caption="Continue On Failure" name="continueOnFailure"></boolean>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -546,10 +517,8 @@
         <string javaType="java.lang.String" required="false" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name (only for CHILDREN or DESCENDANTS navigation)." caption="Order By" name="orderBy"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -569,10 +538,8 @@
         <string javaType="java.lang.String" required="false" description="The id of the object." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -594,10 +561,8 @@
         <string javaType="java.lang.String" required="false" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name (only for CHILDREN or DESCENDANTS navigation)." caption="Order By" name="orderBy"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -617,10 +582,8 @@
         <string javaType="java.lang.String" required="false" description="Id of the document from which to get the stream. Can be null if &quot;object&quot; is set." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -640,10 +603,8 @@
         <string javaType="java.lang.String" required="false" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name." caption="Order By" name="orderBy"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -663,10 +624,8 @@
         <string javaType="java.lang.String" required="false" description="Id of the document from which to get the stream. Can be null if &quot;object&quot; is set." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -685,10 +644,8 @@
         <string javaType="java.lang.String" required="true" description="The object id." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -707,10 +664,8 @@
         <string javaType="java.lang.String" required="true" description="Path of the object to retrieve." caption="Path" name="path"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -730,10 +685,8 @@
         <string javaType="java.lang.String" required="false" description="The id of the object." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -752,10 +705,8 @@
         <string javaType="java.lang.String" required="true" description="Path to the folder." caption="Folder Path" name="folderPath"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -775,10 +726,8 @@
         <string javaType="java.lang.String" required="false" description="Id of the object whose parent folders are needed. can be null if &quot;object&quot; is set." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -797,10 +746,8 @@
         <string javaType="java.lang.String" required="true" description="Object type Id." caption="Type Id" name="typeId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -822,10 +769,8 @@
         <string javaType="java.lang.String" required="false" description="The object's id. Can be null if &quot;cmisObject&quot; is set." caption="Object Id" name="objectId"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -847,10 +792,8 @@
         <boolean javaType="java.lang.Boolean" required="true" supportsExpressions="true" description="Specifies if the latest and non-latest versions of document objects should be included." caption="Search All Versions" name="searchAllVersions"></boolean>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -865,10 +808,8 @@
   </cloud-connector>
   <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Repository&gt;" metaData="static" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" abstract="true" image="icons/large/cmis-connector-48x32.png" localId="repositories" icon="icons/small/cmis-connector-24x16.png" caption="Repositories">
     <attribute-category description="General." caption="General"></attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -883,10 +824,8 @@
   </cloud-connector>
   <cloud-connector returnType="org.apache.chemistry.opencmis.commons.data.RepositoryInfo" metaData="static" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" abstract="true" image="icons/large/cmis-connector-48x32.png" localId="repository-info" icon="icons/small/cmis-connector-24x16.png" caption="Repository Info">
     <attribute-category description="General." caption="General"></attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>
@@ -909,10 +848,8 @@
         <element-controller-map mapName="properties" itemName="property" localName="update-object-properties-properties" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" required="true" description="The properties to update." caption="Properties"></element-controller-map>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the CMIS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="CMIS username." caption="Username" name="username"></string>
         <string javaType="java.lang.String" required="false" description="CMIS password." caption="Password" name="password"></string>
         <string javaType="java.lang.String" required="false" description="URL base for the SOAP connector." caption="Base Url" name="baseUrl"></string>

@@ -36,7 +36,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetParentFoldersMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#getParentFolders(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class GetParentFoldersMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -113,7 +113,7 @@ public class GetParentFoldersMessageProcessor
             final CmisObject _transformedCmisObject = ((CmisObject) evaluateAndTransform(getMuleContext(), event, GetParentFoldersMessageProcessor.class.getDeclaredField("_cmisObjectType").getGenericType(), null, cmisObject));
             final String _transformedObjectId = ((String) evaluateAndTransform(getMuleContext(), event, GetParentFoldersMessageProcessor.class.getDeclaredField("_objectIdType").getGenericType(), null, objectId));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

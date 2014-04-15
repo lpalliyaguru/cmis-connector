@@ -34,7 +34,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * DeleteMessageProcessor invokes the {@link org.mule.module.cmis.CMISCloudConnector#delete(org.apache.chemistry.opencmis.client.api.CmisObject, java.lang.String, boolean)} method in {@link CMISCloudConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class DeleteMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -122,7 +122,7 @@ public class DeleteMessageProcessor
             final CmisObject _transformedCmisObject = ((CmisObject) evaluateAndTransform(getMuleContext(), event, DeleteMessageProcessor.class.getDeclaredField("_cmisObjectType").getGenericType(), null, cmisObject));
             final String _transformedObjectId = ((String) evaluateAndTransform(getMuleContext(), event, DeleteMessageProcessor.class.getDeclaredField("_objectIdType").getGenericType(), null, objectId));
             final Boolean _transformedAllVersions = ((Boolean) evaluateAndTransform(getMuleContext(), event, DeleteMessageProcessor.class.getDeclaredField("_allVersionsType").getGenericType(), null, allVersions));
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

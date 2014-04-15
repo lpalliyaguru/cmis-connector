@@ -10,16 +10,16 @@ import org.mule.module.cmis.CMISCloudConnector;
  * A <code>CMISCloudConnectorMetadataAdapater</code> is a wrapper around {@link CMISCloudConnector } that adds support for querying metadata about the extension.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-03-05T04:27:34-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
 public class CMISCloudConnectorMetadataAdapater
     extends CMISCloudConnectorCapabilitiesAdapter
     implements MetadataAware
 {
 
     private final static String MODULE_NAME = "CMIS";
-    private final static String MODULE_VERSION = "1.2.2-SNAPSHOT";
+    private final static String MODULE_VERSION = "1.2.3-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
-    private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
+    private final static String DEVKIT_BUILD = "master.1915.dd1962d";
     private final static String MIN_MULE_VERSION = "3.5";
 
     public String getModuleName() {
