@@ -21,6 +21,9 @@ import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.VersioningState;
+import org.mule.module.cmis.automation.CMISTestParent;
+import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.module.cmis.automation.SmokeTests;
 
 public class CheckOutTestCases extends CMISTestParent {
 

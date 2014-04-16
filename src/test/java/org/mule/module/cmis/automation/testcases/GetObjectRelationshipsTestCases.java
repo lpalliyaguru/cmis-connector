@@ -24,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.VersioningState;
+import org.mule.module.cmis.automation.CMISTestParent;
+import org.mule.module.cmis.automation.RegressionTests;
 
 public class GetObjectRelationshipsTestCases extends CMISTestParent {
 	

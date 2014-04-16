@@ -21,6 +21,9 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundExcept
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.module.cmis.automation.CMISTestParent;
+import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.module.cmis.automation.SmokeTests;
 
 public class DeleteTestCases extends CMISTestParent {
 	

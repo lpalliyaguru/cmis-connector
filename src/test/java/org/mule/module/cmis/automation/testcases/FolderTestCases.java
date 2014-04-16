@@ -26,6 +26,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.module.cmis.automation.CMISTestParent;
+import org.mule.module.cmis.automation.RegressionTests;
 
 public class FolderTestCases extends CMISTestParent {
 
