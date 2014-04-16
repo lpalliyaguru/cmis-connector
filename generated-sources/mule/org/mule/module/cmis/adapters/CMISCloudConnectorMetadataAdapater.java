@@ -10,7 +10,7 @@ import org.mule.module.cmis.CMISCloudConnector;
  * A <code>CMISCloudConnectorMetadataAdapater</code> is a wrapper around {@link CMISCloudConnector } that adds support for querying metadata about the extension.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:23:24-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:14:14-05:00", comments = "Build master.1915.dd1962d")
 public class CMISCloudConnectorMetadataAdapater
     extends CMISCloudConnectorCapabilitiesAdapter
     implements MetadataAware

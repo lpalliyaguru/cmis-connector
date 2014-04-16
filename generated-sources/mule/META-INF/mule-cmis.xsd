@@ -2851,31 +2851,26 @@ specified relationship object type.
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="NavigationOptionsEnumType">
+  <xs:simpleType name="UnfileObjectEnumType">
     <xs:annotation>
-      <xs:documentation>Enum holding all the possible navigation options</xs:documentation>
+      <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="PARENT">
+          <xs:enumeration value="UNFILE">
             <xs:annotation>
-              <xs:documentation>Returns the parent Folder</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="CHILDREN">
+          <xs:enumeration value="DELETESINGLEFILED">
             <xs:annotation>
-              <xs:documentation>Returns a list of objects contained in the current folder</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="DESCENDANTS">
+          <xs:enumeration value="DELETE">
             <xs:annotation>
-              <xs:documentation>Returns the whole descentants tree of the current folder</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="TREE">
-            <xs:annotation>
-              <xs:documentation>Returns the folder tree starting with this folder.</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -2948,26 +2943,31 @@ specified relationship object type.
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="UnfileObjectEnumType">
+  <xs:simpleType name="NavigationOptionsEnumType">
     <xs:annotation>
-      <xs:documentation></xs:documentation>
+      <xs:documentation>Enum holding all the possible navigation options</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="UNFILE">
+          <xs:enumeration value="PARENT">
             <xs:annotation>
-              <xs:documentation></xs:documentation>
+              <xs:documentation>Returns the parent Folder</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="DELETESINGLEFILED">
+          <xs:enumeration value="CHILDREN">
             <xs:annotation>
-              <xs:documentation></xs:documentation>
+              <xs:documentation>Returns a list of objects contained in the current folder</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="DELETE">
+          <xs:enumeration value="DESCENDANTS">
             <xs:annotation>
-              <xs:documentation></xs:documentation>
+              <xs:documentation>Returns the whole descentants tree of the current folder</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TREE">
+            <xs:annotation>
+              <xs:documentation>Returns the folder tree starting with this folder.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
