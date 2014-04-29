@@ -14,7 +14,6 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
@@ -23,95 +22,63 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetCheckoutDocsTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setUp() {
-		try {
-			testObjects = (Map<String, Object>) context.getBean("getCheckoutDocs");
-			List<HashMap<String, Object>> documents = (List<HashMap<String, Object>>) testObjects.get("docs");
-
-			assertTrue("At least one document must be defined for this test to run.", documents.size() > 0);
-			
-			String rootFolderId = rootFolderId();
-			List<String> documentObjectIds = new ArrayList<String>();
-			List<String> checkoutObjectIds = new ArrayList<String>();
-			
-			for (HashMap<String, Object> document : documents) {
-				String filename = document.get("filename").toString();
-				String mimeType = document.get("mimeType").toString();
-				String content = document.get("content").toString();
-				String objectType = document.get("objectType").toString();
-				Map<String, Object> propertiesRef = (Map<String, Object>) document.get("propertiesRef");
-				VersioningState versioningState = (VersioningState) document.get("versioningState");
-				
-				// Create the document in CMIS
-				ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
-				documentObjectIds.add(documentObjectId.getId());
-				testObjects.put("documentObjectIds", documentObjectIds);
-				
-				// Check out the document
-				ObjectId pwcObjectId = checkOut(documentObjectId.getId());
-				checkoutObjectIds.add(pwcObjectId.getId());
-				testObjects.put("checkoutObjectIds", checkoutObjectIds);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+	private List<String> documentObjectIds;
+	private List<String> checkoutObjectIds;
 	
-	@SuppressWarnings("unchecked")
+	@Before
+	public void setUp() throws Exception {
+		documentObjectIds = new ArrayList<String>();
+		checkoutObjectIds = new ArrayList<String>();	
+		
+		initializeTestRunMessage("getCheckoutDocsTestData");
+		List<HashMap<String, Object>> documents = getTestRunMessageValue("docs");
+		
+		for (HashMap<String, Object> document : documents) {
+			// Create the document in CMIS
+			upsertOnTestRunMessage(document);
+			upsertOnTestRunMessage("folderId", getRootFolderId());
+			String objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();			
+			documentObjectIds.add(objectId);
+			
+			// Check out the document
+			ObjectId pwcObjectId = checkOut(objectId);
+			checkoutObjectIds.add(pwcObjectId.getId());	
+		}
+		
+		// Wait for Alfresco to index the checked out documents
+		Thread.sleep(GET_CHECKOUT_DOCS_DELAY);	
+			
+	}
+
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetCheckoutDocs() {
+		List<String> checkedOutDocumentsIds = new ArrayList<String>(); 
 		try {
-			// Wait for Alfresco to index the checked out documents
-			Thread.sleep(20000);
-			
-			List<String> pwcObjectIds = (List<String>) testObjects.get("checkoutObjectIds");
-			
-			MessageProcessor flow = lookupMessageProcessor("get-checkout-docs");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			
-			int listSize = 0;
-			
-			ItemIterable<Document> checkedOutDocuments = (ItemIterable<Document>) response.getMessage().getPayload();
+			ItemIterable<Document> checkedOutDocuments = runFlowAndGetPayload("get-checkout-docs");
 			for (Document doc : checkedOutDocuments) {
-				listSize++;
-				assertTrue(pwcObjectIds.contains(doc.getId()));
+				checkedOutDocumentsIds.add(doc.getId());
 			}
-			
-			assertTrue(pwcObjectIds.size() == listSize);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			assertTrue(checkedOutDocumentsIds.containsAll(checkoutObjectIds));
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 			
-	@SuppressWarnings("unchecked")
+
 	@After
-	public void tearDown() {
-		try {
-			List<String> documentObjectIds = (List<String>) testObjects.get("documentObjectIds");
-			for (String documentId : documentObjectIds) {
-				cancelCheckOut(documentId);
-				delete(documentId, true);
-			}
+	public void tearDown() throws Exception {
+		for (String objectId : documentObjectIds) {
+			cancelCheckOut(objectId);
+			deleteObject(objectId, true);
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+
 	}
 }

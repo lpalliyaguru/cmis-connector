@@ -11,107 +11,56 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class CreateDocumentByIdTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String folderId;
+
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context
-					.getBean("createDocumentById");
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("createDocumentByIdTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		upsertOnTestRunMessage("folderId", folderId);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
-	public void testCreateDocumentById_payload_is_String() {
+	public void testCreateDocumentById() {
 		try {
-			ObjectId result = createDocumentById(lookupMessageProcessor("create-document-by-id"),
-					rootFolderId(),
-					(String) testObjects.get("filename"),
-					(String) testObjects.get("contentRef"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
+			ObjectId result = runFlowAndGetPayload("create-document-by-id");
+			assertNotNull(result.getId());
+			assertNotNull((CmisObject) getObjectById(result.getId()));
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Category({ SmokeTests.class, RegressionTests.class })
-	@Test
-	public void testCreateDocumentById_assert_content_ref_attrib_is_valid() {
-		try {
-			ObjectId result = createDocumentById(lookupMessageProcessor("create-document-by-id-content-ref"),
-					rootFolderId(),
-					(String) testObjects.get("filename"),
-					testObjects,
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testCreateDocumentById_no_properties() {
+		upsertOnTestRunMessage("propertiesRef", null);
 		try {
-			ObjectId result = createDocumentById(lookupMessageProcessor("create-document-by-id-no-properties"),
-					rootFolderId(),
-					(String) testObjects.get("filename"),
-					(String) testObjects.get("contentRef"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
+			ObjectId result = runFlowAndGetPayload("create-document-by-id");
+			assertNotNull(result.getId());
+			assertNotNull((CmisObject) getObjectById(result.getId()));
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteTree(folderId, true, true);
 	}
 }

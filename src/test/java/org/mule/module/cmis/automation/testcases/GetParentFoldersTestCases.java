@@ -11,7 +11,6 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -24,38 +23,30 @@ import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetParentFoldersTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String folderId;
+	private CmisObject cmisObjectRef;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context
-					.getBean("getParentFolders");
-			String rootFolderId = rootFolderId();
-			testObjects.put("parentObjectId", rootFolderId);
-			ObjectId createFolderResult = createFolder(
-					(String) testObjects.get("folderName"), rootFolderId);
-
-			testObjects.put("objectId", createFolderResult.getId());
-			testObjects.put("cmisObjectRef",
-					getObjectById(createFolderResult.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("getParentFoldersTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		cmisObjectRef = getObjectById(folderId);
+		
 	}
 
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testGetParentFolders() {
 		try {
-			List<Folder> folders = getParentFolders((String) testObjects.get("objectId"));
+			List<Folder> folders = getParentFolders(folderId);
 			assertNotNull(folders);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
@@ -63,23 +54,16 @@ public class GetParentFoldersTestCases extends CMISTestParent {
 	@Test
 	public void testGetParentFolders_With_CmisObjectRef() {
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			CmisObject cmisObjectRef = (CmisObject) testObjects.get("cmisObjectRef");
-			List<Folder> folders = getParentFolders(objectId, cmisObjectRef);
+			List<Folder> folders = getParentFolders(folderId, cmisObjectRef);
 			assertNotNull(folders);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 
 	@After
-	public void tearDown() {
-		try {
-			delete((String) testObjects.get("objectId"), true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+			deleteObject(folderId, true);
+
 	}
 }

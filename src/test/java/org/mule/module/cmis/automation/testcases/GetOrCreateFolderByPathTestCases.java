@@ -11,56 +11,40 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetOrCreateFolderByPathTestCases extends CMISTestParent {
 	
-	@SuppressWarnings("unchecked")
+	private String folderId;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("getOrCreateFolderByPath");
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+			initializeTestRunMessage("getOrCreateFolderByPathTestData");
 	}
 
 	@Category({RegressionTests.class})
 	@Test
 	public void testGetOrCreateFolderByPath() {
+		CmisObject cmisObj = null;
 		try {
-			MessageProcessor flow = lookupMessageProcessor("get-or-create-folder-by-path");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-
-			CmisObject cmisObj = (CmisObject) response.getMessage().getPayload();
+			cmisObj = runFlowAndGetPayload("get-or-create-folder-by-path");
+			assertNotNull(cmisObj.getId());
 			
-			assertNotNull(cmisObj);
-			testObjects.put("folderId", cmisObj.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
+		folderId = cmisObj.getId();
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String folderId = (String) testObjects.get("folderId");
-			deleteTree(getObjectById(folderId), folderId, true, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteTree(folderId, true, true);
 	}
 }

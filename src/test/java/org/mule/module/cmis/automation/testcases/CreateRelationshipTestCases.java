@@ -11,77 +11,54 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class CreateRelationshipTestCases extends CMISTestParent {
+	
+	private String folderId;
+	private String aDocumentId;
+	private String anotherDocumentId;
 
-	@SuppressWarnings("unchecked")
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context
-					.getBean("createRelationship");
-			String rootFolderId = rootFolderId();
-
-			ObjectId file1ObjectId = createDocumentById(rootFolderId,
-					(String) testObjects.get("filename1"),
-					(String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-			
-			ObjectId file2ObjectId = createDocumentById(rootFolderId,
-					(String) testObjects.get("filename2"),
-					(String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			testObjects.put("parentObjectId", file1ObjectId.getId());
-			testObjects.put("childObjectId", file2ObjectId.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("createRelationshipTestData");
+		
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		upsertOnTestRunMessage("folderId", folderId);
+		
+		upsertOnTestRunMessage("filename", getTestRunMessageValue("aFileName"));
+		aDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("parentObjectId", aDocumentId);
+		
+		upsertOnTestRunMessage("filename", getTestRunMessageValue("anotherFileName"));
+		anotherDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("childObjectId", anotherDocumentId);
+		
 	}
 
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testCreateRelationship() {
 		try {
-			ObjectId result = createRelationship((String) testObjects.get("parentObjectId"), 
-					(String) testObjects.get("childObjectId"), 
-					(String) testObjects.get("relationshipType"));
-			assertNotNull(result);
+			assertNotNull((ObjectId) runFlowAndGetPayload("create-relationship"));
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
+
 	}
 
 	@After
-	public void tearDown() {
-		try {
-			String parentObjectId = (String) testObjects.get("parentObjectId");
-			String childObjectId = (String) testObjects.get("childObjectId");
-			delete(parentObjectId, true);
-			delete(childObjectId, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteTree(folderId, true, true);
+
 	}
 }

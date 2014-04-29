@@ -11,10 +11,8 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
@@ -22,81 +20,60 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetAllVersionsTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String objectId;
+	private String folderId;
+	private List<HashMap<String, Object>> versions;
+	
+	protected void checkIn(String checkInContent, String checkInComment, String major) throws Exception {
+		upsertOnTestRunMessage("checkInContent", checkInContent);
+		upsertOnTestRunMessage("checkInComment", checkInComment);
+		upsertOnTestRunMessage("major", major);
+		runFlowAndGetPayload("check-in");
+	}
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (Map<String, Object>) context.getBean("getAllVersions");
-
-			String filename = (String) testObjects.get("filename");
-			String folderPath = (String) testObjects.get("folderPath");
-			String mimeType = (String) testObjects.get("mimeType");
-			VersioningState versioningState = (VersioningState) testObjects.get("versioningState");
-			String objectType = (String) testObjects.get("objectType");
-			Boolean force = (Boolean) testObjects.get("force");
-			String content = (String) testObjects.get("content");
-			Map<String, Object> properties = (Map<String, Object>) testObjects.get("propertiesRef");
-
-			ObjectId documentId = createDocumentByPathFromContent(folderPath, filename, content, mimeType, versioningState, objectType, properties, force);
-			testObjects.put("documentId", documentId);
-			
-			List<HashMap<String, Object>> versions = (List<HashMap<String, Object>>) testObjects.get("versions");
-			for (HashMap<String, Object> version : versions) {
-				checkOut(documentId.getId());
-
-				String checkInContent = (String) version.get("content");
-				String checkInComment = (String) version.get("checkinComment");
-				Boolean major = (Boolean) version.get("major");
-				ObjectId checkInId = checkIn(checkInComment, documentId.getId(), filename, checkInContent, mimeType, major, properties);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+	public void setUp() throws Exception {
+		initializeTestRunMessage("getAllVersionsTestData");
+		
+		folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
+		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("objectId", objectId);
+		
+		checkOut(objectId);
+		
+		versions = getTestRunMessageValue("versions");
+		for (HashMap<String, Object> version : versions) {
+			checkIn(version.get("checkInContent").toString(), 
+					version.get("checkInComment").toString(), 
+					version.get("major").toString());
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@After
+	public void tearDown() throws Exception {
+		deleteTree(folderId, true, true);
+	}
+
 	@Category({RegressionTests.class})
 	@Test
 	public void testGetAllVersions() {
 		try {
-			List versions = (List) testObjects.get("versions");
-			
-			MessageProcessor flow = lookupMessageProcessor("get-all-versions");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			
-			List<Document> documentVersions = (List<Document>) response.getMessage().getPayload();
+			List<Document> documentVersions = runFlowAndGetPayload("get-all-versions");
 			
 			// Assert that there are the same number of versions as was inserted.
 			// Updated versions + original version
 			// version updates + 1
 			assertTrue(documentVersions.size() == versions.size() + 1);
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	@After
-	public void tearDown() {
-		try {
-			String documentId = (String) testObjects.get("documentId");
-			delete(documentId, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+			
 	}
 	
 }

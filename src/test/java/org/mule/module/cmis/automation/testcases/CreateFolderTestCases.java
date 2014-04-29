@@ -9,9 +9,6 @@
 package org.mule.module.cmis.automation.testcases;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import java.util.HashMap;
 
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
@@ -23,40 +20,32 @@ import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 
 public class CreateFolderTestCases extends CMISTestParent {
+
+	private String objectId;
 	
-	@SuppressWarnings("unchecked")
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("createFolder");
-			testObjects.put("parentObjectId", rootFolderId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("createFolderTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
 	}
 
-	@Category({SmokeTests.class, RegressionTests.class})
+	@After
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
+	}
+
+	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testCreateFolder() {
+		ObjectId objectId = null;
 		try {
-			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
-			assertNotNull(result);
-			testObjects.put("objectId", result.getId());
+			objectId = runFlowAndGetPayload("create-folder");
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail();
 		}
+		assertNotNull(objectId.getId());
+		this.objectId = objectId.getId();
 	}
-	
-	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+
+
 }

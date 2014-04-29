@@ -14,7 +14,6 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
@@ -24,80 +23,62 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class FolderTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String parentFolderId;
+	private List<ObjectId> subFoldersIds = new ArrayList<ObjectId>();
+	private List<String> subFoldersNames;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (Map<String, Object>) context.getBean("folder");
-			
-			List<String> subFolders = (List<String>) testObjects.get("subfolders");
-			List<ObjectId> subFolderIds = new ArrayList<ObjectId>();
-			
-			String rootFolderId = rootFolderId();
-			String parentFolderId = createFolder((String) testObjects.get("parentFolder"), rootFolderId).getId();
-			
-			testObjects.put("folderId", parentFolderId);
-			
-			for (String subFolder : subFolders) {
-				ObjectId subFolderId = createFolder(subFolder, parentFolderId);
-				subFolderIds.add(subFolderId);
-			}
-			
-			testObjects.put("subFolderIds", subFolderIds);
+	public void setUp() throws Exception {
+		initializeTestRunMessage("folderTestData");
+		subFoldersNames = getTestRunMessageValue("subfolders");
+
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		parentFolderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		
+		upsertOnTestRunMessage("parentObjectId", parentFolderId);
+		
+		for (String subFolder : subFoldersNames) {
+			upsertOnTestRunMessage("folderName", subFolder);
+			subFoldersIds.add((ObjectId) runFlowAndGetPayload("create-folder"));
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		
+		upsertOnTestRunMessage("folderId", parentFolderId);
+
 	}
 	
-	@SuppressWarnings("unchecked")
+	@After
+	public void tearDown() throws Exception {
+		deleteTree(parentFolderId, true, true);
+	}
+
 	@Category({RegressionTests.class})
 	@Test
 	public void testFolder() {
+		List<String> cmisObjsNames = new ArrayList<String>();
+		List<String> cmisObjsIds = new ArrayList<String>();
+		
 		try {
-			MessageProcessor flow = lookupMessageProcessor("folder");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			
-			CollectionIterable<CmisObject> cmisObjs = (CollectionIterable<CmisObject>) response.getMessage().getPayload();
-			
+			CollectionIterable<CmisObject> cmisObjs = runFlowAndGetPayload("folder");
 			AbstractIterator<CmisObject> ai = cmisObjs.iterator();
-			
-			List<String> cmisObjsNames = new ArrayList<String>();
-			
+
 			while(ai.hasNext()) {
 				CmisObject cmisObj = ai.next();
 				cmisObjsNames.add(cmisObj.getName());
+				cmisObjsIds.add(cmisObj.getId());
 			}
-			
-			assertEquals(2, cmisObjsNames.size());
-			
-			List<String> subFolders = (List<String>) testObjects.get("subfolders");
-			
-			assertTrue(cmisObjsNames.contains(subFolders.get(0)));
-			assertTrue(cmisObjsNames.contains(subFolders.get(1)));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+		
+			assertTrue(cmisObjsNames.containsAll(subFoldersNames));
+			assertTrue(cmisObjsIds.containsAll(subFoldersIds));
+			assertEquals(cmisObjsNames.size(), subFoldersNames.size());
 
-	@After
-	public void tearDown() {
-		try {
-			deleteTree(null, (String) testObjects.get("folderId"), true, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	

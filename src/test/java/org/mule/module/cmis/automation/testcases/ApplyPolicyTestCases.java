@@ -10,71 +10,49 @@ package org.mule.module.cmis.automation.testcases;
 
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class ApplyPolicyTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("applyPolicy");
+	private String objectId;
 
-			String rootFolderId = rootFolderId();
-			String filename = testObjects.get("filename").toString();
-			String mimeType = testObjects.get("mimeType").toString();
-			String content = testObjects.get("content").toString();
-			String objectType = testObjects.get("objectType").toString();
-			Map<String, Object> propertiesRef = (Map<String, Object>) testObjects.get("propertiesRef");
-			VersioningState versioningState = (VersioningState) testObjects.get("versioningState");
-			
-			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
-			testObjects.put("documentId", documentObjectId.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	@Before
+	public void setUp() throws Exception {
+		initializeTestRunMessage("applyPolicyTestData");
+
+		upsertOnTestRunMessage("folderId", getRootFolderId());
+		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("objectId", objectId);
+		upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
+		
 	}
 
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
+	@Ignore
 	public void testApplyPolicy() {
 		try {
-			String documentId = (String) testObjects.get("documentId");
-			testObjects.put("objectId", documentId);
-			
-			MessageProcessor flow = lookupMessageProcessor("apply-policy");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			
+			runFlowAndGetPayload("apply-policy");
+
 			fail("Perform assertions once exception is fixed");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
+
 	}
-	
+
 	@After
-	public void tearDown() {
-		try {
-			String documentId = (String) testObjects.get("documentId");
-			delete(documentId, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}	
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
+
+	}
 }

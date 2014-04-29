@@ -11,8 +11,6 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Map;
-
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
@@ -20,84 +18,59 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class QueryTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (Map<String, Object>) context.getBean("query");
-			
-			String folderName = (String) testObjects.get("folderName");
-			
-			ObjectId objectId = createFolder(folderName, rootFolderId());
-			testObjects.put("objectId", objectId.getId());
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
-	@Test
-	public void testQuery() {
-		try {
-
-			Thread.sleep(20000);
-			
-			MessageProcessor flow = lookupMessageProcessor("query");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			
-			ItemIterable<QueryResult> payload = (ItemIterable<QueryResult>) response.getMessage().getPayload();
-			ItemIterable<QueryResult> page = payload.getPage();
-			
-			long pageNumItems = page.getPageNumItems();
-			assertTrue(pageNumItems == 1L);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Category({RegressionTests.class})
-	@Test
-	public void testQuery_Filtered() {
-		try {
-			Thread.sleep(20000);
-			
-			MessageProcessor flow = lookupMessageProcessor("query-filtered");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-
-			ItemIterable<QueryResult> payload = (ItemIterable<QueryResult>) response.getMessage().getPayload();
-			ItemIterable<QueryResult> page = payload.getPage();
-			
-			long pageNumItems = page.getPageNumItems();
-			assertTrue(pageNumItems == 1L);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("queryTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		ObjectId objectId = runFlowAndGetPayload("create-folder");
+		upsertOnTestRunMessage("objectId", objectId.getId());
+		String folderName = getTestRunMessageValue("folderName").toString();
+		upsertOnTestRunMessage("filter", String.format("cmis:name = '%s'", folderName));
+		upsertOnTestRunMessage("statement", String.format("SELECT * FROM cmis:folder WHERE cmis:name = '%s'", folderName));
+		Thread.sleep(QUERY_DELAY);
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
+	public void tearDown() throws Exception {
+		deleteObject(getTestRunMessageValue("objectId").toString(), true);
+	}
+
+	@Category({RegressionTests.class})
+	@Test
+	public void testQuery() {
+		try {				
+			ItemIterable<QueryResult> payload = runFlowAndGetPayload("query");
+			ItemIterable<QueryResult> page = payload.getPage();
+			
+			long pageNumItems = page.getPageNumItems();
+			assertTrue(pageNumItems == 1L);
+			
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+	}
+	
+
+	@Category({RegressionTests.class})
+	@Test
+	public void testQuery_Filtered() {
+		upsertOnTestRunMessage("filter", null);
+		try {
+			ItemIterable<QueryResult> payload = runFlowAndGetPayload("query");
+			ItemIterable<QueryResult> page = payload.getPage();
+			
+			long pageNumItems = page.getPageNumItems();
+			assertTrue(pageNumItems == 1L);
+			
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	

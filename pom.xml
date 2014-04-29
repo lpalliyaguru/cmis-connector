@@ -23,6 +23,7 @@
 		<devkit.studio.package.skip>false</devkit.studio.package.skip>
 		<cxf.version>2.5.1</cxf.version>
 		<chemistry.version>0.9.0</chemistry.version>
+		<connector.test.version>2.0.6</connector.test.version>
 	</properties>
 
 	<dependencies>

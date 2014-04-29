@@ -12,98 +12,56 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class DeleteTreeTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String folderId;
+	private String documentId;
+
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context
-					.getBean("deleteTree");
-			testObjects.put("parentObjectId", rootFolderId());
-			ObjectId folderObjectId = createFolder(
-					(String) testObjects.get("folderName"),
-					(String) testObjects.get("parentObjectId"));
-			String folderId = folderObjectId.getId();
+	public void setUp() throws Exception {
+		initializeTestRunMessage("deleteTreeTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		
+		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		
+		upsertOnTestRunMessage("folderId", folderId);
+		documentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		
+		upsertOnTestRunMessage("folderRef", getObjectById(folderId));
 
-			createDocumentById(folderId, (String) testObjects.get("filename"),
-					(String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
-
-			testObjects.put("folderId", folderId);
-			testObjects.put("folderRef", getObjectById(folderId));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
 	}
 
 	@Category({ SmokeTests.class, RegressionTests.class })
 	@Test
 	public void testDeleteTree() {
+		List<String> objectsFailedToDelete = null;
 		try {
-			List<String> objectsFailedToDelete = deleteTree((CmisObject) testObjects.get("folderRef"),
-					(String) testObjects.get("folderId"),
-					(Boolean) testObjects.get("allversions"),
-					(Boolean) testObjects.get("continueOnFailure"));
+			objectsFailedToDelete = runFlowAndGetPayload("delete-tree");
 			assertNotNull(objectsFailedToDelete);
 			assertEquals(0, objectsFailedToDelete.size());
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-	}
-
-	@Category({ SmokeTests.class, RegressionTests.class })
-	@Test
-	public void testDeleteTree_HashMap_payload_no_folder_ref_attribute() {
 		try {
-			List<String> objectsFailedToDelete = deleteTree(
-					lookupMessageProcessor("delete-tree-payload-no-folder-ref"),
-					testObjects,
-					(String) testObjects.get("folderId"),
-					(Boolean) testObjects.get("allversions"),
-					(Boolean) testObjects.get("continueOnFailure"));
-			assertNotNull(objectsFailedToDelete);
-			assertEquals(0, objectsFailedToDelete.size());
+			getObjectById(documentId);
+			fail("Object should not have been found");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			if (!(e.getCause() instanceof CmisObjectNotFoundException)) {
+				fail(ConnectorTestUtils.getStackTrace(e));
+			}	
 		}
-	}
-	
-	@Category({ SmokeTests.class, RegressionTests.class })
-	@Test
-	public void testDeleteTree_assert_folder_ref_attribute_is_valid() {
-		try {
-			List<String> objectsFailedToDelete = deleteTree(
-					lookupMessageProcessor("delete-tree-payload-with-folder-ref"),
-					testObjects,
-					(String) testObjects.get("folderId"),
-					(Boolean) testObjects.get("allversions"),
-					(Boolean) testObjects.get("continueOnFailure"));
-			assertNotNull(objectsFailedToDelete);
-			assertEquals(0, objectsFailedToDelete.size());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+			
 	}
 }

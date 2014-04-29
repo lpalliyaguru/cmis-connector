@@ -11,76 +11,48 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class ApplyAspectTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String objectId;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("applyAspect");
+	public void setUp() throws Exception {
+		initializeTestRunMessage("applyAspectTestData");
+		upsertOnTestRunMessage("folderId", getRootFolderId());
+		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("objectId", objectId);
 
-			String rootFolderId = rootFolderId();
-			String filename = testObjects.get("filename").toString();
-			String mimeType = testObjects.get("mimeType").toString();
-			String content = testObjects.get("content").toString();
-			String objectType = testObjects.get("objectType").toString();
-			Map<String, Object> propertiesRef = (Map<String, Object>) testObjects.get("propertiesRef");
-			VersioningState versioningState = (VersioningState) testObjects.get("versioningState");
-			
-			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
-			testObjects.put("objectId", documentObjectId.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
 	}
 
 	@Category({RegressionTests.class})
 	@Test
 	public void testApplyAspect() {
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			String aspectName = "P:" + testObjects.get("aspectName").toString();
-			
-			Map<String, String> aspectProperties = (Map<String, String>) testObjects.get("aspectProperties");
-			testObjects.put("propertiesRef", aspectProperties);
-			
-			MessageProcessor flow = lookupMessageProcessor("apply-aspect");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
+			String aspectName = "P:" + getTestRunMessageValue("aspectName").toString();
+			runFlowAndGetPayload("apply-aspect");
 			
 			// We are using alfresco, so type cast it specifically to an alfresco document
 			AlfrescoDocument document = (AlfrescoDocument) getObjectById(objectId);
 			assertTrue(document.hasAspect(aspectName));
+			
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
+
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String documentId = (String) testObjects.get("objectId");
-			delete(documentId, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
 	}	
 }

@@ -11,7 +11,6 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvent;
@@ -23,43 +22,32 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class ChangeLogTestCases extends CMISTestParent {
 	
-	@SuppressWarnings("unchecked")
+	private String objectId;
+
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("changelog");
+	public void setUp() throws Exception {
+			initializeTestRunMessage("changelogTestData");
 
 			RepositoryInfo repositoryInfo = getRepositoryInfo();
-			String changeLogToken = repositoryInfo.getLatestChangeLogToken();
+			upsertOnTestRunMessage("changeLogToken", repositoryInfo.getLatestChangeLogToken());
 			
-			testObjects.put("changeLogToken", changeLogToken);
+			upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+			objectId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
 			
-			String folderName = (String) testObjects.get("folderName");
-			ObjectId objectId = createFolder(folderName, rootFolderId());
-			testObjects.put("objectId", objectId.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+			upsertOnTestRunMessage("objectId", objectId);
 	}
 
 	@Category({RegressionTests.class})
 	@Test
 	public void testChangelog() {
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			
-			MessageProcessor flow = lookupMessageProcessor("changelog");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-			ChangeEvents changeEvents = (ChangeEvents) response.getMessage().getPayload();
-
+			ChangeEvents changeEvents = runFlowAndGetPayload("changelog");
 			List<ChangeEvent> events = changeEvents.getChangeEvents();
 			
 			boolean foundEvent = false;
@@ -71,21 +59,14 @@ public class ChangeLogTestCases extends CMISTestParent {
 			}
 			assertTrue(foundEvent);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
+
 	}
 	
 }

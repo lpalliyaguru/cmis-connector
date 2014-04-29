@@ -11,9 +11,6 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.junit.After;
@@ -23,69 +20,49 @@ import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetAclTestCases extends CMISTestParent {
 	
-	@SuppressWarnings("unchecked")
+	private String objectId;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("getAcl");
-			testObjects.put("parentObjectId", rootFolderId());
-			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
+	public void setUp() throws Exception {
+			initializeTestRunMessage("getAclTestData");
+			upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+			objectId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
 			
-			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+			upsertOnTestRunMessage("objectId", objectId);
+			upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
 
+	}
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetAcl() {
 		try {
-			Acl result = getAcl((String) testObjects.get("objectId"));
+			Acl result = runFlowAndGetPayload("get-acl");
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetAcl_null_cmisObject() {
+		upsertOnTestRunMessage("cmisObjectRef", null);
 		try {
-			Acl result = getAcl((String) testObjects.get("objectId"), null);
+			Acl result = runFlowAndGetPayload("get-acl");
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}				
 	
-	@Category({SmokeTests.class, RegressionTests.class})
-	@Test
-	public void testGetAcl_with_cmisObjectRef() {
-		try {
-			Acl result = getAcl((String) testObjects.get("objectId"), testObjects.get("cmisObjectRef"));
-			assertNotNull(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
 	@After
-	public void tearDown() {
-		try {
-			delete((String) testObjects.get("objectId"), true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
+
 	}
 
 }

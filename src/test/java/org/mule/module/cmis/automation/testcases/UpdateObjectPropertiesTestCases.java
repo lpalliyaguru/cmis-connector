@@ -19,70 +19,45 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class UpdateObjectPropertiesTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
+	private String objectId;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (Map<String, Object>) context.getBean("updateObjectProperties");
-			
-			String rootFolderId = rootFolderId();
-			String filename = testObjects.get("filename").toString();
-			String mimeType = testObjects.get("mimeType").toString();
-			String content = testObjects.get("content").toString();
-			String objectType = testObjects.get("objectType").toString();
-			Map<String, Object> propertiesRef = (Map<String, Object>) testObjects.get("propertiesRef");
-			VersioningState versioningState = (VersioningState) testObjects.get("versioningState");
-			
-			ObjectId documentObjectId = createDocumentById(rootFolderId, filename, content, mimeType, versioningState, objectType, propertiesRef);
-			testObjects.put("documentObjectId", documentObjectId);
-			testObjects.put("objectId", documentObjectId.getId());
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("updateObjectPropertiesTestData");
+		upsertOnTestRunMessage("folderId", getRootFolderId());
+		
+		ObjectId documentObjectId = runFlowAndGetPayload("create-document-by-id");
+		upsertOnTestRunMessage("documentObjectId", documentObjectId);
+		objectId = documentObjectId.getId();
+		upsertOnTestRunMessage("objectId", objectId);
+		upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Category({RegressionTests.class})
 	@Test
 	public void testUpdateObjectProperties() {
 		try {
-			Map<String, Object> updatedProperties = (Map<String, Object>) testObjects.get("propertiesRefUpdated");
-			testObjects.put("propertiesRef", updatedProperties);
+			Map<String, Object> updatedProperties = getTestRunMessageValue("propertiesRefUpdated");
+			upsertOnTestRunMessage("propertiesRef", updatedProperties);
 			
 			String titleRenamed = (String) updatedProperties.get("cmis:name");
-
-			MessageProcessor flow = lookupMessageProcessor("update-object-properties");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
 			
-			CmisObject cmisObject = (CmisObject) response.getMessage().getPayload();
+			CmisObject cmisObject = runFlowAndGetPayload("update-object-properties");
 			assertTrue(titleRenamed.equals(cmisObject.getName()));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 	
 	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteObject(getTestRunMessageValue("objectId").toString(), true);
 	}
 	
 }

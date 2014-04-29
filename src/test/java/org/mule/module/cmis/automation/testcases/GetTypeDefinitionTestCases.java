@@ -11,42 +11,25 @@ package org.mule.module.cmis.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
 import org.apache.chemistry.opencmis.client.api.ObjectType;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetTypeDefinitionTestCases extends CMISTestParent {
-	
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("getTypeDefinition");
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
 
 	@Category({RegressionTests.class})
 	@Test
 	public void testGetTypeDefinition() {
+		initializeTestRunMessage("getTypeDefinitionTestData");
 		try {
-			MessageProcessor flow = lookupMessageProcessor("get-type-definition");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-
-			ObjectType objType = (ObjectType) response.getMessage().getPayload();
+			ObjectType objType = runFlowAndGetPayload("get-type-definition");
 			assertNotNull(objType);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 

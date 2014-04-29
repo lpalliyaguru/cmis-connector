@@ -8,46 +8,27 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class RepositoryInfoTestCases extends CMISTestParent {
-	
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("repositoryInfo");
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
 
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testRepositoryInfo() {
 		try {
-			MessageProcessor flow = lookupMessageProcessor("repository-info");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-
-			RepositoryInfo result = (RepositoryInfo) response.getMessage().getPayload();
-			assertNotNull(result);
+			RepositoryInfo repositoryInfo = runFlowAndGetPayload("repository-info");
+			assertEquals(repositoryInfo.getName(),"Main Repository");
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 

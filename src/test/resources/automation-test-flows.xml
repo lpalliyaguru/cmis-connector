@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.0"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cmis="http://www.mulesoft.org/schema/mule/cmis"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/current/mule-cmis.xsd">
+http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/current/mule-cmis.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
 
-	<context:property-placeholder location="${CMIS_CREDENTIALS}" />
+	<context:property-placeholder location="automation-credentials.properties" />
 
 	<cmis:config name="CMIS" username="${alfresco.username}"
 		password="${alfresco.password}" repositoryId="${alfresco.repositoryId}"
@@ -18,19 +19,15 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</cmis:config>
 	
 	<flow name="create-folder" doc:name="create-folder">
-		<cmis:create-folder config-ref="CMIS" folderName="#[payload.folderName]" parentObjectId="#[payload.parentObjectId]" doc:name="CMIS"/>
-        <cmis:apply-acl config-ref="CMIS" aclPropagation="#[payload.aclPropagation]" doc:name="CMIS">
-            <cmis:add-aces ref="#[payload]"/>
-            <cmis:remove-aces ref="#[payload]"/>
-        </cmis:apply-acl>
+		<cmis:create-folder config-ref="CMIS" folderName="#[flowVars.folderName]" parentObjectId="#[flowVars.parentObjectId]" doc:name="CMIS"/>
 	</flow>
 
 	<flow name="delete" doc:name="delete">
-		<cmis:delete config-ref="CMIS" objectId="#[payload.objectId]" allVersions="#[payload.allVersions]" doc:name="CMIS"/>
+		<cmis:delete config-ref="CMIS" objectId="#[flowVars.objectId]" allVersions="#[flowVars.allVersions]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="delete-with-cmis-object-ref" doc:name="delete-with-cmis-object-ref">
-		<cmis:delete config-ref="CMIS" objectId="#[payload.objectId]" allVersions="#[payload.allVersions]" cmisObject-ref="#[payload.cmisObjectRef]" doc:name="CMIS"/>
+		<cmis:delete config-ref="CMIS" objectId="#[flowVars.objectId]" allVersions="#[flowVars.allVersions]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="repository-info" doc:name="repository-info">
@@ -38,188 +35,121 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 
 	<flow name="get-object-by-id" doc:name="get-object-by-id">
-		<cmis:get-object-by-id config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:get-object-by-id config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="create-relationship" doc:name="create-relationship">
-		<cmis:create-relationship config-ref="CMIS" parentObjectId="#[payload.parentObjectId]" childObjectId="#[payload.childObjectId]"
-			relationshipType="#[payload.relationshipType]" doc:name="CMIS"/>
+		<cmis:create-relationship config-ref="CMIS" parentObjectId="#[flowVars.parentObjectId]" childObjectId="#[flowVars.childObjectId]"
+			relationshipType="#[flowVars.relationshipType]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-object-relationships" doc:name="get-object-relationships">
-		<cmis:get-object-relationships config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:get-object-relationships config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-acl" doc:name="get-acl">
-		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="get-acl-with-cmis-object-ref" doc:name="get-acl-with-cmis-object-ref">
-		<cmis:get-acl config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" doc:name="CMIS"/>
+		<cmis:get-acl config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-parent-folders" doc:name="get-parent-folders">
-		<cmis:get-parent-folders config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:get-parent-folders config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-parent-folders-with-cmis-object-ref" doc:name="get-parent-folders-with-cmis-object-ref">
-		<cmis:get-parent-folders config-ref="CMIS" objectId="#[payload.objectId]" cmisObject-ref="#[payload.cmisObjectRef]" doc:name="CMIS"/>
+		<cmis:get-parent-folders config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="move-object" doc:name="move-object">
-		<cmis:move-object config-ref="CMIS" sourceFolderId="#[payload.sourceFolderId]" targetFolderId="#[payload.targetFolderId]" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:move-object config-ref="CMIS" sourceFolderId="#[flowVars.sourceFolderId]" targetFolderId="#[flowVars.targetFolderId]" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="create-document-by-id" doc:name="create-document-by-id">
-		<cmis:create-document-by-id config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
-		    versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" doc:name="CMIS">
-                 <cmis:properties ref="#[sessionVars.propertiesRef]" />
+		<cmis:create-document-by-id config-ref="CMIS" filename="#[flowVars.filename]" folderId="#[flowVars.folderId]" mimeType="#[flowVars.mimeType]"
+		    versioningState="#[flowVars.versioningState]" objectType="#[flowVars.objectType]" content-ref="#[flowVars.contentRef]" doc:name="CMIS">
+                 <cmis:properties ref="#[flowVars.propertiesRef]" />
 		</cmis:create-document-by-id>
-	</flow>
-	
-	<flow name="create-document-by-id-content-ref" doc:name="create-document-by-id-content-ref">
-		<cmis:create-document-by-id config-ref="CMIS" filename="#[payload.filename]" folderId="#[payload.folderId]" mimeType="#[payload.mimeType]"
-		    versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" content-ref="#[payload.contentRef]" doc:name="CMIS">
-                 <cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:create-document-by-id>
-	</flow>
-	
-	<flow name="create-document-by-id-no-properties" doc:name="create-document-by-id-no-properties">
-		<cmis:create-document-by-id config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
-	    versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="create-document-by-id-from-content" doc:name="create-document-by-id-from-content">
-		<cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
-			versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" doc:name="CMIS">
-                 <cmis:properties ref="#[sessionVars.propertiesRef]" />
-		</cmis:create-document-by-id-from-content>
-	</flow>
-	
-	<flow name="create-document-by-id-from-content-content-ref" doc:name="create-document-by-id-from-content-content-ref">
-		<cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[payload.filename]" folderId="#[payload.folderId]" mimeType="#[payload.mimeType]"
-			content-ref="#[payload.contentRef]" versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" doc:name="CMIS">
-                 <cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:create-document-by-id-from-content>
-	</flow>
-	
-	<flow name="create-document-by-id-from-content-no-properties" doc:name="create-document-by-id-from-content-no-properties">
-		<cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderId="#[sessionVars.folderId]" mimeType="#[sessionVars.mimeType]"
-			versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" doc:name="CMIS"/>
+	    <cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[flowVars.filename]" folderId="#[flowVars.folderId]" mimeType="#[flowVars.mimeType]" 
+	        objectType="#[flowVars.objectType]" versioningState="#[flowVars.versioningState]" content-ref="#[flowVars.contentRef]" >
+            <cmis:properties ref="#[flowVars.propertiesRef]" />
+        </cmis:create-document-by-id-from-content>
 	</flow>
 	
 	<flow name="create-document-by-path" doc:name="create-document-by-path">
-		<cmis:create-document-by-path config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]" mimeType="#[sessionVars.mimeType]"
-			versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" doc:name="CMIS">
-                 <cmis:properties ref="#[sessionVars.propertiesRef]" />
+		<cmis:create-document-by-path config-ref="CMIS" filename="#[flowVars.filename]" folderPath="#[flowVars.folderPath]" mimeType="#[flowVars.mimeType]"
+			versioningState="#[flowVars.versioningState]" objectType="#[flowVars.objectType]" force="#[flowVars.force]" content-ref="#[flowVars.contentRef]" doc:name="CMIS">
+                 <cmis:properties ref="#[flowVars.propertiesRef]" />
 		</cmis:create-document-by-path>
 	</flow>
-	
-	<flow name="create-document-by-path-content-ref" doc:name="create-document-by-path-content-ref">
-		<cmis:create-document-by-path config-ref="CMIS" filename="#[payload.filename]" folderPath="#[payload.folderPath]" mimeType="#[payload.mimeType]"
-			versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" force="#[payload.force]" content-ref="#[payload.contentRef]" doc:name="CMIS">
-                 <cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:create-document-by-path>
-	</flow>
-	
-	<flow name="create-document-by-path-no-properties" doc:name="create-document-by-path-no-properties">
-		<cmis:create-document-by-path config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]" mimeType="#[sessionVars.mimeType]"
-			versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" doc:name="CMIS"/>
-	</flow>
-	
+
 	<flow name="create-document-by-path-from-content" doc:name="create-document-by-path-from-content">
-		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]"
-			mimeType="#[sessionVars.mimeType]" versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" doc:name="CMIS">
-                 <cmis:properties ref="#[sessionVars.propertiesRef]" />
+		<cmis:create-document-by-path-from-content
+			config-ref="CMIS" doc:name="CMIS" filename="#[flowVars.filename]" mimeType="#[flowVars.mimeType]" objectType="#[flowVars.objectType]"
+			versioningState="#[flowVars.versioningState]" content-ref="#[flowVars.contentRef]" folderPath="#[flowVars.folderPath]" force="#[flowVars.force]">
+				<cmis:properties ref="#[flowVars.propertiesRef]" />
 		</cmis:create-document-by-path-from-content>
 	</flow>
-	
-	<flow name="create-document-by-path-from-content-no-properties" doc:name="create-document-by-path-from-content-no-properties">
-		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[sessionVars.filename]" folderPath="#[sessionVars.folderPath]"
-			mimeType="#[sessionVars.mimeType]" versioningState="#[sessionVars.versioningState]" objectType="#[sessionVars.objectType]" force="#[sessionVars.force]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="create-document-by-path-from-content-content-ref" doc:name="create-document-by-path-from-content-content-ref">
-		<cmis:create-document-by-path-from-content config-ref="CMIS" filename="#[payload.filename]" folderPath="#[payload.folderPath]" mimeType="#[payload.mimeType]"
-			content-ref="#[payload.contentRef]" versioningState="#[payload.versioningState]" objectType="#[payload.objectType]" force="#[payload.force]" doc:name="CMIS">
-                 <cmis:properties ref="#[payload.propertiesRef]" />
-		</cmis:create-document-by-path-from-content>
-	</flow>
-	
+		
 	<flow name="get-all-versions" doc:name="get-all-versions">
-		<cmis:get-all-versions config-ref="CMIS" documentId="#[payload.documentId]" doc:name="CMIS"/>
+		<cmis:get-all-versions config-ref="CMIS" documentId="#[flowVars.documentId]" doc:name="CMIS"/>
 	</flow>
-	
-	<flow name="delete-tree-session-vars" doc:name="delete-tree-session-vars">
-		<cmis:delete-tree config-ref="CMIS" allversions="#[sessionVars.allversions]" 
-			continueOnFailure="#[sessionVars.continueOnFailure]" folderId="#[sessionVars.folderId]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="delete-tree-payload-no-folder-ref" doc:name="delete-tree-payload-no-folder-ref">
-		<cmis:delete-tree config-ref="CMIS" allversions="#[payload.allversions]" 
-			continueOnFailure="#[payload.continueOnFailure]" folderId="#[payload.folderId]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="delete-tree-payload-with-folder-ref" doc:name="delete-tree-payload-with-folder-ref">
-		<cmis:delete-tree config-ref="CMIS" allversions="#[payload.allversions]" 
-			continueOnFailure="#[payload.continueOnFailure]" folderId="#[payload.folderId]" folder-ref="#[payload.folderRef]" doc:name="CMIS"/>
+
+	<flow name="delete-tree" doc:name="delete-tree">
+		<cmis:delete-tree config-ref="CMIS"
+			allversions="#[flowVars.allversions]" continueOnFailure="#[flowVars.continueOnFailure]"
+			folderId="#[flowVars.folderId]" folder-ref="#[flowVars.folderRef]" doc:name="CMIS" />
 	</flow>
 	
 	<flow name="get-type-definition" doc:name="get-type-definition">
-		<cmis:get-type-definition config-ref="CMIS" typeId="#[payload.typeId]" doc:name="CMIS"/>
+		<cmis:get-type-definition config-ref="CMIS" typeId="#[flowVars.typeId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-content-stream-with-cmis-object-ref" doc:name="get-content-stream-with-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" doc:name="CMIS"/>
+		<cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-content-stream" doc:name="get-content-stream">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:get-content-stream config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-object-by-path" doc:name="get-object-by-path">
-		<cmis:get-object-by-path config-ref="CMIS" path="#[payload.path]" doc:name="CMIS"/>
+		<cmis:get-object-by-path config-ref="CMIS" path="#[flowVars.path]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="update-object-properties" doc:name="update-object-properties">
-		<cmis:update-object-properties config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS">
-			<cmis:properties ref="#[payload.propertiesRef]" />
+		<cmis:update-object-properties config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS">
+			<cmis:properties ref="#[flowVars.propertiesRef]" />
 		</cmis:update-object-properties>
 	</flow>
 	
 	<flow name="apply-acl" doc:name="apply-acl">
-		<cmis:apply-acl config-ref="CMIS" objectId="#[payload.objectId]" aclPropagation="#[payload.aclPropagation]" doc:name="CMIS">
-	        <cmis:add-aces ref="#[payload.addAcesRef]"/>
-	        <cmis:remove-aces ref="#[payload.removeAcesRef]"/>
-		</cmis:apply-acl>
-	</flow>
-	
-	<flow name="apply-acl-with-cmis-object-ref" doc:name="apply-acl-with-cmis-object-ref">
-		<cmis:apply-acl config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" aclPropagation="#[payload.aclPropagation]" doc:name="CMIS">
-	        <cmis:add-aces ref="#[payload.addAcesRef]"/>
-	        <cmis:remove-aces ref="#[payload.removeAcesRef]"/>
+		<cmis:apply-acl config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" aclPropagation="#[flowVars.aclPropagation]" doc:name="CMIS">
+	        <cmis:add-aces ref="#[flowVars.addAcesRef]"/>
+	        <cmis:remove-aces ref="#[flowVars.removeAcesRef]"/>
 		</cmis:apply-acl>
 	</flow>
 	
 	<flow name="folder" doc:name="folder">
-		<cmis:folder config-ref="CMIS" get="#[payload.get]" folderId="#[payload.folderId]" doc:name="CMIS"/>
+		<cmis:folder config-ref="CMIS" get="#[flowVars.get]" folderId="#[flowVars.folderId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-or-create-folder-by-path" doc:name="get-or-create-folder-by-path">
-		<cmis:get-or-create-folder-by-path config-ref="CMIS" folderPath="#[payload.folderPath]" doc:name="CMIS"/>
+		<cmis:get-or-create-folder-by-path config-ref="CMIS" folderPath="#[flowVars.folderPath]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="changelog" doc:name="changelog">
-		<cmis:changelog config-ref="CMIS" changeLogToken="#[payload.changeLogToken]" includeProperties="#[payload.includeProperties]" doc:name="CMIS"/>
+		<cmis:changelog config-ref="CMIS" changeLogToken="#[flowVars.changeLogToken]" includeProperties="#[flowVars.includeProperties]" doc:name="CMIS"/>
 	</flow>
 			
 	<flow name="get-applied-policies" doc:name="get-applied-policies">
-		<cmis:get-applied-policies config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS"/>
+		<cmis:get-applied-policies config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="apply-aspect" doc:name="apply-aspect">
-		<cmis:apply-aspect config-ref="CMIS" objectId="#[payload.objectId]" aspectName="#[payload.aspectName]" doc:name="CMIS">
-			<cmis:properties ref="#[payload.propertiesRef]"/>
+		<cmis:apply-aspect config-ref="CMIS" objectId="#[flowVars.objectId]" aspectName="#[flowVars.aspectName]" doc:name="CMIS">
+			<cmis:properties ref="#[flowVars.propertiesRef]"/>
 		</cmis:apply-aspect>
 	</flow>
 	
@@ -227,27 +157,23 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 		<cmis:repositories config-ref="CMIS" doc:name="CMIS"/>
 	</flow>
 	
-	<flow name="query" doc:name="query">
-		<cmis:query config-ref="CMIS" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="query-filtered" doc:name="query-filtered">
-		<cmis:query config-ref="CMIS" filter="#[payload.filter]" searchAllVersions="#[payload.searchAllVersions]" statement="#[payload.statement]" doc:name="CMIS"/>
+	<flow name="query" doc:name="query-filtered">
+		<cmis:query config-ref="CMIS" filter="#[flowVars.filter]" searchAllVersions="#[flowVars.searchAllVersions]" statement="#[flowVars.statement]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="check-in" doc:name="check-in">
-		<cmis:check-in config-ref="CMIS" checkinComment="#[payload.checkinComment]" documentId="#[payload.documentId]" filename="#[payload.filename]"
-				major="#[payload.major]" mimeType="#[payload.mimeType]" content-ref="#[payload.contentRef]" doc:name="CMIS">
-			<cmis:properties ref="#[payload.propertiesRef]" />
+		<cmis:check-in config-ref="CMIS" checkinComment="#[flowVars.checkinComment]" documentId="#[flowVars.documentId]" filename="#[flowVars.filename]"
+				major="#[flowVars.major]" mimeType="#[flowVars.mimeType]" content-ref="#[flowVars.contentRef]" doc:name="CMIS">
+			<cmis:properties ref="#[flowVars.propertiesRef]" />
 		</cmis:check-in>
 	</flow>
 	
 	<flow name="check-out" doc:name="check-out">
-		<cmis:check-out config-ref="CMIS" documentId="#[payload.documentId]" doc:name="CMIS"/>
+		<cmis:check-out config-ref="CMIS" document-ref="#[flowVars.documentRef]" documentId="#[flowVars.documentId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="cancel-check-out" doc:name="cancel-check-out">
-		<cmis:cancel-check-out config-ref="CMIS" documentId="#[payload.documentId]" doc:name="CMIS"/>
+		<cmis:cancel-check-out config-ref="CMIS" document-ref="#[flowVars.documentRef]" documentId="#[flowVars.documentId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-checkout-docs" doc:name="get-checkout-docs">
@@ -255,8 +181,8 @@ http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmi
 	</flow>
 	
 	<flow name="apply-policy" doc:name="apply-policy">
-		<cmis:apply-policy config-ref="CMIS" objectId="#[payload.objectId]" doc:name="CMIS">
-			<cmis:policy-ids ref="#[payload.policyIdsRef]"/>
+		<cmis:apply-policy config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS">
+			<cmis:policy-ids ref="#[flowVars.policyIdsRef]"/>
 		</cmis:apply-policy>
 	</flow>
 </mule>

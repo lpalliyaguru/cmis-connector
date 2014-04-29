@@ -12,10 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.commons.io.IOUtils;
@@ -23,75 +19,52 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.module.cmis.VersioningState;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 public class GetContentStreamTestCases extends CMISTestParent {
 
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context
-					.getBean("getContentStream");
-			ObjectId result = createDocumentById(rootFolderId(),
-					(String) testObjects.get("filename"),
-					(String) testObjects.get("content"),
-					(String) testObjects.get("mimeType"),
-					(VersioningState) testObjects.get("versioningState"),
-					(String) testObjects.get("objectType"),
-					(Map<String, Object>) testObjects.get("propertiesRef"));
+	private String objectId;
 
-			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	@Before
+	public void setUp() throws Exception {
+		initializeTestRunMessage("getContentStreamTestData");
+		upsertOnTestRunMessage("folderId", getRootFolderId());
+		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+
+		upsertOnTestRunMessage("objectId", objectId);
+		upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
+
 	}
 
 	@Category({ RegressionTests.class })
 	@Test
 	public void testGetContentStream() {
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			ContentStream result = getContentStream(objectId);
+			ContentStream result = runFlowAndGetPayload("get-content-stream");
 			assertNotNull(result);
-
-			String content = IOUtils.toString(result.getStream());
-			assertEquals((String) testObjects.get("content"), content);
+			assertEquals(getTestRunMessageValue("contentRef"), IOUtils.toString(result.getStream()));
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 
 	@Category({RegressionTests.class})
 	@Test
-	public void testGetContentStream_With_CmisObject() {
+	public void testGetContentStreamWithCmisObject() {
 		try {
-			CmisObject cmisObject = (CmisObject) testObjects.get("cmisObjectRef");
-			ContentStream result = getContentStream(cmisObject);
+			ContentStream result = runFlowAndGetPayload("get-content-stream-with-cmis-object-ref");
 			assertNotNull(result);
-
-			String content = IOUtils.toString(result.getStream());
-			assertEquals((String) testObjects.get("content"), content);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			assertEquals(getTestRunMessageValue("contentRef"), IOUtils.toString(result.getStream()));
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 	}
 		
 	@After
-	public void tearDown() {
-		try {
-			String objectId = (String) testObjects.get("objectId");
-			delete(objectId, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
+		deleteObject(objectId, true);
+
 	}
 }

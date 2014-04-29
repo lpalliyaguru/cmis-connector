@@ -8,14 +8,8 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.junit.Before;
@@ -27,32 +21,27 @@ import org.mule.module.cmis.automation.SmokeTests;
 
 public class DeleteTestCases extends CMISTestParent {
 	
-	@SuppressWarnings("unchecked")
+	private String folderId;
+	
 	@Before
-	public void setUp() {
-		try {
-			testObjects = (HashMap<String, Object>) context.getBean("delete");
-			testObjects.put("parentObjectId", rootFolderId());
-			ObjectId result = createFolder((String) testObjects.get("folderName"), (String) testObjects.get("parentObjectId"));
-			
-			testObjects.put("objectId", result.getId());
-			testObjects.put("cmisObjectRef", getObjectById(result.getId()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void setUp() throws Exception {
+		initializeTestRunMessage("deleteTestData");
+		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+		
+		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+		
+		upsertOnTestRunMessage("objectId", folderId);
+		upsertOnTestRunMessage("cmisObjectRef", getObjectById(folderId));
+
 	}
 
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-	public void testDelete() {
+	public void testDelete_with_objectId() {
+		upsertOnTestRunMessage("cmisObjectRef", null);
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			Boolean allVersions = (Boolean) testObjects.get("allVersions");
-			
-			delete(objectId, allVersions);			
-			
-			CmisObject deletedObject = getObjectById(objectId);
+			runFlowAndGetPayload("delete");				
+			getObjectById(folderId);
 			fail("Object should not have been found");
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof CmisObjectNotFoundException)) {
@@ -65,14 +54,10 @@ public class DeleteTestCases extends CMISTestParent {
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testDelete_with_cmisObjectRef() {
+		upsertOnTestRunMessage("objectId", null);
 		try {
-			String objectId = (String) testObjects.get("objectId");
-			Boolean allVersions = (Boolean) testObjects.get("allVersions");
-			Object cmisObjectRef = testObjects.get("cmisObjectRef");
-			
-			delete(objectId, cmisObjectRef, allVersions);
-
-			CmisObject deletedObject = getObjectById(objectId);
+			runFlowAndGetPayload("delete");
+			getObjectById(folderId);
 			fail("Object should not have been found");
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof CmisObjectNotFoundException)) {
