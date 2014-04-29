@@ -198,7 +198,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -256,10 +256,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
@@ -268,7 +264,7 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
+  <a href="../../../../../../java/org/mule/module/cmis/pooling/package-summary.html">org.mule.module.cmis.pooling</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="selected api apilevel-">
@@ -281,13 +277,15 @@
           <div id="classes-nav">
             <ul>
               
+    <li><h2>Interfaces</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></li>
+      </ul>
+    </li>
               
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAclMessageProcessor.html">ApplyAclMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/processors/ApplyAspectMessageProcessor.html">ApplyAspectMessageProcessor</a></li>
@@ -446,6 +444,13 @@
   
   
 
+  
+   
+  
+  
+  
+  
+
 
 <div class="sum-details-links">
 
@@ -526,6 +531,11 @@ Summary:
   
 
   
+  
+      implements 
+      
+        <a href="../../../../../../java/org/mule/module/cmis/processors/ConnectivityProcessor.html">ConnectivityProcessor</a> 
+      
   
   
 
@@ -781,6 +791,8 @@ org.mule.api.lifecycle.Stoppable
 </td></tr>
 
 
+
+
 </table>
 
 
@@ -873,13 +885,24 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_useCookiesType">_useCookiesType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#_usernameType">_usernameType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -890,7 +913,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -901,7 +924,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -912,7 +935,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -923,7 +946,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -934,7 +957,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -945,13 +968,24 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#useAlfrescoExtension">useAlfrescoExtension</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#useCookies">useCookies</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1091,6 +1125,8 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
   </div>
 </div>
 </td></tr>
+
+
 
 
 
@@ -1299,6 +1335,26 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getUseCookies()">getUseCookies</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves useCookies
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#getUsername()">getUsername</a></span>()</nobr>
         
         <div class="jd-descrdiv">Retrieves username
@@ -1309,7 +1365,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1327,7 +1383,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1345,7 +1401,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1363,7 +1419,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1381,7 +1437,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1399,7 +1455,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1417,7 +1473,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1430,6 +1486,24 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setUseAlfrescoExtension(java.lang.Object)">setUseAlfrescoExtension</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets useAlfrescoExtension</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setUseCookies(java.lang.Object)">setUseCookies</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets useCookies</div>
   
   </td></tr>
 
@@ -1448,6 +1522,26 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#setUsername(java.lang.Object)">setUsername</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets username</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Type</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/AbstractPagedConnectedProcessor.html#typeFor(java.lang.String)">typeFor</a></span>(String fieldName)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect
+ 
+</div>
   
   </td></tr>
 
@@ -1693,7 +1787,7 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            final
+            
             
             
             MuleEvent</nobr>
@@ -2494,6 +2588,194 @@ From interface
 </td></tr>
 
 
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.module.cmis.processors.ConnectivityProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.module.cmis.processors.ConnectivityProcessor-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html">org.mule.module.cmis.processors.ConnectivityProcessor</a>
+
+<div id="inherited-methods-org.mule.module.cmis.processors.ConnectivityProcessor">
+  <div id="inherited-methods-org.mule.module.cmis.processors.ConnectivityProcessor-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.module.cmis.processors.ConnectivityProcessor-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getBaseUrl()">getBaseUrl</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getConnectionTimeout()">getConnectionTimeout</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getCxfPortProvider()">getCxfPortProvider</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getEndpoint()">getEndpoint</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getPassword()">getPassword</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getRepositoryId()">getRepositoryId</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getUseAlfrescoExtension()">getUseAlfrescoExtension</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getUseCookies()">getUseCookies</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#getUsername()">getUsername</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            Type</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/processors/ConnectivityProcessor.html#typeFor(java.lang.String)">typeFor</a></span>(String fieldName)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
 </table>
 
 
@@ -2736,6 +3018,36 @@ From interface
 
 
 
+<A NAME="_useCookiesType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Boolean
+      </span>
+        _useCookiesType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="_usernameType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2957,6 +3269,36 @@ From interface
         Object
       </span>
         useAlfrescoExtension
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="useCookies"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        useCookies
     </h4>
       <div class="api-level">
         
@@ -3301,6 +3643,39 @@ From interface
 </div>
 
 
+<A NAME="getUseCookies()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getUseCookies</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves useCookies
+ 
+</p></div>
+
+    </div>
+</div>
+
+
 <A NAME="getUsername()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3621,6 +3996,47 @@ From interface
 </div>
 
 
+<A NAME="setUseCookies(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUseCookies</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets useCookies</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setUsername(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3654,6 +4070,61 @@ From interface
           <th>value</td>
           <td>Value to set
 </td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="typeFor(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Type
+      </span>
+      <span class="sympad">typeFor</span>
+      <span class="normal">(String fieldName)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect
+ 
+</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>fieldName</td>
+          <td>Name of the field to look for</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The java.lang.reflect.Type associated with the field <code>fieldName</code></li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>NoSuchFieldException</td>
+            <td></td>
         </tr>
       </table>
   </div>
