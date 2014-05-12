@@ -8,21 +8,7 @@
 
 package org.mule.module.cmis;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.chemistry.opencmis.client.api.ChangeEvents;
-import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Document;
-import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
-import org.apache.chemistry.opencmis.client.api.Folder;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectId;
-import org.apache.chemistry.opencmis.client.api.ObjectType;
-import org.apache.chemistry.opencmis.client.api.Policy;
-import org.apache.chemistry.opencmis.client.api.QueryResult;
-import org.apache.chemistry.opencmis.client.api.Relationship;
-import org.apache.chemistry.opencmis.client.api.Repository;
+import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
@@ -30,18 +16,15 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.ConnectionException;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.ConnectivityTesting;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.MetaDataSwitch;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.*;
+import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.
@@ -87,7 +70,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Connect
     public void connect(@Placement(group = "Authentication") @ConnectionKey String username,
-                        @Placement(group = "Authentication") String password,
+                        @Placement(group = "Authentication") @Password String password,
                         @Placement(group = "Repository Information") @ConnectionKey String baseUrl,
                         @Placement(group = "Repository Information") String repositoryId,
                         @Placement(group = "Repository Information") @Optional @Default("ATOM") String endpoint,
