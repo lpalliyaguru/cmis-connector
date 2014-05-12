@@ -39,6 +39,7 @@ import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.MetaDataSwitch;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
@@ -88,7 +89,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Connect
     public void connect(@Placement(group = "Authentication") @ConnectionKey String username,
-                        @Placement(group = "Authentication") String password,
+                        @Placement(group = "Authentication") @Password String password,
                         @Placement(group = "Repository Information") @ConnectionKey String baseUrl,
                         @Placement(group = "Repository Information") String repositoryId,
                         @Placement(group = "Repository Information") @Optional @Default("ATOM") String endpoint,
