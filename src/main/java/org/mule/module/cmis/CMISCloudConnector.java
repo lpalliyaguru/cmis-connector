@@ -436,7 +436,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
+    public List<Folder> getParentFolders(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
@@ -467,7 +467,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public Object folder(@Placement(order = 2) @Optional Folder folder,
+    public Object folder(@Placement(order = 2) @Optional @Default("#[payload]") Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
                          @Placement(order = 4) @Optional Integer depth,
@@ -487,7 +487,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ContentStream getContentStream(@Optional CmisObject cmisObject,
+    public ContentStream getContentStream(@Optional @Default("#[payload]") CmisObject cmisObject,
                                           @Optional String objectId) {
         return facade.getContentStream(cmisObject, objectId);
     }
@@ -506,7 +506,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public FileableCmisObject moveObject(@Placement(order = 3) @Optional FileableCmisObject cmisObject,
+    public FileableCmisObject moveObject(@Placement(order = 3) @Optional @Default("#[payload]") FileableCmisObject cmisObject,
                                          @Placement(order = 4) @Optional String objectId,
                                          @Placement(order = 1) String sourceFolderId,
                                          @Placement(order = 2) String targetFolderId) {
@@ -525,7 +525,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
+    public CmisObject updateObjectProperties(@Optional @Default("#[payload]") CmisObject cmisObject,
                                              @Optional String objectId,
                                              @Placement(group = "Properties") Map<String, String> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
@@ -543,7 +543,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
+    public List<Relationship> getObjectRelationships(@Optional @Default("#[payload]") CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
     }
@@ -559,7 +559,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
+    public Acl getAcl(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
 
@@ -577,7 +577,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public List<Document> getAllVersions(@Optional CmisObject document,
+    public List<Document> getAllVersions(@Optional @Default("#[payload]") CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
                                          @Optional String orderBy) {
@@ -595,7 +595,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ObjectId checkOut(@Optional CmisObject document,
+    public ObjectId checkOut(@Optional @Default("#[payload]") CmisObject document,
                              @Optional String documentId) {
         return facade.checkOut(document, documentId);
     }
@@ -611,7 +611,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public void cancelCheckOut(@Optional CmisObject document,
+    public void cancelCheckOut(@Optional @Default("#[payload]") CmisObject document,
                                @Optional String documentId) {
         facade.cancelCheckOut(document, documentId);
     }
@@ -634,7 +634,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ObjectId checkIn(@Optional CmisObject document,
+    public ObjectId checkIn(@Optional @Default("#[payload]") CmisObject document,
                             @Optional String documentId,
                             @Optional @Default("#[payload]") Object content,
                             String filename,
@@ -660,7 +660,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public Acl applyAcl(@Optional CmisObject cmisObject,
+    public Acl applyAcl(@Optional @Default("#[payload]") CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
                         @Placement(group = "Remove Aces") List<Ace> removeAces,
@@ -695,7 +695,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public void applyPolicy(@Optional CmisObject cmisObject,
+    public void applyPolicy(@Optional @Default("#[payload]") CmisObject cmisObject,
                             @Optional String objectId,
                             @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
@@ -712,7 +712,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public void delete(@Optional CmisObject cmisObject,
+    public void delete(@Optional @Default("#[payload]") CmisObject cmisObject,
                        @Optional String objectId,
                        @Optional @Default("false") boolean allVersions) {
         facade.delete(cmisObject, objectId, allVersions);
@@ -736,7 +736,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
+    public List<String> deleteTree(@Placement(order = 1) @Optional @Default("#[payload]") CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,
