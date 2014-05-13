@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -155,7 +198,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -213,10 +256,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
@@ -227,7 +266,7 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/exception/package-summary.html">org.mule.module.cmis.exception</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
+  <a href="../../../../../../java/org/mule/module/cmis/pooling/package-summary.html">org.mule.module.cmis.pooling</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
@@ -531,6 +570,17 @@ Summary:
           private
           
           
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#useCookies">useCookies</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#username">username</a></td>
           <td class="jd-descrcol" width="100%"></td>
@@ -562,7 +612,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#CMISCloudConnectorConnectionKey(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">CMISCloudConnectorConnectionKey</a></span>(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#CMISCloudConnectorConnectionKey(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean)">CMISCloudConnectorConnectionKey</a></span>(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider, Boolean useCookies)</nobr>
         
   </td></tr>
 
@@ -591,7 +641,7 @@ Summary:
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#equals(java.lang.Object)">equals</a></span>(Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#equals(java.lang.Object)">equals</a></span>(Object o)</nobr>
         
   </td></tr>
 
@@ -744,6 +794,26 @@ Summary:
             
             
             
+            Boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#getUseCookies()">getUseCookies</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves useCookies
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -757,7 +827,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -773,7 +843,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -791,7 +861,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -809,7 +879,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -827,7 +897,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -845,7 +915,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -863,7 +933,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -881,7 +951,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -894,6 +964,24 @@ Summary:
         <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#setUseAlfrescoExtension(java.lang.String)">setUseAlfrescoExtension</a></span>(String value)</nobr>
         
         <div class="jd-descrdiv">Sets useAlfrescoExtension</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html#setUseCookies(java.lang.Boolean)">setUseCookies</a></span>(Boolean value)</nobr>
+        
+        <div class="jd-descrdiv">Sets useCookies</div>
   
   </td></tr>
 
@@ -1374,6 +1462,36 @@ From class
 
 
 
+<A NAME="useCookies"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Boolean
+      </span>
+        useCookies
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="username"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1413,7 +1531,7 @@ From class
 
 
 
-<A NAME="CMISCloudConnectorConnectionKey(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"></A>
+<A NAME="CMISCloudConnectorConnectionKey(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1426,7 +1544,7 @@ From class
         
       </span>
       <span class="sympad">CMISCloudConnectorConnectionKey</span>
-      <span class="normal">(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</span>
+      <span class="normal">(String username, String password, String baseUrl, String repositoryId, String endpoint, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider, Boolean useCookies)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1474,6 +1592,10 @@ From class
           <th>cxfPortProvider</td>
           <td></td>
         </tr>
+        <tr>
+          <th>useCookies</td>
+          <td></td>
+        </tr>
       </table>
   </div>
 
@@ -1509,7 +1631,7 @@ From class
         boolean
       </span>
       <span class="sympad">equals</span>
-      <span class="normal">(Object obj)</span>
+      <span class="normal">(Object o)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1526,7 +1648,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>obj</td>
+          <th>o</td>
           <td></td>
         </tr>
       </table>
@@ -1760,6 +1882,39 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves useAlfrescoExtension
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getUseCookies()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Boolean
+      </span>
+      <span class="sympad">getUseCookies</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves useCookies
  
 </p></div>
 
@@ -2103,6 +2258,47 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets useAlfrescoExtension</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setUseCookies(java.lang.Boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUseCookies</span>
+      <span class="normal">(Boolean value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets useCookies</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
