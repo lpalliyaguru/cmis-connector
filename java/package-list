@@ -3,14 +3,12 @@ org.mule.module.cmis
 org.mule.module.cmis.adapter
 org.mule.module.cmis.adapters
 org.mule.module.cmis.agents
-org.mule.module.cmis.basic
-org.mule.module.cmis.callback
 org.mule.module.cmis.config
 org.mule.module.cmis.connection
 org.mule.module.cmis.connectivity
 org.mule.module.cmis.devkit
 org.mule.module.cmis.exception
-org.mule.module.cmis.oauth
+org.mule.module.cmis.pooling
 org.mule.module.cmis.process
 org.mule.module.cmis.processors
 org.mule.module.cmis.transformers
