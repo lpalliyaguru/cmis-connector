@@ -65,49 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -198,7 +155,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -256,6 +213,10 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/agents/package-summary.html">org.mule.module.cmis.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/basic/package-summary.html">org.mule.module.cmis.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/module/cmis/callback/package-summary.html">org.mule.module.cmis.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
@@ -266,7 +227,7 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/exception/package-summary.html">org.mule.module.cmis.exception</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/module/cmis/pooling/package-summary.html">org.mule.module.cmis.pooling</a></li>
+  <a href="../../../../../java/org/mule/module/cmis/oauth/package-summary.html">org.mule.module.cmis.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
@@ -582,7 +543,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String, boolean)">ChemistryCMISFacade</a></span>(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider, boolean useCookies)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/module/cmis/ChemistryCMISFacade.html#ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String)">ChemistryCMISFacade</a></span>(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</nobr>
         
   </td></tr>
 
@@ -2225,7 +2186,7 @@ From interface
 
 
 
-<A NAME="ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String, boolean)"></A>
+<A NAME="ChemistryCMISFacade(java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2238,7 +2199,7 @@ From interface
         
       </span>
       <span class="sympad">ChemistryCMISFacade</span>
-      <span class="normal">(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider, boolean useCookies)</span>
+      <span class="normal">(String username, String password, String repositoryId, String baseURL, boolean useAtomPub, String connectionTimeout, String useAlfrescoExtension, String cxfPortProvider)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2284,10 +2245,6 @@ From interface
         </tr>
         <tr>
           <th>cxfPortProvider</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>useCookies</td>
           <td></td>
         </tr>
       </table>
