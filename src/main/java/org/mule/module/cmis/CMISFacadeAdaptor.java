@@ -8,6 +8,9 @@
 
 package org.mule.module.cmis;
 
+import org.apache.chemistry.opencmis.commons.exceptions.CmisConnectionException;
+import org.mule.module.cmis.exception.CMISConnectorConnectionException;
+import org.mule.module.cmis.exception.CMISConnectorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,14 +63,19 @@ public class CMISFacadeAdaptor
                 {
                     LOGGER.warn("Method " + method.getName() + " thew " + e.getClass(), e);
                 }
-                
+
                 Throwable cause = e.getCause();
-                
-                if (cause instanceof RuntimeException) 
+
+                if (cause instanceof CmisConnectionException)
+                {
+                    throw new CMISConnectorConnectionException(e.getCause());
+                }
+                else if (cause instanceof CMISConnectorConnectionException ||
+                        cause instanceof RuntimeException)
                 {
                     throw e.getCause();
-                } 
-                else 
+                }
+                else
                 {
                     throw new CMISConnectorException(cause);
                 }

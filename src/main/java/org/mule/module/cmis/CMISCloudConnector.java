@@ -35,6 +35,7 @@ import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.ConnectivityTesting;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.MetaDataSwitch;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
@@ -42,6 +43,7 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 
 /**
  * CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems.
@@ -63,7 +65,7 @@ public class CMISCloudConnector implements CMISFacade {
     private String connectionIdentifier;
     
     // This object will be used to hold the concurrency for the connection manager features
-    private Object threadSafeLock;
+    private final Object threadSafeLock;
     
     public CMISCloudConnector() {
     	threadSafeLock = new Object();
@@ -156,6 +158,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Repository> repositories() {
         return facade.repositories();
     }
@@ -169,6 +172,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public RepositoryInfo repositoryInfo() {
         return facade.repositoryInfo();
     }
@@ -185,6 +189,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ChangeEvents changelog(@Optional String changeLogToken,
                                   boolean includeProperties) {
         return facade.changelog(changeLogToken, includeProperties);
@@ -201,6 +206,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getObjectById(String objectId) {
         return facade.getObjectById(objectId);
     }
@@ -215,6 +221,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getObjectByPath(String path) {
         return facade.getObjectByPath(path);
     }
@@ -242,6 +249,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
                                          @Optional @Default("#[payload]")  Object content,
@@ -274,6 +282,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByPathFromContent(String folderPath,
 			                                        String filename,
 			                                        @Optional @Default("#[payload]") Object content,
@@ -303,6 +312,7 @@ public class CMISCloudConnector implements CMISFacade {
      * @return the {@link ObjectId} of the created
      */
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getOrCreateFolderByPath(String folderPath) {
     	return facade.getOrCreateFolderByPath(folderPath);
     }
@@ -328,6 +338,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentById(String folderId,
                                        String filename,
                                        @Optional @Default("#[payload]")  Object content,
@@ -360,6 +371,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByIdFromContent(String folderId,
 			                                      String filename,
 			                                      @Optional @Default("#[payload]") Object content,
@@ -382,6 +394,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createFolder(String folderName,
                                  String parentObjectId) {
         return facade.createFolder(folderName, parentObjectId);
@@ -397,6 +410,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectType getTypeDefinition(String typeId) {
         return facade.getTypeDefinition(typeId);
     }
@@ -413,6 +427,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ItemIterable<Document> getCheckoutDocs(@Optional String filter, @Optional String orderBy) {
         return facade.getCheckoutDocs(filter, orderBy);
     }
@@ -432,6 +447,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ItemIterable<QueryResult> query(@Placement(order = 1) String statement,
                                            @Placement(order = 4) Boolean searchAllVersions,
                                            @Placement(order = 2) @Optional String filter,
@@ -450,6 +466,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Folder> getParentFolders(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
@@ -481,6 +498,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public Object folder(@Placement(order = 2) @Optional Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
@@ -501,6 +519,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ContentStream getContentStream(@Optional CmisObject cmisObject,
                                           @Optional String objectId) {
         return facade.getContentStream(cmisObject, objectId);
@@ -520,6 +539,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public FileableCmisObject moveObject(@Placement(order = 3) @Optional FileableCmisObject cmisObject,
                                          @Placement(order = 4) @Optional String objectId,
                                          @Placement(order = 1) String sourceFolderId,
@@ -539,6 +559,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject updateObjectProperties(@Optional CmisObject cmisObject,
                                              @Optional String objectId,
                                              @Placement(group = "Properties") Map<String, String> properties) {
@@ -557,6 +578,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Relationship> getObjectRelationships(@Optional CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
@@ -573,6 +595,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public Acl getAcl(@Optional CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
@@ -591,6 +614,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Document> getAllVersions(@Optional CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
@@ -609,6 +633,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId checkOut(@Optional CmisObject document,
                              @Optional String documentId) {
         return facade.checkOut(document, documentId);
@@ -625,6 +650,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public void cancelCheckOut(@Optional CmisObject document,
                                @Optional String documentId) {
         facade.cancelCheckOut(document, documentId);
@@ -648,6 +674,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
                             @Optional @Default("#[payload]") Object content,
@@ -674,6 +701,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public Acl applyAcl(@Optional CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
@@ -693,6 +721,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Policy> getAppliedPolicies(@Optional @Default("#[payload]") CmisObject cmisObject,
                                            @Optional String objectId) {
         return facade.getAppliedPolicies(cmisObject, objectId);
@@ -709,6 +738,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public void applyPolicy(@Optional CmisObject cmisObject,
                             @Optional String objectId,
                             @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
@@ -726,6 +756,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public void delete(@Optional CmisObject cmisObject,
                        @Optional String objectId,
                        @Optional @Default("false") boolean allVersions) {
@@ -750,6 +781,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<String> deleteTree(@Placement(order = 1) @Optional CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
@@ -769,6 +801,7 @@ public class CMISCloudConnector implements CMISFacade {
     */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public void applyAspect(String objectId,
 					        String aspectName,
 					        @Optional @Default("#[payload]") Map<String, String> properties) 
@@ -789,6 +822,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
+    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createRelationship ( String parentObjectId, 
     		                         String childObjectId, 
     		                         String relationshipType )
