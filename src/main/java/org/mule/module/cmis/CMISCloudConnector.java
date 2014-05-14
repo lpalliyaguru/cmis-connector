@@ -634,7 +634,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    public ObjectId checkIn(@Optional @Default("#[payload]") CmisObject document,
+    public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
                             @Optional @Default("#[payload]") Object content,
                             String filename,
