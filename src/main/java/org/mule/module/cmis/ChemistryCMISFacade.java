@@ -55,6 +55,7 @@ import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
+import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 
 /**
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
@@ -1168,10 +1169,8 @@ public class ChemistryCMISFacade implements CMISFacade
     	
     	if ( parameters == null )
     	{
-    		log.error ( 
-    			"Repository sessions cannot be obtained through the connector because the connector configuration " +
-    		    "is missing or incorrectly specified in the mule application configuration file.");
-    		return null;
+    		throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the connector configuration " +
+                    "is missing or incorrectly specified in the mule application configuration file.");
     	}
     	else if ( parameters.get(SessionParameter.REPOSITORY_ID) == null )
     	{
@@ -1185,9 +1184,8 @@ public class ChemistryCMISFacade implements CMISFacade
     		}
     		else
     		{
-	    		log.error ( 
-	        		"Repository sessions cannot be obtained through the connector because the repository ID is missing " +
-	    		    "from the connector configuration.");
+                throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the repository ID is missing " +
+                        "from the connector configuration.");
     		}
         	return null;
     	}
@@ -1202,9 +1200,8 @@ public class ChemistryCMISFacade implements CMISFacade
 	        }
 	        catch ( Exception sessionEx )
 	        {
-	        	log.error ( 
-	        		"An error occurred while attempting to obtain a new repository session. " + 
-	        		sessionEx.getMessage ());
+                throw new CMISConnectorConnectionException("An error occurred while attempting to obtain a new repository session",
+                        sessionEx);
 	        }
     	}
     	
