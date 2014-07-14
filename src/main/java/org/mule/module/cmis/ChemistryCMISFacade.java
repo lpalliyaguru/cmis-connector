@@ -47,6 +47,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
+import org.apache.chemistry.opencmis.commons.enums.IncludeRelationships;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExistsException;
@@ -721,8 +722,7 @@ public class ChemistryCMISFacade implements CMISFacade
         CmisObject target = getCmisObject(cmisObject, objectId);
         if (target != null) 
         {
-        	AlfrescoDocument alfDocument = ( AlfrescoDocument ) target;
-        	returnObj = alfDocument.updateProperties ( this.translateInboundProperties ( properties ) );
+        	returnObj = target.updateProperties ( this.translateInboundProperties ( properties ) );
         }
         else
         {
@@ -1016,6 +1016,7 @@ public class ChemistryCMISFacade implements CMISFacade
         OperationContext ctx = new OperationContextImpl();
         ctx.setIncludeAcls(true);
         ctx.setIncludePolicies(true);
+        ctx.setIncludeRelationships(IncludeRelationships.BOTH);
         if (StringUtils.isNotBlank(filter) || StringUtils.isNotBlank(orderBy)) {
             if (StringUtils.isNotBlank(filter)) {
                 ctx.setFilterString(filter);

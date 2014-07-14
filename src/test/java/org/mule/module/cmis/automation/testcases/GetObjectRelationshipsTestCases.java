@@ -8,21 +8,21 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
-
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
+
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class GetObjectRelationshipsTestCases extends CMISTestParent {
 	
@@ -55,7 +55,7 @@ public class GetObjectRelationshipsTestCases extends CMISTestParent {
 		boolean found = false;
 		try {
 			List<Relationship> result = getObjectRelationships(aDocumentId, getObjectById(aDocumentId));
-			assertNotNull(result);
+			Assert.assertEquals(1, result.size());
 			for (Relationship relationship : result) {
 				if (relationship.getId().equals(relationshipId)) {
 					found = true;

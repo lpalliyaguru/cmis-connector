@@ -24,15 +24,15 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 public class CancelCheckOutTestCases extends CMISTestParent {
 
-	private String objectId;
+	private String documentId;
 	
 	@Before
 	public void setUp() throws Exception {
 		initializeTestRunMessage("cancelCheckOutTestData");
 		upsertOnTestRunMessage("folderId", getRootFolderId());
-		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-		upsertOnTestRunMessage("objectId", objectId);
-		checkOut(objectId);
+		documentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+		upsertOnTestRunMessage("documentId", documentId);
+		checkOut(documentId);
 	}
 
 	@Category({RegressionTests.class})
@@ -42,8 +42,8 @@ public class CancelCheckOutTestCases extends CMISTestParent {
 			runFlowAndGetPayload("cancel-check-out");
 			ItemIterable<Document> checkedOutDocs = getCheckedOutDocuments();		
 			for (Document doc : checkedOutDocs) {
-				assertFalse(doc.getId().equals(objectId));
-			}			
+				assertFalse(doc.getId().equals(documentId));
+			}
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
@@ -51,6 +51,6 @@ public class CancelCheckOutTestCases extends CMISTestParent {
 	
 	@After
 	public void tearDown() throws Exception {
-		deleteObject(objectId, true);
+		deleteObject(documentId, true);
 	}
 }

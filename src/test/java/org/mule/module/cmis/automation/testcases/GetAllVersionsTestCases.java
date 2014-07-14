@@ -43,14 +43,14 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 		
 		folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
 		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-		upsertOnTestRunMessage("objectId", objectId);
-		
+		upsertOnTestRunMessage("documentId", objectId);
+
 		checkOut(objectId);
 		
 		versions = getTestRunMessageValue("versions");
 		for (HashMap<String, Object> version : versions) {
-			checkIn(version.get("checkInContent").toString(), 
-					version.get("checkInComment").toString(), 
+			checkIn(version.get("contentRef").toString(),
+					version.get("checkinComment").toString(),
 					version.get("major").toString());
 		}
 	}

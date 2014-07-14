@@ -8,10 +8,8 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +18,9 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class CheckOutTestCases extends CMISTestParent {
 
@@ -40,8 +41,7 @@ public class CheckOutTestCases extends CMISTestParent {
 	public void testCheckOut() {
 		try {
 			ObjectId pwcObjectId = runFlowAndGetPayload("check-out");
-			assertTrue(pwcObjectId != null);
-			assertTrue(pwcObjectId.getId() != null && !pwcObjectId.getId().isEmpty() && !pwcObjectId.getId().trim().isEmpty());
+			assertTrue(StringUtils.isNotEmpty(pwcObjectId.getId()));
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
@@ -49,7 +49,7 @@ public class CheckOutTestCases extends CMISTestParent {
 	
 	@After
 	public void tearDown() throws Exception {
-		deleteObject(getTestRunMessageValue("documentId").toString(), true); 
+		cancelCheckOut(objectId, getObjectById(objectId));
 	}
 	
 }

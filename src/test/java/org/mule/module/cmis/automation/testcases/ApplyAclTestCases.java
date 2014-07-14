@@ -128,6 +128,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 					permissions1);
 			addAces.add(acei);
 
+			upsertOnTestRunMessage("addAcesRef", addAces);
 			Acl result = runFlowAndGetPayload("apply-acl");
 
 			assertEquals(4, result.getAces().size());

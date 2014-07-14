@@ -20,6 +20,7 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.ChangeType;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
@@ -45,6 +46,7 @@ public class ChangeLogTestCases extends CMISTestParent {
 
 	@Category({RegressionTests.class})
 	@Test
+	@Ignore("Public Alfresco server does not support changelogs.")
 	public void testChangelog() {
 		try {
 			ChangeEvents changeEvents = runFlowAndGetPayload("changelog");

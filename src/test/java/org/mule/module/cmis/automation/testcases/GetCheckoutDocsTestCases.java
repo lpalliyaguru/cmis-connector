@@ -76,8 +76,7 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 	@After
 	public void tearDown() throws Exception {
 		for (String objectId : documentObjectIds) {
-			cancelCheckOut(objectId);
-			deleteObject(objectId, true);
+			cancelCheckOut(objectId, getObjectById(objectId));
 		}
 
 	}

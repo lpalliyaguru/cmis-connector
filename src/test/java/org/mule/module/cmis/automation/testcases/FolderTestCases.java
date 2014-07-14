@@ -30,7 +30,7 @@ import org.mule.modules.tests.ConnectorTestUtils;
 public class FolderTestCases extends CMISTestParent {
 
 	private String parentFolderId;
-	private List<ObjectId> subFoldersIds = new ArrayList<ObjectId>();
+	private List<String> subFoldersIds = new ArrayList<String>();
 	private List<String> subFoldersNames;
 	
 	@Before
@@ -45,7 +45,8 @@ public class FolderTestCases extends CMISTestParent {
 		
 		for (String subFolder : subFoldersNames) {
 			upsertOnTestRunMessage("folderName", subFolder);
-			subFoldersIds.add((ObjectId) runFlowAndGetPayload("create-folder"));
+            ObjectId subFolderId = runFlowAndGetPayload("create-folder");
+			subFoldersIds.add(subFolderId.getId());
 		}
 		
 		upsertOnTestRunMessage("folderId", parentFolderId);

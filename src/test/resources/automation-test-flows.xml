@@ -13,7 +13,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 	<cmis:config name="CMIS" username="${alfresco.username}"
 		password="${alfresco.password}" repositoryId="${alfresco.repositoryId}"
-		doc:name="CMIS" baseUrl="${alfresco.baseUrl}">
+		doc:name="CMIS" baseUrl="${alfresco.baseUrl}" useAlfrescoExtension="true">
 		<cmis:connection-pooling-profile
 			initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW" />
 	</cmis:config>
@@ -23,13 +23,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</flow>
 
 	<flow name="delete" doc:name="delete">
-		<cmis:delete config-ref="CMIS" objectId="#[flowVars.objectId]" allVersions="#[flowVars.allVersions]" doc:name="CMIS"/>
+		<cmis:delete cmisObject-ref="#[flowVars.cmisObjectRef]" config-ref="CMIS" objectId="#[flowVars.objectId]" allVersions="#[flowVars.allVersions]" doc:name="CMIS"/>
 	</flow>
-	
-	<flow name="delete-with-cmis-object-ref" doc:name="delete-with-cmis-object-ref">
-		<cmis:delete config-ref="CMIS" objectId="#[flowVars.objectId]" allVersions="#[flowVars.allVersions]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
-	</flow>
-	
 	<flow name="repository-info" doc:name="repository-info">
 		<cmis:repository-info config-ref="CMIS" doc:name="CMIS"/>
 	</flow>
@@ -52,15 +47,11 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</flow>
 	
 	<flow name="get-parent-folders" doc:name="get-parent-folders">
-		<cmis:get-parent-folders config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
-	</flow>
-	
-	<flow name="get-parent-folders-with-cmis-object-ref" doc:name="get-parent-folders-with-cmis-object-ref">
-		<cmis:get-parent-folders config-ref="CMIS" objectId="#[flowVars.objectId]" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
+		<cmis:get-parent-folders config-ref="CMIS" cmisObject-ref="#[flowVars.cmisObjectRef]" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="move-object" doc:name="move-object">
-		<cmis:move-object config-ref="CMIS" sourceFolderId="#[flowVars.sourceFolderId]" targetFolderId="#[flowVars.targetFolderId]" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
+		<cmis:move-object config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]" sourceFolderId="#[flowVars.sourceFolderId]" targetFolderId="#[flowVars.targetFolderId]" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="create-document-by-id" doc:name="create-document-by-id">
@@ -93,7 +84,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</flow>
 		
 	<flow name="get-all-versions" doc:name="get-all-versions">
-		<cmis:get-all-versions config-ref="CMIS" documentId="#[flowVars.documentId]" doc:name="CMIS"/>
+		<cmis:get-all-versions config-ref="CMIS" document-ref="#[flowVars.documentRef]" documentId="#[flowVars.documentId]" doc:name="CMIS"/>
 	</flow>
 
 	<flow name="delete-tree" doc:name="delete-tree">
@@ -105,13 +96,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<flow name="get-type-definition" doc:name="get-type-definition">
 		<cmis:get-type-definition config-ref="CMIS" typeId="#[flowVars.typeId]" doc:name="CMIS"/>
 	</flow>
-	
-	<flow name="get-content-stream-with-cmis-object-ref" doc:name="get-content-stream-with-cmis-object-ref">
-		<cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
-	</flow>
-	
 	<flow name="get-content-stream" doc:name="get-content-stream">
-		<cmis:get-content-stream config-ref="CMIS" objectId="#[flowVars.objectId]" doc:name="CMIS"/>
+        <cmis:get-content-stream config-ref="CMIS" cmisObject-ref="#[flowVars.cmisObjectRef]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-object-by-path" doc:name="get-object-by-path">
@@ -132,7 +118,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</flow>
 	
 	<flow name="folder" doc:name="folder">
-		<cmis:folder config-ref="CMIS" get="#[flowVars.get]" folderId="#[flowVars.folderId]" doc:name="CMIS"/>
+		<cmis:folder config-ref="CMIS" folder-ref="#[flowVars.folderRef]" get="#[flowVars.get]" folderId="#[flowVars.folderId]" doc:name="CMIS"/>
 	</flow>
 	
 	<flow name="get-or-create-folder-by-path" doc:name="get-or-create-folder-by-path">
