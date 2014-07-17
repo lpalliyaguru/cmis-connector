@@ -50,18 +50,6 @@ public class GetContentStreamTestCases extends CMISTestParent {
 		}
 	}
 
-	@Category({RegressionTests.class})
-	@Test
-	public void testGetContentStreamWithCmisObject() {
-		try {
-			ContentStream result = runFlowAndGetPayload("get-content-stream-with-cmis-object-ref");
-			assertNotNull(result);
-			assertEquals(getTestRunMessageValue("contentRef"), IOUtils.toString(result.getStream()));
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
-		
 	@After
 	public void tearDown() throws Exception {
 		deleteObject(objectId, true);

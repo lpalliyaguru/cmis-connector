@@ -30,8 +30,8 @@ public class CheckInTestCases extends CMISTestParent {
 			initializeTestRunMessage("checkInTestData");
 			upsertOnTestRunMessage("folderId", getRootFolderId());
 			objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-			upsertOnTestRunMessage("objectId", objectId);
-			
+			upsertOnTestRunMessage("documentId", objectId);
+
 			checkOut(objectId);
 
 	}

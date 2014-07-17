@@ -151,10 +151,11 @@ public class CMISTestParent extends ConnectorTestCase {
 		restoreTestRunMessage();
 	}
 	
-	protected void cancelCheckOut(String documentId) throws Exception {
+	protected void cancelCheckOut(String documentId, CmisObject cmisObjectRef) throws Exception {
 		backUpTestRunMessage();
 		upsertOnTestRunMessage("documentId", documentId);
-		runFlowAndGetPayload("cancel-check-out");
+		upsertOnTestRunMessage("cmisObjectRef", cmisObjectRef);
+ 		runFlowAndGetPayload("cancel-check-out");
 		restoreTestRunMessage();
 	}
 	
