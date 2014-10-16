@@ -117,7 +117,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  CMISCloudConnectorConnectionFactory
+  CMISCloudConnectorManagedConnectionProcessInterceptor
 
 
 | Mule CMIS Connector
@@ -259,7 +259,7 @@
   <a href="../../../../../../java/org/mule/module/cmis/config/package-summary.html">org.mule.module.cmis.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/connection/package-summary.html">org.mule.module.cmis.connection</a></li>
-    <li class="selected api apilevel-">
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/connectivity/package-summary.html">org.mule.module.cmis.connectivity</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/devkit/package-summary.html">org.mule.module.cmis.devkit</a></li>
@@ -267,7 +267,7 @@
   <a href="../../../../../../java/org/mule/module/cmis/exception/package-summary.html">org.mule.module.cmis.exception</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/pooling/package-summary.html">org.mule.module.cmis.pooling</a></li>
-    <li class="api apilevel-">
+    <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/process/package-summary.html">org.mule.module.cmis.process</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/module/cmis/processors/package-summary.html">org.mule.module.cmis.processors</a></li>
@@ -282,11 +282,8 @@
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html">CMISCloudConnectorConnectionFactory</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html">CMISCloudConnectorConnectionKey</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionManager.html">CMISCloudConnectorConnectionManager</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorManagedConnectionProcessTemplate.html">CMISCloudConnectorManagedConnectionProcessTemplate</a>&lt;P&gt;</li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/connectivity/ManagedConnectionProcessTemplate.html">ManagedConnectionProcessTemplate</a>&lt;P&gt;</li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html">CMISCloudConnectorManagedConnectionProcessInterceptor</a>&lt;T&gt;</li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/module/cmis/process/ManagedConnectionProcessInterceptor.html">ManagedConnectionProcessInterceptor</a>&lt;T&gt;</li>
       </ul>
     </li>
               
@@ -329,6 +326,13 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+  
+  
 
   
    
@@ -395,12 +399,16 @@ Summary:
      
     
     class
-<h1>CMISCloudConnectorConnectionFactory</h1>
+<h1>CMISCloudConnectorManagedConnectionProcessInterceptor</h1>
 
 
 
   
-    extends Object<br/>
+  
+  
+
+  
+    extends ExpressionEvaluatorSupport<br/>
   
   
   
@@ -409,7 +417,7 @@ Summary:
   
       implements 
       
-        KeyedPoolableObjectFactory&lt;K,&nbsp;V&gt; 
+        ProcessInterceptor&lt;T,&nbsp;O&gt; 
       
   
   
@@ -425,7 +433,7 @@ Summary:
 
     <tr>
         
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -433,7 +441,17 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionFactory</td>
+        <td colspan="2" class="jd-inheritance-class-cell">org.mule.devkit.processor.ExpressionEvaluatorSupport</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.module.cmis.process.CMISCloudConnectorManagedConnectionProcessInterceptor&lt;T&gt;</td>
     </tr>
     
 
@@ -500,9 +518,9 @@ Summary:
           <td class="jd-typecol"><nobr>
           private
           
-          
-          <a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionManager.html">CMISCloudConnectorConnectionManager</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#connectionManager">connectionManager</a></td>
+          final
+          <a href="../../../../../../java/org/mule/module/cmis/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html">CMISCloudConnectorConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#connectionManager">connectionManager</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -513,7 +531,29 @@ Summary:
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          final
+          MuleContext</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#muleContext">muleContext</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          final
+          ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#next">next</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -543,7 +583,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#CMISCloudConnectorConnectionFactory(org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionManager)">CMISCloudConnectorConnectionFactory</a></span>(<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionManager.html">CMISCloudConnectorConnectionManager</a> connectionManager)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#CMISCloudConnectorManagedConnectionProcessInterceptor(org.mule.api.devkit.ProcessInterceptor<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.connection.ConnectionManager<org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionKey, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.api.MuleContext)">CMISCloudConnectorManagedConnectionProcessInterceptor</a></span>(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; next, <a href="../../../../../../java/org/mule/module/cmis/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html">CMISCloudConnectorConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</nobr>
         
   </td></tr>
 
@@ -569,10 +609,10 @@ Summary:
             
             
             
-            void</nobr>
+            T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#activateObject(java.lang.Object, java.lang.Object)">activateObject</a></span>(Object key, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</nobr>
         
   </td></tr>
 
@@ -585,58 +625,10 @@ Summary:
             
             
             
-            void</nobr>
+            T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#destroyObject(java.lang.Object, java.lang.Object)">destroyObject</a></span>(Object key, Object obj)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#makeObject(java.lang.Object)">makeObject</a></span>(Object key)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#passivateObject(java.lang.Object, java.lang.Object)">passivateObject</a></span>(Object key, Object obj)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionFactory.html#validateObject(java.lang.Object, java.lang.Object)">validateObject</a></span>(Object key, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/module/cmis/process/CMISCloudConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</nobr>
         
   </td></tr>
 
@@ -654,6 +646,240 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  org.mule.devkit.processor.ExpressionEvaluatorSupport
+
+<div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport">
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">computeClassHierarchy</span>(Class arg0, List arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">evaluate</span>(TemplateParser.PatternInfo arg0, ExpressionManager arg1, MuleMessage arg2, Object arg3)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getAccessTokenId</span>(MuleEvent arg0, MessageProcessor arg1, OAuth2Manager&lt;?&gt; arg2)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isAssignableFrom</span>(Type arg0, Class arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isList</span>(Type arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isListClass</span>(Class arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isMap</span>(Type arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isMapClass</span>(Class arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -860,19 +1086,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.apache.commons.pool.KeyedPoolableObjectFactory" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.apache.commons.pool.KeyedPoolableObjectFactory-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.ProcessInterceptor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.apache.commons.pool.KeyedPoolableObjectFactory
+  org.mule.api.devkit.ProcessInterceptor
 
-<div id="inherited-methods-org.apache.commons.pool.KeyedPoolableObjectFactory">
-  <div id="inherited-methods-org.apache.commons.pool.KeyedPoolableObjectFactory-list"
+<div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor">
+  <div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.apache.commons.pool.KeyedPoolableObjectFactory-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -885,10 +1111,10 @@ From interface
             
             
             
-            void</nobr>
+            T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">activateObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, Filter arg2, MuleMessage arg3)</nobr>
         
   </td></tr>
 
@@ -901,58 +1127,10 @@ From interface
             
             
             
-            void</nobr>
+            T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">destroyObject</span>(K arg0, V arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            V</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">makeObject</span>(K arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">passivateObject</span>(K arg0, V arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">validateObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, MessageProcessor arg2, MuleEvent arg3)</nobr>
         
   </td></tr>
 
@@ -1002,8 +1180,8 @@ From interface
       <span class="normal">
         private 
          
-         
-        <a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionManager.html">CMISCloudConnectorConnectionManager</a>
+        final 
+        <a href="../../../../../../java/org/mule/module/cmis/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html">CMISCloudConnectorConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt;
       </span>
         connectionManager
     </h4>
@@ -1055,6 +1233,66 @@ From interface
 
 
 
+<A NAME="muleContext"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+        final 
+        MuleContext
+      </span>
+        muleContext
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="next"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+        final 
+        ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt;
+      </span>
+        next
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 
 <!-- Public ctors -->
 
@@ -1064,7 +1302,7 @@ From interface
 
 
 
-<A NAME="CMISCloudConnectorConnectionFactory(org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionManager)"></A>
+<A NAME="CMISCloudConnectorManagedConnectionProcessInterceptor(org.mule.api.devkit.ProcessInterceptor<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.connection.ConnectionManager<org.mule.module.cmis.connectivity.CMISCloudConnectorConnectionKey, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.api.MuleContext)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1076,8 +1314,8 @@ From interface
          
         
       </span>
-      <span class="sympad">CMISCloudConnectorConnectionFactory</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionManager.html">CMISCloudConnectorConnectionManager</a> connectionManager)</span>
+      <span class="sympad">CMISCloudConnectorManagedConnectionProcessInterceptor</span>
+      <span class="normal">(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; next, <a href="../../../../../../java/org/mule/module/cmis/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/module/cmis/connectivity/CMISCloudConnectorConnectionKey.html">CMISCloudConnectorConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1094,7 +1332,15 @@ From interface
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
+          <th>next</td>
+          <td></td>
+        </tr>
+        <tr>
           <th>connectionManager</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>muleContext</td>
           <td></td>
         </tr>
       </table>
@@ -1119,7 +1365,7 @@ From interface
 
 
 
-<A NAME="activateObject(java.lang.Object, java.lang.Object)"></A>
+<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1129,10 +1375,10 @@ From interface
          
          
          
-        void
+        T
       </span>
-      <span class="sympad">activateObject</span>
-      <span class="normal">(Object key, Object obj)</span>
+      <span class="sympad">execute</span>
+      <span class="normal">(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1149,11 +1395,19 @@ From interface
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>key</td>
+          <th>processCallback</td>
           <td></td>
         </tr>
         <tr>
-          <th>obj</td>
+          <th>object</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>messageProcessor</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>event</td>
           <td></td>
         </tr>
       </table>
@@ -1172,7 +1426,7 @@ From interface
 </div>
 
 
-<A NAME="destroyObject(java.lang.Object, java.lang.Object)"></A>
+<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter>, org.mule.module.cmis.adapters.CMISCloudConnectorConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1182,10 +1436,10 @@ From interface
          
          
          
-        void
+        T
       </span>
-      <span class="sympad">destroyObject</span>
-      <span class="normal">(Object key, Object obj)</span>
+      <span class="sympad">execute</span>
+      <span class="normal">(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/module/cmis/adapters/CMISCloudConnectorConnectionIdentifierAdapter.html">CMISCloudConnectorConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1202,11 +1456,19 @@ From interface
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>key</td>
+          <th>processCallback</td>
           <td></td>
         </tr>
         <tr>
-          <th>obj</td>
+          <th>object</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>filter</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>message</td>
           <td></td>
         </tr>
       </table>
@@ -1217,152 +1479,6 @@ From interface
         <tr>
             <th>Exception</td>
             <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="makeObject(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Object
-      </span>
-      <span class="sympad">makeObject</span>
-      <span class="normal">(Object key)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>key</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="passivateObject(java.lang.Object, java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">passivateObject</span>
-      <span class="normal">(Object key, Object obj)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>key</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>obj</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="validateObject(java.lang.Object, java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        boolean
-      </span>
-      <span class="sympad">validateObject</span>
-      <span class="normal">(Object key, Object obj)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>key</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>obj</td>
-          <td></td>
         </tr>
       </table>
   </div>
