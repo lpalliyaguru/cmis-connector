@@ -1,34 +1,20 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.chemistry.opencmis.client.api.ChangeEvents;
-import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Document;
-import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
-import org.apache.chemistry.opencmis.client.api.Folder;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectId;
-import org.apache.chemistry.opencmis.client.api.ObjectType;
-import org.apache.chemistry.opencmis.client.api.Policy;
-import org.apache.chemistry.opencmis.client.api.QueryResult;
-import org.apache.chemistry.opencmis.client.api.Relationship;
-import org.apache.chemistry.opencmis.client.api.Repository;
+import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Ace;
 import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+
+import java.util.List;
+import java.util.Map;
 
 public interface CMISFacade {
 
@@ -96,10 +82,10 @@ public interface CMISFacade {
                                   String mimeType,
                                   VersioningState versioningState,
                                   String objectType,
-                                  Map<String, String> properties, 
+                                  Map<String, String> properties,
                                   boolean force);
-    
-    
+
+
     /**
      * Creates a new document in the repository where the content is specified as the value of the "content"
      * parameter and the target folder node is specified by a repository path.
@@ -116,21 +102,21 @@ public interface CMISFacade {
      * @return the {@link ObjectId} of the created
      */
     ObjectId createDocumentByPathFromContent(String folderPath,
-			                                 String filename,
-			                                 Object content,
-			                                 String mimeType,
-			                                 VersioningState versioningState,
-			                                 String objectType,
-			                                 Map<String, String> properties,
-			                                 boolean force);
+                                             String filename,
+                                             Object content,
+                                             String mimeType,
+                                             VersioningState versioningState,
+                                             String objectType,
+                                             Map<String, String> properties,
+                                             boolean force);
 
     /**
      * Creates a new folder in the repository if it doesn't already exist
      *
-     * @param folderPath      Path to the folder
+     * @param folderPath Path to the folder
      */
     CmisObject getOrCreateFolderByPath(String folderPath);
-    
+
     /**
      * Creates a folder. Note that this is not recusive creation. You just create
      * one folder
@@ -165,8 +151,8 @@ public interface CMISFacade {
                                 VersioningState versioningState,
                                 String objectType,
                                 Map<String, String> properties);
-    
-    
+
+
     /**
      * Creates a new document in the repository where the content comes directly from the payload and
      * the target folder node is specified by an object ID.
@@ -185,12 +171,12 @@ public interface CMISFacade {
      * @return the object id {@link ObjectId} of the created
      */
     ObjectId createDocumentByIdFromContent(String folderId,
-			                               String filename,
-			                               Object content,
-			                               String mimeType,
-			                               VersioningState versioningState,
-			                               String objectType,
-			                               Map<String, String> properties);
+                                           String filename,
+                                           Object content,
+                                           String mimeType,
+                                           VersioningState versioningState,
+                                           String objectType,
+                                           Map<String, String> properties);
 
     /**
      * Returns the type definition of the given type id.
@@ -246,15 +232,15 @@ public interface CMISFacade {
      * @param orderBy  comma-separated list of query names and the ascending modifier
      *                 "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
      * @return the following, depending on the value of "get" parameter:
-     *         <ul>
-     *         <li>PARENT: returns the parent Folder</li>
-     *         <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
-     *         <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
-     *         the whole descentants tree of the current folder</li>
-     *         <li>TREE: List<Tree<FileableCmisObject>> representing the
-     *         directory structure under the current folder.
-     *         </li>
-     *         </ul>
+     * <ul>
+     * <li>PARENT: returns the parent Folder</li>
+     * <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
+     * <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
+     * the whole descentants tree of the current folder</li>
+     * <li>TREE: List<Tree<FileableCmisObject>> representing the
+     * directory structure under the current folder.
+     * </li>
+     * </ul>
      */
     Object folder(Folder folder, String folderId, NavigationOptions get,
                   Integer depth, String filter, String orderBy);
@@ -421,7 +407,7 @@ public interface CMISFacade {
      * @param policyIds  Policy ID's to apply
      */
     void applyPolicy(CmisObject cmisObject, String objectId, List<ObjectId> policyIds);
-    
+
     /**
      * Apply the specified aspect and set some properties (optional) for the aspect.
      *
@@ -433,16 +419,16 @@ public interface CMISFacade {
     void applyAspect(String objectId,
                      String aspectName,
                      Map<String, String> properties);
-    
-    
+
+
     /**
-     * Creates a parent/child relationships between two nodes in the repository of the 
+     * Creates a parent/child relationships between two nodes in the repository of the
      * specified relationship object type.
      *
-     * @param parentObjectId The ID of the parent (or source) object in the relationship.
-     * @param childObjectId The ID of the child (or target) object in the relationship.
+     * @param parentObjectId   The ID of the parent (or source) object in the relationship.
+     * @param childObjectId    The ID of the child (or target) object in the relationship.
      * @param relationshipType The name of the relationship type that should be associated with the objects.
      * @return The {@link ObjectId} that is the result of the relationship
-     */    
+     */
     ObjectId createRelationship(String parentObjectId, String childObjectId, String relationshipType);
 }

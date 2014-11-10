@@ -1,17 +1,9 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis.automation.testcases;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.ChangeEvent;
 import org.apache.chemistry.opencmis.client.api.ChangeEvents;
@@ -27,48 +19,53 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+@Ignore("Public Alfresco Server does not support change logs.")
 public class ChangeLogTestCases extends CMISTestParent {
-	
-	private String objectId;
 
-	@Before
-	public void setUp() throws Exception {
-			initializeTestRunMessage("changelogTestData");
+    private String objectId;
 
-			RepositoryInfo repositoryInfo = getRepositoryInfo();
-			upsertOnTestRunMessage("changeLogToken", repositoryInfo.getLatestChangeLogToken());
-			
-			upsertOnTestRunMessage("parentObjectId", getRootFolderId());
-			objectId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
-			
-			upsertOnTestRunMessage("objectId", objectId);
-	}
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("changelogTestData");
 
-	@Category({RegressionTests.class})
-	@Test
-	@Ignore("Public Alfresco server does not support changelogs.")
-	public void testChangelog() {
-		try {
-			ChangeEvents changeEvents = runFlowAndGetPayload("changelog");
-			List<ChangeEvent> events = changeEvents.getChangeEvents();
-			
-			boolean foundEvent = false;
-			for (ChangeEvent event : events) {
-				if (event.getChangeType().equals(ChangeType.CREATED) && event.getObjectId().equals(objectId)) {
-					foundEvent = true;
-					break;
-				}
-			}
-			assertTrue(foundEvent);
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-		deleteObject(objectId, true);
+        RepositoryInfo repositoryInfo = getRepositoryInfo();
+        upsertOnTestRunMessage("changeLogToken", repositoryInfo.getLatestChangeLogToken());
 
-	}
-	
+        upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+        objectId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+
+        upsertOnTestRunMessage("objectId", objectId);
+    }
+
+    @Category({RegressionTests.class})
+    @Test
+    public void testChangelog() {
+        try {
+            ChangeEvents changeEvents = runFlowAndGetPayload("changelog");
+            List<ChangeEvent> events = changeEvents.getChangeEvents();
+
+            boolean foundEvent = false;
+            for (ChangeEvent event : events) {
+                if (event.getChangeType().equals(ChangeType.CREATED) && event.getObjectId().equals(objectId)) {
+                    foundEvent = true;
+                    break;
+                }
+            }
+            assertTrue(foundEvent);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        deleteObject(objectId, true);
+
+    }
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+	xmlns:cmis="http://www.mulesoft.org/schema/mule/cmis" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/current/mule-cmis.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+
+	<global-property name="mule.cmis.baseDirectory" value="/mule-connector-demo"
+		doc:name="Global Property" />
+
+	<cmis:config name="CMIS" username="${mule.cmis.username}"
+		password="${mule.cmis.password}" baseUrl="${mule.cmis.url}"
+		repositoryId="${mule.cmis.repositoryId}" endpoint="${mule.cmis.endpoint}"
+		useAlfrescoExtension="true" doc:name="CMIS" />
+	<flow name="pastie-to-cmis-document-flow" doc:name="pastie-to-cmis-document-flow"
+		doc:description="
+		   1. Listens to HttpRequests, expecting the following parameters:
+	           * fileName: name of the file to modify in the CMS
+	           * pastieId: Id of a pastie.org element.
+	       2. Check whether the document exists, 
+	       	   * if No then create the document with new content.
+	       	   * if Yes then update the document with new content.">
+		<http:inbound-endpoint exchange-pattern="request-response"
+			host="localhost" port="8081" doc:name="HTTP" path="demo" />
+		<set-session-variable variableName="fileName"
+			value="#[message.inboundProperties.fileName]" doc:name="Set FileName" />
+		<cmis:get-object-by-path config-ref="CMIS"
+			path="${mule.cmis.baseDirectory}/#[message.inboundProperties.fileName]"
+			doc:name="Get Object By Path" />
+		<choice doc:name="Choice">
+			<when expression="payload instanceof org.mule.transport.NullPayload"
+				evaluator="groovy">
+				<http:outbound-endpoint host="www.pastie.org"
+					path="pastes/#[message.inboundProperties.pastieId]/text" port="80"
+					method="GET" doc:name="Get Pastie Text">
+					<message-properties-transformer>
+						<add-message-property key="http.method"
+							value="GET" />
+					</message-properties-transformer>
+				</http:outbound-endpoint>
+				<cmis:create-document-by-path
+					config-ref="CMIS" filename="#[sessionVars.fileName]" folderPath="${mule.cmis.baseDirectory}"
+					mimeType="text/html" objectType="D:cmiscustom:document"
+					versioningState="MINOR" doc:name="Create Document By Path" force="true" />
+				<json:object-to-json-transformer
+					doc:name="Object to JSON" />
+                <logger message="New Document Created !" level="INFO" doc:name="Logger"/>
+			</when>
+			<otherwise>
+				<cmis:check-out config-ref="CMIS" doc:name="Check Out Document" />
+				<set-session-variable variableName="documentId"
+					value="#[payload.id]" doc:name="Set Document Id" />
+				<http:outbound-endpoint host="www.pastie.org"
+					port="80" path="pastes/#[message.inboundProperties.pastieId]/text"
+					method="GET" doc:name="Get Pastie Text" />
+				<cmis:check-in config-ref="CMIS" checkinComment="File Modified"
+					filename="#[sessionVars.fileName]" mimeType="text/html" doc:name="Check In Document"
+					documentId="#[sessionVars.documentId]" />
+				<json:object-to-json-transformer
+					doc:name="Object to JSON" />
+                <logger message="Existing Document Updated !" level="INFO" doc:name="Logger"/>
+
+			</otherwise>
+		</choice>
+	</flow>
+</mule>
