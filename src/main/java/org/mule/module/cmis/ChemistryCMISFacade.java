@@ -134,25 +134,6 @@ public class ChemistryCMISFacade implements CMISFacade {
                                                 boolean useAlfrescoExtension,
                                                 String cxfPortProvider,
                                                 boolean useCookies) {
-        if ((username == null) || (username.trim().length() <= 0)) {
-            LOG.error(
-                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-            return null;
-        } else if ((password == null) || (password.trim().length() <= 0)) {
-            LOG.error(
-                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-            return null;
-        } else if ((baseURL == null) || (baseURL.trim().length() <= 0)) {
-            LOG.error(
-                    "The \"baseURL\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-            return null;
-        }
 
         Map<String, String> parameters = new HashMap<String, String>();
 

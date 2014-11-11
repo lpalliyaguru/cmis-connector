@@ -13,6 +13,7 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -41,6 +42,7 @@ public class CMISConnector implements CMISFacade {
      */
     @Placement(group = "Repository Information")
     @Configurable
+    @Optional
     String repositoryId;
 
     /**
@@ -79,8 +81,8 @@ public class CMISConnector implements CMISFacade {
      * Values allowed: SOAP or ATOM
      */
     @Placement(group = "Repository Information")
-    @Default("ATOM")
     @Configurable
+    @Default("ATOM")
     private CMISConnectionType endpoint;
 
     private CMISFacade facade;
@@ -99,6 +101,23 @@ public class CMISConnector implements CMISFacade {
      */
     @Connect
     public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
+
+        if ((username == null) || (username.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
+                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        } else if ((password == null) || (password.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
+                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        } else if ((baseUrl == null) || (baseUrl.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null,
+                    "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        }
 
         synchronized (threadSafeLock) {
             // Prevent re-initialization
@@ -186,7 +205,7 @@ public class CMISConnector implements CMISFacade {
     @Override
     @Processor
     public ChangeEvents changelog(@Optional String changeLogToken,
-                                  boolean includeProperties) {
+                                  @Default("false") boolean includeProperties) {
         return facade.changelog(changeLogToken, includeProperties);
     }
 
