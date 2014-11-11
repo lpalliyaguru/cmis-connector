@@ -15,30 +15,30 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:cmis="http://www.mulesoft.org/schema/mule/cmis"
-      xmlns:util="http://www.springframework.org/schema/util"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
-                          http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/1.1/mule-cmis.xsd
-                          ">
 
-    <spring:bean id="addAce1Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl" />
-    <spring:bean id="addAce2Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl" />
-    <spring:bean id="removeAce1Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl" />
-    <spring:bean id="removeAce2Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl" />
-    <spring:bean id="policyId1Ref" class="org.apache.chemistry.opencmis.client.runtime.TransientPolicyImpl" />
-    <spring:bean id="policyId2Ref" class="org.apache.chemistry.opencmis.client.runtime.TransientPolicyImpl" />
+                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+                          http://www.mulesoft.org/schema/mule/cmis http://www.mulesoft.org/schema/mule/cmis/1.1/mule-cmis.xsd">
+
+    <spring:bean id="addAce1Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl"/>
+    <spring:bean id="addAce2Ref" class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl"/>
+    <spring:bean id="removeAce1Ref"
+                 class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl"/>
+    <spring:bean id="removeAce2Ref"
+                 class="org.apache.chemistry.opencmis.commons.impl.dataobjects.AccessControlEntryImpl"/>
+    <spring:bean id="policyId1Ref" class="org.apache.chemistry.opencmis.client.runtime.TransientPolicyImpl"/>
+    <spring:bean id="policyId2Ref" class="org.apache.chemistry.opencmis.client.runtime.TransientPolicyImpl"/>
 
     <!--  <cmis:config facade-ref="mockCMISFacade" />-->
     <cmis:config name="foo" username="admin" password="admin" repositoryId="371554cd-ac06-40ba-98b8-e6b60275cca7"
                  baseUrl="https://cmis.alfresco.com/service/cmis"/>
 
     <flow name="repositoryInfoFlow">
-        <cmis:repository-info />
+        <cmis:repository-info/>
     </flow>
 
     <flow name="repositoriesFlow">
-        <cmis:repositories />
+        <cmis:repositories/>
     </flow>
 
     <flow name="changeLogFlow">
@@ -46,78 +46,80 @@
     </flow>
 
     <flow name="objectByIdFlow">
-        <cmis:get-object-by-id objectId="1234" />
+        <cmis:get-object-by-id objectId="1234"/>
     </flow>
 
     <flow name="objectByPathFlow">
-        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:get-object-by-path path="/mule-cloud-connector"/>
     </flow>
 
     <flow name="createDocumentByPathFlow">
         <cmis:create-document-by-path filename="file"
-            folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+                                      folderPath="/mule-cloud-connector"
+                                      mimeType="application/octet-stream;charset=UTF-8"
+                                      versioningState="NONE" objectType="D:cmiscustom:document"/>
     </flow>
-    
+
     <flow name="createDocumentByPathFromContentFlow">
-        <cmis:create-document-by-path-from-content folderPath="/mule-cloud-connector" filename="file" content-ref="some content"
-            mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+        <cmis:create-document-by-path-from-content folderPath="/mule-cloud-connector" filename="file"
+                                                   content-ref="some content"
+                                                   mimeType="application/octet-stream;charset=UTF-8"
+                                                   versioningState="NONE" objectType="D:cmiscustom:document"/>
     </flow>
 
     <flow name="createDocumentByIdFlow">
         <cmis:create-document-by-id filename="file"
-            folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+                                    folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
+                                    versioningState="NONE" objectType="D:cmiscustom:document"/>
     </flow>
-    
+
     <flow name="createDocumentByIdFromContentFlow">
         <cmis:create-document-by-id-from-content folderId="1111111" filename="file" content-ref="Some Content"
-            mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+                                                 mimeType="application/octet-stream;charset=UTF-8"
+                                                 versioningState="NONE" objectType="D:cmiscustom:document"/>
     </flow>
 
     <flow name="createFolderFlow">
-        <cmis:create-folder folderName="new folder" parentObjectId="11111" />
+        <cmis:create-folder folderName="new folder" parentObjectId="11111"/>
     </flow>
 
     <flow name="getTypeDefinitionFlow">
-        <cmis:get-type-definition typeId="1111" />
+        <cmis:get-type-definition typeId="1111"/>
     </flow>
 
     <flow name="getCheckoutDocsFlow">
-        <cmis:get-checkout-docs />
+        <cmis:get-checkout-docs/>
     </flow>
 
     <flow name="queryFlow">
-        <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" />
+        <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document"/>
     </flow>
 
     <flow name="parentFoldersFlow">
-        <cmis:get-parent-folders objectId="1111" />
+        <cmis:get-parent-folders objectId="1111"/>
     </flow>
 
     <flow name="folderParentFlow">
-        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:get-object-by-path path="/mule-cloud-connector"/>
         <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
     </flow>
 
     <flow name="folderTreeFlow">
-        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:get-object-by-path path="/mule-cloud-connector"/>
         <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
     </flow>
 
     <flow name="floderDescentandsFlow">
-        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:get-object-by-path path="/mule-cloud-connector"/>
         <cmis:folder get="DESCENDANTS" folderId="#[payload:id]"/>
     </flow>
 
     <flow name="getContentStreamFlow">
-        <cmis:get-content-stream objectId="11111" />
+        <cmis:get-content-stream objectId="11111"/>
     </flow>
 
     <flow name="moveObjectFlow">
-        <cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" />
+        <cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333"/>
     </flow>
 
     <flow name="updateObjectPropertiesFlow">
@@ -130,29 +132,29 @@
     </flow>
 
     <flow name="getObjectRelationshipsFlow">
-        <cmis:get-object-relationships objectId="2222" />
+        <cmis:get-object-relationships objectId="2222"/>
     </flow>
 
     <flow name="getAclFLow">
-        <cmis:get-acl objectId="2222" />
+        <cmis:get-acl objectId="2222"/>
     </flow>
 
     <flow name="getAllVersionsFlow">
-        <cmis:get-all-versions documentId="1111" />
+        <cmis:get-all-versions documentId="1111"/>
     </flow>
 
     <flow name="checkOutFLow">
-        <cmis:check-out documentId="1111" />
+        <cmis:check-out documentId="1111"/>
     </flow>
 
     <flow name="cancelCheckOutFlow">
-        <cmis:cancel-check-out documentId="1111" />
+        <cmis:cancel-check-out documentId="1111"/>
     </flow>
 
     <flow name="checkInFlow">
         <cmis:check-in filename="#[payload:name]"
-                        checkinComment="change on file" major="true"
-                        mimeType="application/octet-stream;charset=UTF-8" />
+                       checkinComment="change on file" major="true"
+                       mimeType="application/octet-stream;charset=UTF-8"/>
     </flow>
 
     <flow name="getAppliedPoliciesFlow">
@@ -160,18 +162,18 @@
     </flow>
 
     <flow name="deleteFlow">
-        <cmis:delete objectId="1111" allVersions="true" />
+        <cmis:delete objectId="1111" allVersions="true"/>
     </flow>
 
     <flow name="applyAclFlow">
         <cmis:apply-acl aclPropagation="OBJECTONLY">
             <cmis:add-aces>
-                <cmis:add-ace value-ref="addAce1Ref" />
-                <cmis:add-ace value-ref="addAce2Ref" />
+                <cmis:add-ace value-ref="addAce1Ref"/>
+                <cmis:add-ace value-ref="addAce2Ref"/>
             </cmis:add-aces>
             <cmis:remove-aces>
-                <cmis:remove-ace value-ref="removeAce1Ref" />
-                <cmis:remove-ace value-ref="removeAce2Ref" />
+                <cmis:remove-ace value-ref="removeAce1Ref"/>
+                <cmis:remove-ace value-ref="removeAce2Ref"/>
             </cmis:remove-aces>
         </cmis:apply-acl>
     </flow>
@@ -179,16 +181,16 @@
     <flow name="applyPolicyFlow">
         <cmis:apply-policy>
             <cmis:policy-ids>
-                <cmis:policy-id value-ref="policyId1Ref" />
-                <cmis:policy-id value-ref="policyId2Ref" />
+                <cmis:policy-id value-ref="policyId1Ref"/>
+                <cmis:policy-id value-ref="policyId2Ref"/>
             </cmis:policy-ids>
         </cmis:apply-policy>
     </flow>
 
     <flow name="deleteTreeFlow">
-        <cmis:delete-tree allversions="true" continueOnFailure="false" />
+        <cmis:delete-tree allversions="true" continueOnFailure="false"/>
     </flow>
-    
+
     <flow name="createRelationshipFlow">
         <cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/>
     </flow>

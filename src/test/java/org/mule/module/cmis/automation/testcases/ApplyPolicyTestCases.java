@@ -1,14 +1,9 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis.automation.testcases;
-
-import static org.junit.Assert.fail;
 
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
@@ -21,38 +16,40 @@ import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.fail;
+
+@Ignore("Alfresco Public Server does not support policy controllable objects.")
 public class ApplyPolicyTestCases extends CMISTestParent {
 
-	private String objectId;
+    private String objectId;
 
-	@Before
-	public void setUp() throws Exception {
-		initializeTestRunMessage("applyPolicyTestData");
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("applyPolicyTestData");
 
-		upsertOnTestRunMessage("folderId", getRootFolderId());
-		objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-		upsertOnTestRunMessage("objectId", objectId);
-		upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
-		
-	}
+        upsertOnTestRunMessage("folderId", getRootFolderId());
+        objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+        upsertOnTestRunMessage("objectId", objectId);
+        upsertOnTestRunMessage("cmisObjectRef", getObjectById(objectId));
 
-	@Category({ SmokeTests.class, RegressionTests.class })
-	@Test
-	@Ignore
-	public void testApplyPolicy() {
-		try {
-			runFlowAndGetPayload("apply-policy");
+    }
 
-			fail("Perform assertions once exception is fixed");
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
+    @Category({SmokeTests.class, RegressionTests.class})
+    @Test
+    public void testApplyPolicy() {
+        try {
+            runFlowAndGetPayload("apply-policy");
 
-	}
+            fail("Perform assertions once exception is fixed");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
 
-	@After
-	public void tearDown() throws Exception {
-		deleteObject(objectId, true);
+    }
 
-	}
+    @After
+    public void tearDown() throws Exception {
+        deleteObject(objectId, true);
+
+    }
 }

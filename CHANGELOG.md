@@ -1,17 +1,18 @@
 CMIS Anypoint Connector Release Notes
 ==========================================
   
-Date: 13-May-2014
+Date: 15-Nov-2014
   
-Version: 1.2.3
+Version: 2.0.0
   
 Supported versions:
 ------------------------------
-Chemistry 0.9 
+Apache Chemistry - 0.10.0
+Alfresco Opencmis Extension - 0.7
 
-Supported Mule Runtime Versions: 
+Supported Mule Runtime Versions:
 --------------------------------
-3.5.0
+3.5.x
 
 Supported Operations:
 ------------------------------
@@ -50,4 +51,4 @@ Supported Operations:
   
 New Features and Functionality
 ------------------------------
-Migrated to DevKit 3.5.0
+Migrated to DevKit 3.5.2

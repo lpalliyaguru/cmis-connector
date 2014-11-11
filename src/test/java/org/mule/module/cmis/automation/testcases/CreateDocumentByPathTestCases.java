@@ -1,19 +1,9 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis.automation.testcases;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
@@ -26,77 +16,81 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class CreateDocumentByPathTestCases extends CMISTestParent {
 
-	private String objectId;
-	private String folderId;
-	private Folder folder = null;
-	
-	@Before
-	public void setUp() throws Exception {
-		initializeTestRunMessage("createDocumentByPathTestData");
-		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
-		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
-		upsertOnTestRunMessage("folderId", folderId);
-	}
+    private String objectId;
+    private String folderId;
+    private Folder folder = null;
 
-	@After
-	public void tearDown() throws Exception {
-		deleteObject(objectId, true);
-		if (folder != null) {
-			deleteObject(folder.getId(), true);	
-		}
-	}
-	
-	@Category({ RegressionTests.class })
-	@Test
-	public void testCreateDocumentByPath_rootPath() {
-		upsertOnTestRunMessage("folderPath", "/");
-		try {
-			ObjectId result = runFlowAndGetPayload("create-document-by-path");
-			assertNotNull(result.getId());
-			assertNotNull((CmisObject) getObjectById(result.getId()));
-			objectId = result.getId();
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("createDocumentByPathTestData");
+        upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+        folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+        upsertOnTestRunMessage("folderId", folderId);
+    }
 
-	@Category({ RegressionTests.class })
-	@Test
-	public void testCreateDocumentByPath_no_properties() {
-		upsertOnTestRunMessage("propertiesRef", null);
-		upsertOnTestRunMessage("folderPath", "/");
-		try {
-			ObjectId result = runFlowAndGetPayload("create-document-by-path");
-			assertNotNull(result.getId());
-			assertNotNull((CmisObject) getObjectById(result.getId()));
-			objectId = result.getId();
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
+    @After
+    public void tearDown() throws Exception {
+        deleteObject(objectId, true);
+        if (folder != null) {
+            deleteObject(folder.getId(), true);
+        }
+    }
 
-	@Category({ RegressionTests.class })
-	@Test
-	public void testCreateDocumentByPath_nonRootPath() {
-		upsertOnTestRunMessage("folderPath", "/" + getTestRunMessageValue("folderName"));
-		try {
-			ObjectId result = runFlowAndGetPayload("create-document-by-path");
-			assertNotNull(result.getId());
-			assertNotNull((CmisObject) getObjectById(result.getId()));
-			
-			objectId = result.getId();
-			upsertOnTestRunMessage("objectId", objectId);
-			List<Folder> folders = getParentFolders(objectId);
-			assertTrue(folders.size() == 1);
-			
-			folder = folders.get(0);
-			assertEquals(getTestRunMessageValue("folderName"), folder.getName());
-			
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
-	
+    @Category({RegressionTests.class})
+    @Test
+    public void testCreateDocumentByPath_rootPath() {
+        upsertOnTestRunMessage("folderPath", "/");
+        try {
+            ObjectId result = runFlowAndGetPayload("create-document-by-path");
+            assertNotNull(result.getId());
+            assertNotNull((CmisObject) getObjectById(result.getId()));
+            objectId = result.getId();
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Category({RegressionTests.class})
+    @Test
+    public void testCreateDocumentByPath_no_properties() {
+        upsertOnTestRunMessage("propertiesRef", null);
+        upsertOnTestRunMessage("folderPath", "/");
+        try {
+            ObjectId result = runFlowAndGetPayload("create-document-by-path");
+            assertNotNull(result.getId());
+            assertNotNull((CmisObject) getObjectById(result.getId()));
+            objectId = result.getId();
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Category({RegressionTests.class})
+    @Test
+    public void testCreateDocumentByPath_nonRootPath() {
+        upsertOnTestRunMessage("folderPath", "/" + getTestRunMessageValue("folderName"));
+        try {
+            ObjectId result = runFlowAndGetPayload("create-document-by-path");
+            assertNotNull(result.getId());
+            assertNotNull((CmisObject) getObjectById(result.getId()));
+
+            objectId = result.getId();
+            upsertOnTestRunMessage("objectId", objectId);
+            List<Folder> folders = getParentFolders(objectId);
+            assertTrue(folders.size() == 1);
+
+            folder = folders.get(0);
+            assertEquals(getTestRunMessageValue("folderName"), folder.getName());
+
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
 }

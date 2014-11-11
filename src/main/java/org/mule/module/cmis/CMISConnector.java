@@ -1,9 +1,6 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis;
@@ -16,6 +13,7 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -32,106 +30,140 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS", minMuleVersion = "3.5",
-        metaData = MetaDataSwitch.ON, connectivityTesting = ConnectivityTesting.ON)
-public class CMISCloudConnector implements CMISFacade {
+@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS")
+@ReconnectOn(exceptions = CMISConnectorConnectionException.class)
+public class CMISConnector implements CMISFacade {
 
-    /**
-     * Reference to a CMISFacade implementation in case you want to
-     * use another implementation or initialize the default in a
-     * diferent way. Using this option make useless the other
-     * attributes.
-     */
-    private CMISFacade facade;
-
-    private String connectionIdentifier;
-    
     // This object will be used to hold the concurrency for the connection manager features
     private final Object threadSafeLock;
-    
-    public CMISCloudConnector() {
-    	threadSafeLock = new Object();
+
+    /**
+     * The identifier for the Repository this connector instance works with.
+     */
+    @Placement(group = "Repository Information")
+    @Configurable
+    @Optional
+    String repositoryId;
+
+    /**
+     * The connection time-out specification.
+     */
+    @Configurable
+    @Default("10000")
+    String connectionTimeout;
+
+    /**
+     * Specifies whether the Alfresco Object Factory implementation should be utilized, the
+     * Alfresco CMIS extension JAR must be included in your Mule application in order for
+     * this configuration to work.
+     */
+    @Configurable
+    @Default("false")
+    Boolean useAlfrescoExtension;
+
+    /**
+     * Specifies CXF port provider, the CMIS connector includes a default implementation
+     */
+    @Configurable
+    @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
+    String cxfPortProvider;
+
+    /**
+     * Turn on-off cookies support, allows to set a custom implementation by extending
+     * org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+     */
+    @Configurable
+    @Default("false")
+    Boolean useCookies;
+
+    /**
+     * The type of endpoint.
+     * Values allowed: SOAP or ATOM
+     */
+    @Placement(group = "Repository Information")
+    @Configurable
+    @Default("ATOM")
+    private CMISConnectionType endpoint;
+
+    private CMISFacade facade;
+    private String connectionIdentifier;
+
+    public CMISConnector() {
+        threadSafeLock = new Object();
     }
 
     /**
      * Connects to CMIS
      *
+     * @param baseUrl  URL base for the connector
      * @param username CMIS username
      * @param password CMIS password
-     * @param repositoryId The identifier for the Repository that this connector instance works with
-     * @param baseUrl URL base for the SOAP connector
-     * @param endpoint The type of endpoint. Values: SOAP or ATOMPUB
-     * @param connectionTimeout The connection time-out specification
-     * @param useAlfrescoExtension Specifies whether the Alfresco Object Factory implementation should be utilized, the
-     * Alfresco CMIS extension JAR must be included in your Mule application in order for
-     * this configuration to work.
-     * @param cxfPortProvider Specifies CXF port provider, the CMIS connector includes a default implementation
-     * @param useCookies Turn on-off cookies support
-     * but allows to set a custom implementation by extending org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
      */
     @Connect
-    public void connect(@Placement(group = "Authentication") @ConnectionKey String username,
-                        @Placement(group = "Authentication") @Password String password,
-                        @Placement(group = "Repository Information") @ConnectionKey String baseUrl,
-                        @Placement(group = "Repository Information") String repositoryId,
-                        @Placement(group = "Repository Information") @Optional @Default("ATOM") String endpoint,
-                        @Optional @Default("10000") String connectionTimeout,
-                        @Optional @Default("false") String useAlfrescoExtension,
-                        @Optional @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider") String cxfPortProvider,
-                        @Optional @Default("false") Boolean useCookies) throws ConnectionException {
-    	
-    	synchronized (threadSafeLock) {
-    		// Prevent re-initialization
-    		if (facade == null) {
-		        boolean useAtomPub;
-		        if (endpoint == null) {
-		            useAtomPub = true;
-		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.SOAP) {
-		            useAtomPub = false;
-		        } else if (CMISConnectionType.valueOf(endpoint) == CMISConnectionType.ATOM) {
-		            useAtomPub = true;
-		        } else {
-		            throw new IllegalStateException("unknown endpoint type " + endpoint + ". Please use SOAP or ATOMPUB");
-		        }
-		
-		        setConnectionIdentifier(username + "@" + baseUrl);
-		
-		        this.facade =
-		            CMISFacadeAdaptor.adapt(
-		                    new ChemistryCMISFacade(
-		                            username,
-		                            password,
-		                            repositoryId,
-		                            baseUrl,
-		                            useAtomPub,
-		                            connectionTimeout,
-		                            useAlfrescoExtension,
-		                            cxfPortProvider,
-                                    useCookies));
-		        
-		        // Force a call to an operation in order to create the client and force authentication
-		        repositoryInfo();
-    		}
-    	}
+    public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
+
+        if ((username == null) || (username.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
+                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        } else if ((password == null) || (password.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
+                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        } else if ((baseUrl == null) || (baseUrl.trim().length() <= 0)) {
+            throw new ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null,
+                    "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is " +
+                            "empty or missing. This configuration is required in order to provide repository connection " +
+                            "parameters to the connector. The connector is currently non-functional.");
+        }
+
+        synchronized (threadSafeLock) {
+            // Prevent re-initialization
+            if (facade == null) {
+                setConnectionIdentifier(username + "@" + baseUrl);
+
+                this.facade =
+                        CMISFacadeAdaptor.adapt(
+                                new ChemistryCMISFacade(
+                                        username,
+                                        password,
+                                        baseUrl,
+                                        getRepositoryId(),
+                                        getEndpoint(),
+                                        getConnectionTimeout(),
+                                        getCxfPortProvider(),
+                                        getUseAlfrescoExtension(),
+                                        getUseCookies()));
+
+                // Force a call to an operation in order to create the client and force authentication
+                repositoryInfo();
+            }
+        }
     }
 
     @Disconnect
     public void disconnect() {
-    	synchronized (threadSafeLock) {
-    		facade = null;
-    	}
+        synchronized (threadSafeLock) {
+            facade = null;
+        }
     }
 
     @ValidateConnection
     public boolean isConnected() {
-    	synchronized (threadSafeLock) {
-    		return facade != null;
-		}
+        synchronized (threadSafeLock) {
+            return facade != null;
+        }
     }
 
     @ConnectionIdentifier
     public String getConnectionIdentifier() {
         return this.connectionIdentifier;
+    }
+
+    public void setConnectionIdentifier(String connectionIdentifier) {
+        this.connectionIdentifier = connectionIdentifier;
     }
 
     /**
@@ -143,7 +175,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public List<Repository> repositories() {
         return facade.repositories();
     }
@@ -157,7 +188,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public RepositoryInfo repositoryInfo() {
         return facade.repositoryInfo();
     }
@@ -174,9 +204,8 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ChangeEvents changelog(@Optional String changeLogToken,
-                                  boolean includeProperties) {
+                                  @Default("false") boolean includeProperties) {
         return facade.changelog(changeLogToken, includeProperties);
     }
 
@@ -186,12 +215,10 @@ public class CMISCloudConnector implements CMISFacade {
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getObjectById}
      *
      * @param objectId The object id
-     *
      * @return a {@link CmisObject} instance
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getObjectById(String objectId) {
         return facade.getObjectById(objectId);
     }
@@ -206,7 +233,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getObjectByPath(String path) {
         return facade.getObjectByPath(path);
     }
@@ -234,19 +260,18 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
-                                         @Optional @Default("#[payload]")  Object content,
+                                         @Default("#[payload]") Object content,
                                          String mimeType,
                                          VersioningState versioningState,
                                          String objectType,
                                          @Placement(group = "Properties") @Optional Map<String, String> properties,
-                                         @Optional @Default("false") boolean force) {
+                                         @Default("false") boolean force) {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
     }
-    
+
     /**
      * Creates a new document in the repository where the content is specified as the value of the "content"
      * parameter and the target folder node is specified by a repository path.
@@ -266,45 +291,42 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByPathFromContent(String folderPath,
-			                                        String filename,
-			                                        @Optional @Default("#[payload]") Object content,
-			                                        String mimeType,
-			                                        VersioningState versioningState,
-			                                        String objectType,
-			                                        @Optional Map<String, String> properties,
-			                                        @Optional @Default("false") boolean force) {
+                                                    String filename,
+                                                    @Default("#[payload]") Object content,
+                                                    String mimeType,
+                                                    VersioningState versioningState,
+                                                    String objectType,
+                                                    @Placement(group = "Properties") @Optional Map<String, String> properties,
+                                                    @Default("false") boolean force) {
         return facade.createDocumentByPathFromContent(
-        		folderPath, 
-        		filename, 
-        		content, 
-        		mimeType, 
-        		versioningState,
-                objectType, 
-                properties, 
+                folderPath,
+                filename,
+                content,
+                mimeType,
+                versioningState,
+                objectType,
+                properties,
                 force);
     }
 
     /**
      * Creates a new folder in the repository if it doesn't already exist.
-     *  <p/>
+     * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:getOrCreateFolderByPath}
-     * 
-     * @param folderPath      Path to the folder
-     * 
+     *
+     * @param folderPath Path to the folder
      * @return the {@link ObjectId} of the created
      */
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public CmisObject getOrCreateFolderByPath(String folderPath) {
-    	return facade.getOrCreateFolderByPath(folderPath);
+        return facade.getOrCreateFolderByPath(folderPath);
     }
-    
+
     /**
      * Creates a new document in the repository where the content comes directly from the payload and
      * the target folder node is specified by an object ID.
-     *  <p/>
+     * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentById}
      *
      * @param folderId        Folder Object Id
@@ -322,18 +344,17 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentById(String folderId,
                                        String filename,
-                                       @Optional @Default("#[payload]")  Object content,
+                                       @Default("#[payload]") Object content,
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Optional @Default("") @Placement(group = "Properties") Map<String, String> properties) {
+                                       @Placement(group = "Properties") @Optional Map<String, String> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
-    
+
     /**
      * Creates a new document in the repository where the content comes directly from the payload and
      * the target folder node is specified by an object ID.
@@ -355,14 +376,13 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createDocumentByIdFromContent(String folderId,
-			                                      String filename,
-			                                      @Optional @Default("#[payload]") Object content,
-			                                      String mimeType,
-			                                      VersioningState versioningState,
-			                                      String objectType,
-			                                      @Optional Map<String, String> properties) {
+                                                  String filename,
+                                                  @Default("#[payload]") Object content,
+                                                  String mimeType,
+                                                  VersioningState versioningState,
+                                                  String objectType,
+                                                  @Placement(group = "Properties") @Optional Map<String, String> properties) {
         return facade.createDocumentByIdFromContent(folderId, filename, content, mimeType, versioningState, objectType, properties);
     }
 
@@ -378,9 +398,8 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId createFolder(String folderName,
-                                 String parentObjectId) {
+                                 @Optional String parentObjectId) {
         return facade.createFolder(folderName, parentObjectId);
     }
 
@@ -394,7 +413,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectType getTypeDefinition(String typeId) {
         return facade.getTypeDefinition(typeId);
     }
@@ -411,7 +429,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ItemIterable<Document> getCheckoutDocs(@Optional String filter, @Optional String orderBy) {
         return facade.getCheckoutDocs(filter, orderBy);
     }
@@ -431,7 +448,6 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ItemIterable<QueryResult> query(@Placement(order = 1) String statement,
                                            @Placement(order = 4) Boolean searchAllVersions,
                                            @Placement(order = 2) @Optional String filter,
@@ -450,8 +466,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public List<Folder> getParentFolders(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public List<Folder> getParentFolders(@Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
     }
 
@@ -470,20 +485,19 @@ public class CMISCloudConnector implements CMISFacade {
      * @param orderBy  comma-separated list of query names and the ascending modifier
      *                 "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
      * @return the following, depending on the value of "get" parameter:
-     *         <ul>
-     *         <li>PARENT: returns the parent Folder</li>
-     *         <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
-     *         <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
-     *         the whole descentants tree of the current folder</li>
-     *         <li>TREE: List<Tree<FileableCmisObject>> representing the
-     *         directory structure under the current folder.
-     *         </li>
-     *         </ul>
+     * <ul>
+     * <li>PARENT: returns the parent Folder</li>
+     * <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
+     * <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
+     * the whole descentants tree of the current folder</li>
+     * <li>TREE: List<Tree<FileableCmisObject>> representing the
+     * directory structure under the current folder.
+     * </li>
+     * </ul>
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public Object folder(@Placement(order = 2) @Optional @Default("#[payload]") Folder folder,
+    public Object folder(@Placement(order = 2) @Default("#[payload]") Folder folder,
                          @Placement(order = 3) @Optional String folderId,
                          @Placement(order = 1) NavigationOptions get,
                          @Placement(order = 4) @Optional Integer depth,
@@ -503,8 +517,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public ContentStream getContentStream(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public ContentStream getContentStream(@Default("#[payload]") CmisObject cmisObject,
                                           @Optional String objectId) {
         return facade.getContentStream(cmisObject, objectId);
     }
@@ -523,8 +536,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public FileableCmisObject moveObject(@Placement(order = 3) @Optional @Default("#[payload]") FileableCmisObject cmisObject,
+    public FileableCmisObject moveObject(@Placement(order = 3) @Default("#[payload]") FileableCmisObject cmisObject,
                                          @Placement(order = 4) @Optional String objectId,
                                          @Placement(order = 1) String sourceFolderId,
                                          @Placement(order = 2) String targetFolderId) {
@@ -543,13 +555,11 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public CmisObject updateObjectProperties(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public CmisObject updateObjectProperties(@Default("#[payload]") CmisObject cmisObject,
                                              @Optional String objectId,
                                              @Placement(group = "Properties") Map<String, String> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
     }
-
 
     /**
      * Returns the relationships if they have been fetched for an object.
@@ -562,8 +572,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public List<Relationship> getObjectRelationships(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public List<Relationship> getObjectRelationships(@Default("#[payload]") CmisObject cmisObject,
                                                      @Optional String objectId) {
         return facade.getObjectRelationships(cmisObject, objectId);
     }
@@ -579,8 +588,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public Acl getAcl(@Optional @Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
+    public Acl getAcl(@Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
     }
 
@@ -598,8 +606,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public List<Document> getAllVersions(@Optional @Default("#[payload]") CmisObject document,
+    public List<Document> getAllVersions(@Default("#[payload]") CmisObject document,
                                          @Optional String documentId,
                                          @Optional String filter,
                                          @Optional String orderBy) {
@@ -617,8 +624,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public ObjectId checkOut(@Optional @Default("#[payload]") CmisObject document,
+    public ObjectId checkOut(@Default("#[payload]") CmisObject document,
                              @Optional String documentId) {
         return facade.checkOut(document, documentId);
     }
@@ -634,8 +640,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public void cancelCheckOut(@Optional @Default("#[payload]") CmisObject document,
+    public void cancelCheckOut(@Default("#[payload]") CmisObject document,
                                @Optional String documentId) {
         facade.cancelCheckOut(document, documentId);
     }
@@ -658,18 +663,16 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
-                            @Optional @Default("#[payload]") Object content,
+                            @Default("#[payload]") Object content,
                             String filename,
                             String mimeType,
-                            boolean major,
+                            @Default("false") boolean major,
                             String checkinComment,
                             @Placement(group = "Properties") @Optional Map<String, String> properties) {
         return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment, properties);
     }
-
 
     /**
      * Set the permissions associated with an object.
@@ -685,8 +688,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public Acl applyAcl(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public Acl applyAcl(@Default("#[payload]") CmisObject cmisObject,
                         @Optional String objectId,
                         @Placement(group = "Add Aces") List<Ace> addAces,
                         @Placement(group = "Remove Aces") List<Ace> removeAces,
@@ -705,8 +707,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public List<Policy> getAppliedPolicies(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public List<Policy> getAppliedPolicies(@Default("#[payload]") CmisObject cmisObject,
                                            @Optional String objectId) {
         return facade.getAppliedPolicies(cmisObject, objectId);
     }
@@ -722,8 +723,7 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public void applyPolicy(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public void applyPolicy(@Default("#[payload]") CmisObject cmisObject,
                             @Optional String objectId,
                             @Placement(group = "Policy Ids") List<ObjectId> policyIds) {
         facade.applyPolicy(cmisObject, objectId, policyIds);
@@ -740,10 +740,9 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public void delete(@Optional @Default("#[payload]") CmisObject cmisObject,
+    public void delete(@Default("#[payload]") CmisObject cmisObject,
                        @Optional String objectId,
-                       @Optional @Default("false") boolean allVersions) {
+                       @Default("false") boolean allVersions) {
         facade.delete(cmisObject, objectId, allVersions);
     }
 
@@ -765,64 +764,103 @@ public class CMISCloudConnector implements CMISFacade {
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public List<String> deleteTree(@Placement(order = 1) @Optional @Default("#[payload]") CmisObject folder,
+    public List<String> deleteTree(@Placement(order = 1) @Default("#[payload]") CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
                                    @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,
                                    @Placement(order = 5) boolean continueOnFailure) {
         return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
     }
-    
+
     /**
-    * Apply and aspect to an object and set some properties of that aspect.
-    * <p/>
-    * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:applyAspect}
-    *
-    * @param objectId   The object's id.
-    * @param aspectName The name of the aspect to be applied to the object.
-    * @param properties The properties to set.
-    */
+     * Apply and aspect to an object and set some properties of that aspect.
+     * <p/>
+     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:applyAspect}
+     *
+     * @param objectId   The object's id.
+     * @param aspectName The name of the aspect to be applied to the object.
+     * @param properties The properties to set.
+     */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
     public void applyAspect(String objectId,
-					        String aspectName,
-					        @Optional @Default("#[payload]") Map<String, String> properties) 
-    {
+                            String aspectName,
+                            @Default("#[payload]") Map<String, String> properties) {
         facade.applyAspect(objectId, aspectName, properties);
     }
-    
+
     /**
-     * Creates a parent/child relationships between two nodes in the repository of the 
+     * Creates a parent/child relationships between two nodes in the repository of the
      * specified relationship object type.
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createRelationship}
      *
-     * @param parentObjectId The ID of the parent (or source) object in the relationship.
-     * @param childObjectId The ID of the child (or target) object in the relationship.
+     * @param parentObjectId   The ID of the parent (or source) object in the relationship.
+     * @param childObjectId    The ID of the child (or target) object in the relationship.
      * @param relationshipType The name of the relationship type that should be associated with the objects.
      * @return The {@link ObjectId} that is the result of the relationship
      */
     @Override
     @Processor
-    @InvalidateConnectionOn(exception = CMISConnectorConnectionException.class)
-    public ObjectId createRelationship ( String parentObjectId, 
-    		                         String childObjectId, 
-    		                         String relationshipType )
-    {
-    	return facade.createRelationship(parentObjectId, childObjectId, relationshipType);
+    public ObjectId createRelationship(String parentObjectId,
+                                       String childObjectId,
+                                       String relationshipType) {
+        return facade.createRelationship(parentObjectId, childObjectId, relationshipType);
     }
-    
+
+    public String getRepositoryId() {
+        return repositoryId;
+    }
+
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
+    }
+
+    public String getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(String connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public Boolean getUseAlfrescoExtension() {
+        return useAlfrescoExtension;
+    }
+
+    public void setUseAlfrescoExtension(Boolean useAlfrescoExtension) {
+        this.useAlfrescoExtension = useAlfrescoExtension;
+    }
+
+    public String getCxfPortProvider() {
+        return cxfPortProvider;
+    }
+
+    public void setCxfPortProvider(String cxfPortProvider) {
+        this.cxfPortProvider = cxfPortProvider;
+    }
+
+    public Boolean getUseCookies() {
+        return useCookies;
+    }
+
+    public void setUseCookies(Boolean useCookies) {
+        this.useCookies = useCookies;
+    }
+
+    public CMISConnectionType getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(CMISConnectionType endpoint) {
+        this.endpoint = endpoint;
+    }
+
     public CMISFacade getFacade() {
         return facade;
     }
 
     public void setFacade(CMISFacade facade) {
         this.facade = facade;
-    }
-
-    public void setConnectionIdentifier(String connectionIdentifier) {
-        this.connectionIdentifier = connectionIdentifier;
     }
 }

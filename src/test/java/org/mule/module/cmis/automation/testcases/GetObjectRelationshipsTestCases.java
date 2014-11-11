@@ -1,9 +1,6 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis.automation.testcases;
@@ -25,53 +22,53 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class GetObjectRelationshipsTestCases extends CMISTestParent {
-	
-	private String folderId;
-	private String aDocumentId;
-	private String anotherDocumentId;
-	private String relationshipId;
-	
-	@Before
-	public void setUp() throws Exception {
-		initializeTestRunMessage("getObjectRelationshipsTestData");
-		
-		folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
-		
-		upsertOnTestRunMessage("filename", getTestRunMessageValue("aFileName"));
-		aDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-		upsertOnTestRunMessage("parentObjectId", aDocumentId);
-		
-		upsertOnTestRunMessage("filename", getTestRunMessageValue("anotherFileName"));
-		anotherDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-		upsertOnTestRunMessage("childObjectId", anotherDocumentId);
-		
-		relationshipId = ((ObjectId) runFlowAndGetPayload("create-relationship")).getId();
 
-	}
+    private String folderId;
+    private String aDocumentId;
+    private String anotherDocumentId;
+    private String relationshipId;
 
-	@Category({RegressionTests.class})
-	@Test
-	public void testGetObjectRelationships() {
-		boolean found = false;
-		try {
-			List<Relationship> result = getObjectRelationships(aDocumentId, getObjectById(aDocumentId));
-			Assert.assertEquals(1, result.size());
-			for (Relationship relationship : result) {
-				if (relationship.getId().equals(relationshipId)) {
-					found = true;
-					break;
-				}
-			}
-			assertTrue(found);
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
-	
-	
-	@After
-	public void tearDown() throws Exception {
-		deleteTree(folderId, true, true);
-	}
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("getObjectRelationshipsTestData");
+
+        folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
+
+        upsertOnTestRunMessage("filename", getTestRunMessageValue("aFileName"));
+        aDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+        upsertOnTestRunMessage("parentObjectId", aDocumentId);
+
+        upsertOnTestRunMessage("filename", getTestRunMessageValue("anotherFileName"));
+        anotherDocumentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+        upsertOnTestRunMessage("childObjectId", anotherDocumentId);
+
+        relationshipId = ((ObjectId) runFlowAndGetPayload("create-relationship")).getId();
+
+    }
+
+    @Category({RegressionTests.class})
+    @Test
+    public void testGetObjectRelationships() {
+        boolean found = false;
+        try {
+            List<Relationship> result = getObjectRelationships(aDocumentId, getObjectById(aDocumentId));
+            Assert.assertEquals(1, result.size());
+            for (Relationship relationship : result) {
+                if (relationship.getId().equals(relationshipId)) {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
+        deleteTree(folderId, true, true);
+    }
 
 }

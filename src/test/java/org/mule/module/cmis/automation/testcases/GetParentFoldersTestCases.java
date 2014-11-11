@@ -1,9 +1,6 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.module.cmis.automation.testcases;
@@ -27,32 +24,32 @@ import static org.junit.Assert.fail;
 
 public class GetParentFoldersTestCases extends CMISTestParent {
 
-	private String folderId;
-	private CmisObject cmisObjectRef;
-	
-	@Before
-	public void setUp() throws Exception {
-		initializeTestRunMessage("getParentFoldersTestData");
-		upsertOnTestRunMessage("parentObjectId", getRootFolderId());
-		folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
-		cmisObjectRef = getObjectById(folderId);
-		
-	}
+    private String folderId;
+    private CmisObject cmisObjectRef;
 
-	@Category({ SmokeTests.class, RegressionTests.class })
-	@Test
-	public void testGetParentFolders() {
-		try {
-			List<Folder> folders = getParentFolders(folderId);
-			Assert.assertEquals(1, folders.size());
-		} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-	}
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("getParentFoldersTestData");
+        upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+        folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+        cmisObjectRef = getObjectById(folderId);
 
-	@After
-	public void tearDown() throws Exception {
-			deleteObject(folderId, true);
+    }
 
-	}
+    @Category({SmokeTests.class, RegressionTests.class})
+    @Test
+    public void testGetParentFolders() {
+        try {
+            List<Folder> folders = getParentFolders(folderId);
+            Assert.assertEquals(1, folders.size());
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        deleteObject(folderId, true);
+
+    }
 }
