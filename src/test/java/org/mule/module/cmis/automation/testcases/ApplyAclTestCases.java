@@ -90,7 +90,7 @@ public class ApplyAclTestCases extends CMISTestParent {
 
             result = runFlowAndGetPayload("apply-acl");
 
-            upsertOnTestRunMessage("removeAcesRef", result.getAces());
+            removeFromTestRunMessage("addAcesRef");
 
             assertEquals(2, result.getAces().size());
 
@@ -100,9 +100,10 @@ public class ApplyAclTestCases extends CMISTestParent {
                     principal, secondPermissions);
             removeAces.add(secondAcei);
 
+            upsertOnTestRunMessage("removeAcesRef", removeAces);
             result = runFlowAndGetPayload("apply-acl");
 
-            assertEquals(2, result.getAces().size());
+            assertEquals(1, result.getAces().size());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

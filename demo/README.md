@@ -10,7 +10,7 @@ INTRODUCTION
 HOW TO DEMO:
 ------------
 
-  1. Set the following system properties:
+  1. After importing the project, Set the following global property:
   
     a. mule.cmis.baseDirectory Path to an existing directory in the repository where result documents will be saved.
 

@@ -25,12 +25,13 @@ import static org.junit.Assert.fail;
 public class GetAppliedPoliciesTestCases extends CMISTestParent {
 
     private String objectId;
+    private String folderId;
     private List<ObjectId> policyIds;
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("getAppliedPoliciesTestData");
-        upsertOnTestRunMessage("folderId", getRootFolderId());
+        folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
 
         objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
         upsertOnTestRunMessage("objectId", objectId);
@@ -66,7 +67,7 @@ public class GetAppliedPoliciesTestCases extends CMISTestParent {
 
     @After
     public void tearDown() throws Exception {
-        deleteObject(objectId, true);
+        deleteTree(folderId, true, true);
     }
 
 }

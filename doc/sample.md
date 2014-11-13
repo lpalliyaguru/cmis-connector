@@ -7,24 +7,24 @@
     [Step 4: Create a CMIS global element](#step-4-create-a-global-element)     
 [Building the demo](#building-the-demo)     
     [Key Concepts Covered](#key-concepts-covered)   
-    [Step 1: Configure the HTTP Endpoint](#configure-the-http-endpoint)     
-    [Step 2: Configure the CMIS Connector](#configure-the-cmis-connector)       
-    [Step 3: Add Groovy component](#add-grovvy-component)       
-    [Step 4: Use the connector operation - Create Document By Path](#use-the-connector-operation-create-document-by-path)       
-    [Step 5: Add the Object to JSON Transformer](#add-the-object-to-json-transformer)       
-    [Step 6: Run the project](#run-the-project)     
+    [Step 1: Configure the HTTP Endpoint](#step-1-configure-the-http-endpoint)     
+    [Step 2: Configure the CMIS Connector](#step-2-configure-the-cmis-connector)       
+    [Step 3: Add Groovy component](#step-3-add-grovvy-component)       
+    [Step 4: Use the connector operation - Create Document By Path](#step-4-use-the-connector-operation-create-document-by-path)       
+    [Step 5: Add the Object to JSON Transformer](#step-5-add-the-object-to-json-transformer)       
+    [Step 6: Run the project](#step-6-run-the-project)     
 [Resources](#resources)
     
 Purpose
 =======
 
-This document provides detailed instructions on how to configure the connector in a Mule project and how to incrementally build a "" use case through the connector operations.
+This document provides detailed instructions on how to configure the connector in a Mule project and how to incrementally build a "Create Folder & Create Document" use case through the connector operations.
 
 Prerequisites
 =============
 
 In order to build and run this project you'll need:  
-●   [Public Alfresco CMIS Test Server](#http://cmis.alfresco.com/service/cmis-browser-app/connections)  
+●   [Public Alfresco CMIS Test Server](http://cmis.alfresco.com/service/cmis-browser-app/connections)  
 ●   To download and install [Anypoint Studio Community edition](http://www.mulesoft.org/download-mule-esb-community-edition).  
 ●   A browser to make a request to your Mule application.  
  
@@ -46,11 +46,11 @@ Once Anypoint Studio has launched, create a new project:
 ### Step 3: Store the credentials
 In src/main/app/mule-app.properties file that's on your project, update key/values with your credentials.  
 
-mule.cmis.username=
-mule.cmis.password=
-mule.cmis.url=
-mule.cmis.repositoryId=
-mule.cmis.endpoint=
+mule.cmis.username=     
+mule.cmis.password=     
+mule.cmis.url=      
+mule.cmis.repositoryId=     
+mule.cmis.endpoint=     
 
 ### Step 4: Create a CMIS global element
 1.      Click on "Global Elements" tab.  
@@ -82,7 +82,7 @@ This tutorial introduces you to the CMIS connector, and shows you how to configu
 </tr>
 <tr>
 <td><img src="images/image004.jpg"/> CMIS </td>
-<td>To demonstrate how cloud connectors simplify API integration, this project uses the CMIS cloud connector to access a repository and upload a file.</td>
+<td>To demonstrate how cloud connectors simplify API integration, this project uses the CMIS connector to access a repository and upload a file.</td>
 </tr>
 <tr>
 <td><img src="images/image005.jpg"/> HTTP </td>
@@ -122,9 +122,9 @@ The first component (also called a message processor) in the flow is a HTTP Endp
 ![](images/image010.jpg)
 2. Double-click on the CMIS connector in your flow to open its properties menu.
 3. Note an error stating that "config-ref" is required, and an "x" next to the Config Reference form field. Click on the "+" icon next to this form field to create a "CMIS Global Element" or use the global element created above.
-4. A **Global Element** properties menu opens. Fill username, password, and Base Url. For this example you can use the Alfresco repository located at Base Url: http://cmis.alfresco.com:80/cmisatom for which the username and password are both: "admin". Select the Endpoint as ATOM. 
-Note:  
-A *Global Element*allows to enter configuration information, such as your API credentials, once. You can then reference the Global Element many times within your flow (although for this project we only need to reference it once). Note the Global Elements tab under the Anypoint Studio canvas; this tab provides an alternative view for managing all Global Elements defined for this project.
+4. A **Global Element** properties menu opens. Fill username, password, and Base Url. For this example you can use the Alfresco repository located at Base Url: http://cmis.alfresco.com:80/cmisatom for which the username and password are both: "admin". Select the Endpoint as ATOM.        
+**Note:**         
+A *Global Element* allows to enter configuration information, such as your API credentials, once. You can then reference the Global Element many times within your flow (although for this project we only need to reference it once). Note the Global Elements tab under the Anypoint Studio canvas; this tab provides an alternative view for managing all Global Elements defined for this project.
 ![](images/image011.png)
 5. The CMIS Properties menu should still be open. Notice that the Config Reference field has been updated to point to the new "CMIS" Global Element.
 6. Select **Get or Create folder by path** from the Operation drop-down field.
@@ -153,7 +153,7 @@ Note: This file path with need to be changed to point correctly point to a GIF o
 
 ![](images/image014.jpg)
 
-**Step 4: Use the connector operation - Create Document By Path**
+**Step 4: Use the connector operation - Create Document By Path From Content**
 
 Insert another CMIS connector after the Groovy script component and configure it to Create document by path from content: the configuration should look like this except that **Versioning State** should be set to *MAJOR* rather than *NONE* and the **Filename** field will need to be set to the name of whatever file you are using:
 
@@ -186,7 +186,7 @@ Here's a list of features used in this demo with a link to their documentation
 ●   [Mule Expression Language](http://www.mulesoft.org/documentation/display/current/Mule+Expression+Language+MEL)  
 ●   [Configuring Endpoints](http://www.mulesoft.org/documentation/display/current/Configuring+Endpoints)  
 ●   [Studio transformers](http://www.mulesoft.org/documentation/display/current/Studio+Transformers)  
-●   [Public Alfresco CMIS Test Server](#http://www.alfresco.com/cmis)
+●   [Public Alfresco CMIS Test Server](http://www.alfresco.com/cmis)
 
 
 Webinars and additional documentation related to Mule ESB can be found under [Resources](http://www.mulesoft.com/resources) menu option.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
@@ -218,6 +218,7 @@
 
     <util:map id="applyPolicyTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
@@ -243,6 +244,7 @@
 
     <util:map id="getAppliedPoliciesTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
@@ -323,6 +325,7 @@
 
     <util:map id="getContentStreamTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -376,6 +379,7 @@
 
     <util:map id="checkOutTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
@@ -408,6 +412,7 @@
 
     <util:map id="getCheckoutDocsTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="docs">
             <list value-type="java.util.HashMap">
                 <map key-type="java.lang.String" value-type="java.lang.Object">

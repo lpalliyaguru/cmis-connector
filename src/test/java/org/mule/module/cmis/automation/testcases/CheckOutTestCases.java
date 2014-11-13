@@ -22,11 +22,14 @@ import static org.junit.Assert.fail;
 public class CheckOutTestCases extends CMISTestParent {
 
     private String objectId;
+    private String folderId;
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("checkOutTestData");
-        upsertOnTestRunMessage("folderId", getRootFolderId());
+        folderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+        upsertOnTestRunMessage("folderId", folderId);
+
         objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
         upsertOnTestRunMessage("documentId", objectId);
         upsertOnTestRunMessage("documentRef", getObjectById(objectId));
@@ -39,6 +42,8 @@ public class CheckOutTestCases extends CMISTestParent {
         try {
             ObjectId pwcObjectId = runFlowAndGetPayload("check-out");
             assertTrue(StringUtils.isNotEmpty(pwcObjectId.getId()));
+            upsertOnTestRunMessage("documentId", pwcObjectId.getId());
+
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -46,7 +51,11 @@ public class CheckOutTestCases extends CMISTestParent {
 
     @After
     public void tearDown() throws Exception {
-        cancelCheckOut(objectId, getObjectById(objectId));
+        removeFromTestRunMessage("documentRef");
+        runFlowAndGetPayload("cancel-check-out");
+
+        deleteTree(folderId, true, true);
     }
+
 
 }

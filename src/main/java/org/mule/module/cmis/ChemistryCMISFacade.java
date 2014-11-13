@@ -95,7 +95,7 @@ public class ChemistryCMISFacade implements CMISFacade {
      */
     private static void validateObjectOrId(CmisObject object, String objectId) {
         if (object == null && StringUtils.isBlank(objectId)) {
-            throw new IllegalArgumentException("Both the cmis object and it's ID are not set");
+            throw new IllegalArgumentException("Both the cmis object and it's ID are not set, either of them is required.");
         }
     }
 
@@ -142,8 +142,6 @@ public class ChemistryCMISFacade implements CMISFacade {
         parameters.put(SessionParameter.PASSWORD, password.trim());
         parameters.put(SessionParameter.COOKIES, String.valueOf(useCookies));
 
-        // connection settings... we prefer SOAP over ATOMPUB because some rare
-        // behavior with the ChangeEvents.getLatestChangeLogToken().
         if (endpoint.equals(CMISConnectionType.SOAP)) {
             parameters.put(SessionParameter.BINDING_TYPE, BindingType.WEBSERVICES.value());
             parameters.put(SessionParameter.WEBSERVICES_ACL_SERVICE, baseURL + "ACLService?wsdl");
@@ -283,7 +281,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                 returnObj = session.getObjectByPath(path, createOperationContext(null, null));
             }
         } catch (CmisObjectNotFoundException e) {
-            LOG.info(e);
+            LOG.warn(e);
         }
         return returnObj;
     }
@@ -408,7 +406,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             try {
                 returnObj = session.getObjectByPath(folderPath);
             } catch (CmisObjectNotFoundException e) {
-                LOG.debug("Missing CMIS Object : ", e);
+                LOG.debug("CMIS Object Not Found, Creating a Folder Structure: ", e);
                 return createFolderStructure(folderPath);
             }
         }
@@ -490,7 +488,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         Session session = this.getSession(this.connectionParameters);
 
         if (session != null) {
-            if (StringUtils.isEmpty(parentObjectId)){
+            if (StringUtils.isEmpty(parentObjectId)) {
                 parentObjectId = session.getRootFolder().getId();
             }
             Map<String, Object> properties = new HashMap<String, Object>();

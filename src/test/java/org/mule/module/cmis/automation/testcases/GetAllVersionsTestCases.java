@@ -43,9 +43,8 @@ public class GetAllVersionsTestCases extends CMISTestParent {
 
         versions = getTestRunMessageValue("versions");
         for (HashMap<String, Object> version : versions) {
-            upsertOnTestRunMessage("documentId", objectId);
-
-            checkOut(objectId);
+            String checkOutId = checkOut(objectId).getId();
+            upsertOnTestRunMessage("documentId", checkOutId);
 
             checkIn(version.get("contentRef").toString(),
                     version.get("checkinComment").toString(),
@@ -57,6 +56,8 @@ public class GetAllVersionsTestCases extends CMISTestParent {
     @Test
     public void testGetAllVersions() {
         try {
+            upsertOnTestRunMessage("documentId", objectId);
+
             List<Document> documentVersions = runFlowAndGetPayload("get-all-versions");
 
             // Assert that there are the same number of versions as was inserted.

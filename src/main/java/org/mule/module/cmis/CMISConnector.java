@@ -12,6 +12,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.apache.commons.lang.StringUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
@@ -102,18 +103,18 @@ public class CMISConnector implements CMISFacade {
     @Connect
     public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
 
-        if ((username == null) || (username.trim().length() <= 0)) {
+        if (StringUtils.isBlank(username)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
                     "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
                             "empty or missing. This configuration is required in order to provide repository connection " +
                             "parameters to the connector. The connector is currently non-functional.");
-        } else if ((password == null) || (password.trim().length() <= 0)) {
+        } else if (StringUtils.isBlank(password)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
                     "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
                             "empty or missing. This configuration is required in order to provide repository connection " +
                             "parameters to the connector. The connector is currently non-functional.");
-        } else if ((baseUrl == null) || (baseUrl.trim().length() <= 0)) {
-            throw new ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null,
+        } else if (StringUtils.isBlank(baseUrl)) {
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
                     "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is " +
                             "empty or missing. This configuration is required in order to provide repository connection " +
                             "parameters to the connector. The connector is currently non-functional.");

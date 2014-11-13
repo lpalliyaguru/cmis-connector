@@ -28,8 +28,8 @@ public class CancelCheckOutTestCases extends CMISTestParent {
         initializeTestRunMessage("cancelCheckOutTestData");
         upsertOnTestRunMessage("folderId", getRootFolderId());
         documentId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
-        upsertOnTestRunMessage("documentId", documentId);
-        checkOut(documentId);
+        String checkOutDocumentId = checkOut(documentId).getId();
+        upsertOnTestRunMessage("documentId", checkOutDocumentId);
     }
 
     @Category({RegressionTests.class})

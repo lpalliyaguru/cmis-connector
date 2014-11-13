@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 
 public class GetCheckoutDocsTestCases extends CMISTestParent {
 
+    String folderId;
     private List<String> documentObjectIds;
     private List<String> checkoutObjectIds;
 
@@ -35,12 +36,13 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
         checkoutObjectIds = new ArrayList<String>();
 
         initializeTestRunMessage("getCheckoutDocsTestData");
+        folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
         List<HashMap<String, Object>> documents = getTestRunMessageValue("docs");
 
         for (HashMap<String, Object> document : documents) {
             // Create the document in CMIS
             upsertOnTestRunMessage(document);
-            upsertOnTestRunMessage("folderId", getRootFolderId());
+            upsertOnTestRunMessage("folderId", folderId);
             String objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
             documentObjectIds.add(objectId);
 
@@ -72,9 +74,11 @@ public class GetCheckoutDocsTestCases extends CMISTestParent {
 
     @After
     public void tearDown() throws Exception {
-        for (String objectId : documentObjectIds) {
+        for (String objectId : checkoutObjectIds) {
             cancelCheckOut(objectId, getObjectById(objectId));
         }
+
+        deleteTree(folderId, true, true);
 
     }
 }

@@ -20,12 +20,13 @@ import static org.junit.Assert.*;
 
 public class GetContentStreamTestCases extends CMISTestParent {
 
+    private String folderId;
     private String objectId;
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("getContentStreamTestData");
-        upsertOnTestRunMessage("folderId", getRootFolderId());
+        folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
         objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
 
         upsertOnTestRunMessage("objectId", objectId);
@@ -47,7 +48,7 @@ public class GetContentStreamTestCases extends CMISTestParent {
 
     @After
     public void tearDown() throws Exception {
-        deleteObject(objectId, true);
+        deleteTree(folderId, true, true);
 
     }
 }
