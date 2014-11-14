@@ -54,9 +54,7 @@ public class CMISConnector implements CMISFacade {
     String connectionTimeout;
 
     /**
-     * Specifies whether the Alfresco Object Factory implementation should be utilized, the
-     * Alfresco CMIS extension JAR must be included in your Mule application in order for
-     * this configuration to work.
+     * Specifies whether the Alfresco Object Factory implementation should be utilized.
      */
     @Configurable
     @Default("false")
@@ -96,9 +94,9 @@ public class CMISConnector implements CMISFacade {
     /**
      * Connects to CMIS
      *
-     * @param baseUrl  URL base for the connector
-     * @param username CMIS username
-     * @param password CMIS password
+     * @param baseUrl  CMIS repository address
+     * @param username CMIS repository username
+     * @param password CMIS repository password
      */
     @Connect
     public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
@@ -248,11 +246,13 @@ public class CMISConnector implements CMISFacade {
      * @param filename        name of the file
      * @param content         file content as specified in the payload
      * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checked-out: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     *                        </br> Valid values are: <ul>
+     *                        <li>none:  The document MUST be created as a non-versionable document.</li>
+     *                        <li>checkedout: The document MUST be created in the checked-out state.</li>
+     *                        <li>major (default): The document MUST be created as a major version.</li>
+     *                        <li>minor: The document MUST be created as a minor version.</li>
+     *                        </ul>
      * @param objectType      the type of the object
      * @param properties      the properties optional document properties to set
      * @param force           if should folder structure must be created when there
@@ -300,15 +300,8 @@ public class CMISConnector implements CMISFacade {
                                                     String objectType,
                                                     @Placement(group = "Properties") @Optional Map<String, String> properties,
                                                     @Default("false") boolean force) {
-        return facade.createDocumentByPathFromContent(
-                folderPath,
-                filename,
-                content,
-                mimeType,
-                versioningState,
-                objectType,
-                properties,
-                force);
+        return facade.createDocumentByPathFromContent(folderPath, filename,
+                content, mimeType, versioningState, objectType, properties, force);
     }
 
     /**
@@ -334,11 +327,13 @@ public class CMISConnector implements CMISFacade {
      * @param filename        name of the file
      * @param content         file content as specified in the payload
      * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checkedout: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     *                        </br> Valid values are: <ul>
+     *                        <li>none:  The document MUST be created as a non-versionable document.</li>
+     *                        <li>checkedout: The document MUST be created in the checked-out state.</li>
+     *                        <li>major (default): The document MUST be created as a major version.</li>
+     *                        <li>minor: The document MUST be created as a minor version.</li>
+     *                        </ul>
      * @param objectType      the type of the object
      * @param properties      the properties optional document properties to set
      * @return the object id {@link ObjectId} of the created
@@ -366,11 +361,13 @@ public class CMISConnector implements CMISFacade {
      * @param filename        name of the file
      * @param content         file content
      * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checkedout: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
+     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
+     *                        </br> Valid values are: <ul>
+     *                        <li>none:  The document MUST be created as a non-versionable document.</li>
+     *                        <li>checkedout: The document MUST be created in the checked-out state.</li>
+     *                        <li>major (default): The document MUST be created as a major version.</li>
+     *                        <li>minor: The document MUST be created as a minor version.</li>
+     *                        </ul>
      * @param objectType      the type of the object
      * @param properties      the properties optional document properties to set
      * @return the object id {@link ObjectId} of the created
@@ -388,7 +385,7 @@ public class CMISConnector implements CMISFacade {
     }
 
     /**
-     * Creates a folder. Note that this is not recusive creation. You just create
+     * Creates a folder. Note that this is not recursive creation. Just creates
      * one folder
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createFolder}
@@ -489,9 +486,9 @@ public class CMISConnector implements CMISFacade {
      * <ul>
      * <li>PARENT: returns the parent Folder</li>
      * <li>CHILDREN: returns a CmisObject ItemIterable with objects contained in the current folder</li>
-     * <li>DESCENDANTS: List<Tree<FileableCmisObject>> representing
-     * the whole descentants tree of the current folder</li>
-     * <li>TREE: List<Tree<FileableCmisObject>> representing the
+     * <li>DESCENDANTS: {@link List}&lt;{@link org.apache.chemistry.opencmis.client.api.Tree}&lt;{@link org.apache.chemistry.opencmis.client.api.FileableCmisObject}&gt;&gt; representing
+     * the whole descendants tree of the current folder</li>
+     * <li>TREE: {@link List}&lt;{@link org.apache.chemistry.opencmis.client.api.Tree}&lt;{@link org.apache.chemistry.opencmis.client.api.FileableCmisObject}&gt;&gt; representing the
      * directory structure under the current folder.
      * </li>
      * </ul>
@@ -682,9 +679,9 @@ public class CMISConnector implements CMISFacade {
      *
      * @param cmisObject     the object whose Acl is intended to change.
      * @param objectId       the id of the object
-     * @param addAces        added access control entities
-     * @param removeAces     removed access control entities
-     * @param aclPropagation wheter to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE
+     * @param addAces        list of ACEs to be added or null if no ACEs should be added.
+     * @param removeAces     list of ACEs to be removed or null if no ACEs should be removed.
+     * @param aclPropagation whether to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE
      * @return the new access control list
      */
     @Override
@@ -774,7 +771,7 @@ public class CMISConnector implements CMISFacade {
     }
 
     /**
-     * Apply and aspect to an object and set some properties of that aspect.
+     * Apply aspect properties to an object.
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:applyAspect}
      *
