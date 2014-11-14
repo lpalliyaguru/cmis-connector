@@ -34,19 +34,15 @@ import static org.mockito.Mockito.when;
  */
 public class CMISConnectorTest {
 
-    private CMISConnector connector;
-
-    @Mock
-    private CMISFacade facade;
-
-    @Mock
-    private CmisObject cmisObject;
-
-    @Mock
-    private ObjectType objectType;
-
     @Mock
     ObjectId objectId;
+    private CMISConnector connector;
+    @Mock
+    private CMISFacade facade;
+    @Mock
+    private CmisObject cmisObject;
+    @Mock
+    private ObjectType objectType;
 
     @Before
     public void setUp() throws Exception {
@@ -236,6 +232,12 @@ public class CMISConnectorTest {
     public void testApplyPolicy() throws Exception {
         doNothing().when(facade).applyPolicy(any(CmisObject.class), anyString(), anyList());
         connector.applyPolicy(cmisObject, "objectId", new ArrayList<ObjectId>());
+    }
+
+    @Test
+    public void testApplyAspect() throws Exception {
+        doNothing().when(facade).applyAspect(anyString(), anyString(), anyMap());
+        connector.applyAspect("objectId", "aspectName", new HashMap<String, String>());
     }
 
     @Test

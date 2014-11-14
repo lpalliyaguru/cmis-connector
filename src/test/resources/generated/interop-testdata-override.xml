@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<connector name="CMIS">
+    <properties>
+        <connectivity-support>true</connectivity-support>
+        <OAuth-authentication>false</OAuth-authentication>
+        <metadata>static</metadata>
+        <datasense-enabled>true</datasense-enabled>
+        <transformer>false</transformer>
+    </properties>
+    <global-config>
+        <config name="config">
+            <attributes>
+                <attribute name="baseUrl" use="required" caption="Base Url" group="Connection" type="string"
+                           javaType="java.lang.String" prefix="alfresco">URL
+                </attribute>
+                <attribute name="username" use="required" caption="Username" group="Connection" type="string"
+                           javaType="java.lang.String" prefix="alfresco">USERNAME
+                </attribute>
+                <attribute name="password" use="required" caption="Password" group="Connection" type="password"
+                           javaType="java.lang.String" prefix="alfresco">PASSWORD
+                </attribute>
+            </attributes>
+        </config>
+    </global-config>
+    <message-processors>
+        <processor name="repositories" xmlName="repositories" caption="Repositories">
+            <properties>
+                <datamapper input="List&lt;Repository&gt;" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="repositoryInfo" xmlName="repository-info" caption="Repository info">
+            <properties>
+                <datamapper input="RepositoryInfo" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="changelog" xmlName="changelog" caption="Changelog">
+            <properties>
+                <datamapper input="ChangeEvents" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="getObjectById" xmlName="get-object-by-id" caption="Get object by id">
+            <properties>
+                <datamapper input="CmisObject" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="objectId" use="required" caption="Object Id" group="General" type="string"
+                           javaType="java.lang.String">objectId
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getObjectByPath" xmlName="get-object-by-path" caption="Get object by path">
+            <properties>
+                <datamapper input="CmisObject" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="path" use="required" caption="Path" group="General" type="string"
+                           javaType="java.lang.String">path
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createDocumentByPath" xmlName="create-document-by-path" caption="Create document by path">
+            <properties>
+                <datamapper input="ObjectId" output="Object"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderPath" use="required" caption="Folder Path" group="General" type="string"
+                           javaType="java.lang.String">folderPath
+                </attribute>
+                <attribute name="filename" use="required" caption="Filename" group="General" type="string"
+                           javaType="java.lang.String">fileName
+                </attribute>
+                <attribute name="mimeType" use="required" caption="Mime Type" group="General" type="string"
+                           javaType="java.lang.String">mimeType
+                </attribute>
+                <attribute name="versioningState" use="required" caption="Versioning State" group="General" type="enum"
+                           javaType="org.mule.module.cmis.VersioningState">MAJOR
+                </attribute>
+                <attribute name="objectType" use="required" caption="Object Type" group="General" type="string"
+                           javaType="java.lang.String">objectType
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createDocumentByPathFromContent" xmlName="create-document-by-path-from-content"
+                   caption="Create document by path from content">
+            <properties>
+                <datamapper input="ObjectId" output="Object"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderPath" use="required" caption="Folder Path" group="General" type="string"
+                           javaType="java.lang.String">folderPath
+                </attribute>
+                <attribute name="filename" use="required" caption="Filename" group="General" type="string"
+                           javaType="java.lang.String">fileName
+                </attribute>
+                <attribute name="mimeType" use="required" caption="Mime Type" group="General" type="string"
+                           javaType="java.lang.String">mimeType
+                </attribute>
+                <attribute name="versioningState" use="required" caption="Versioning State" group="General" type="enum"
+                           javaType="org.mule.module.cmis.VersioningState">MINOR
+                </attribute>
+                <attribute name="objectType" use="required" caption="Object Type" group="General" type="string"
+                           javaType="java.lang.String">objectType
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getOrCreateFolderByPath" xmlName="get-or-create-folder-by-path"
+                   caption="Get or create folder by path">
+            <properties>
+                <datamapper input="CmisObject" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderPath" use="required" caption="Folder Path" group="General" type="string"
+                           javaType="java.lang.String">folderPath
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createDocumentById" xmlName="create-document-by-id" caption="Create document by id">
+            <properties>
+                <datamapper input="ObjectId" output="Object"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderId" use="required" caption="Folder Id" group="General" type="string"
+                           javaType="java.lang.String">folderId
+                </attribute>
+                <attribute name="filename" use="required" caption="Filename" group="General" type="string"
+                           javaType="java.lang.String">fileName
+                </attribute>
+                <attribute name="mimeType" use="required" caption="Mime Type" group="General" type="string"
+                           javaType="java.lang.String">mimeType
+                </attribute>
+                <attribute name="versioningState" use="required" caption="Versioning State" group="General" type="enum"
+                           javaType="org.mule.module.cmis.VersioningState">MAJOR
+                </attribute>
+                <attribute name="objectType" use="required" caption="Object Type" group="General" type="string"
+                           javaType="java.lang.String">objectType
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createDocumentByIdFromContent" xmlName="create-document-by-id-from-content"
+                   caption="Create document by id from content">
+            <properties>
+                <datamapper input="ObjectId" output="Object"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderId" use="required" caption="Folder Id" group="General" type="string"
+                           javaType="java.lang.String">folderId
+                </attribute>
+                <attribute name="filename" use="required" caption="Filename" group="General" type="string"
+                           javaType="java.lang.String">fileName
+                </attribute>
+                <attribute name="mimeType" use="required" caption="Mime Type" group="General" type="string"
+                           javaType="java.lang.String">mimeType
+                </attribute>
+                <attribute name="versioningState" use="required" caption="Versioning State" group="General" type="enum"
+                           javaType="org.mule.module.cmis.VersioningState">MINOR
+                </attribute>
+                <attribute name="objectType" use="required" caption="Object Type" group="General" type="string"
+                           javaType="java.lang.String">objectType
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createFolder" xmlName="create-folder" caption="Create folder">
+            <properties>
+                <datamapper input="ObjectId" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="folderName" use="required" caption="Folder Name" group="General" type="string"
+                           javaType="java.lang.String">folderName
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getTypeDefinition" xmlName="get-type-definition" caption="Get type definition">
+            <properties>
+                <datamapper input="ObjectType" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="typeId" use="required" caption="Type Id" group="General" type="string"
+                           javaType="java.lang.String">typeId
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getCheckoutDocs" xmlName="get-checkout-docs" caption="Get checkout docs">
+            <properties>
+                <datamapper input="ItemIterable&lt;Document&gt;" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="query" xmlName="query" caption="Query">
+            <properties>
+                <datamapper input="ItemIterable&lt;QueryResult&gt;" output="Boolean"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="statement" use="required" caption="Statement" group="General" type="string"
+                           javaType="java.lang.String">statement
+                </attribute>
+                <attribute name="searchAllVersions" use="required" caption="Search All Versions" group="General"
+                           type="boolean" javaType="java.lang.Boolean">true
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getParentFolders" xmlName="get-parent-folders" caption="Get parent folders">
+            <properties>
+                <datamapper input="List&lt;Folder&gt;" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="folder" xmlName="folder" caption="Folder">
+            <properties>
+                <datamapper input="Object" output="Folder"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="get" use="required" caption="Get" group="General" type="enum"
+                           javaType="org.mule.module.cmis.NavigationOptions">PARENT
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="getContentStream" xmlName="get-content-stream" caption="Get content stream">
+            <properties>
+                <datamapper input="ContentStream" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="moveObject" xmlName="move-object" caption="Move object">
+            <properties>
+                <datamapper input="FileableCmisObject" output="FileableCmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="sourceFolderId" use="required" caption="Source Folder Id" group="General" type="string"
+                           javaType="java.lang.String">sourceFolderId
+                </attribute>
+                <attribute name="targetFolderId" use="required" caption="Target Folder Id" group="General" type="string"
+                           javaType="java.lang.String">targetFolderId
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="updateObjectProperties" xmlName="update-object-properties" caption="Update object properties">
+            <properties>
+                <datamapper input="CmisObject" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="properties" use="required" caption="Properties" group="Properties"
+                           type="element-controller-map"
+                           javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></attribute>
+            </attributes>
+        </processor>
+        <processor name="getObjectRelationships" xmlName="get-object-relationships" caption="Get object relationships">
+            <properties>
+                <datamapper input="List&lt;Relationship&gt;" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="getAcl" xmlName="get-acl" caption="Get acl">
+            <properties>
+                <datamapper input="Acl" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="getAllVersions" xmlName="get-all-versions" caption="Get all versions">
+            <properties>
+                <datamapper input="List&lt;Document&gt;" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="checkOut" xmlName="check-out" caption="Check out">
+            <properties>
+                <datamapper input="ObjectId" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="cancelCheckOut" xmlName="cancel-check-out" caption="Cancel check out">
+            <properties>
+                <datamapper input="" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="checkIn" xmlName="check-in" caption="Check in">
+            <properties>
+                <datamapper input="ObjectId" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="filename" use="required" caption="Filename" group="General" type="string"
+                           javaType="java.lang.String">fileName
+                </attribute>
+                <attribute name="mimeType" use="required" caption="Mime Type" group="General" type="string"
+                           javaType="java.lang.String">mimeType
+                </attribute>
+                <attribute name="checkinComment" use="required" caption="Checkin Comment" group="General" type="string"
+                           javaType="java.lang.String">checkInComments
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="applyAcl" xmlName="apply-acl" caption="Apply acl">
+            <properties>
+                <datamapper input="Acl" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="aclPropagation" use="required" caption="Acl Propagation" group="General" type="enum"
+                           javaType="org.apache.chemistry.opencmis.commons.enums.AclPropagation">OBJECTONLY
+                </attribute>
+                <attribute name="add-aces" use="required" caption="Add Aces" group="Add Aces"
+                           type="element-controller-list"
+                           javaType="java.util.List&lt;org.apache.chemistry.opencmis.commons.data.Ace&gt;"></attribute>
+                <attribute name="remove-aces" use="required" caption="Remove Aces" group="Remove Aces"
+                           type="element-controller-list"
+                           javaType="java.util.List&lt;org.apache.chemistry.opencmis.commons.data.Ace&gt;"></attribute>
+            </attributes>
+        </processor>
+        <processor name="getAppliedPolicies" xmlName="get-applied-policies" caption="Get applied policies">
+            <properties>
+                <datamapper input="List&lt;Policy&gt;" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="applyPolicy" xmlName="apply-policy" caption="Apply policy">
+            <properties>
+                <datamapper input="" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="policy-ids" use="required" caption="Policy Ids" group="Policy Ids"
+                           type="element-controller-list"
+                           javaType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.ObjectId&gt;"></attribute>
+            </attributes>
+        </processor>
+        <processor name="delete" xmlName="delete" caption="Delete">
+            <properties>
+                <datamapper input="" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="deleteTree" xmlName="delete-tree" caption="Delete tree">
+            <properties>
+                <datamapper input="List&lt;String&gt;" output="CmisObject"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="allversions" use="required" caption="Allversions" group="General" type="boolean"
+                           javaType="boolean">false
+                </attribute>
+                <attribute name="continueOnFailure" use="required" caption="Continue On Failure" group="General"
+                           type="boolean" javaType="boolean">true
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="applyAspect" xmlName="apply-aspect" caption="Apply aspect">
+            <properties>
+                <datamapper input="" output="Map&lt;String,String&gt;"/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="objectId" use="required" caption="Object Id" group="General" type="string"
+                           javaType="java.lang.String">objectId
+                </attribute>
+                <attribute name="aspectName" use="required" caption="Aspect Name" group="General" type="string"
+                           javaType="java.lang.String">aspectName
+                </attribute>
+            </attributes>
+        </processor>
+        <processor name="createRelationship" xmlName="create-relationship" caption="Create relationship">
+            <properties>
+                <datamapper input="ObjectId" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="parentObjectId" use="required" caption="Parent Object Id" group="General" type="string"
+                           javaType="java.lang.String">parentObjectId
+                </attribute>
+                <attribute name="childObjectId" use="required" caption="Child Object Id" group="General" type="string"
+                           javaType="java.lang.String">childObjectId
+                </attribute>
+                <attribute name="relationshipType" use="required" caption="Relationship Type" group="General"
+                           type="string" javaType="java.lang.String">relationShipType
+                </attribute>
+            </attributes>
+        </processor>
+    </message-processors>
+</connector>

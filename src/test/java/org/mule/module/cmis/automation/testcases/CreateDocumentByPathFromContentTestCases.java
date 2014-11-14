@@ -39,9 +39,7 @@ public class CreateDocumentByPathFromContentTestCases extends CMISTestParent {
     @After
     public void tearDown() throws Exception {
         deleteObject(objectId, true);
-        if (folder != null) {
-            deleteObject(folder.getId(), true);
-        }
+        deleteTree(folderId, true, true);
     }
 
     @Category({SmokeTests.class, RegressionTests.class})

@@ -7,7 +7,7 @@ Version: 2.0.0
   
 Supported versions:
 ------------------------------
-Apache Chemistry - 0.10.0
+Apache Chemistry - 0.10.0       
 Alfresco Opencmis Extension - 0.7
 
 Supported Mule Runtime Versions:
