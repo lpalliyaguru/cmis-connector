@@ -57,7 +57,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     </flow>
 
     <flow name="move-object" doc:name="move-object">
-        <cmis:move-object config-ref="CMIS" cmisObject-ref="#[payload.cmisObjectRef]"
+        <cmis:move-object config-ref="CMIS" cmisObject-ref="#[flowVars.cmisObjectRef]"
                           sourceFolderId="#[flowVars.sourceFolderId]" targetFolderId="#[flowVars.targetFolderId]"
                           objectId="#[flowVars.objectId]" doc:name="CMIS"/>
     </flow>

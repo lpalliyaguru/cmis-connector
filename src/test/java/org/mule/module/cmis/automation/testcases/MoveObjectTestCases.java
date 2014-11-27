@@ -5,6 +5,7 @@
 
 package org.mule.module.cmis.automation.testcases;
 
+import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.FileableCmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
@@ -15,20 +16,19 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class MoveObjectTestCases extends CMISTestParent {
 
-    private String rootFolderId;
     private String aFolderId;
     private String documentId;
+    private CmisObject cmisObject;
 
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("moveObjectTestData");
-        rootFolderId = getRootFolderId();
+        String rootFolderId = getRootFolderId();
 
         // document is created on the root folder
         upsertOnTestRunMessage("folderId", rootFolderId);
@@ -36,6 +36,9 @@ public class MoveObjectTestCases extends CMISTestParent {
 
         upsertOnTestRunMessage("parentObjectId", rootFolderId);
         aFolderId = ((ObjectId) runFlowAndGetPayload("create-folder")).getId();
+        upsertOnTestRunMessage("objectId", aFolderId);
+
+        cmisObject = runFlowAndGetPayload("get-object-by-id");
 
         upsertOnTestRunMessage("sourceFolderId", rootFolderId);
         upsertOnTestRunMessage("targetFolderId", aFolderId);
@@ -49,6 +52,8 @@ public class MoveObjectTestCases extends CMISTestParent {
         try {
             FileableCmisObject result = runFlowAndGetPayload("move-object");
             assertNotNull(result);
+            assertEquals(result.getParents().size(), 1);
+            assertEquals(result.getParents().get(0).getName(), cmisObject.getName());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

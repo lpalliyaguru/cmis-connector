@@ -13,8 +13,10 @@ import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class CreateFolderTestCases extends CMISTestParent {
 
@@ -38,7 +40,7 @@ public class CreateFolderTestCases extends CMISTestParent {
         try {
             objectId = runFlowAndGetPayload("create-folder");
         } catch (Exception e) {
-            e.printStackTrace();
+            fail(ConnectorTestUtils.getStackTrace(e));
         }
         assertNotNull(objectId.getId());
         this.objectId = objectId.getId();
