@@ -5,7 +5,6 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class CreateDocumentByIdTestCases extends CMISTestParent {
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-id");
             assertNotNull(result.getId());
-            assertNotNull((CmisObject) getObjectById(result.getId()));
+            assertNotNull(getObjectById(result.getId()));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -50,7 +49,7 @@ public class CreateDocumentByIdTestCases extends CMISTestParent {
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-id");
             assertNotNull(result.getId());
-            assertNotNull((CmisObject) getObjectById(result.getId()));
+            assertNotNull(getObjectById(result.getId()));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

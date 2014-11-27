@@ -12,6 +12,7 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -24,7 +25,7 @@ public class GetTypeDefinitionTestCases extends CMISTestParent {
         try {
             ObjectType objType = runFlowAndGetPayload("get-type-definition");
             assertNotNull(objType);
-
+            assertEquals(objType.getId(), getTestRunMessageValue("typeId"));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

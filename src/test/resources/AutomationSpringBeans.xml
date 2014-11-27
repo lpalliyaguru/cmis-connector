@@ -362,6 +362,7 @@
 
     <util:map id="checkInTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
+        <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="major" value="true"/>

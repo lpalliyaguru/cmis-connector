@@ -41,7 +41,7 @@ public class DeleteTreeTestCases extends CMISTestParent {
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
     public void testDeleteTree() {
-        List<String> objectsFailedToDelete = null;
+        List<String> objectsFailedToDelete;
         try {
             objectsFailedToDelete = runFlowAndGetPayload("delete-tree");
             assertNotNull(objectsFailedToDelete);

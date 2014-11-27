@@ -5,6 +5,8 @@
 
 package org.mule.module.cmis.automation.testcases;
 
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -15,29 +17,48 @@ import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class CheckInTestCases extends CMISTestParent {
 
-    private String objectId;
+    private String folderId;
+
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("checkInTestData");
-        upsertOnTestRunMessage("folderId", getRootFolderId());
-        objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
+
+        upsertOnTestRunMessage("parentObjectId", getRootFolderId());
+        folderId = createFolderAndUpsertFolderIdOnTestRunMessage();
+        String objectId = ((ObjectId) runFlowAndGetPayload("create-document-by-id")).getId();
         String checkOutId = checkOut(objectId).getId();
         upsertOnTestRunMessage("documentId", checkOutId);
-
+        // Wait for Alfresco to index the checked out documents
+        Thread.sleep(GET_CHECKOUT_DOCS_DELAY);
     }
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
     public void testCheckIn() {
+        boolean found = false;
         try {
             ObjectId checkedInId = runFlowAndGetPayload("check-in");
             assertTrue(checkedInId != null && !checkedInId.getId().isEmpty() && !checkedInId.getId().trim().isEmpty());
+            // Wait for Alfresco to index the checked in documents
+            Thread.sleep(GET_CHECKOUT_DOCS_DELAY);
+
+            ItemIterable<Document> checkedOutDocuments = runFlowAndGetPayload("get-checkout-docs");
+            for (Document doc : checkedOutDocuments) {
+                try {
+                    if (doc != null && doc.isPrivateWorkingCopy()) {
+                        found = true;
+                    }
+                } catch (NullPointerException npe) {
+                    // If no checked out document found instead of false, isPrivateWorkingCopy throws a NullPointerException
+                }
+            }
+            assertFalse(found);
+
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -45,7 +66,7 @@ public class CheckInTestCases extends CMISTestParent {
 
     @After
     public void tearDown() throws Exception {
-        deleteObject(objectId, true);
+        deleteTree(folderId, true, true);
     }
 
 }

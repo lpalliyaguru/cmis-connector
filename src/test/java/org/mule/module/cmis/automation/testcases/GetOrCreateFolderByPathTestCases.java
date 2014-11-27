@@ -14,8 +14,7 @@ import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class GetOrCreateFolderByPathTestCases extends CMISTestParent {
 
@@ -29,15 +28,22 @@ public class GetOrCreateFolderByPathTestCases extends CMISTestParent {
     @Category({RegressionTests.class})
     @Test
     public void testGetOrCreateFolderByPath() {
-        CmisObject cmisObj = null;
-        try {
-            cmisObj = runFlowAndGetPayload("get-or-create-folder-by-path");
-            assertNotNull(cmisObj.getId());
+        CmisObject createCmisObj;
+        CmisObject getCmisObj;
 
+        try {
+            //Test create the Folder
+            createCmisObj = runFlowAndGetPayload("get-or-create-folder-by-path");
+            assertNotNull(createCmisObj.getId());
+
+            //Test get the Folder
+            getCmisObj = runFlowAndGetPayload("get-or-create-folder-by-path");
+            assertEquals(createCmisObj.getId(), getCmisObj.getId());
+
+            folderId = createCmisObj.getId();
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
-        folderId = cmisObj.getId();
     }
 
     @After

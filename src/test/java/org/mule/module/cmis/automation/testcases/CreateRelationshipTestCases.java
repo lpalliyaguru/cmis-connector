@@ -6,6 +6,7 @@
 package org.mule.module.cmis.automation.testcases;
 
 import org.apache.chemistry.opencmis.client.api.ObjectId;
+import org.apache.chemistry.opencmis.client.api.Relationship;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +16,9 @@ import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class CreateRelationshipTestCases extends CMISTestParent {
 
@@ -46,7 +48,25 @@ public class CreateRelationshipTestCases extends CMISTestParent {
     @Test
     public void testCreateRelationship() {
         try {
-            assertNotNull((ObjectId) runFlowAndGetPayload("create-relationship"));
+            boolean found = false;
+
+            List<Relationship> result = getObjectRelationships(anotherDocumentId, getObjectById(anotherDocumentId));
+            assertNull(result);
+
+            ObjectId relationshipId = runFlowAndGetPayload("create-relationship");
+            assertNotNull(relationshipId);
+
+            result = getObjectRelationships(anotherDocumentId, getObjectById(anotherDocumentId));
+            assertEquals(1, result.size());
+
+            for (Relationship relationship : result) {
+                if (relationship.getId().equals(relationshipId.getId())) {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
+
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

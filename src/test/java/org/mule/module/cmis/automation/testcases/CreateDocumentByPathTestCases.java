@@ -5,7 +5,6 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.junit.After;
@@ -47,7 +46,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-path");
             assertNotNull(result.getId());
-            assertNotNull((CmisObject) getObjectById(result.getId()));
+            assertNotNull(getObjectById(result.getId()));
             objectId = result.getId();
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -62,7 +61,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-path");
             assertNotNull(result.getId());
-            assertNotNull((CmisObject) getObjectById(result.getId()));
+            assertNotNull(getObjectById(result.getId()));
             objectId = result.getId();
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -76,7 +75,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-path");
             assertNotNull(result.getId());
-            assertNotNull((CmisObject) getObjectById(result.getId()));
+            assertNotNull(getObjectById(result.getId()));
 
             objectId = result.getId();
             upsertOnTestRunMessage("objectId", objectId);

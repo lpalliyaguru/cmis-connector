@@ -24,17 +24,13 @@
                 <attribute name="useCookies" use="optional" caption="Use Cookies" group="General" type="boolean"
                            javaType="java.lang.Boolean" default="false"></attribute>
                 <attribute name="endpoint" use="optional" caption="Endpoint" group="Repository Information" type="enum"
-                           javaType="org.mule.module.cmis.CMISConnectionType" default="ATOM" prefix="alfresco">ATOM
-                </attribute>
+                           javaType="org.mule.module.cmis.CMISConnectionType" default="ATOM" prefix="alfresco"></attribute>
                 <attribute name="baseUrl" use="required" caption="Base Url" group="Connection" type="string"
-                           javaType="java.lang.String" prefix="alfresco">http://cmis.alfresco.com:80/cmisatom
-                </attribute>
+                           javaType="java.lang.String" prefix="alfresco"></attribute>
                 <attribute name="username" use="required" caption="Username" group="Connection" type="string"
-                           javaType="java.lang.String" prefix="alfresco">admin
-                </attribute>
+                           javaType="java.lang.String" prefix="alfresco"></attribute>
                 <attribute name="password" use="required" caption="Password" group="Connection" type="password"
-                           javaType="java.lang.String" prefix="alfresco">admin
-                </attribute>
+                           javaType="java.lang.String" prefix="alfresco"></attribute>
             </attributes>
         </config>
     </global-config>
