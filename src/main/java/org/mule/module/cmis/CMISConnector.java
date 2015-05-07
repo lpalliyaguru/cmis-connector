@@ -261,7 +261,7 @@ public class CMISConnector implements CMISFacade {
                                          String mimeType,
                                          VersioningState versioningState,
                                          String objectType,
-                                         @Placement(group = "Properties") @Optional Map<String, String> properties,
+                                         @Placement(group = "Properties") @Optional Map<String, Object> properties,
                                          @Default("false") boolean force) {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
@@ -308,7 +308,7 @@ public class CMISConnector implements CMISFacade {
                                        String mimeType,
                                        VersioningState versioningState,
                                        String objectType,
-                                       @Placement(group = "Properties") @Optional Map<String, String> properties) {
+                                       @Placement(group = "Properties") @Optional Map<String, Object> properties) {
         return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
     }
@@ -475,7 +475,7 @@ public class CMISConnector implements CMISFacade {
     @Processor
     public CmisObject updateObjectProperties(@Default("#[payload]") CmisObject cmisObject,
                                              @Optional String objectId,
-                                             @Placement(group = "Properties") Map<String, String> properties) {
+                                             @Placement(group = "Properties") Map<String, Object> properties) {
         return facade.updateObjectProperties(cmisObject, objectId, properties);
     }
 
@@ -691,7 +691,7 @@ public class CMISConnector implements CMISFacade {
     @Processor
     public void applyAspect(String objectId,
                             String aspectName,
-                            @Default("#[payload]") Map<String, String> properties) {
+                            @Default("#[payload]") Map<String, Object> properties) {
         facade.applyAspect(objectId, aspectName, properties);
     }
 

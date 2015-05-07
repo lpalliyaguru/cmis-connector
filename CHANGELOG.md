@@ -50,4 +50,9 @@ Supported Operations:
 New Features and Functionality
 ------------------------------
 Migrated to DevKit 3.5.3
-Removed duplicate operations create-document-by-id-from-content & create-document-by-path-from-content
+
+Closed Issues in this release
+-----------------------------
+- Removed duplicate operations create-document-by-id-from-content & create-document-by-path-from-content. (CLDCONNECT-1601)
+- Modified the properties attribute of create-document-by-id, create-document-by-path, apply-aspect & update-object-properties to accept Map of Objects instead of Strings. (CLDCONNECT-2328) 
+    

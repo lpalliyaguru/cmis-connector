@@ -292,7 +292,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                                        @NotNull(message = "No file mime type was specified in the request.") String mimeType,
                                        org.mule.module.cmis.VersioningState versioningState,
                                        @NotNull(message = "No object type was specified in the request.") String objectType,
-                                       Map<String, String> properties) {
+                                       Map<String, Object> properties) {
         ObjectId returnId = null;
         Session session = this.getSession(this.connectionParameters);
         if (session != null) {
@@ -315,13 +315,13 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     public ObjectId createDocumentByPath(@NotNull(message = "No folderPath was specified in the request.") String folderPath,
-                                                    @NotNull(message = "No filename was specified in the request.") String filename,
-                                                    @NotNull(message = "No document content was specified in the payload.") Object content,
-                                                    @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                                    org.mule.module.cmis.VersioningState versioningState,
-                                                    @NotNull(message = "No object type was specified in the request.") String objectType,
-                                                    Map<String, String> properties,
-                                                    boolean force) {
+                                         @NotNull(message = "No filename was specified in the request.") String filename,
+                                         @NotNull(message = "No document content was specified in the payload.") Object content,
+                                         @NotNull(message = "No file mime type was specified in the request.") String mimeType,
+                                         org.mule.module.cmis.VersioningState versioningState,
+                                         @NotNull(message = "No object type was specified in the request.") String objectType,
+                                         Map<String, Object> properties,
+                                         boolean force) {
         ObjectId returnId = null;
         Session session = this.getSession(this.connectionParameters);
         if (session != null) {
@@ -395,7 +395,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                                       @NotNull(message = "No file mime type was specified in the request.") String mimeType,
                                       @NotNull(message = "No versioning state was specified in the request.") org.mule.module.cmis.VersioningState versioningState,
                                       String objectType,
-                                      Map<String, String> extraProperties) {
+                                      Map<String, Object> extraProperties) {
         ObjectId returnId = null;
 
         Session session = this.getSession(this.connectionParameters);
@@ -414,7 +414,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             properties.put(PropertyIds.OBJECT_TYPE_ID, objectType);
             properties.put(PropertyIds.NAME, filename);
             if (extraProperties != null) {
-                properties.putAll(this.translateInboundProperties(extraProperties));
+                properties.putAll(extraProperties);
             }
             returnId = session.createDocument(properties,
                     session.createObjectId(folder.getId()),
@@ -593,7 +593,7 @@ public class ChemistryCMISFacade implements CMISFacade {
 
     public CmisObject updateObjectProperties(CmisObject cmisObject,
                                              String objectId,
-                                             Map<String, String> properties) {
+                                             Map<String, Object> properties) {
         CmisObject returnObj = null;
 
         validateObjectOrId(cmisObject, objectId);
@@ -602,7 +602,7 @@ public class ChemistryCMISFacade implements CMISFacade {
 
         CmisObject target = getCmisObject(cmisObject, objectId);
         if (target != null) {
-            returnObj = target.updateProperties(this.translateInboundProperties(properties));
+            returnObj = target.updateProperties(properties);
         } else {
             logger.error("Unable to obtain the object reference in order to update the properties of the object.");
         }
@@ -744,7 +744,7 @@ public class ChemistryCMISFacade implements CMISFacade {
 
     public void applyAspect(String objectId,
                             String aspectName,
-                            Map<String, String> properties) {
+                            Map<String, Object> properties) {
         validateObjectOrId(null, objectId);
 
         CmisObject target = getCmisObject(null, objectId);
@@ -752,7 +752,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         if ((alfDocument != null) && (!alfDocument.hasAspect("P:" + aspectName))) {
             alfDocument.addAspect("P:" + aspectName);
             if (properties != null) {
-                alfDocument.updateProperties(this.translateInboundProperties(properties));
+                alfDocument.updateProperties(properties);
             }
         }
         // End applyAspect
@@ -880,47 +880,6 @@ public class ChemistryCMISFacade implements CMISFacade {
 
         return repoSession;
         // End getSession
-    }
-
-
-    //******************************************************************************
-    // Method: translateInboundProperties
-    // Description: Translates an inbound set of String based properties to Object 
-    //   properties. In situations where a multi-value property is signified
-    //   by an "M:" prefix to the property name, then the property value is assumed to be
-    //   a list of values and is converted to an Array object this added to the output map.
-    //******************************************************************************
-    private Map<String, Object> translateInboundProperties(Map<String, String> inboundProperties) {
-        Map<String, Object> returnMap = new HashMap<String, Object>();
-
-        if (inboundProperties == null) {
-            returnMap = null;
-        } else if (!inboundProperties.isEmpty()) {
-            Iterator<Map.Entry<String, String>> keySetItr = inboundProperties.entrySet().iterator();
-            while (keySetItr.hasNext()) {
-                Map.Entry<String, String> entry = keySetItr.next();
-                String currentKey = entry.getKey();
-                String currentVal = entry.getValue();
-
-                // Don't waste our time with empty properties.
-                if (currentVal != null) {
-                    // Determine if this is a multi-valued property.
-                    if (currentKey.toLowerCase().startsWith("m:")) {
-                        // This is a multi-valued property. Each value is separated by a ','.
-                        String[] valArray = currentVal.split(",");
-
-                        List<String> propArray = new ArrayList<String>(Arrays.asList(valArray));
-                        returnMap.put(currentKey.substring(2), propArray);
-                    } else {
-                        // Just add the property into the return list as is.
-                        returnMap.put(currentKey, currentVal);
-                    }
-                }
-            }
-        }
-
-        return returnMap;
-        // End translateInboundProperties
     }
 
     public Map<String, String> getConnectionParameters() {
