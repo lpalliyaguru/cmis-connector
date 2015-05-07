@@ -89,7 +89,7 @@ public class CMISConnectorTest {
     @Test
     public void testCreateDocumentByPath() throws Exception {
         when(facade.createDocumentByPath(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap(), anyBoolean())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentByPath("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, String>(5), false));
+        assertEquals(objectId, connector.createDocumentByPath("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, Object>(5), false));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class CMISConnectorTest {
     @Test
     public void testCreateDocumentById() throws Exception {
         when(facade.createDocumentById(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentById("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, String>(5)));
+        assertEquals(objectId, connector.createDocumentById("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, Object>(5)));
     }
 
     @Test
@@ -160,7 +160,7 @@ public class CMISConnectorTest {
     @Test
     public void testUpdateObjectProperties() throws Exception {
         when(facade.updateObjectProperties(any(CmisObject.class), anyString(), anyMap())).thenReturn(cmisObject);
-        assertEquals(cmisObject, connector.updateObjectProperties(cmisObject, "fooId", new HashMap<String, String>()));
+        assertEquals(cmisObject, connector.updateObjectProperties(cmisObject, "fooId", new HashMap<String, Object>()));
     }
 
     @Test
@@ -225,7 +225,7 @@ public class CMISConnectorTest {
     @Test
     public void testApplyAspect() throws Exception {
         doNothing().when(facade).applyAspect(anyString(), anyString(), anyMap());
-        connector.applyAspect("objectId", "aspectName", new HashMap<String, String>());
+        connector.applyAspect("objectId", "aspectName", new HashMap<String, Object>());
     }
 
     @Test
@@ -246,4 +246,8 @@ public class CMISConnectorTest {
         when(facade.createRelationship(anyString(), anyString(), anyString())).thenReturn(objectId);
         assertEquals(objectId, connector.createRelationship("parentId", "childId", "relType"));
     }
+
+    /**
+     * Connector Implementation Methods Test
+     */
 }

@@ -82,7 +82,7 @@ public interface CMISFacade {
                                   String mimeType,
                                   VersioningState versioningState,
                                   String objectType,
-                                  Map<String, String> properties,
+                                  Map<String, Object> properties,
                                   boolean force);
 
     /**
@@ -125,7 +125,7 @@ public interface CMISFacade {
                                 String mimeType,
                                 VersioningState versioningState,
                                 String objectType,
-                                Map<String, String> properties);
+                                Map<String, Object> properties);
 
 
     /**
@@ -229,7 +229,7 @@ public interface CMISFacade {
      */
     CmisObject updateObjectProperties(CmisObject cmisObject,
                                       String objectId,
-                                      Map<String, String> properties);
+                                      Map<String, Object> properties);
 
     /**
      * Remove an object
@@ -368,7 +368,7 @@ public interface CMISFacade {
      */
     void applyAspect(String objectId,
                      String aspectName,
-                     Map<String, String> properties);
+                     Map<String, Object> properties);
 
 
     /**

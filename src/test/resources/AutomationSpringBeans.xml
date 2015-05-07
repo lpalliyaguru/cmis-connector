@@ -26,7 +26,7 @@
 
     <util:map id="deleteTreeTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="allversions" value="#{T(java.lang.Boolean).TRUE}"/>
+        <entry key="allVersions" value="#{T(java.lang.Boolean).TRUE}"/>
         <entry key="continueOnFailure" value="#{T(java.lang.Boolean).TRUE}"/>
         <entry key="folderName" value-ref="randomShortString"/>
         <entry key="filename" value-ref="randomShortString"/>
@@ -48,11 +48,17 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
+                <entry key="cm:title" value="MuleSoft Document"/>
+                <entry key="cm:description">
+                    <bean class="java.math.BigInteger">
+                        <constructor-arg value="100000"/>
+                    </bean>
+                </entry>
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).MINOR}"/>
-        <entry key="objectType" value="D:cmiscustom:document"/>
+        <entry key="objectType" value="D:cmiscustom:document,P:cm:titled"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
 
