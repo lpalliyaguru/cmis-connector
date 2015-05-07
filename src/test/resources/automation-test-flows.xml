@@ -71,16 +71,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         </cmis:create-document-by-id>
     </flow>
 
-    <flow name="create-document-by-id-from-content" doc:name="create-document-by-id-from-content">
-        <cmis:create-document-by-id-from-content config-ref="CMIS" filename="#[flowVars.filename]"
-                                                 folderId="#[flowVars.folderId]" mimeType="#[flowVars.mimeType]"
-                                                 objectType="#[flowVars.objectType]"
-                                                 versioningState="#[flowVars.versioningState]"
-                                                 content-ref="#[flowVars.contentRef]">
-            <cmis:properties ref="#[flowVars.propertiesRef]"/>
-        </cmis:create-document-by-id-from-content>
-    </flow>
-
     <flow name="create-document-by-path" doc:name="create-document-by-path">
         <cmis:create-document-by-path config-ref="CMIS" filename="#[flowVars.filename]"
                                       folderPath="#[flowVars.folderPath]" mimeType="#[flowVars.mimeType]"
@@ -88,16 +78,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
                                       force="#[flowVars.force]" content-ref="#[flowVars.contentRef]" doc:name="CMIS">
             <cmis:properties ref="#[flowVars.propertiesRef]"/>
         </cmis:create-document-by-path>
-    </flow>
-
-    <flow name="create-document-by-path-from-content" doc:name="create-document-by-path-from-content">
-        <cmis:create-document-by-path-from-content
-                config-ref="CMIS" doc:name="CMIS" filename="#[flowVars.filename]" mimeType="#[flowVars.mimeType]"
-                objectType="#[flowVars.objectType]"
-                versioningState="#[flowVars.versioningState]" content-ref="#[flowVars.contentRef]"
-                folderPath="#[flowVars.folderPath]" force="#[flowVars.force]">
-            <cmis:properties ref="#[flowVars.propertiesRef]"/>
-        </cmis:create-document-by-path-from-content>
     </flow>
 
     <flow name="get-all-versions" doc:name="get-all-versions">

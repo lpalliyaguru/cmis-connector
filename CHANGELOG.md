@@ -1,9 +1,9 @@
 CMIS Anypoint Connector Release Notes
 ==========================================
   
-Date: 15-Nov-2014
+Date: 15-Jun-2015
   
-Version: 2.0.0
+Version: 2.0.1
   
 Supported versions:
 ------------------------------
@@ -24,9 +24,7 @@ Supported Operations:
 * check-in
 * check-out
 * create-document-by-id
-* create-document-by-id-from-content
 * create-document-by-path
-* create-document-by-path-from-content
 * create-folder
 * create-relationship
 * delete
@@ -51,4 +49,5 @@ Supported Operations:
   
 New Features and Functionality
 ------------------------------
-Migrated to DevKit 3.5.2
+Migrated to DevKit 3.5.3
+Removed duplicate operations create-document-by-id-from-content & create-document-by-path-from-content

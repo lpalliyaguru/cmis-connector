@@ -314,64 +314,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return returnId;
     }
 
-    public ObjectId createDocumentByIdFromContent(@NotNull(message = "No folderId was specified in the request.") String folderId,
-                                                  @NotNull(message = "No filename was specified in the request.") String filename,
-                                                  @NotNull(message = "No document content was specified in the payload.") Object content,
-                                                  @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                                  org.mule.module.cmis.VersioningState versioningState,
-                                                  @NotNull(message = "No object type was specified in the request.") String objectType,
-                                                  Map<String, String> properties) {
-        ObjectId returnId = null;
-        Session session = this.getSession(this.connectionParameters);
-        if (session != null) {
-            logger.debug(
-                    "Preparing to create a document with file name \"" + filename + "\" in the folder with ID \"" +
-                            folderId + "\".");
-            returnId = createDocument(session.getObject(session.createObjectId(folderId)),
-                    filename,
-                    content,
-                    mimeType,
-                    versioningState,
-                    objectType,
-                    properties);
-            logger.debug("The ID of the repository node after document creation is \"" + returnId.getId() + "\".");
-        }
-
-        return returnId;
-    }
-
-    public ObjectId createDocumentByPath(String folderPath,
-                                         @NotNull(message = "No filename was specified in the request.") String filename,
-                                         @NotNull(message = "No document content was specified in the payload.") Object content,
-                                         @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                         org.mule.module.cmis.VersioningState versioningState,
-                                         @NotNull(message = "No object type was specified in the request.") String objectType,
-                                         Map<String, String> properties,
-                                         boolean force) {
-        ObjectId returnId = null;
-        Session session = this.getSession(this.connectionParameters);
-        if (session != null) {
-            Validate.notEmpty(folderPath, "folderPath is empty");
-
-            logger.debug(
-                    "Preparing to create a document with file name \"" + filename + "\" in folder \"" +
-                            folderPath + "\".");
-            returnId =
-                    createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
-                            filename,
-                            content,
-                            mimeType,
-                            versioningState,
-                            objectType,
-                            properties);
-            logger.debug("The ID of the repository node after document creation is \"" + returnId.getId() + "\".");
-        }
-
-        return returnId;
-        // End createDocumentByPath
-    }
-
-    public ObjectId createDocumentByPathFromContent(@NotNull(message = "No folderPath was specified in the request.") String folderPath,
+    public ObjectId createDocumentByPath(@NotNull(message = "No folderPath was specified in the request.") String folderPath,
                                                     @NotNull(message = "No filename was specified in the request.") String filename,
                                                     @NotNull(message = "No document content was specified in the payload.") Object content,
                                                     @NotNull(message = "No file mime type was specified in the request.") String mimeType,

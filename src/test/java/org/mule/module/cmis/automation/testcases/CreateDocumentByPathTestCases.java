@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
+import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         deleteTree(folderId, true, true);
     }
 
-    @Category({RegressionTests.class})
+    @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testCreateDocumentByPath_rootPath() {
         upsertOnTestRunMessage("folderPath", "/");
@@ -53,7 +54,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         }
     }
 
-    @Category({RegressionTests.class})
+    @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testCreateDocumentByPath_no_properties() {
         upsertOnTestRunMessage("propertiesRef", null);
@@ -68,7 +69,7 @@ public class CreateDocumentByPathTestCases extends CMISTestParent {
         }
     }
 
-    @Category({RegressionTests.class})
+    @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testCreateDocumentByPath_nonRootPath() {
         upsertOnTestRunMessage("folderPath", "/" + getTestRunMessageValue("folderName"));

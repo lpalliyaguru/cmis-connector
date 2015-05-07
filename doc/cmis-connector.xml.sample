@@ -24,12 +24,6 @@
             versioningState="NONE" objectType="D:cmiscustom:document" />
 <!-- END_INCLUDE(cmis:createDocumentByPath) -->
 
-<!-- BEGIN_INCLUDE(cmis:createDocumentByPathFromContent) -->
-        <cmis:create-document-by-path-from-content filename="file" content-ref="some content"
-            folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
-<!-- END_INCLUDE(cmis:createDocumentByPathFromContent) -->
-
 <!-- BEGIN_INCLUDE(cmis:getOrCreateFolderByPath) -->
         <cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  />
 <!-- END_INCLUDE(cmis:getOrCreateFolderByPath) -->
@@ -39,12 +33,6 @@
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
             versioningState="NONE" objectType="D:cmiscustom:document" content-ref="#[payload]" />
 <!-- END_INCLUDE(cmis:createDocumentById) -->
-
-<!-- BEGIN_INCLUDE(cmis:createDocumentByIdFromContent) -->
-        <cmis:create-document-by-id-from-content filename="file" content-ref="some content"
-            folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
-<!-- END_INCLUDE(cmis:createDocumentByIdFromContent) -->
 
 <!-- BEGIN_INCLUDE(cmis:createFolder) -->
         <cmis:create-folder folderName="new folder" parentObjectId="11111" />
