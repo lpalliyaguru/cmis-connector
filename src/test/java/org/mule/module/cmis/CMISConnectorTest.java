@@ -93,12 +93,6 @@ public class CMISConnectorTest {
     }
 
     @Test
-    public void testCreateDocumentByPathFromContent() throws Exception {
-        when(facade.createDocumentByPathFromContent(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap(), anyBoolean())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentByPathFromContent("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, String>(5), false));
-    }
-
-    @Test
     public void testGetOrCreateFolderByPath() throws Exception {
         when(facade.getOrCreateFolderByPath(anyString())).thenReturn(cmisObject);
         assertEquals(cmisObject, connector.getOrCreateFolderByPath("/mule-demo"));
@@ -108,12 +102,6 @@ public class CMISConnectorTest {
     public void testCreateDocumentById() throws Exception {
         when(facade.createDocumentById(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap())).thenReturn(objectId);
         assertEquals(objectId, connector.createDocumentById("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, String>(5)));
-    }
-
-    @Test
-    public void testCreateDocumentByIdFromContent() throws Exception {
-        when(facade.createDocumentByIdFromContent(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentByIdFromContent("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, String>(5)));
     }
 
     @Test

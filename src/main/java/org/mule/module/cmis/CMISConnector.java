@@ -172,7 +172,6 @@ public class CMISConnector implements CMISFacade {
      *
      * @return a list of {@link Repository}.
      */
-    @Override
     @Processor
     public List<Repository> repositories() {
         return facade.repositories();
@@ -185,7 +184,6 @@ public class CMISConnector implements CMISFacade {
      *
      * @return a {@link RepositoryInfo} instance
      */
-    @Override
     @Processor
     public RepositoryInfo repositoryInfo() {
         return facade.repositoryInfo();
@@ -201,7 +199,6 @@ public class CMISConnector implements CMISFacade {
      *                          the result
      * @return a {@link ChangeEvents} instance
      */
-    @Override
     @Processor
     public ChangeEvents changelog(@Optional String changeLogToken,
                                   @Default("false") boolean includeProperties) {
@@ -216,7 +213,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId The object id
      * @return a {@link CmisObject} instance
      */
-    @Override
     @Processor
     public CmisObject getObjectById(String objectId) {
         return facade.getObjectById(objectId);
@@ -230,7 +226,6 @@ public class CMISConnector implements CMISFacade {
      * @param path Path of the object to retrieve
      * @return a {@link CmisObject} instance
      */
-    @Override
     @Processor
     public CmisObject getObjectByPath(String path) {
         return facade.getObjectByPath(path);
@@ -259,7 +254,6 @@ public class CMISConnector implements CMISFacade {
      *                        are missing intermediate folders
      * @return the object id {@link ObjectId} of the created
      */
-    @Override
     @Processor
     public ObjectId createDocumentByPath(String folderPath,
                                          String filename,
@@ -271,37 +265,6 @@ public class CMISConnector implements CMISFacade {
                                          @Default("false") boolean force) {
         return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
-    }
-
-    /**
-     * Creates a new document in the repository where the content is specified as the value of the "content"
-     * parameter and the target folder node is specified by a repository path.
-     * <p/>
-     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentByPathFromContent}
-     *
-     * @param folderPath      Folder in the repository that will hold the document
-     * @param filename        Name of the file
-     * @param content         File content
-     * @param mimeType        Stream content-type
-     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     * @param objectType      The type of the object.
-     * @param properties      the properties optional document properties to set
-     * @param force           if should folder structure must be created when there
-     *                        are missing intermediate folders
-     * @return the {@link ObjectId} of the created
-     */
-    @Override
-    @Processor
-    public ObjectId createDocumentByPathFromContent(String folderPath,
-                                                    String filename,
-                                                    @Default("#[payload]") Object content,
-                                                    String mimeType,
-                                                    VersioningState versioningState,
-                                                    String objectType,
-                                                    @Placement(group = "Properties") @Optional Map<String, String> properties,
-                                                    @Default("false") boolean force) {
-        return facade.createDocumentByPathFromContent(folderPath, filename,
-                content, mimeType, versioningState, objectType, properties, force);
     }
 
     /**
@@ -338,7 +301,6 @@ public class CMISConnector implements CMISFacade {
      * @param properties      the properties optional document properties to set
      * @return the object id {@link ObjectId} of the created
      */
-    @Override
     @Processor
     public ObjectId createDocumentById(String folderId,
                                        String filename,
@@ -352,39 +314,6 @@ public class CMISConnector implements CMISFacade {
     }
 
     /**
-     * Creates a new document in the repository where the content comes directly from the payload and
-     * the target folder node is specified by an object ID.
-     * *  <p/>
-     * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:createDocumentByIdFromContent}
-     *
-     * @param folderId        Folder Object Id
-     * @param filename        name of the file
-     * @param content         file content
-     * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     *                        </br> Valid values are: <ul>
-     *                        <li>none:  The document MUST be created as a non-versionable document.</li>
-     *                        <li>checkedout: The document MUST be created in the checked-out state.</li>
-     *                        <li>major (default): The document MUST be created as a major version.</li>
-     *                        <li>minor: The document MUST be created as a minor version.</li>
-     *                        </ul>
-     * @param objectType      the type of the object
-     * @param properties      the properties optional document properties to set
-     * @return the object id {@link ObjectId} of the created
-     */
-    @Override
-    @Processor
-    public ObjectId createDocumentByIdFromContent(String folderId,
-                                                  String filename,
-                                                  @Default("#[payload]") Object content,
-                                                  String mimeType,
-                                                  VersioningState versioningState,
-                                                  String objectType,
-                                                  @Placement(group = "Properties") @Optional Map<String, String> properties) {
-        return facade.createDocumentByIdFromContent(folderId, filename, content, mimeType, versioningState, objectType, properties);
-    }
-
-    /**
      * Creates a folder. Note that this is not recursive creation. Just creates
      * one folder
      * <p/>
@@ -394,7 +323,6 @@ public class CMISConnector implements CMISFacade {
      * @param parentObjectId Parent folder for the folder being created (eg: repository.rootFolder)
      * @return the {@link ObjectId} of the created
      */
-    @Override
     @Processor
     public ObjectId createFolder(String folderName,
                                  @Optional String parentObjectId) {
@@ -409,7 +337,6 @@ public class CMISConnector implements CMISFacade {
      * @param typeId Object type Id
      * @return type of object {@link ObjectType}
      */
-    @Override
     @Processor
     public ObjectType getTypeDefinition(String typeId) {
         return facade.getTypeDefinition(typeId);
@@ -425,7 +352,6 @@ public class CMISConnector implements CMISFacade {
      *                "ASC" or the descending modifier "DESC" for each query name
      * @return list of {@link Document}.
      */
-    @Override
     @Processor
     public ItemIterable<Document> getCheckoutDocs(@Optional String filter, @Optional String orderBy) {
         return facade.getCheckoutDocs(filter, orderBy);
@@ -444,7 +370,6 @@ public class CMISConnector implements CMISFacade {
      *                          "ASC" or the descending modifier "DESC" for each query name
      * @return an iterable of {@link QueryResult}
      */
-    @Override
     @Processor
     public ItemIterable<QueryResult> query(@Placement(order = 1) String statement,
                                            @Placement(order = 4) Boolean searchAllVersions,
@@ -462,7 +387,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   id of the object whose parent folders are needed. can be null if "object" is set.
      * @return a list of the object's parent folders.
      */
-    @Override
     @Processor
     public List<Folder> getParentFolders(@Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getParentFolders(cmisObject, objectId);
@@ -493,7 +417,6 @@ public class CMISConnector implements CMISFacade {
      * </li>
      * </ul>
      */
-    @Override
     @Processor
     public Object folder(@Placement(order = 2) @Default("#[payload]") Folder folder,
                          @Placement(order = 3) @Optional String folderId,
@@ -513,7 +436,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @return The content stream of the document.
      */
-    @Override
     @Processor
     public ContentStream getContentStream(@Default("#[payload]") CmisObject cmisObject,
                                           @Optional String objectId) {
@@ -532,7 +454,6 @@ public class CMISConnector implements CMISFacade {
      * @param targetFolderId Id of the target folder
      * @return The object moved (FileableCmisObject)
      */
-    @Override
     @Processor
     public FileableCmisObject moveObject(@Placement(order = 3) @Default("#[payload]") FileableCmisObject cmisObject,
                                          @Placement(order = 4) @Optional String objectId,
@@ -551,7 +472,6 @@ public class CMISConnector implements CMISFacade {
      * @param properties The properties to update
      * @return The updated object (a repository might have created a new object)
      */
-    @Override
     @Processor
     public CmisObject updateObjectProperties(@Default("#[payload]") CmisObject cmisObject,
                                              @Optional String objectId,
@@ -568,7 +488,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   the id of the object
      * @return list of the object's relationships
      */
-    @Override
     @Processor
     public List<Relationship> getObjectRelationships(@Default("#[payload]") CmisObject cmisObject,
                                                      @Optional String objectId) {
@@ -584,7 +503,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   the id of the object
      * @return the object's Acl
      */
-    @Override
     @Processor
     public Acl getAcl(@Default("#[payload]") CmisObject cmisObject, @Optional String objectId) {
         return facade.getAcl(cmisObject, objectId);
@@ -602,7 +520,6 @@ public class CMISConnector implements CMISFacade {
      *                   "ASC" or the descending modifier "DESC" for each query name (only for CHILDREN or DESCENDANTS navigation)
      * @return versions of the document.
      */
-    @Override
     @Processor
     public List<Document> getAllVersions(@Default("#[payload]") CmisObject document,
                                          @Optional String documentId,
@@ -620,7 +537,6 @@ public class CMISConnector implements CMISFacade {
      * @param documentId Id of the document to be checked out. Can be null if "document" is set.
      * @return PWC ObjectId
      */
-    @Override
     @Processor
     public ObjectId checkOut(@Default("#[payload]") CmisObject document,
                              @Optional String documentId) {
@@ -636,7 +552,6 @@ public class CMISConnector implements CMISFacade {
      * @param document   The checked out document. Can be null if "documentId" is set.
      * @param documentId Id of the checked out document. Can be null if "document" is set.
      */
-    @Override
     @Processor
     public void cancelCheckOut(@Default("#[payload]") CmisObject document,
                                @Optional String documentId) {
@@ -659,7 +574,6 @@ public class CMISConnector implements CMISFacade {
      * @param properties     custom properties
      * @return the {@link ObjectId} of the checkedin document
      */
-    @Override
     @Processor
     public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
@@ -684,7 +598,6 @@ public class CMISConnector implements CMISFacade {
      * @param aclPropagation whether to propagate changes or not. can be  REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE
      * @return the new access control list
      */
-    @Override
     @Processor
     public Acl applyAcl(@Default("#[payload]") CmisObject cmisObject,
                         @Optional String objectId,
@@ -703,7 +616,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @return List of applied policies
      */
-    @Override
     @Processor
     public List<Policy> getAppliedPolicies(@Default("#[payload]") CmisObject cmisObject,
                                            @Optional String objectId) {
@@ -719,7 +631,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId   Id of the document from which to get the stream. Can be null if "object" is set.
      * @param policyIds  Policy ID's to apply
      */
-    @Override
     @Processor
     public void applyPolicy(@Default("#[payload]") CmisObject cmisObject,
                             @Optional String objectId,
@@ -736,7 +647,6 @@ public class CMISConnector implements CMISFacade {
      * @param objectId    The object's id. Can be null if "cmisObject" is set.
      * @param allVersions If true, deletes all version history of the object. Defaults to "false".
      */
-    @Override
     @Processor
     public void delete(@Default("#[payload]") CmisObject cmisObject,
                        @Optional String objectId,
@@ -760,7 +670,6 @@ public class CMISConnector implements CMISFacade {
      *                          in the specified folder cannot be deleted or not.
      * @return a list of object ids which failed to be deleted.
      */
-    @Override
     @Processor
     public List<String> deleteTree(@Placement(order = 1) @Default("#[payload]") CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
@@ -779,7 +688,6 @@ public class CMISConnector implements CMISFacade {
      * @param aspectName The name of the aspect to be applied to the object.
      * @param properties The properties to set.
      */
-    @Override
     @Processor
     public void applyAspect(String objectId,
                             String aspectName,
@@ -798,7 +706,6 @@ public class CMISConnector implements CMISFacade {
      * @param relationshipType The name of the relationship type that should be associated with the objects.
      * @return The {@link ObjectId} that is the result of the relationship
      */
-    @Override
     @Processor
     public ObjectId createRelationship(String parentObjectId,
                                        String childObjectId,

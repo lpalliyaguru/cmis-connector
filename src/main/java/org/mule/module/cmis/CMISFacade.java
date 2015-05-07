@@ -85,31 +85,6 @@ public interface CMISFacade {
                                   Map<String, String> properties,
                                   boolean force);
 
-
-    /**
-     * Creates a new document in the repository where the content is specified as the value of the "content"
-     * parameter and the target folder node is specified by a repository path.
-     *
-     * @param folderPath      Folder in the repository that will hold the document
-     * @param filename        Name of the file
-     * @param content         File content
-     * @param mimeType        Stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.
-     * @param objectType      The type of the object.
-     * @param properties      the properties optional document properties to set
-     * @param force           if should folder structure must be created when there
-     *                        are missing intermediate folders
-     * @return the {@link ObjectId} of the created
-     */
-    ObjectId createDocumentByPathFromContent(String folderPath,
-                                             String filename,
-                                             Object content,
-                                             String mimeType,
-                                             VersioningState versioningState,
-                                             String objectType,
-                                             Map<String, String> properties,
-                                             boolean force);
-
     /**
      * Creates a new folder in the repository if it doesn't already exist
      *
@@ -152,31 +127,6 @@ public interface CMISFacade {
                                 String objectType,
                                 Map<String, String> properties);
 
-
-    /**
-     * Creates a new document in the repository where the content comes directly from the payload and
-     * the target folder node is specified by an object ID.
-     *
-     * @param folderId        Folder Object Id
-     * @param filename        name of the file
-     * @param content         file content
-     * @param mimeType        stream content-type
-     * @param versioningState An enumeration specifying what the versioing state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:
-     *                        o none:  The document MUST be created as a non-versionable document.
-     *                        o checkedout: The document MUST be created in the checked-out state.
-     *                        o major (default): The document MUST be created as a major version
-     *                        o minor: The document MUST be created as a minor version.
-     * @param objectType      the type of the object
-     * @param properties      the properties optional document properties to set
-     * @return the object id {@link ObjectId} of the created
-     */
-    ObjectId createDocumentByIdFromContent(String folderId,
-                                           String filename,
-                                           Object content,
-                                           String mimeType,
-                                           VersioningState versioningState,
-                                           String objectType,
-                                           Map<String, String> properties);
 
     /**
      * Returns the type definition of the given type id.
