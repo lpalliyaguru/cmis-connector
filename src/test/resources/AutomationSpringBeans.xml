@@ -7,6 +7,9 @@
     <bean id="randomShortString" class="org.mule.modules.tests.ConnectorTestUtils"
           factory-method="generateRandomShortString" scope="prototype"/>
 
+    <bean id="randomInputStream" class="org.mule.modules.tests.ConnectorTestUtils"
+          factory-method="generateRandomInputStream" scope="prototype"/>
+
     <!-- create-folder -->
 
     <util:map id="createFolderTestData" map-class="java.util.HashMap"
@@ -59,7 +62,7 @@
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document,P:cm:titled"/>
-        <entry key="contentRef" value="this is the file content"/>
+        <entry key="contentRef" value-ref="randomInputStream"/>
     </util:map>
 
     <!-- create-document-by-path -->
@@ -340,7 +343,7 @@
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="major" value="true"/>
         <entry key="checkinComment" value="Checking in a new file"/>
-        <entry key="contentRef" value="This is the file content"/>
+        <entry key="contentRef" value-ref="randomInputStream"/>
         <entry key="versioningState" value="#{T(org.mule.module.cmis.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">

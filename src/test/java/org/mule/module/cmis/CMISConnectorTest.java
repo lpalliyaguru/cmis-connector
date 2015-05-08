@@ -199,7 +199,7 @@ public class CMISConnectorTest {
     @Test
     public void testCheckIn() throws Exception {
         when(facade.checkIn(any(CmisObject.class), anyString(), anyObject(), anyString(), anyString(), anyBoolean(), anyString(), anyMap())).thenReturn(objectId);
-        assertEquals(objectId, connector.checkIn(cmisObject, "docId", "This is a mock test", "foo.txt", "text/plain;charset=UTF-8", false, "Test Checkin Comments", new HashMap<String, String>()));
+        assertEquals(objectId, connector.checkIn(cmisObject, "docId", "This is a mock test", "foo.txt", "text/plain;charset=UTF-8", false, "Test Checkin Comments", new HashMap<String, Object>()));
     }
 
     @Test

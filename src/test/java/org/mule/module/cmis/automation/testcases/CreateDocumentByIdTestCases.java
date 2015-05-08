@@ -46,6 +46,7 @@ public class CreateDocumentByIdTestCases extends CMISTestParent {
     @Test
     public void testCreateDocumentById_no_properties() {
         upsertOnTestRunMessage("propertiesRef", null);
+        upsertOnTestRunMessage("contentRef", "this is the file content");
         try {
             ObjectId result = runFlowAndGetPayload("create-document-by-id");
             assertNotNull(result.getId());

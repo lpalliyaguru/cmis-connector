@@ -36,7 +36,6 @@ public class CMISFacadeAdaptor {
             this.facade = facade;
         }
 
-        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             if (logger.isDebugEnabled()) {
                 logger.debug("Invoked method {0} with arguments {1}", method.getName(), args);
