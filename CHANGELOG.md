@@ -3,7 +3,7 @@ CMIS Anypoint Connector Release Notes
   
 Date: 15-Jun-2015
   
-Version: 2.0.1
+Version: 3.0.0
   
 Supported versions:
 ------------------------------
@@ -54,5 +54,6 @@ Migrated to DevKit 3.5.3
 Closed Issues in this release
 -----------------------------
 - Removed duplicate operations create-document-by-id-from-content & create-document-by-path-from-content. (CLDCONNECT-1601)
-- Modified the properties attribute of create-document-by-id, create-document-by-path, apply-aspect & update-object-properties to accept Map of Objects instead of Strings. (CLDCONNECT-2328) 
+- Modified the properties attribute of create-document-by-id, create-document-by-path, apply-aspect & update-object-properties to accept Map of Objects instead of Strings. (CLDCONNECT-2328)
+- Fixed closing of the content payload if its an input stream. (CLDCONNECT-2351)
     

@@ -689,7 +689,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                             Object content, String filename,
                             String mimeType, boolean major,
                             String checkinComment,
-                            Map<String, String> properties) {
+                            Map<String, Object> properties) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
         Validate.notEmpty(filename, "filename is empty");
@@ -707,8 +707,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         return null;
     }
 
-    private Map<String, String> coalesceProperties(Map<String, String> properties) {
-        return properties != null ? properties : Collections.<String, String>emptyMap();
+    private Map<String, Object> coalesceProperties(Map<String, Object> properties) {
+        return properties != null ? properties : Collections.<String, Object>emptyMap();
     }
 
     public Acl applyAcl(CmisObject cmisObject, String objectId, List<Ace> addAces,

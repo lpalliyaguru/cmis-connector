@@ -12,6 +12,7 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
@@ -23,6 +24,7 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -263,8 +265,12 @@ public class CMISConnector implements CMISFacade {
                                          String objectType,
                                          @Placement(group = "Properties") @Optional Map<String, Object> properties,
                                          @Default("false") boolean force) {
-        return facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
+        ObjectId objectId = facade.createDocumentByPath(folderPath, filename, content, mimeType, versioningState,
                 objectType, properties, force);
+        if (content instanceof InputStream) {
+            IOUtils.closeQuietly((InputStream) content);
+        }
+        return objectId;
     }
 
     /**
@@ -309,8 +315,12 @@ public class CMISConnector implements CMISFacade {
                                        VersioningState versioningState,
                                        String objectType,
                                        @Placement(group = "Properties") @Optional Map<String, Object> properties) {
-        return facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
+        ObjectId objectId = facade.createDocumentById(folderId, filename, content, mimeType, versioningState,
                 objectType, properties);
+        if (content instanceof InputStream) {
+            IOUtils.closeQuietly((InputStream) content);
+        }
+        return objectId;
     }
 
     /**
@@ -582,8 +592,12 @@ public class CMISConnector implements CMISFacade {
                             String mimeType,
                             @Default("false") boolean major,
                             String checkinComment,
-                            @Placement(group = "Properties") @Optional Map<String, String> properties) {
-        return facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment, properties);
+                            @Placement(group = "Properties") @Optional Map<String, Object> properties) {
+        ObjectId objectId = facade.checkIn(document, documentId, content, filename, mimeType, major, checkinComment, properties);
+        if (content instanceof InputStream) {
+            IOUtils.closeQuietly((InputStream) content);
+        }
+        return objectId;
     }
 
     /**

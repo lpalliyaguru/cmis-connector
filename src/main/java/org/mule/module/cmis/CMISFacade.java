@@ -338,7 +338,7 @@ public interface CMISFacade {
      */
     ObjectId checkIn(CmisObject document, String documentId,
                      Object content, String filename,
-                     String mimeType, boolean major, String checkinComment, Map<String, String> properties);
+                     String mimeType, boolean major, String checkinComment, Map<String, Object> properties);
 
     /**
      * Get the policies that are applied to an object.
