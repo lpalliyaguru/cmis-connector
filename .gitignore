@@ -9,3 +9,6 @@
 /.idea
 /.DS_Store
 /.studio
+bin/
+.factorypath
+dependency-reduced-pom.xml

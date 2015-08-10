@@ -487,8 +487,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End getCheckoutDocs
     }
 
-    public ItemIterable<QueryResult> query(String statement,
-                                           @NotNull Boolean searchAllVersions,
+    public ItemIterable<QueryResult> query(@NotNull String statement,
+                                           @NotNull boolean searchAllVersions,
                                            String filter,
                                            String orderBy) {
         ItemIterable<QueryResult> resultList = null;
