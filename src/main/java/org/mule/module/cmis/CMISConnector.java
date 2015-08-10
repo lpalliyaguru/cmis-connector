@@ -381,8 +381,8 @@ public class CMISConnector implements CMISFacade {
      * @return an iterable of {@link QueryResult}
      */
     @Processor
-    public ItemIterable<QueryResult> query(@Placement(order = 1) String statement,
-                                           @Placement(order = 4) Boolean searchAllVersions,
+    public ItemIterable<QueryResult> query(@Placement(order = 1) @Default("#[payload]") String statement,
+                                           @Placement(order = 4) @Default("false") boolean searchAllVersions,
                                            @Placement(order = 2) @Optional String filter,
                                            @Placement(order = 3) @Optional String orderBy) {
         return facade.query(statement, searchAllVersions, filter, orderBy);
@@ -585,9 +585,9 @@ public class CMISConnector implements CMISFacade {
      * @return the {@link ObjectId} of the checkedin document
      */
     @Processor
-    public ObjectId checkIn(@Optional CmisObject document,
+    public ObjectId checkIn(@Default("#[payload]")  CmisObject document,
                             @Optional String documentId,
-                            @Default("#[payload]") Object content,
+                            @Optional Object content,
                             String filename,
                             String mimeType,
                             @Default("false") boolean major,

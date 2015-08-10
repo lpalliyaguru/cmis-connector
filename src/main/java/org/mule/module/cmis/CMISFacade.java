@@ -157,7 +157,7 @@ public interface CMISFacade {
      *                          "ASC" or the descending modifier "DESC" for each query name
      * @return an iterable of {@link QueryResult}
      */
-    ItemIterable<QueryResult> query(String statement, Boolean searchAllVersions,
+    ItemIterable<QueryResult> query(String statement, boolean searchAllVersions,
                                     String filter, String orderBy);
 
     /**
