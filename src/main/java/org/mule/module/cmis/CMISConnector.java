@@ -585,9 +585,9 @@ public class CMISConnector implements CMISFacade {
      * @return the {@link ObjectId} of the checkedin document
      */
     @Processor
-    public ObjectId checkIn(@Default("#[payload]")  CmisObject document,
+    public ObjectId checkIn(@Optional CmisObject document,
                             @Optional String documentId,
-                            @Optional Object content,
+                            @Default("#[payload]") Object content,
                             String filename,
                             String mimeType,
                             @Default("false") boolean major,

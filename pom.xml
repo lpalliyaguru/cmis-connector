@@ -16,8 +16,8 @@
     <properties>
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
-        <chemistry.version>0.10.0</chemistry.version>
-        <alfresco.extension.version>0.7</alfresco.extension.version>
+        <chemistry.version>0.13.0</chemistry.version>
+        <alfresco.extension.version>1.0</alfresco.extension.version>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
 

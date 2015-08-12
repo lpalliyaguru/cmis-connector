@@ -51,7 +51,7 @@ public class CreateRelationshipTestCases extends CMISTestParent {
             boolean found = false;
 
             List<Relationship> result = getObjectRelationships(anotherDocumentId, getObjectById(anotherDocumentId));
-            assertNull(result);
+            assertTrue(result.isEmpty());
 
             ObjectId relationshipId = runFlowAndGetPayload("create-relationship");
             assertNotNull(relationshipId);
