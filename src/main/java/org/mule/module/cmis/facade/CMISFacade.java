@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis;
+package org.mule.module.cmis.facade;
 
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -12,6 +12,8 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.mule.module.cmis.model.NavigationOptions;
+import org.mule.module.cmis.model.VersioningState;
 
 import java.util.List;
 import java.util.Map;
@@ -254,8 +256,7 @@ public interface CMISFacade {
      *                          in the specified folder cannot be deleted or not.
      * @return a list of object ids which failed to be deleted.
      */
-    List<String> deleteTree(CmisObject folder, String folderId, boolean allversions,
-                            UnfileObject unfile, boolean continueOnFailure);
+    List<String> deleteTree(CmisObject folder, String folderId, UnfileObject unfile, boolean allversions, boolean continueOnFailure);
 
     /**
      * Returns the relationships if they have been fetched for an object.

@@ -1,73 +1,73 @@
 <!-- BEGIN_INCLUDE(cmis:repositories) -->
-        <cmis:repositories />
+        <cmis:repositories config-ref="config" />
 <!-- END_INCLUDE(cmis:repositories) -->
 
 <!-- BEGIN_INCLUDE(cmis:repositoryInfo) -->
-        <cmis:repository-info />
+        <cmis:repository-info config-ref="config" />
 <!-- END_INCLUDE(cmis:repositoryInfo) -->
 
 <!-- BEGIN_INCLUDE(cmis:changelog) -->
-        <cmis:changelog changeLogToken="41784" includeProperties="false"/>
+        <cmis:changelog changeLogToken="41784" includeProperties="false" config-ref="config" />
 <!-- END_INCLUDE(cmis:changelog) -->
 
 <!-- BEGIN_INCLUDE(cmis:getObjectById) -->
-        <cmis:get-object-by-id objectId="1234" />
+        <cmis:get-object-by-id objectId="1234" config-ref="config" />
 <!-- END_INCLUDE(cmis:getObjectById) -->
 
 <!-- BEGIN_INCLUDE(cmis:getObjectByPath) -->
-        <cmis:get-object-by-path path="/mule-cloud-connector" />
+        <cmis:get-object-by-path path="/mule-cloud-connector" config-ref="config" />
 <!-- END_INCLUDE(cmis:getObjectByPath) -->
 
 <!-- BEGIN_INCLUDE(cmis:createDocumentByPath) -->
         <cmis:create-document-by-path filename="file"
             folderPath="/mule-cloud-connector" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" />
+            versioningState="NONE" objectType="D:cmiscustom:document" config-ref="config" />
 <!-- END_INCLUDE(cmis:createDocumentByPath) -->
 
 <!-- BEGIN_INCLUDE(cmis:getOrCreateFolderByPath) -->
-        <cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  />
+        <cmis:get-or-create-folder-by-path folderPath="/mule-cloud-connector"  config-ref="config" />
 <!-- END_INCLUDE(cmis:getOrCreateFolderByPath) -->
 
 <!-- BEGIN_INCLUDE(cmis:createDocumentById) -->
         <cmis:create-document-by-id filename="file"
             folderId="1111111" mimeType="application/octet-stream;charset=UTF-8"
-            versioningState="NONE" objectType="D:cmiscustom:document" content-ref="#[payload]" />
+            versioningState="NONE" objectType="D:cmiscustom:document" content-ref="#[payload]" config-ref="config" />
 <!-- END_INCLUDE(cmis:createDocumentById) -->
 
 <!-- BEGIN_INCLUDE(cmis:createFolder) -->
-        <cmis:create-folder folderName="new folder" parentObjectId="11111" />
+        <cmis:create-folder folderName="new folder" parentObjectId="11111" config-ref="config" />
 <!-- END_INCLUDE(cmis:createFolder) -->
 
 <!-- BEGIN_INCLUDE(cmis:getTypeDefinition) -->
-        <cmis:get-type-definition typeId="1111" />
+        <cmis:get-type-definition typeId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:getTypeDefinition) -->
 
 <!-- BEGIN_INCLUDE(cmis:getCheckoutDocs) -->
-        <cmis:get-checkout-docs />
+        <cmis:get-checkout-docs config-ref="config" />
 <!-- END_INCLUDE(cmis:getCheckoutDocs) -->
 
 <!-- BEGIN_INCLUDE(cmis:query) -->
-        <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" />
+        <cmis:query searchAllVersions="true" statement="SELECT * FROM cmis:document" config-ref="config" />
 <!-- END_INCLUDE(cmis:query) -->
 
 <!-- BEGIN_INCLUDE(cmis:getParentFolders) -->
-        <cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" />
+        <cmis:get-parent-folders cmisObject-ref="#[payload:cmisObject]" objectId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:getParentFolders) -->
 
 <!-- BEGIN_INCLUDE(cmis:folder) -->
-        <cmis:folder get="CHILDREN" folderId="#[payload:id]"/>
+        <cmis:folder get="CHILDREN" folderId="#[payload:id]" config-ref="config" />
 <!-- END_INCLUDE(cmis:folder) -->
 
 <!-- BEGIN_INCLUDE(cmis:getContentStream) -->
-        <cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" />
+        <cmis:get-content-stream objectId="11111" cmisObject-ref="#[payload:cmisObject]" config-ref="config" />
 <!-- END_INCLUDE(cmis:getContentStream) -->
 
 <!-- BEGIN_INCLUDE(cmis:moveObject) -->
-        <cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" />
+        <cmis:move-object sourceFolderId="1111" targetFolderId="2222" objectId="3333" config-ref="config" />
 <!-- END_INCLUDE(cmis:moveObject) -->
 
 <!-- BEGIN_INCLUDE(cmis:updateObjectProperties) -->
-        <cmis:update-object-properties objectId="1111" cmisObject-ref="#[payload:cmisObject]">
+        <cmis:update-object-properties objectId="1111" cmisObject-ref="#[payload:cmisObject]" config-ref="config">
             <cmis:properties>
                 <cmis:property key="propkey1">propValue1</cmis:property>
                 <cmis:property key="propkey2">propValue2</cmis:property>
@@ -76,34 +76,34 @@
 <!-- END_INCLUDE(cmis:updateObjectProperties) -->
 
 <!-- BEGIN_INCLUDE(cmis:getObjectRelationships) -->
-        <cmis:get-object-relationships objectId="2222" cmisObject-ref="#[payload:cmisObject]" />
+        <cmis:get-object-relationships objectId="2222" cmisObject-ref="#[payload:cmisObject]" config-ref="config" />
 <!-- END_INCLUDE(cmis:getObjectRelationships) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAcl) -->
-        <cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" />
+        <cmis:get-acl objectId="2222" cmisObject-ref="#[payload:cmisObject]" config-ref="config" />
 <!-- END_INCLUDE(cmis:getAcl) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAllVersions) -->
-        <cmis:get-all-versions documentId="1111" />
+        <cmis:get-all-versions documentId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:getAllVersions) -->
 
 <!-- BEGIN_INCLUDE(cmis:checkOut) -->
-        <cmis:check-out documentId="1111" />
+        <cmis:check-out documentId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:checkOut) -->
 
 <!-- BEGIN_INCLUDE(cmis:cancelCheckOut) -->
-        <cmis:cancel-check-out documentId="1111" />
+        <cmis:cancel-check-out documentId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:cancelCheckOut) -->
 
 <!-- BEGIN_INCLUDE(cmis:checkIn) -->
         <cmis:check-in filename="#[payload:name]"
                         checkinComment="change on file" major="true"
                         mimeType="application/octet-stream;charset=UTF-8"
-                        content-ref="#[payload:content]" />
+                        content-ref="#[payload:content]" config-ref="config" />
 <!-- END_INCLUDE(cmis:checkIn) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAcl) -->
-        <cmis:apply-acl aclPropagation="OBJECTONLY">
+        <cmis:apply-acl aclPropagation="OBJECTONLY" config-ref="config">
             <cmis:add-aces>
                 <cmis:add-ace value-ref="addAce1Ref" />
                 <cmis:add-ace value-ref="addAce2Ref" />
@@ -116,11 +116,11 @@
 <!-- END_INCLUDE(cmis:applyAcl) -->
 
 <!-- BEGIN_INCLUDE(cmis:getAppliedPolicies) -->
-        <cmis:get-applied-policies objectId="1111"/>
+        <cmis:get-applied-policies objectId="1111" config-ref="config" />
 <!-- END_INCLUDE(cmis:getAppliedPolicies) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyPolicy) -->
-        <cmis:apply-policy cmisObject-ref="#[payload:cmisObject]">
+        <cmis:apply-policy cmisObject-ref="#[payload:cmisObject]" config-ref="config">
             <cmis:policy-ids>
                 <cmis:policy-id value-ref="policyId1Ref" />
                 <cmis:policy-id value-ref="policyId2Ref" />
@@ -129,15 +129,15 @@
 <!-- END_INCLUDE(cmis:applyPolicy) -->
 
 <!-- BEGIN_INCLUDE(cmis:delete) -->
-        <cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" />
+        <cmis:delete objectId="1111" allVersions="true" cmisObject-ref="#[payload:cmisObject]" config-ref="config" />
 <!-- END_INCLUDE(cmis:delete) -->
 
 <!-- BEGIN_INCLUDE(cmis:deleteTree) -->
-        <cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" />
+        <cmis:delete-tree allversions="true" continueOnFailure="false" folder-ref="#[payload:folder]" config-ref="config" />
 <!-- END_INCLUDE(cmis:deleteTree) -->
 
 <!-- BEGIN_INCLUDE(cmis:applyAspect) -->
-        <cmis:apply-aspect objectId="1111" aspectName="somename">
+        <cmis:apply-aspect objectId="1111" aspectName="somename" config-ref="config">
             <cmis:properties>
                 <cmis:property key="propkey1">propValue1</cmis:property>
                 <cmis:property key="propkey2">propValue2</cmis:property>
@@ -146,5 +146,5 @@
 <!-- END_INCLUDE(cmis:applyAspect) -->
 
 <!-- BEGIN_INCLUDE(cmis:createRelationship) -->
-       <cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc"/>
+       <cmis:create-relationship parentObjectId="1111" childObjectId="2222" relationshipType="cmiscustom:assoc" config-ref="config" />
 <!-- END_INCLUDE(cmis:createRelationship) -->

@@ -13,16 +13,17 @@ import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.mule.api.ConnectionException;
-import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.*;
-import org.mule.api.annotations.display.Password;
+import org.jetbrains.annotations.NotNull;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
+import org.mule.module.cmis.facade.CMISFacade;
+import org.mule.module.cmis.model.NavigationOptions;
+import org.mule.module.cmis.model.VersioningState;
 
 import java.io.InputStream;
 import java.util.List;
@@ -33,139 +34,16 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS")
 @ReconnectOn(exceptions = CMISConnectorConnectionException.class)
+@Connector(name = "cmis", schemaVersion = "1.1", friendlyName = "CMIS")
 public class CMISConnector implements CMISFacade {
 
-    // This object will be used to hold the concurrency for the connection manager features
-    private final Object threadSafeLock;
+    @NotNull
+    @org.mule.api.annotations.Config
+    private Config config;
 
-    /**
-     * The identifier for the Repository this connector instance works with.
-     */
-    @Placement(group = "Repository Information")
-    @Configurable
-    @Optional
-    String repositoryId;
-
-    /**
-     * The connection time-out specification.
-     */
-    @Configurable
-    @Default("10000")
-    String connectionTimeout;
-
-    /**
-     * Specifies whether the Alfresco Object Factory implementation should be utilized.
-     */
-    @Configurable
-    @Default("false")
-    Boolean useAlfrescoExtension;
-
-    /**
-     * Specifies CXF port provider, the CMIS connector includes a default implementation
-     */
-    @Configurable
-    @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
-    String cxfPortProvider;
-
-    /**
-     * Turn on-off cookies support, allows to set a custom implementation by extending
-     * org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
-     */
-    @Configurable
-    @Default("false")
-    Boolean useCookies;
-
-    /**
-     * The type of endpoint.
-     * Values allowed: SOAP or ATOM
-     */
-    @Placement(group = "Repository Information")
-    @Configurable
-    @Default("ATOM")
-    private CMISConnectionType endpoint;
-
+    @NotNull
     private CMISFacade facade;
-    private String connectionIdentifier;
-
-    public CMISConnector() {
-        threadSafeLock = new Object();
-    }
-
-    /**
-     * Connects to CMIS
-     *
-     * @param baseUrl  CMIS repository address
-     * @param username CMIS repository username
-     * @param password CMIS repository password
-     */
-    @Connect
-    public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
-
-        if (StringUtils.isBlank(username)) {
-            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-        } else if (StringUtils.isBlank(password)) {
-            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-        } else if (StringUtils.isBlank(baseUrl)) {
-            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
-        }
-
-        synchronized (threadSafeLock) {
-            // Prevent re-initialization
-            if (facade == null) {
-                setConnectionIdentifier(username + "@" + baseUrl);
-
-                this.facade =
-                        CMISFacadeAdaptor.adapt(
-                                new ChemistryCMISFacade(
-                                        username,
-                                        password,
-                                        baseUrl,
-                                        getRepositoryId(),
-                                        getEndpoint(),
-                                        getConnectionTimeout(),
-                                        getCxfPortProvider(),
-                                        getUseAlfrescoExtension(),
-                                        getUseCookies()));
-
-                // Force a call to an operation in order to create the client and force authentication
-                repositoryInfo();
-            }
-        }
-    }
-
-    @Disconnect
-    public void disconnect() {
-        synchronized (threadSafeLock) {
-            facade = null;
-        }
-    }
-
-    @ValidateConnection
-    public boolean isConnected() {
-        synchronized (threadSafeLock) {
-            return facade != null;
-        }
-    }
-
-    @ConnectionIdentifier
-    public String getConnectionIdentifier() {
-        return this.connectionIdentifier;
-    }
-
-    public void setConnectionIdentifier(String connectionIdentifier) {
-        this.connectionIdentifier = connectionIdentifier;
-    }
 
     /**
      * Returns all repositories that are available at the endpoint.
@@ -216,7 +94,7 @@ public class CMISConnector implements CMISFacade {
      * @return a {@link CmisObject} instance
      */
     @Processor
-    public CmisObject getObjectById(String objectId) {
+    public CmisObject getObjectById(@NotNull String objectId) {
         return facade.getObjectById(objectId);
     }
 
@@ -229,7 +107,7 @@ public class CMISConnector implements CMISFacade {
      * @return a {@link CmisObject} instance
      */
     @Processor
-    public CmisObject getObjectByPath(String path) {
+    public CmisObject getObjectByPath(@NotNull String path) {
         return facade.getObjectByPath(path);
     }
 
@@ -261,7 +139,7 @@ public class CMISConnector implements CMISFacade {
                                          String filename,
                                          @Default("#[payload]") Object content,
                                          String mimeType,
-                                         VersioningState versioningState,
+                                         @Default("NONE") VersioningState versioningState,
                                          String objectType,
                                          @Placement(group = "Properties") @Optional Map<String, Object> properties,
                                          @Default("false") boolean force) {
@@ -687,10 +565,10 @@ public class CMISConnector implements CMISFacade {
     @Processor
     public List<String> deleteTree(@Placement(order = 1) @Default("#[payload]") CmisObject folder,
                                    @Placement(order = 2) @Optional String folderId,
-                                   @Placement(order = 4) boolean allversions,
                                    @Placement(order = 3) @Optional UnfileObject unfile,
+                                   @Placement(order = 4) boolean allversions,
                                    @Placement(order = 5) boolean continueOnFailure) {
-        return facade.deleteTree(folder, folderId, allversions, unfile, continueOnFailure);
+        return facade.deleteTree(folder, folderId, unfile, allversions, continueOnFailure);
     }
 
     /**
@@ -727,59 +605,13 @@ public class CMISConnector implements CMISFacade {
         return facade.createRelationship(parentObjectId, childObjectId, relationshipType);
     }
 
-    public String getRepositoryId() {
-        return repositoryId;
+    @NotNull
+    public Config getConfig() {
+        return config;
     }
 
-    public void setRepositoryId(String repositoryId) {
-        this.repositoryId = repositoryId;
-    }
-
-    public String getConnectionTimeout() {
-        return connectionTimeout;
-    }
-
-    public void setConnectionTimeout(String connectionTimeout) {
-        this.connectionTimeout = connectionTimeout;
-    }
-
-    public Boolean getUseAlfrescoExtension() {
-        return useAlfrescoExtension;
-    }
-
-    public void setUseAlfrescoExtension(Boolean useAlfrescoExtension) {
-        this.useAlfrescoExtension = useAlfrescoExtension;
-    }
-
-    public String getCxfPortProvider() {
-        return cxfPortProvider;
-    }
-
-    public void setCxfPortProvider(String cxfPortProvider) {
-        this.cxfPortProvider = cxfPortProvider;
-    }
-
-    public Boolean getUseCookies() {
-        return useCookies;
-    }
-
-    public void setUseCookies(Boolean useCookies) {
-        this.useCookies = useCookies;
-    }
-
-    public CMISConnectionType getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(CMISConnectionType endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public CMISFacade getFacade() {
-        return facade;
-    }
-
-    public void setFacade(CMISFacade facade) {
-        this.facade = facade;
+    public void setConfig(@NotNull Config config) {
+        this.config = config;
+        this.facade = config.getFacade();
     }
 }

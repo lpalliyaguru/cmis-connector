@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis;
+package org.mule.module.cmis.facade;
 
 import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.*;
@@ -18,7 +18,6 @@ import org.apache.chemistry.opencmis.commons.data.Acl;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.*;
-import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisContentAlreadyExistsException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
@@ -26,6 +25,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
+import org.mule.module.cmis.model.CMISConnectionType;
+import org.mule.module.cmis.model.NavigationOptions;
 
 import javax.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
@@ -290,7 +291,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                                        @NotNull(message = "No filename was specified in the request.") String filename,
                                        @NotNull(message = "No document content was specified in the payload.") Object content,
                                        @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                       org.mule.module.cmis.VersioningState versioningState,
+                                       org.mule.module.cmis.model.VersioningState versioningState,
                                        @NotNull(message = "No object type was specified in the request.") String objectType,
                                        Map<String, Object> properties) {
         ObjectId returnId = null;
@@ -318,7 +319,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                                          @NotNull(message = "No filename was specified in the request.") String filename,
                                          @NotNull(message = "No document content was specified in the payload.") Object content,
                                          @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                         org.mule.module.cmis.VersioningState versioningState,
+                                         org.mule.module.cmis.model.VersioningState versioningState,
                                          @NotNull(message = "No object type was specified in the request.") String objectType,
                                          Map<String, Object> properties,
                                          boolean force) {
@@ -393,7 +394,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                                       @NotNull(message = "No filename was specified in the request.") String filename,
                                       @NotNull(message = "No document content was specified in the payload.") Object content,
                                       @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                      @NotNull(message = "No versioning state was specified in the request.") org.mule.module.cmis.VersioningState versioningState,
+                                      @NotNull(message = "No versioning state was specified in the request.") org.mule.module.cmis.model.VersioningState versioningState,
                                       String objectType,
                                       Map<String, Object> extraProperties) {
         ObjectId returnId = null;
@@ -621,7 +622,7 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     public List<String> deleteTree(CmisObject folder, String folderId,
-                                   boolean allversions, UnfileObject unfile, boolean continueOnFailure) {
+                                   UnfileObject unfile, boolean allversions, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
         CmisObject target = getCmisObject(folder, folderId);
