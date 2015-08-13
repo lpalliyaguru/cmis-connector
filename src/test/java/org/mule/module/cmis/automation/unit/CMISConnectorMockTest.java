@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis;
+package org.mule.module.cmis.automation.unit;
 
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl;
@@ -20,6 +20,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mule.module.cmis.CMISConnector;
+import org.mule.module.cmis.Config;
+import org.mule.module.cmis.facade.CMISFacade;
+import org.mule.module.cmis.model.NavigationOptions;
+import org.mule.module.cmis.model.VersioningState;
 
 import java.util.*;
 
@@ -32,7 +37,7 @@ import static org.mockito.Mockito.when;
 /**
  * Test {@link org.mule.module.cmis.CMISConnector} internals
  */
-public class CMISConnectorTest {
+public class CMISConnectorMockTest {
 
     @Mock
     ObjectId objectId;
@@ -48,9 +53,11 @@ public class CMISConnectorTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        Config config = new Config();
+        config.setFacade(facade);
+        config.setConnectionIdentifier(UUID.randomUUID().toString());
         this.connector = new CMISConnector();
-        this.connector.setFacade(facade);
-        this.connector.setConnectionIdentifier(UUID.randomUUID().toString());
+        this.connector.setConfig(config);
     }
 
     @Test
@@ -237,8 +244,8 @@ public class CMISConnectorTest {
     @Test
     public void testDeleteTree() throws Exception {
         List<String> strings = Arrays.asList("foo", "mule", "anypoint");
-        when(facade.deleteTree(any(CmisObject.class), anyString(), anyBoolean(), any(UnfileObject.class), anyBoolean())).thenReturn(strings);
-        assertEquals(strings, connector.deleteTree(cmisObject, "folderId", false, UnfileObject.DELETE, false));
+        when(facade.deleteTree(any(CmisObject.class), anyString(), any(UnfileObject.class), anyBoolean(), anyBoolean())).thenReturn(strings);
+        assertEquals(strings, connector.deleteTree(cmisObject, "folderId", UnfileObject.DELETE, false, false));
     }
 
     @Test

@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis;
+package org.mule.module.cmis.facade;
 
 import org.apache.chemistry.opencmis.commons.exceptions.CmisConnectionException;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
@@ -26,7 +26,7 @@ public class CMISFacadeAdaptor {
 
     public static CMISFacade adapt(CMISFacade facade) {
         return (CMISFacade) Proxy.newProxyInstance(CMISFacadeAdaptor.class.getClassLoader(),
-                new Class[]{CMISFacade.class}, new MyInvocationHandler(facade));
+                new Class<?>[]{CMISFacade.class}, new MyInvocationHandler(facade));
     }
 
     private static class MyInvocationHandler implements InvocationHandler {
