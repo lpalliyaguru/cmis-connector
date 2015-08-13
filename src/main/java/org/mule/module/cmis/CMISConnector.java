@@ -553,10 +553,10 @@ public class CMISConnector implements CMISFacade {
      *
      * @param folder            Folder Object. Can be null if "folderId" is set.
      * @param folderId          Folder Object id. Can be null if "folder" is set.
-     * @param allversions       If true, then delete all versions of the document.
-     *                          If false, delete only the document object specified.
      * @param unfile            Specifies how the repository must process file-able child-
      *                          or descendant-objects.
+     * @param allversions       If true, then delete all versions of the document.
+     *                          If false, delete only the document object specified.
      * @param continueOnFailure Specified whether to continue attempting to perform
      *                          this operation even if deletion of a child- or descendant-object
      *                          in the specified folder cannot be deleted or not.
