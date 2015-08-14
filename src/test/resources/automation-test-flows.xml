@@ -13,7 +13,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <cmis:config name="CMIS" username="${alfresco.username}"
                  password="${alfresco.password}" baseUrl="${alfresco.baseUrl}" repositoryId="${alfresco.repositoryId}"
-                 endpoint="${alfresco.endpoint}" useAlfrescoExtension="${alfresco.extension}" doc:name="CMIS">
+                 endpoint="${alfresco.endpoint}" useAlfrescoExtension="${alfresco.extension}" authentication="NTLM" doc:name="CMIS">
         <cmis:connection-pooling-profile
                 initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
     </cmis:config>

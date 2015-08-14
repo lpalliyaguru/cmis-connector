@@ -9,6 +9,7 @@ import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.components.ConnectionManagement;
+import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
@@ -17,6 +18,7 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.module.cmis.facade.CMISFacade;
 import org.mule.module.cmis.facade.CMISFacadeAdaptor;
 import org.mule.module.cmis.facade.ChemistryCMISFacade;
+import org.mule.module.cmis.model.Authentication;
 import org.mule.module.cmis.model.CMISConnectionType;
 
 @ConnectionManagement(friendlyName = "Configuration")
@@ -37,10 +39,28 @@ public class Config {
     String repositoryId;
 
     /**
+     * Specifies authentication provider, supports HTTP basic authentication and NTLM.
+     */
+    @Configurable
+    @Default("STANDARD")
+    @Placement(order = 1)
+    Authentication authentication;
+
+    /**
+     * Specifies CXF port provider, the CMIS connector includes a default implementation
+     */
+    @Configurable
+    @Placement(order = 2)
+    @FriendlyName(value = "Port Provider")
+    @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
+    String cxfPortProvider;
+
+    /**
      * The connection time-out specification.
      */
     @Configurable
     @Default("10000")
+    @Placement(order = 3)
     String connectionTimeout;
 
     /**
@@ -48,21 +68,15 @@ public class Config {
      */
     @Configurable
     @Default("false")
+    @Placement(order = 4)
     Boolean useAlfrescoExtension;
 
     /**
-     * Specifies CXF port provider, the CMIS connector includes a default implementation
-     */
-    @Configurable
-    @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
-    String cxfPortProvider;
-
-    /**
-     * Turn on-off cookies support, allows to set a custom implementation by extending
-     * org.apache.chemistry.opencmis.client.bindings.spi.webservices.AbstractPortProvider
+     * Turn on-off cookies support.
      */
     @Configurable
     @Default("false")
+    @Placement(order = 5)
     Boolean useCookies;
 
     /**
@@ -77,7 +91,6 @@ public class Config {
     public Config() {
         threadSafeLock = new Object();
     }
-
 
     /**
      * Connects to CMIS
@@ -122,7 +135,8 @@ public class Config {
                                         getConnectionTimeout(),
                                         getCxfPortProvider(),
                                         getUseAlfrescoExtension(),
-                                        getUseCookies()));
+                                        getUseCookies(),
+                                        getAuthentication()));
 
                 // Force a call to an operation in order to create the client and force authentication
                 facade.repositoryInfo();
@@ -222,5 +236,13 @@ public class Config {
 
     public void setFacade(CMISFacade facade) {
         this.facade = facade;
+    }
+
+    public Authentication getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(Authentication authentication) {
+        this.authentication = authentication;
     }
 }

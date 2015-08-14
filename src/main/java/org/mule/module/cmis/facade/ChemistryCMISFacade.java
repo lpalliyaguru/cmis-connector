@@ -7,6 +7,7 @@ package org.mule.module.cmis.facade;
 
 import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.*;
+import org.apache.chemistry.opencmis.client.bindings.CmisBindingFactory;
 import org.apache.chemistry.opencmis.client.runtime.ChangeEventsImpl;
 import org.apache.chemistry.opencmis.client.runtime.ObjectIdImpl;
 import org.apache.chemistry.opencmis.client.runtime.OperationContextImpl;
@@ -25,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
+import org.mule.module.cmis.model.Authentication;
 import org.mule.module.cmis.model.CMISConnectionType;
 import org.mule.module.cmis.model.NavigationOptions;
 
@@ -52,7 +54,8 @@ public class ChemistryCMISFacade implements CMISFacade {
                                String connectionTimeout,
                                String cxfPortProvider,
                                boolean useAlfrescoExtension,
-                               boolean useCookies) {
+                               boolean useCookies,
+                               Authentication authentication) {
         this.baseURL = baseURL.trim();
 
         if (!this.baseURL.endsWith("/")) {
@@ -61,7 +64,7 @@ public class ChemistryCMISFacade implements CMISFacade {
 
         this.connectionParameters =
                 paramMap(username, password, repositoryId, this.baseURL, endpoint,
-                        connectionTimeout, useAlfrescoExtension, cxfPortProvider, useCookies);
+                        connectionTimeout, useAlfrescoExtension, cxfPortProvider, authentication, useCookies);
     }
 
     public static ContentStream createContentStream(String filename,
@@ -134,13 +137,26 @@ public class ChemistryCMISFacade implements CMISFacade {
                                                 String connectionTimeout,
                                                 boolean useAlfrescoExtension,
                                                 String cxfPortProvider,
+                                                Authentication authentication,
                                                 boolean useCookies) {
 
         Map<String, String> parameters = new HashMap<String, String>();
 
         // user credentials
-        parameters.put(SessionParameter.USER, username.trim());
-        parameters.put(SessionParameter.PASSWORD, password.trim());
+        switch (authentication) {
+            case STANDARD:
+                parameters.put(SessionParameter.USER, username.trim());
+                parameters.put(SessionParameter.PASSWORD, password.trim());
+                break;
+            case NTLM:
+                parameters.put(SessionParameter.USER, username.trim());
+                parameters.put(SessionParameter.PASSWORD, password.trim());
+                parameters.put(SessionParameter.AUTHENTICATION_PROVIDER_CLASS,
+                        CmisBindingFactory.NTLM_AUTHENTICATION_PROVIDER);
+                break;
+            default:
+        }
+
         parameters.put(SessionParameter.COOKIES, String.valueOf(useCookies));
 
         if (endpoint.equals(CMISConnectionType.SOAP)) {
