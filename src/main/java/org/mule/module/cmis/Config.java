@@ -31,26 +31,27 @@ public class Config {
     private String connectionIdentifier;
 
     /**
-     * The identifier for the Repository this connector instance works with.
+     * The type of endpoint.
+     * Values allowed: SOAP or ATOM
      */
-    @Placement(group = "Repository Information")
     @Configurable
-    @Optional
-    String repositoryId;
+    @Placement(order = 1)
+    @Default("ATOM")
+    private CMISConnectionType endpoint;
 
     /**
      * Specifies authentication provider, supports HTTP basic authentication and NTLM.
      */
     @Configurable
+    @Placement(order = 2)
     @Default("STANDARD")
-    @Placement(order = 1)
     Authentication authentication;
 
     /**
      * Specifies CXF port provider, the CMIS connector includes a default implementation
      */
     @Configurable
-    @Placement(order = 2)
+    @Placement(order = 3)
     @FriendlyName(value = "Port Provider")
     @Default("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider")
     String cxfPortProvider;
@@ -59,34 +60,25 @@ public class Config {
      * The connection time-out specification.
      */
     @Configurable
+    @Placement(order = 4)
     @Default("10000")
-    @Placement(order = 3)
     String connectionTimeout;
 
     /**
      * Specifies whether the Alfresco Object Factory implementation should be utilized.
      */
     @Configurable
+    @Placement(order = 5)
     @Default("false")
-    @Placement(order = 4)
     Boolean useAlfrescoExtension;
 
     /**
      * Turn on-off cookies support.
      */
     @Configurable
+    @Placement(order = 6)
     @Default("false")
-    @Placement(order = 5)
     Boolean useCookies;
-
-    /**
-     * The type of endpoint.
-     * Values allowed: SOAP or ATOM
-     */
-    @Placement(group = "Repository Information")
-    @Configurable
-    @Default("ATOM")
-    private CMISConnectionType endpoint;
 
     public Config() {
         threadSafeLock = new Object();
@@ -95,12 +87,13 @@ public class Config {
     /**
      * Connects to CMIS
      *
-     * @param baseUrl  CMIS repository address
-     * @param username CMIS repository username
-     * @param password CMIS repository password
+     * @param baseUrl      CMIS repository address
+     * @param username     CMIS repository username
+     * @param password     CMIS repository password
+     * @param repositoryId CMIS repository identifier
      */
     @Connect
-    public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
+    public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password, @Optional String repositoryId) throws ConnectionException {
 
         if (StringUtils.isBlank(username)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
@@ -130,16 +123,13 @@ public class Config {
                                         username,
                                         password,
                                         baseUrl,
-                                        getRepositoryId(),
+                                        repositoryId,
                                         getEndpoint(),
                                         getConnectionTimeout(),
                                         getCxfPortProvider(),
                                         getUseAlfrescoExtension(),
                                         getUseCookies(),
                                         getAuthentication()));
-
-                // Force a call to an operation in order to create the client and force authentication
-                facade.repositoryInfo();
             }
         }
     }
@@ -150,10 +140,11 @@ public class Config {
      * @param baseUrl  CMIS repository address
      * @param username CMIS repository username
      * @param password CMIS repository password
+     * @param repositoryId CMIS repository identifier
      */
     @TestConnectivity
-    public void testConnect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password) throws ConnectionException {
-        this.connect(baseUrl, username, password);
+    public void testConnect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password, @Optional String repositoryId) throws ConnectionException {
+        this.connect(baseUrl, username, password, repositoryId);
 
         // Force a call to an operation in order to create the client and force authentication
         facade.repositoryInfo();
@@ -204,14 +195,6 @@ public class Config {
 
     public void setEndpoint(CMISConnectionType endpoint) {
         this.endpoint = endpoint;
-    }
-
-    public String getRepositoryId() {
-        return repositoryId;
-    }
-
-    public void setRepositoryId(String repositoryId) {
-        this.repositoryId = repositoryId;
     }
 
     public Boolean getUseAlfrescoExtension() {
