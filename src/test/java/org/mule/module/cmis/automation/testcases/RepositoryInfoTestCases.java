@@ -6,7 +6,8 @@
 package org.mule.module.cmis.automation.testcases;
 
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
-import org.junit.Ignore;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
@@ -14,20 +15,41 @@ import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.module.cmis.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
 
-@Ignore("Fails, Needs to be upgraded to the CTF")
 public class RepositoryInfoTestCases extends CMISTestParent {
+
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("repositoryInfoTestData");
+    }
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
     public void testRepositoryInfo() {
         try {
             RepositoryInfo repositoryInfo = runFlowAndGetPayload("repository-info");
-            assertEquals(repositoryInfo.getName(), "Main Repository");
+            assertEquals(repositoryInfo.getId(), getTestRunMessageValue("repositoryId"));
+            assertEquals(repositoryInfo.getName(), getTestRunMessageValue("repositoryName"));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Category({SmokeTests.class, RegressionTests.class})
+    @Test
+    public void testInvalidRepositoryInfo() {
+        try {
+            upsertOnTestRunMessage("repositoryId", ConnectorTestUtils.generateRandomShortString());
+            runFlowAndGetPayload("repository-info");
+        } catch (Exception e) {
+            final Throwable cause = e.getCause().getCause();
+            if (cause instanceof CmisObjectNotFoundException) {
+                assertThat(cause.getMessage(), containsString("Unknown repository"));
+            } else {
+                fail(ConnectorTestUtils.getStackTrace(e));
+            }
         }
     }
 

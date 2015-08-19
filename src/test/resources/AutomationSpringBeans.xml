@@ -461,4 +461,10 @@
         <entry key="searchAllVersions" value="#{T(java.lang.Boolean).FALSE}"/>
     </util:map>
 
+    <util:map id="repositoryInfoTestData" map-class="java.util.HashMap"
+              key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="repositoryName" value="Main Repository"/>
+        <entry key="repositoryId" value="2ba14a1c-d419-42f0-ba0a-55d39bfeabe2"/>
+    </util:map>
+
 </beans>
