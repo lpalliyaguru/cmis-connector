@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis.facade;
+package org.mule.module.cmis.runtime;
 
 import org.apache.chemistry.opencmis.commons.exceptions.CmisConnectionException;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;

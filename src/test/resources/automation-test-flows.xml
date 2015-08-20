@@ -149,7 +149,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <flow name="query" doc:name="query-filtered">
         <cmis:query config-ref="CMIS" filter="#[flowVars.filter]" searchAllVersions="#[flowVars.searchAllVersions]"
-                    statement="#[flowVars.statement]" doc:name="CMIS"/>
+                    statement="#[flowVars.statement]" fetchSize="#[flowVars.pageSize]" doc:name="CMIS"/>
     </flow>
 
     <flow name="check-in" doc:name="check-in">

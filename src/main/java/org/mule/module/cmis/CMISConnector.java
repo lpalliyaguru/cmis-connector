@@ -15,15 +15,18 @@ import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Paged;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
-import org.mule.module.cmis.facade.CMISFacade;
 import org.mule.module.cmis.model.NavigationOptions;
 import org.mule.module.cmis.model.VersioningState;
+import org.mule.module.cmis.runtime.CMISFacade;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
 import java.io.InputStream;
 import java.util.List;
@@ -250,20 +253,23 @@ public class CMISConnector implements CMISFacade {
      * <p/>
      * {@sample.xml ../../../doc/cmis-connector.xml.sample cmis:query}
      *
-     * @param statement         the query statement (CMIS query language)
-     * @param searchAllVersions specifies if the latest and non-latest versions
-     *                          of document objects should be included
-     * @param filter            comma-separated list of properties to filter
-     * @param orderBy           comma-separated list of query names and the ascending modifier
-     *                          "ASC" or the descending modifier "DESC" for each query name
+     * @param statement           the query statement (CMIS query language)
+     * @param searchAllVersions   specifies if the latest and non-latest versions
+     *                            of document objects should be included
+     * @param filter              comma-separated list of properties to filter
+     * @param orderBy             comma-separated list of query names and the ascending modifier
+     *                            "ASC" or the descending modifier "DESC" for each query name
+     * @param pagingConfiguration the paging configuration comprising of fetchSize per batch.
      * @return an iterable of {@link QueryResult}
      */
     @Processor
-    public ItemIterable<QueryResult> query(@Placement(order = 1) @Default("#[payload]") String statement,
-                                           @Placement(order = 4) @Default("false") boolean searchAllVersions,
-                                           @Placement(order = 2) @Optional String filter,
-                                           @Placement(order = 3) @Optional String orderBy) {
-        return facade.query(statement, searchAllVersions, filter, orderBy);
+    @Paged
+    public ProviderAwarePagingDelegate<QueryResult, CMISConnector> query(@Placement(order = 1) @Default("#[payload]") String statement,
+                                                                         @Placement(order = 4) @Default("false") boolean searchAllVersions,
+                                                                         @Placement(order = 2) @Optional String filter,
+                                                                         @Placement(order = 3) @Optional String orderBy,
+                                                                         final PagingConfiguration pagingConfiguration) {
+        return facade.query(statement, searchAllVersions, filter, orderBy, pagingConfiguration);
     }
 
     /**

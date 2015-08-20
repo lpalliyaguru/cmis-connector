@@ -22,9 +22,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.Config;
-import org.mule.module.cmis.facade.CMISFacade;
 import org.mule.module.cmis.model.NavigationOptions;
 import org.mule.module.cmis.model.VersioningState;
+import org.mule.module.cmis.runtime.CMISFacade;
+import org.mule.module.cmis.runtime.CMISPagingDelegate;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
 import java.util.*;
 
@@ -132,9 +135,9 @@ public class CMISConnectorMockTest {
 
     @Test
     public void testQuery() throws Exception {
-        ItemIterable<QueryResult> results = new EmptyItemIterable<QueryResult>();
-        when(facade.query(anyString(), anyBoolean(), anyString(), anyString())).thenReturn(results);
-        assertEquals(results, connector.query("foo", false, "mule", "ASC"));
+        ProviderAwarePagingDelegate<QueryResult, CMISConnector> delegate = Mockito.mock(CMISPagingDelegate.class);
+        when(facade.query(anyString(), anyBoolean(), anyString(), anyString(), any(PagingConfiguration.class))).thenReturn(delegate);
+        assertEquals(delegate, connector.query("foo", false, "mule", "ASC", new PagingConfiguration(10)));
     }
 
     @Test
