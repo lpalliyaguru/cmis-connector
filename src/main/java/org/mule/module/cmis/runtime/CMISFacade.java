@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis.facade;
+package org.mule.module.cmis.runtime;
 
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.data.Ace;
@@ -12,8 +12,11 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.RepositoryInfo;
 import org.apache.chemistry.opencmis.commons.enums.AclPropagation;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.model.NavigationOptions;
 import org.mule.module.cmis.model.VersioningState;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
 import java.util.List;
 import java.util.Map;
@@ -151,16 +154,17 @@ public interface CMISFacade {
     /**
      * Sends a query to the repository
      *
-     * @param statement         the query statement (CMIS query language)
-     * @param searchAllVersions specifies if the latest and non-latest versions
-     *                          of document objects should be included
-     * @param filter            comma-separated list of properties to filter
-     * @param orderBy           comma-separated list of query names and the ascending modifier
-     *                          "ASC" or the descending modifier "DESC" for each query name
+     * @param statement           the query statement (CMIS query language)
+     * @param searchAllVersions   specifies if the latest and non-latest versions
+     *                            of document objects should be included
+     * @param filter              comma-separated list of properties to filter
+     * @param orderBy             comma-separated list of query names and the ascending modifier
+     *                            "ASC" or the descending modifier "DESC" for each query name
+     * @param pagingConfiguration the paging configuration
      * @return an iterable of {@link QueryResult}
      */
-    ItemIterable<QueryResult> query(String statement, boolean searchAllVersions,
-                                    String filter, String orderBy);
+    ProviderAwarePagingDelegate<QueryResult, CMISConnector> query(String statement, boolean searchAllVersions,
+                                                                  String filter, String orderBy, PagingConfiguration pagingConfiguration);
 
     /**
      * Retrieves the parent folders of a fileable cmis object

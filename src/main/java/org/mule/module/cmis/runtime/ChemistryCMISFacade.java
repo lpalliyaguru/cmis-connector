@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.module.cmis.facade;
+package org.mule.module.cmis.runtime;
 
 import org.alfresco.cmis.client.AlfrescoDocument;
 import org.apache.chemistry.opencmis.client.api.*;
@@ -24,11 +24,15 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundExcept
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 import org.mule.module.cmis.model.Authentication;
 import org.mule.module.cmis.model.CMISConnectionType;
 import org.mule.module.cmis.model.NavigationOptions;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.ProviderAwarePagingDelegate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
@@ -40,7 +44,7 @@ import java.util.*;
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
  */
 public class ChemistryCMISFacade implements CMISFacade {
-    private static final Logger logger = Logger.getLogger(ChemistryCMISFacade.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChemistryCMISFacade.class);
 
     private Session repositorySession;
     private Map<String, String> connectionParameters;
@@ -112,8 +116,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    private static OperationContext createOperationContext(String filter,
-                                                           String orderBy) {
+    protected static OperationContext createOperationContext(String filter,
+                                                             String orderBy) {
         OperationContext ctx = new OperationContextImpl();
         ctx.setIncludeAcls(true);
         ctx.setIncludePolicies(true);
@@ -298,7 +302,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                 returnObj = session.getObjectByPath(path, createOperationContext(null, null));
             }
         } catch (CmisObjectNotFoundException e) {
-            logger.warn(e);
+            logger.warn(e.getMessage());
         }
         return returnObj;
     }
@@ -504,30 +508,16 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End getCheckoutDocs
     }
 
-    public ItemIterable<QueryResult> query(@NotNull String statement,
-                                           @NotNull boolean searchAllVersions,
-                                           String filter,
-                                           String orderBy) {
-        ItemIterable<QueryResult> resultList = null;
+    public ProviderAwarePagingDelegate<QueryResult, CMISConnector> query(@NotNull String query,
+                                                                         @NotNull boolean searchAllVersions,
+                                                                         String filter,
+                                                                         String orderBy,
+                                                                         PagingConfiguration pagingConfiguration) {
+        Validate.notEmpty(query, "Query is empty");
+        logger.debug("Preparing to execute the CMIS query \"" + query + "\".");
 
         Session session = this.getSession(this.connectionParameters);
-
-        if (session != null) {
-            Validate.notEmpty(statement, "statement is empty");
-
-            logger.debug("Preparing to execute the CMIS query \"" + statement + "\".");
-            OperationContext ctx = createOperationContext(filter, orderBy);
-            resultList = session.query(statement, searchAllVersions, ctx);
-            logger.debug("The result list contains " + resultList.getTotalNumItems() + " items.");
-
-            for (QueryResult currentResult : resultList) {
-                logger.debug(
-                        "Object with ID \"" + currentResult.getPropertyByQueryName("cmis:objectId") +
-                                "\" is in the result set.");
-            }
-        }
-
-        return resultList;
+        return new CMISPagingDelegate(session, query, searchAllVersions, filter, orderBy, pagingConfiguration.getFetchSize());
         // End query
     }
 
@@ -863,7 +853,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    private Session getSession(Map<String, String> parameters) {
+    protected Session getSession(Map<String, String> parameters) {
         Session repoSession = this.repositorySession;
 
         if (parameters == null) {

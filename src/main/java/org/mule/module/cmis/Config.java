@@ -15,9 +15,9 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.module.cmis.facade.CMISFacade;
-import org.mule.module.cmis.facade.CMISFacadeAdaptor;
-import org.mule.module.cmis.facade.ChemistryCMISFacade;
+import org.mule.module.cmis.runtime.CMISFacade;
+import org.mule.module.cmis.runtime.CMISFacadeAdaptor;
+import org.mule.module.cmis.runtime.ChemistryCMISFacade;
 import org.mule.module.cmis.model.Authentication;
 import org.mule.module.cmis.model.CMISConnectionType;
 

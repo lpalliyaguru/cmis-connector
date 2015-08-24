@@ -5,8 +5,6 @@
 
 package org.mule.module.cmis.automation.testcases;
 
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.ObjectId;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.junit.After;
 import org.junit.Before;
@@ -15,60 +13,34 @@ import org.junit.experimental.categories.Category;
 import org.mule.module.cmis.automation.CMISTestParent;
 import org.mule.module.cmis.automation.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
+import org.mule.streaming.ConsumerIterator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class QueryTestCases extends CMISTestParent {
 
-
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("queryTestData");
-        upsertOnTestRunMessage("parentObjectId", getRootFolderId());
-        ObjectId objectId = runFlowAndGetPayload("create-folder");
-        upsertOnTestRunMessage("objectId", objectId.getId());
-        String folderName = getTestRunMessageValue("folderName").toString();
-        upsertOnTestRunMessage("filter", String.format("cmis:name = '%s'", folderName));
-        upsertOnTestRunMessage("statement", String.format("SELECT * FROM cmis:folder WHERE cmis:name = '%s'", folderName));
-        Thread.sleep(QUERY_DELAY);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        deleteObject(getTestRunMessageValue("objectId").toString(), true);
     }
 
     @Category({RegressionTests.class})
     @Test
     public void testQuery() {
         try {
-            ItemIterable<QueryResult> payload = runFlowAndGetPayload("query");
-            ItemIterable<QueryResult> page = payload.getPage();
-
-            long pageNumItems = page.getPageNumItems();
-            assertTrue(pageNumItems == 1L);
-
+            List<QueryResult> results = new ArrayList<QueryResult>();
+            final ConsumerIterator<QueryResult> list = runFlowAndGetPayload("query");
+            while (list.hasNext()) {
+                results.add(list.next());
+            }
+            assertEquals(list.size(), results.size());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-
-    @Category({RegressionTests.class})
-    @Test
-    public void testQuery_Filtered() {
-        upsertOnTestRunMessage("filter", null);
-        try {
-            ItemIterable<QueryResult> payload = runFlowAndGetPayload("query");
-            ItemIterable<QueryResult> page = payload.getPage();
-
-            long pageNumItems = page.getPageNumItems();
-            assertTrue(pageNumItems == 1L);
-
-        } catch (Exception e) {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 }
