@@ -122,7 +122,7 @@ public class Config {
                                 new ChemistryCMISFacade(
                                         username,
                                         password,
-                                        baseUrl,
+                                        baseUrl.trim(),
                                         repositoryId,
                                         getEndpoint(),
                                         getConnectionTimeout(),

@@ -24,6 +24,7 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundExcept
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
+import org.jetbrains.annotations.Nullable;
 import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 import org.mule.module.cmis.model.Authentication;
@@ -48,7 +49,7 @@ public class ChemistryCMISFacade implements CMISFacade {
 
     private Session repositorySession;
     private Map<String, String> connectionParameters;
-    private String baseURL = null;
+    private final String baseURL;
 
     public ChemistryCMISFacade(String username,
                                String password,
@@ -60,11 +61,11 @@ public class ChemistryCMISFacade implements CMISFacade {
                                boolean useAlfrescoExtension,
                                boolean useCookies,
                                Authentication authentication) {
-        this.baseURL = baseURL.trim();
-
-        if (!this.baseURL.endsWith("/")) {
-            this.baseURL = this.baseURL + "/";
+        if (!baseURL.endsWith("/")) {
+            baseURL = baseURL + "/";
         }
+
+        this.baseURL = baseURL;
 
         this.connectionParameters =
                 paramMap(username, password, repositoryId, this.baseURL, endpoint,
@@ -627,7 +628,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    public List<String> deleteTree(CmisObject folder, String folderId,
+    public List<String> deleteTree(@Nullable CmisObject folder, @Nullable String folderId,
                                    UnfileObject unfile, boolean allversions, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
