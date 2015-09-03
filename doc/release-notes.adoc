@@ -8,7 +8,7 @@
 
 [green]#Community#
 
-The Anypoint Connector for Content Management Interoperability Services ( CMIS) provides connectivity to CMIS repositories, such as Alfresco and SharePoint. It enables synchronizing data and automating business processes across applications and systems.
+The Anypoint Connector for Content Management Interoperability Services (CMIS) provides connectivity to CMIS repositories, such as Alfresco and SharePoint. It enables synchronizing data and automating business processes across applications and systems.
 
 toc::[]
 
@@ -25,6 +25,38 @@ The CMIS Connector v2.1.0 is compatible with:
 |Apache Chemistry |0.13.0
 |Alfresco OpenCMIS Extension |1.0
 |===
+
+=== Supported Operations:
+* apply-acl
+* apply-aspect
+* apply-policy
+* cancel-check-out
+* changelog
+* check-in
+* check-out
+* create-document-by-id
+* create-document-by-path
+* create-folder
+* create-relationship
+* delete
+* delete-tree
+* folder
+* get-acl
+* get-all-versions
+* get-applied-policies
+* get-checkout-docs
+* get-content-stream
+* get-object-by-id
+* get-object-by-path
+* get-object-relationships
+* get-or-create-folder-by-path
+* get-parent-folders
+* get-type-definition
+* move-object
+* query
+* repositories
+* repository-info
+* update-object-properties
 
 === Features and Functionality
 

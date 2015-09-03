@@ -14,6 +14,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mule.modules.tests.ConnectorTestUtils;
+import org.mule.tools.devkit.ctf.configuration.DeploymentProfiles;
+import org.mule.tools.devkit.ctf.junit.RunOnlyOn;
 
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -34,6 +36,7 @@ public class GetContentStreamTestCases extends AbstractTestCases {
     }
 
     @Test
+    @RunOnlyOn(profiles = DeploymentProfiles.embedded)
     public void testGetContentStream() {
         ContentStream result = null;
         try {

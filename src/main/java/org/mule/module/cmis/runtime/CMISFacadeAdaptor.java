@@ -36,7 +36,8 @@ public class CMISFacadeAdaptor {
             this.facade = facade;
         }
 
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException, IllegalArgumentException,
+                InvocationTargetException {
             if (logger.isDebugEnabled()) {
                 logger.debug("Invoked method {0} with arguments {1}", method.getName(), args);
             }
@@ -52,14 +53,12 @@ public class CMISFacadeAdaptor {
                 if (logger.isWarnEnabled()) {
                     logger.warn("Method " + method.getName() + " thew " + e.getClass(), e);
                 }
-
                 Throwable cause = e.getCause();
 
                 if (cause instanceof CmisConnectionException) {
-                    throw new CMISConnectorConnectionException(e.getCause());
-                } else if (cause instanceof CMISConnectorConnectionException ||
-                        cause instanceof RuntimeException) {
-                    throw e.getCause();
+                    throw new CMISConnectorConnectionException(cause);
+                } else if (cause instanceof CMISConnectorConnectionException || cause instanceof RuntimeException) {
+                    throw (RuntimeException) cause;
                 } else {
                     throw new CMISConnectorException(cause);
                 }

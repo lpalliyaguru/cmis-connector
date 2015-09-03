@@ -13,7 +13,6 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.automation.functional.*;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
-import org.mule.tools.devkit.ctf.platform.PlatformManager;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -57,9 +56,7 @@ public class FunctionalTestSuite {
 
     @AfterClass
     public static void shutdownSuite() throws Exception {
-        ConnectorTestContext<CMISConnector> context = ConnectorTestContext.getInstance(CMISConnector.class);
-        PlatformManager platform = context.getPlatformManager();
-        platform.shutdown();
+        ConnectorTestContext.shutDown();
     }
 
 }

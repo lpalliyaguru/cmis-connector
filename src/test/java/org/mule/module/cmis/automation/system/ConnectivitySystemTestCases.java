@@ -11,12 +11,14 @@ import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.module.cmis.Config;
 import org.mule.module.cmis.automation.util.ConfigurationUtils;
+import org.mule.module.cmis.model.Authentication;
+import org.mule.module.cmis.model.CMISConnectionType;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.Arrays;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ConnectivitySystemTestCases {
 
@@ -25,6 +27,7 @@ public class ConnectivitySystemTestCases {
     private String username;
     private String password;
     private String repositoryId;
+    private Config config;
 
     @Before
     public void setUp() throws Exception {
@@ -33,11 +36,18 @@ public class ConnectivitySystemTestCases {
         username = validCredentials.getProperty("config.username");
         password = validCredentials.getProperty("config.password");
         repositoryId = validCredentials.getProperty("config.repositoryId");
+
+        config = new Config();
+        config.setEndpoint(CMISConnectionType.valueOf(validCredentials.getProperty("config.endpoint")));
+
+        // Defaults
+        config.setAuthentication(Authentication.STANDARD);
+        config.setCxfPortProvider("org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider");
+
     }
 
     @Test
     public void validCredentialsConnectivityTest() {
-        Config config = new Config();
         try {
             //Call the @TestConnectivity
             config.testConnect(baseUrl, username, password, repositoryId);
@@ -48,13 +58,11 @@ public class ConnectivitySystemTestCases {
 
     @Test
     public void invalidCredentialsConnectivityTest() {
-
-        Config config = new Config();
         try {
             //Call the @TestConnectivity
-            config.testConnect(baseUrl, "", "noPassword", "");
+            config.testConnect(baseUrl, "noUsername", "noPassword", "");
         } catch (ConnectionException ce) {
-            assertEquals(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ce.getCode());
+            assertTrue(Arrays.asList(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ConnectionExceptionCode.UNKNOWN).contains(ce.getCode()));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -63,7 +71,7 @@ public class ConnectivitySystemTestCases {
             //Call the @TestConnectivity
             config.testConnect("unknown", username, password, "");
         } catch (ConnectionException ce) {
-            assertEquals(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ce.getCode());
+            assertEquals(ConnectionExceptionCode.UNKNOWN, ce.getCode());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -71,13 +79,11 @@ public class ConnectivitySystemTestCases {
 
     @Test
     public void nullCredentialsConnectivityTest() {
-
-        Config config = new Config();
         try {
             //Call the @TestConnectivity
             config.testConnect(null, null, null, null);
         } catch (ConnectionException ce) {
-            assertEquals("001", ce.getThirdPartyCode());
+            assertEquals(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ce.getCode());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

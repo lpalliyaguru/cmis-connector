@@ -40,7 +40,7 @@ import static org.mockito.Mockito.when;
 /**
  * Test {@link org.mule.module.cmis.CMISConnector} internals
  */
-public class CMISConnectorMockTest {
+public class CMISConnectorTest {
 
     @Mock
     ObjectId objectId;

@@ -6,10 +6,11 @@ package org.mule.module.cmis.automation.runner;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.mule.module.cmis.automation.unit.CMISConnectorTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-
+        CMISConnectorTest.class
 })
 public class UnitTestSuite {
 }

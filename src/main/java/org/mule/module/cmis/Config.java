@@ -4,6 +4,7 @@
  */
 package org.mule.module.cmis;
 
+import org.apache.chemistry.opencmis.commons.exceptions.CmisPermissionDeniedException;
 import org.apache.commons.lang.StringUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
@@ -15,14 +16,18 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.module.cmis.model.Authentication;
+import org.mule.module.cmis.model.CMISConnectionType;
 import org.mule.module.cmis.runtime.CMISFacade;
 import org.mule.module.cmis.runtime.CMISFacadeAdaptor;
 import org.mule.module.cmis.runtime.ChemistryCMISFacade;
-import org.mule.module.cmis.model.Authentication;
-import org.mule.module.cmis.model.CMISConnectionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ConnectionManagement(friendlyName = "Configuration")
 public class Config {
+
+    private static final Logger logger = LoggerFactory.getLogger(Config.class);
 
     // This object will be used to hold the concurrency for the connection manager features
     private final Object threadSafeLock;
@@ -70,7 +75,7 @@ public class Config {
     @Configurable
     @Placement(order = 5)
     @Default("false")
-    Boolean useAlfrescoExtension;
+    boolean useAlfrescoExtension;
 
     /**
      * Turn on-off cookies support.
@@ -78,7 +83,7 @@ public class Config {
     @Configurable
     @Placement(order = 6)
     @Default("false")
-    Boolean useCookies;
+    boolean useCookies;
 
     public Config() {
         threadSafeLock = new Object();
@@ -116,20 +121,30 @@ public class Config {
             // Prevent re-initialization
             if (facade == null) {
                 setConnectionIdentifier(username + "@" + baseUrl);
-
-                this.facade =
-                        CMISFacadeAdaptor.adapt(
-                                new ChemistryCMISFacade(
-                                        username,
-                                        password,
-                                        baseUrl.trim(),
-                                        repositoryId,
-                                        getEndpoint(),
-                                        getConnectionTimeout(),
-                                        getCxfPortProvider(),
-                                        getUseAlfrescoExtension(),
-                                        getUseCookies(),
-                                        getAuthentication()));
+                try {
+                    this.facade =
+                            CMISFacadeAdaptor.adapt(
+                                    new ChemistryCMISFacade(
+                                            username,
+                                            password,
+                                            baseUrl.trim(),
+                                            repositoryId,
+                                            getEndpoint(),
+                                            getConnectionTimeout(),
+                                            getCxfPortProvider(),
+                                            getUseAlfrescoExtension(),
+                                            getUseCookies(),
+                                            getAuthentication()));
+                } catch (Exception e) {
+                    if (StringUtils.isEmpty(e.getMessage()) || e.getCause() instanceof CmisPermissionDeniedException) {
+                        String msg = "Access to the specified resource (Failed to authenticate) has been forbidden. Please verify \"baseUrl\", \"username\", " +
+                                "and \"password\" are valid.  The connector is currently non-functional.";
+                        logger.error(msg, e);
+                        throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null, msg);
+                    } else {
+                        throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage());
+                    }
+                }
             }
         }
     }
@@ -137,9 +152,9 @@ public class Config {
     /**
      * Test Connectivity to CMIS instance.
      *
-     * @param baseUrl  CMIS repository address
-     * @param username CMIS repository username
-     * @param password CMIS repository password
+     * @param baseUrl      CMIS repository address
+     * @param username     CMIS repository username
+     * @param password     CMIS repository password
      * @param repositoryId CMIS repository identifier
      */
     @TestConnectivity
