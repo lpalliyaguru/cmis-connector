@@ -45,7 +45,7 @@ public class CMISPagingDelegate extends ProviderAwarePagingDelegate<QueryResult,
             ctx.setMaxItemsPerPage(pageSize);
             final ItemIterable<QueryResult> queryResults = session.query(query, allVersions, ctx);
             final ItemIterable<QueryResult> page = queryResults.skipTo(skipTo).getPage();
-            final ArrayList<QueryResult> results = Lists.newArrayList(page);
+            final List<QueryResult> results = Lists.newArrayList(page);
             if (!page.getHasMoreItems()) {
                 lastPage = true;
             }
@@ -59,16 +59,16 @@ public class CMISPagingDelegate extends ProviderAwarePagingDelegate<QueryResult,
     @Override
     public int getTotalResults(@NotNull CMISConnector connector) throws Exception {
         long size = -1;
-        long skipTo = pageSize * 100;
+        long skipResultTo = pageSize * 100L;
         while (session != null && !lastPage) {
             OperationContext ctx = ChemistryCMISFacade.createOperationContext(filter, orderBy);
             final ItemIterable<QueryResult> queryResults = session.query(query, allVersions, ctx);
-            final ItemIterable<QueryResult> page = queryResults.skipTo(skipTo).getPage();
+            final ItemIterable<QueryResult> page = queryResults.skipTo(skipResultTo).getPage();
             if (!page.getHasMoreItems()) {
                 lastPage = true;
-                size = skipTo + page.getTotalNumItems();
+                size = skipResultTo + page.getTotalNumItems();
             }
-            skipTo += skipTo;
+            skipResultTo += skipResultTo;
         }
         lastPage = false;
         return (int) size;

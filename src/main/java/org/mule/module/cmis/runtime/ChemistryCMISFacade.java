@@ -24,6 +24,8 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundExcept
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mule.module.cmis.CMISConnector;
 import org.mule.module.cmis.exception.CMISConnectorConnectionException;
 import org.mule.module.cmis.model.Authentication;
@@ -34,7 +36,6 @@ import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -48,23 +49,23 @@ public class ChemistryCMISFacade implements CMISFacade {
 
     private Session repositorySession;
     private Map<String, String> connectionParameters;
-    private String baseURL = null;
+    private final String baseURL;
 
-    public ChemistryCMISFacade(String username,
-                               String password,
-                               String baseURL,
-                               String repositoryId,
-                               CMISConnectionType endpoint,
-                               String connectionTimeout,
-                               String cxfPortProvider,
+    public ChemistryCMISFacade(@NotNull String username,
+                               @NotNull String password,
+                               @NotNull String baseURL,
+                               @Nullable String repositoryId,
+                               @NotNull CMISConnectionType endpoint,
+                               @Nullable String connectionTimeout,
+                               @NotNull String cxfPortProvider,
                                boolean useAlfrescoExtension,
                                boolean useCookies,
                                Authentication authentication) {
-        this.baseURL = baseURL.trim();
-
-        if (!this.baseURL.endsWith("/")) {
-            this.baseURL = this.baseURL + "/";
+        if (!baseURL.endsWith("/")) {
+            baseURL = baseURL + "/";
         }
+
+        this.baseURL = baseURL;
 
         this.connectionParameters =
                 paramMap(username, password, repositoryId, this.baseURL, endpoint,
@@ -230,7 +231,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             }
         } catch (Exception repoIDEx) {
             throw new CMISConnectorConnectionException(
-                    "An error occurred while attempting to dynamically obtain a repository ID. " + repoIDEx.getMessage() +
+                    "An error occurred while attempting to dynamically obtain a repository ID: " + repoIDEx.getMessage() +
                             ". The connector is currently non-functional. ", repoIDEx);
         }
 
@@ -296,23 +297,19 @@ public class ChemistryCMISFacade implements CMISFacade {
 
     public CmisObject getObjectByPath(String path) {
         CmisObject returnObj = null;
-        try {
-            Session session = this.getSession(this.connectionParameters);
-            if (session != null) {
-                returnObj = session.getObjectByPath(path, createOperationContext(null, null));
-            }
-        } catch (CmisObjectNotFoundException e) {
-            logger.warn(e.getMessage());
+        Session session = this.getSession(this.connectionParameters);
+        if (session != null) {
+            returnObj = session.getObjectByPath(path, createOperationContext(null, null));
         }
         return returnObj;
     }
 
-    public ObjectId createDocumentById(@NotNull(message = "No folderId was specified in the request.") String folderId,
-                                       @NotNull(message = "No filename was specified in the request.") String filename,
-                                       @NotNull(message = "No document content was specified in the payload.") Object content,
-                                       @NotNull(message = "No file mime type was specified in the request.") String mimeType,
+    public ObjectId createDocumentById(@NotNull(value = "No folderId was specified in the request.") String folderId,
+                                       @NotNull(value = "No filename was specified in the request.") String filename,
+                                       @NotNull(value = "No document content was specified in the payload.") Object content,
+                                       @NotNull(value = "No file mime type was specified in the request.") String mimeType,
                                        org.mule.module.cmis.model.VersioningState versioningState,
-                                       @NotNull(message = "No object type was specified in the request.") String objectType,
+                                       @NotNull(value = "No object type was specified in the request.") String objectType,
                                        Map<String, Object> properties) {
         ObjectId returnId = null;
         Session session = this.getSession(this.connectionParameters);
@@ -335,12 +332,12 @@ public class ChemistryCMISFacade implements CMISFacade {
         return returnId;
     }
 
-    public ObjectId createDocumentByPath(@NotNull(message = "No folderPath was specified in the request.") String folderPath,
-                                         @NotNull(message = "No filename was specified in the request.") String filename,
-                                         @NotNull(message = "No document content was specified in the payload.") Object content,
-                                         @NotNull(message = "No file mime type was specified in the request.") String mimeType,
+    public ObjectId createDocumentByPath(@NotNull(value = "No folderPath was specified in the request.") String folderPath,
+                                         @NotNull(value = "No filename was specified in the request.") String filename,
+                                         @NotNull(value = "No document content was specified in the payload.") Object content,
+                                         @NotNull(value = "No file mime type was specified in the request.") String mimeType,
                                          org.mule.module.cmis.model.VersioningState versioningState,
-                                         @NotNull(message = "No object type was specified in the request.") String objectType,
+                                         @NotNull(value = "No object type was specified in the request.") String objectType,
                                          Map<String, Object> properties,
                                          boolean force) {
         ObjectId returnId = null;
@@ -362,7 +359,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return returnId;
     }
 
-    public CmisObject getOrCreateFolderByPath(@NotNull(message = "No folderPath was specified in the request.") String folderPath) {
+    public CmisObject getOrCreateFolderByPath(@NotNull(value = "No folderPath was specified in the request.") String folderPath) {
         CmisObject returnObj = null;
         Session session = this.getSession(this.connectionParameters);
 
@@ -410,11 +407,11 @@ public class ChemistryCMISFacade implements CMISFacade {
     /**
      * create a document
      */
-    protected ObjectId createDocument(@NotNull(message = "No folder was specified in the request.") CmisObject folder,
-                                      @NotNull(message = "No filename was specified in the request.") String filename,
-                                      @NotNull(message = "No document content was specified in the payload.") Object content,
-                                      @NotNull(message = "No file mime type was specified in the request.") String mimeType,
-                                      @NotNull(message = "No versioning state was specified in the request.") org.mule.module.cmis.model.VersioningState versioningState,
+    protected ObjectId createDocument(@NotNull(value = "No folder was specified in the request.") CmisObject folder,
+                                      @NotNull(value = "No filename was specified in the request.") String filename,
+                                      @NotNull(value = "No document content was specified in the payload.") Object content,
+                                      @NotNull(value = "No file mime type was specified in the request.") String mimeType,
+                                      @NotNull(value = "No versioning state was specified in the request.") org.mule.module.cmis.model.VersioningState versioningState,
                                       String objectType,
                                       Map<String, Object> extraProperties) {
         ObjectId returnId = null;
@@ -627,7 +624,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    public List<String> deleteTree(CmisObject folder, String folderId,
+    public List<String> deleteTree(@Nullable CmisObject folder, @Nullable String folderId,
                                    UnfileObject unfile, boolean allversions, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
