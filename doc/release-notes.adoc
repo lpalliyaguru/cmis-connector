@@ -12,7 +12,7 @@ The Anypoint Connector for Content Management Interoperability Services (CMIS) p
 
 toc::[]
 
-== Version 2.1.0 - September 10, 2015
+== Version 2.1.0 - September 18, 2015
 
 === Compatibility
 
@@ -60,10 +60,9 @@ The CMIS Connector v2.1.0 is compatible with:
 
 === Features and Functionality
 
-In this release, the CMIS connector has been updated to work with the following version of Apache Chemistry and Mule DevKit:
-
-* Apache Chemistry 0.10
-* Mule DevKit 3.5.2
+* Apache Chemistry library has been upgraded to v0.13.0
+* Added support for NTLM Authentication.
+* Added pagination support to Query message processor.
 
 === Fixed in this Release
 None.

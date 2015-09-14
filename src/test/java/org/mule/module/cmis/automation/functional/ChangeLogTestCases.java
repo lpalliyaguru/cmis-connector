@@ -13,7 +13,6 @@ import org.apache.chemistry.opencmis.commons.enums.ChangeType;
 import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -22,20 +21,16 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-@Ignore("Public Alfresco Server does not support change logs.")
 public class ChangeLogTestCases extends AbstractTestCases {
 
     private String changeLogToken;
     private ObjectId folderObjectId;
-    private ObjectId documentObjectId;
 
     @Before
     public void setUp() throws Exception {
         testData = TestDataBuilder.getTestData("changelogTestData");
-        folderObjectId = getFolderObjectId();
-        documentObjectId = getDocumentObjectId(folderObjectId.getId());
-
         RepositoryInfo repositoryInfo = getConnector().repositoryInfo();
+        folderObjectId = getFolderObjectId();
         changeLogToken = repositoryInfo.getLatestChangeLogToken();
     }
 
@@ -47,7 +42,7 @@ public class ChangeLogTestCases extends AbstractTestCases {
 
             boolean foundEvent = false;
             for (ChangeEvent event : events) {
-                if (event.getChangeType().equals(ChangeType.CREATED) && event.getObjectId().equals(folderObjectId)) {
+                if (event.getChangeType().equals(ChangeType.CREATED) && folderObjectId.getId().contains(event.getObjectId())) {
                     foundEvent = true;
                     break;
                 }
