@@ -25,7 +25,7 @@ public class RepositoryInfoTestCases extends AbstractTestCases {
     public void testRepositoryInfo() {
         try {
             RepositoryInfo repositoryInfo = getConnector().repositoryInfo();
-            assertEquals(repositoryInfo.getName(), testData.get("repositoryName"));
+            assertEquals(testData.get("repositoryId"), repositoryInfo.getId());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
