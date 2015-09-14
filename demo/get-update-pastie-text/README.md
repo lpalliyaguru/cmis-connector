@@ -1,4 +1,4 @@
-Mule CMIS Connector Demo
+Anypoint CMIS Connector Demo
 =========================
 
 INTRODUCTION

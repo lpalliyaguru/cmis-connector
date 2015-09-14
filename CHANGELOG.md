@@ -1,18 +1,18 @@
 CMIS Anypoint Connector Release Notes
 ==========================================
   
-Date: 15-Jun-2015
+Date: 18-Sep-2015
   
-Version: 3.0.0
+Version: 2.1.0
   
 Supported versions:
 ------------------------------
-Apache Chemistry - 0.10.0       
-Alfresco Opencmis Extension - 0.7
+Apache Chemistry - 0.13.0       
+Alfresco Opencmis Extension - 1.0
 
 Supported Mule Runtime Versions:
 --------------------------------
-3.5.x
+3.5.0 or higher
 
 Supported Operations:
 ------------------------------
@@ -49,11 +49,12 @@ Supported Operations:
   
 New Features and Functionality
 ------------------------------
-Migrated to DevKit 3.5.3
+
+* Apache Chemistry library has been upgraded to v0.13.0
+* Added support for NTLM Authentication.
+* Added pagination support to Query message processor.
 
 Closed Issues in this release
 -----------------------------
-- Removed duplicate operations create-document-by-id-from-content & create-document-by-path-from-content. (CLDCONNECT-1601)
-- Modified the properties attribute of create-document-by-id, create-document-by-path, apply-aspect & update-object-properties to accept Map of Objects instead of Strings. (CLDCONNECT-2328)
-- Fixed closing of the content payload if its an input stream. (CLDCONNECT-2351)
+None.
     
