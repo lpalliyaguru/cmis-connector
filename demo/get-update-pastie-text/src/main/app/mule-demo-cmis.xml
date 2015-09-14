@@ -4,7 +4,7 @@
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns:cmis="http://www.mulesoft.org/schema/mule/cmis" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		password="${mule.cmis.password}" baseUrl="${mule.cmis.url}"
 		repositoryId="${mule.cmis.repositoryId}" endpoint="${mule.cmis.endpoint}"
 		useAlfrescoExtension="true" doc:name="CMIS" />
-	<flow name="pastie-to-cmis-document-flow" doc:name="pastie-to-cmis-document-flow"
+	<flow name="pastie-to-cmis-document-flow" 
 		doc:description="
 		   1. Listens to HttpRequests, expecting the following parameters:
 	           * fileName: name of the file to modify in the CMS
@@ -35,10 +35,22 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		<cmis:get-object-by-path config-ref="CMIS"
 			path="${mule.cmis.baseDirectory}/#[message.inboundProperties.fileName]"
 			doc:name="Get Object By Path" />
-		<choice doc:name="Choice">
-			<when expression="payload instanceof org.mule.transport.NullPayload"
-				evaluator="groovy">
+		
+				<cmis:check-out config-ref="CMIS" doc:name="Check Out Document" />
+				<set-session-variable variableName="documentId"
+					value="#[payload.id]" doc:name="Set Document Id" />
 				<http:outbound-endpoint host="www.pastie.org"
+					port="80" path="pastes/#[message.inboundProperties.pastieId]/text"
+					method="GET" doc:name="Get Pastie Text" />
+				<cmis:check-in config-ref="CMIS" checkinComment="File Modified"
+					filename="#[sessionVars.fileName]" mimeType="text/html" doc:name="Check In Document"
+					documentId="#[sessionVars.documentId]" />
+				<json:object-to-json-transformer
+					doc:name="Object to JSON" />
+                <logger message="Existing Document Updated !" level="INFO" doc:name="Logger"/>
+        <choice-exception-strategy doc:name="Choice Exception Strategy">
+            <catch-exception-strategy when="#[exception.causedBy(org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException)]" doc:name="Catch Exception Strategy">
+            <http:outbound-endpoint host="www.pastie.org"
 					path="pastes/#[message.inboundProperties.pastieId]/text" port="80"
 					method="GET" doc:name="Get Pastie Text">
 					<message-properties-transformer>
@@ -53,22 +65,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 				<json:object-to-json-transformer
 					doc:name="Object to JSON" />
                 <logger message="New Document Created !" level="INFO" doc:name="Logger"/>
-			</when>
-			<otherwise>
-				<cmis:check-out config-ref="CMIS" doc:name="Check Out Document" />
-				<set-session-variable variableName="documentId"
-					value="#[payload.id]" doc:name="Set Document Id" />
-				<http:outbound-endpoint host="www.pastie.org"
-					port="80" path="pastes/#[message.inboundProperties.pastieId]/text"
-					method="GET" doc:name="Get Pastie Text" />
-				<cmis:check-in config-ref="CMIS" checkinComment="File Modified"
-					filename="#[sessionVars.fileName]" mimeType="text/html" doc:name="Check In Document"
-					documentId="#[sessionVars.documentId]" />
-				<json:object-to-json-transformer
-					doc:name="Object to JSON" />
-                <logger message="Existing Document Updated !" level="INFO" doc:name="Logger"/>
-
-			</otherwise>
-		</choice>
+                </catch-exception-strategy>
+        </choice-exception-strategy>
 	</flow>
 </mule>

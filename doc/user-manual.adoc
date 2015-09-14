@@ -1,4 +1,4 @@
-= CMIS Connector
+= Anypoint CMIS Connector
 :toc: macro
 :toc-title: Contents:
 
