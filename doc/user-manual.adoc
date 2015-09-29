@@ -1,16 +1,10 @@
-= Anypoint CMIS Connector
-:toc: macro
-:toc-title: Contents:
-
-:imagesdir: .\images
-
+= CMIS Connector
+:keywords: cmis connector, anypoint, alfresco, sharepoint
 :source-highlighter: prettify
 
-:!numbered:
 
 [green]#Community#
 
-toc::[]
 
 == Introduction
 
@@ -18,18 +12,15 @@ The Anypoint Connector for Content Management Interoperability Services (CMIS) p
 
 === Prerequisites
 
-This document assumes you are familiar with Mule, http://www.mulesoft.org/documentation/display/current/Anypoint+Connectors[Anypoint Connectors],
-and http://www.mulesoft.org/documentation/display/current/Anypoint+Studio+Essentials[Anypoint Studio Essentials]. To increase your familiarity with Studio,
-consider completing one or more http://www.mulesoft.org/documentation/display/current/Anypoint+Connector+Tutorial[Anypoint Studio Tutorials]. Further,
-this page assumes that you have a basic understanding of http://www.mulesoft.org/documentation/display/current/Elements+in+a+Mule+Flow[Mule flows] and
-http://www.mulesoft.org/documentation/display/current/Global+Elements[Mule Global Elements].
+This document assumes you are familiar with Mule, link:/mule-user-guide/v/3.7/anypoint-connectors[Anypoint Connectors],
+and link:/mule-fundamentals/v/3.7/anypoint-studio-essentials[Anypoint Studio Essentials]. To increase your familiarity with Studio,
+consider completing one or more link:/mule-fundamentals/v/3.7/basic-studio-tutorial[Anypoint Studio Tutorials]. Further,
+this page assumes that you have a basic understanding of link:/mule-fundamentals/v/3.7/elements-in-a-mule-flow[Elements in a Mule Flow] and link:/mule-fundamentals/v/3.7/global-elements[Mule Global Elements].
 
 This document describes implementation examples within the context of Anypoint Studio, Mule ESB’s graphical user interface, and, in parallel,
 includes configuration details for doing the same in the XML Editor.
 
 === Dependencies
-
-This document assumes that you are familiar with Mule, link:/mule-user-guide/v/3.6/anypoint-connectors[Anypoint Connectors], and the link:/mule-fundamentals/v/3.6/anypoint-studio-essentials[Anypoint Studio Essentials]. To increase your familiarity with Studio, consider completing one or more link:/mule-fundamentals/v/3.6/basic-studio-tutorial[Anypoint Studio Tutorials]. Further, this page assumes that you have a basic understanding of link:/mule-fundamentals/v/3.6/mule-concepts[Mule flows] and link:/mule-fundamentals/v/3.6/global-elements[Mule Global Elements].
 
 For the CMIS connector to work properly in your Mule application, you need the following:
 
@@ -39,7 +30,7 @@ For the CMIS connector to work properly in your Mule application, you need the f
 
 === Compatibility Matrix
 
-[width="50%", options="header"]
+[width="100%", options="header"]
 |=======
 |Application/Service |Version
 |Mule Runtime	| 3.5.0 or higher
@@ -50,18 +41,18 @@ For the CMIS connector to work properly in your Mule application, you need the f
 == Installing and Configuring
 
 === Installing
-You can install a connector in Anypoint Studio using the instructions in http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange[Installing a Connector from Anypoint Exchange].
+You can install a connector in Anypoint Studio using the instructions in link:/mule-fundamentals/v/3.7/anypoint-exchange#installing-a-connector-from-anypoint-exchange[Installing a Connector from Anypoint Exchange].
 
 === Updating From an Older Version
 
-Everytime an updated version of a connector is released, Anypoint studio displays a popup in the bottom right corner of you screen with the following message: Updates Available.
+Every time an updated version of a connector is released, Anypoint studio displays a popup in the bottom right corner of your screen with the following message: "Updates Available".
 To upgrade to the newer version of the Anypoint CMIS connector:
 
-1. Click the popup and check for the available updates.
-2. Select the *Anypoint CMIS connector version 2.1.0* check-box and click *Next*.
+1. Click the popup and check for available updates.
+2. Select the *Anypoint CMIS connector version 2.1.0* checkbox and click *Next*.
 3. Follow the instructions provided by the user interface.
 4. Restart Studio when prompted.
-After restarting, if you have several versions of the connector installed, Mule asks you for the version of the connector you like to use.
+After restarting, if you have several versions of the connector installed, Mule asks you for the version of the connector you would like to use.
 
 === Configuring the CMIS Connector
 
@@ -79,9 +70,9 @@ Follow these steps to configure CMIS connector in a Mule application:
 
 . Configure the parameters according to the table below.
 +
-image::global_config.png[Global Element Config, 500]
+image::global_config.png[global_config]
 +
-[width="100%",cols="34%,33%,33%",options="header",]
+[width="100%",cols=",",options="header"]
 |===
 |Parameter |Description |Default Value
 |*Name* |Enter a name for the configuration so it can be referenced later by the `config-ref` parameter in the flow. |
@@ -92,8 +83,8 @@ image::global_config.png[Global Element Config, 500]
 |*Endpoint* |Enter the type of the endpoint: SOAP or ATOMPUB. |ATOM
 |*Connection Timeout* |Specify the values for the connection time out. |10000
 |*Authentication* |Specify authentication provider, supports HTTP basic authentication (STANDARD) and NTLM.| STANDARD
-|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. |False
-|*Cxf Port Provider* |Specify the name of the CXF port provider here. The CMIS connector includes a default implementation. |org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider
+|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. Leave this checkbox deselected for the application to use the default value. |False
+|*Cxf Port Provider* |Specify the name of the CXF port provider here. The CMIS connector includes a default implementation. |`org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider`
 |*Use Cookies* |Set this option to 'true' if you want to enable cookie support. |False
 |===
 
@@ -105,10 +96,10 @@ image::global_config.png[Global Element Config, 500]
 
 . Return to the Message Flow tab in Studio.
 
-== Using the Connector
-The Anypoint CMIS connector is an operation-based connector, which means that when you add the connector to your flow, you need to configure a specific operation the connector is intended to perform. The connector supports following operations:
+== Connector Operations
+The Anypoint CMIS connector is an operation-based connector, which means that when you add the connector to your flow, you need to configure a specific operation the connector is intended to perform. The connector supports the following operations:
 
-[cols=",",options="header",]
+[cols=",",options="header"]
 |===
 |Operation |Description
 |http://mulesoft.github.io/cmis-connector/mule/cmis-config.html#apply-acl[<cmis:apply-acl>] |Set the permissions associated with an object
@@ -145,7 +136,7 @@ The Anypoint CMIS connector is an operation-based connector, which means that wh
 |http://mulesoft.github.io/cmis-connector/mule/cmis-config.html#update-object-properties[<cmis:update-object-properties>] |Update an object's properties
 |===
 
-=== Configuring the connector in a flow:
+=== Configuring the Connector in a Flow
 
 Follow these steps to configure the parameters of the CMIS connector in a flow:
 
@@ -165,7 +156,7 @@ Follow these steps to configure the parameters of the CMIS connector in a flow:
 
 == Example Use Case
 
-Use the CMIS connector to access an CMIS repository and upload a file to it.
+Use the CMIS connector to access a CMIS repository and upload a file to it.
 
 image:example_flow.png[Use Case Flow]
 
@@ -177,7 +168,7 @@ image:example_flow.png[Use Case Flow]
 |*Display Name* |HTTP
 |*Host* |localhost
 |*Port* |8081
-|*Path* |cmis
+|*Base Path* |cmis
 |===
 +
 . Drag the CMIS connector onto the canvas, then select it to open the properties editor console.
@@ -186,18 +177,18 @@ image:example_flow.png[Use Case Flow]
 +
 image:cmis_global_properties.png[CMIS Global Element Properties]
 +
-[width="100%",cols="34%,33%,33%",options="header",]
+[width="100%",cols=",",options="header"]
 |===
 |Field |Value |Default Value
 |*Name* |CMIS (or any other name you prefer) |
 |*Base Url* |Enter the URL of the SOAP connector. |
 |*Username* |Enter the username for your content repository. |
 |*Password* |Enter the password for the CMIS username. |
-|*Repository Id* |Enter the identify of the repository that this connector should access. |
-|*Endpoint* |Enter the type of the endpoint. You can leave this field blank for the application to use the default value. |ATOMPUB
+|*Repository Id* |Enter the ID of the repository that this connector should access. |
+|*Endpoint* |Enter the type of the endpoint. You can leave this field blank for the application to use the default value. |ATOM
 |*Connection Timeout* |Specify the values for the connection time out. You can leave this field blank for the application to use the default value. |10000
-|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. Leave this field blank for the application to use the default value. |False
-|*Cxf Port Provider* |Specify the name of the CXF port provider here. The CMIS connector includes a default implementation. |org.apache.chemistry. opencmis.client.bindings.spi. webservices.CXFPortProvider
+|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. Leave this checkbox deselected for the application to use the default value. |False
+|*Cxf Port Provider* |Specify the name of the CXF port provider here. The CMIS connector includes a default implementation. |org.apache.chemistry.opencmis.client.bindings.spi. webservices.CXFPortProvider
 |*Use Cookies* |Leave the checkbox deselected to disable the cookie support in the application. *Use Cookies* field can be used to enable/disable cookie support, and also implement custom cookie settings. |False
 |===
 +
@@ -223,14 +214,14 @@ image:groovy_script.png[Groovy Script]
 |Field |Value
 |*Display Name* |Load File
 |*Script Text* |
-import java.io.FileInputStream; +
-return new FileInputStream("../src/test/resources/mule_logo.png");
+`import java.io.FileInputStream;` +
+`return new FileInputStream("../src/test/resources/mule_logo.png");`
 |===
 +
 [WARNING]
-*Note:* This file path specified in the script text need to be changed to point the image file on your local system.
+*Note:* The file path specified in the script text *needs to be changed* to point the image file on your local system.
 +
-. Add another CMIS connector after the Groovy component, and use the *Create document by path from content* operation to create a document with the content in the payload.
+. Add another CMIS connector after the Groovy component, and use the *Create document by path* operation to create a document with the content in the payload.
 +
 image:create_document_by_path.png[Create Document By Path Properties]
 +
@@ -238,21 +229,21 @@ image:create_document_by_path.png[Create Document By Path Properties]
 |===
 |Field |Value
 |*Display Name* |Create document by path (or any other name you prefer).
-|*Connector Configuration* |<select the global element you create>
+|*Connector Configuration* |<Select the global element you have created>
 |*Operation* |Create document by path
 |*Filename* |<Specify the name of the file you want to use>
-|*Folder Path* |<Specify the path to the above created folder>
+|*Folder Path* |<Specify the path to the above-created folder>
 |*Content Reference* |#[payload]
 |*Mime Type* |image/png (Specifies the stream content type)
 |*Object Type* |cmis:document
 |*Versioning State* |MAJOR (Specifies the versioning state of the newly created object. Major denotes that the document must be created as a major version)
-|*Force* |_de-select (_If you select this checkbox, the application will create any missing intermediate folders in the folder path. By default, the checkbox is de-selected.)
+|*Force* |_Deselected_ (If you check this box, the application will create any missing intermediate folders in the folder path. By default, the checkbox is deselected.)
 |*Properties* |none
 |===
 +
 . Add a *Object to Json* transformer onto the flow to capture the response from the CMIS connector and display it as a HTTP response.
 +
-[cols=",",options="header",]
+[cols=",",options="header"]
 |===
 |Field |Value
 |*Display Name* |Object to Json
@@ -263,8 +254,8 @@ This completes the use case.
 === Example Code
 
 [NOTE]
-For this code to work in Anypoint Studio, you must provide the credentials for CMIS account. You can either replace the variables with their values in the code, or you can add details to the file named **mule-app.properties** in the folder **src/main/properties** to provide values for each variable.
-[source,xml]
+For this code to work in Anypoint Studio, you must provide the credentials for the CMIS account. You can either replace the variables with their values in the code, or you can add details to the file named **mule-app.properties** in the folder **src/main/properties** to provide values for each variable.
+[source,xml,linenums]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -295,16 +286,18 @@ return new FileInputStream("../src/test/resources/mule_logo.png");]]></scripting
 </mule>
 ----
 
-=== Test the flows
-Run the project as a Mule Application (right-click project name, then select **Run As > Mule Application**).
+=== Test the Flow
+Run the project as a Mule Application (right-click project name, then select *Run As > Mule Application*).
 
-Navigate to *http://localhost:8081/cmis* to upload a file to your CMIS repository. Once successful, you should be able to view the folder along with image in your repository.
+Navigate to *http://localhost:8081/cmis* to upload a file to your CMIS repository. Once successful, you should be able to view the folder along with the image in your repository.
 
-In the browser you should see a json text with id of the image, for ex: *{"id":"0ee92f24-2b77-4d83-b0ff-4c86946c81f2;1.0"}*
+In the browser you should see JSON text with the ID of the image, for example: `{"id":"0ee92f24-2b77-4d83-b0ff-4c86946c81f2;1.0"}`
 
 
 == See Also
 
-* Learn more about working with http://www.mulesoft.org/documentation/display/current/Anypoint+Connectors[Anypoint Connectors].
-* Learn how to use http://www.mulesoft.org/documentation/display/current/Using+Transformers[Mule Transformers].
-* Access http://www.alfresco.com/cmis[Public Alfresco CMIS Test Server] documentation
+* Learn more about working with link:/mule-user-guide/v/3.7/anypoint-connectors[Anypoint Connectors]
+* Learn about link:/mule-user-guide/v/3.7/mule-expression-language-mel[Mule Expression Language (MEL)]
+* Learn about link:/mule-user-guide/v/3.7/endpoint-configuration-reference[Configuring Endpoints]
+* Learn about link:/mule-fundamentals/v/3.7/mule-transformers[Mule Transformers]
+* Access link:http://www.alfresco.com/cmis[Public Alfresco CMIS Test Server] documentation
