@@ -83,7 +83,7 @@ image::global_config.png[global_config]
 |*Endpoint* |Enter the type of the endpoint: SOAP or ATOMPUB. |ATOM
 |*Connection Timeout* |Specify the values for the connection time out. |10000
 |*Authentication* |Specify authentication provider, supports HTTP basic authentication (STANDARD) and NTLM.| STANDARD
-|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. This is set to true in this example application. |False
+|*Use Alfresco Extension* |Specify whether the Alfresco Object Factory implementation should be utilized. Leave this checkbox deselected for the application to use the default value. |False
 |*Cxf Port Provider* |Specify the name of the CXF port provider here. The CMIS connector includes a default implementation. |`org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider`
 |*Use Cookies* |Set this option to 'true' if you want to enable cookie support. |False
 |===
