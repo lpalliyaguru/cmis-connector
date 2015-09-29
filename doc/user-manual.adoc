@@ -73,7 +73,7 @@ Follow these steps to configure CMIS connector in a Mule application:
 +
 image::global_config.png[global_config]
 +
-[width="autowidth",cols=",",options="header"]
+[width="100%",cols=",,,",options="header"]
 |===
 |Parameter |Description |Default Value
 |*Name* |Enter a name for the configuration so it can be referenced later by the `config-ref` parameter in the flow. |
