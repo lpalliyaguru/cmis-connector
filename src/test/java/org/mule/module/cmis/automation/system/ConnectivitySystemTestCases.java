@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.module.cmis.Config;
-import org.mule.module.cmis.automation.util.ConfigurationUtils;
 import org.mule.module.cmis.model.Authentication;
 import org.mule.module.cmis.model.CMISConnectionType;
 import org.mule.modules.tests.ConnectorTestUtils;
+import org.mule.tools.devkit.ctf.configuration.util.ConfigurationUtils;
 
 import java.util.Arrays;
 import java.util.Properties;

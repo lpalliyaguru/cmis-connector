@@ -1,5 +1,6 @@
 = CMIS Connector
 :keywords: cmis connector, anypoint, alfresco, sharepoint
+:imagesdir: .\images
 :source-highlighter: prettify
 
 
