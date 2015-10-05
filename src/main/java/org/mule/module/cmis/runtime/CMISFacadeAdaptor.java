@@ -25,19 +25,18 @@ public class CMISFacadeAdaptor {
     }
 
     public static CMISFacade adapt(CMISFacade facade) {
-        return (CMISFacade) Proxy.newProxyInstance(CMISFacadeAdaptor.class.getClassLoader(),
-                new Class<?>[]{CMISFacade.class}, new MyInvocationHandler(facade));
+        return (CMISFacade) Proxy.newProxyInstance(CMISFacadeAdaptor.class.getClassLoader(), new Class<?>[] { CMISFacade.class }, new MyInvocationHandler(facade));
     }
 
     private static class MyInvocationHandler implements InvocationHandler {
+
         private final CMISFacade facade;
 
         private MyInvocationHandler(CMISFacade facade) {
             this.facade = facade;
         }
 
-        public Object invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException, IllegalArgumentException,
-                InvocationTargetException {
+        public Object invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
             if (logger.isDebugEnabled()) {
                 logger.debug("Invoked method {0} with arguments {1}", method.getName(), args);
             }

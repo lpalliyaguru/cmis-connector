@@ -37,8 +37,7 @@ public class Config {
     private String connectionIdentifier;
 
     /**
-     * The type of endpoint.
-     * Values allowed: SOAP or ATOM
+     * The type of endpoint. Values allowed: SOAP or ATOM
      */
     @Configurable
     @Placement(order = 1)
@@ -93,29 +92,33 @@ public class Config {
     /**
      * Connects to CMIS
      *
-     * @param baseUrl      CMIS repository address
-     * @param username     CMIS repository username
-     * @param password     CMIS repository password
-     * @param repositoryId CMIS repository identifier
+     * @param baseUrl
+     *            CMIS repository address
+     * @param username
+     *            CMIS repository username
+     * @param password
+     *            CMIS repository password
+     * @param repositoryId
+     *            CMIS repository identifier
      */
     @Connect
     public void connect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password, @Optional String repositoryId) throws ConnectionException {
 
         if (StringUtils.isBlank(username)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
+                    "The \"username\" attribute of the \"config\" element for the repository connector configuration is "
+                            + "empty or missing. This configuration is required in order to provide repository connection "
+                            + "parameters to the connector. The connector is currently non-functional.");
         } else if (StringUtils.isBlank(password)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
+                    "The \"password\" attribute of the \"config\" element for the repository connector configuration is "
+                            + "empty or missing. This configuration is required in order to provide repository connection "
+                            + "parameters to the connector. The connector is currently non-functional.");
         } else if (StringUtils.isBlank(baseUrl)) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null,
-                    "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is " +
-                            "empty or missing. This configuration is required in order to provide repository connection " +
-                            "parameters to the connector. The connector is currently non-functional.");
+                    "The \"baseUrl\" attribute of the \"config\" element for the repository connector configuration is "
+                            + "empty or missing. This configuration is required in order to provide repository connection "
+                            + "parameters to the connector. The connector is currently non-functional.");
         }
 
         synchronized (threadSafeLock) {
@@ -123,23 +126,12 @@ public class Config {
             if (facade == null) {
                 setConnectionIdentifier(username + "@" + baseUrl);
                 try {
-                    this.facade =
-                            CMISFacadeAdaptor.adapt(
-                                    new ChemistryCMISFacade(
-                                            username,
-                                            password,
-                                            baseUrl.trim(),
-                                            repositoryId,
-                                            getEndpoint(),
-                                            getConnectionTimeout(),
-                                            getCxfPortProvider(),
-                                            getUseAlfrescoExtension(),
-                                            getUseCookies(),
-                                            getAuthentication()));
+                    this.facade = CMISFacadeAdaptor.adapt(new ChemistryCMISFacade(username, password, baseUrl.trim(), repositoryId, getEndpoint(), getConnectionTimeout(),
+                            getCxfPortProvider(), getUseAlfrescoExtension(), getUseCookies(), getAuthentication()));
                 } catch (Exception e) {
                     if (StringUtils.isEmpty(e.getMessage()) || e.getCause() instanceof CmisPermissionDeniedException) {
-                        String msg = "Access to the specified resource (Failed to authenticate) has been forbidden. Please verify \"baseUrl\", \"username\", " +
-                                "and \"password\" are valid.  The connector is currently non-functional.";
+                        String msg = "Access to the specified resource (Failed to authenticate) has been forbidden. Please verify \"baseUrl\", \"username\", "
+                                + "and \"password\" are valid.  The connector is currently non-functional.";
                         logger.error(msg, e);
                         throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null, msg);
                     } else {
@@ -153,10 +145,14 @@ public class Config {
     /**
      * Test Connectivity to CMIS instance.
      *
-     * @param baseUrl      CMIS repository address
-     * @param username     CMIS repository username
-     * @param password     CMIS repository password
-     * @param repositoryId CMIS repository identifier
+     * @param baseUrl
+     *            CMIS repository address
+     * @param username
+     *            CMIS repository username
+     * @param password
+     *            CMIS repository password
+     * @param repositoryId
+     *            CMIS repository identifier
      */
     @TestConnectivity
     public void testConnect(@ConnectionKey String baseUrl, @ConnectionKey String username, @Password String password, @Optional String repositoryId) throws ConnectionException {

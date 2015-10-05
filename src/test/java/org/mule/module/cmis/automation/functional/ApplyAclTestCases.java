@@ -47,11 +47,10 @@ public class ApplyAclTestCases extends AbstractTestCases {
 
             List<String> permissions = new ArrayList<String>();
             permissions.add("cmis:write");
-            AccessControlEntryImpl acei = new AccessControlEntryImpl(principal,
-                    permissions);
+            AccessControlEntryImpl acei = new AccessControlEntryImpl(principal, permissions);
             addAces.add(acei);
 
-            Acl result = getConnector().applyAcl(null, documentObjectId.getId(), addAces, Collections.<Ace>emptyList(), (AclPropagation) testData.get("aclPropagation"));
+            Acl result = getConnector().applyAcl(null, documentObjectId.getId(), addAces, Collections.<Ace> emptyList(), (AclPropagation) testData.get("aclPropagation"));
 
             assertEquals(2, result.getAces().size());
         } catch (Exception e) {
@@ -70,21 +69,19 @@ public class ApplyAclTestCases extends AbstractTestCases {
 
             List<String> firstPermissions = new ArrayList<String>();
             firstPermissions.add("cmis:write");
-            AccessControlEntryImpl firstAcei = new AccessControlEntryImpl(principal,
-                    firstPermissions);
+            AccessControlEntryImpl firstAcei = new AccessControlEntryImpl(principal, firstPermissions);
             addAces.add(firstAcei);
 
-            result = getConnector().applyAcl(null, documentObjectId.getId(), addAces, Collections.<Ace>emptyList(), (AclPropagation) testData.get("aclPropagation"));
+            result = getConnector().applyAcl(null, documentObjectId.getId(), addAces, Collections.<Ace> emptyList(), (AclPropagation) testData.get("aclPropagation"));
 
             assertEquals(2, result.getAces().size());
 
             List<String> secondPermissions = new ArrayList<String>();
             secondPermissions.add("cmis:write");
-            AccessControlEntryImpl secondAcei = new AccessControlEntryImpl(
-                    principal, secondPermissions);
+            AccessControlEntryImpl secondAcei = new AccessControlEntryImpl(principal, secondPermissions);
             removeAces.add(secondAcei);
 
-            result = getConnector().applyAcl(null, documentObjectId.getId(), Collections.<Ace>emptyList(), removeAces, (AclPropagation) testData.get("aclPropagation"));
+            result = getConnector().applyAcl(null, documentObjectId.getId(), Collections.<Ace> emptyList(), removeAces, (AclPropagation) testData.get("aclPropagation"));
 
             assertEquals(1, result.getAces().size());
         } catch (Exception e) {
@@ -106,7 +103,7 @@ public class ApplyAclTestCases extends AbstractTestCases {
             AccessControlEntryImpl acei = new AccessControlEntryImpl(principal, permissions);
             addAces.add(acei);
 
-            Acl result = getConnector().applyAcl(cmisObject, null, addAces, Collections.<Ace>emptyList(), (AclPropagation) testData.get("aclPropagation"));
+            Acl result = getConnector().applyAcl(cmisObject, null, addAces, Collections.<Ace> emptyList(), (AclPropagation) testData.get("aclPropagation"));
             assertEquals(2, result.getAces().size());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));

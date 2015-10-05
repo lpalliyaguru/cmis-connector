@@ -33,9 +33,9 @@ public class CreateDocumentByPathTestCases extends AbstractTestCases {
     @Test
     public void testCreateDocumentByPath_rootPath() {
         try {
-            ObjectId document = getConnector().createDocumentByPath("/", (String) testData.get("filename"), testData.get("contentRef"),
-                    (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"),
-                    (Map<String, Object>) testData.get("propertiesRef"), (Boolean) testData.get("force"));
+            ObjectId document = getConnector().createDocumentByPath("/", (String) testData.get("filename"), testData.get("contentRef"), (String) testData.get("mimeType"),
+                    (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"),
+                    (Boolean) testData.get("force"));
             assertNotNull(document.getId());
 
             documentObjectId = getConnector().getObjectById(document.getId());
@@ -49,8 +49,8 @@ public class CreateDocumentByPathTestCases extends AbstractTestCases {
     public void testCreateDocumentByPath_nonRootPath() {
         try {
             ObjectId document = getConnector().createDocumentByPath("/" + testData.get("folderName"), (String) testData.get("filename"), testData.get("contentRef"),
-                    (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"),
-                    null, (Boolean) testData.get("force"));
+                    (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"), null,
+                    (Boolean) testData.get("force"));
             assertNotNull(document.getId());
 
             documentObjectId = getConnector().getObjectById(document.getId());
@@ -69,6 +69,5 @@ public class CreateDocumentByPathTestCases extends AbstractTestCases {
         getConnector().delete(null, documentObjectId.getId(), true);
         getConnector().deleteTree(null, folderObjectId.getId(), UnfileObject.DELETE, true, true);
     }
-
 
 }

@@ -32,9 +32,9 @@ public class CreateDocumentByIdTestCases extends AbstractTestCases {
     @Test
     public void testCreateDocumentById() {
         try {
-            ObjectId documentId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("filename"),
-                    testData.get("contentRef"), (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"),
-                    (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"));
+            ObjectId documentId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("filename"), testData.get("contentRef"),
+                    (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"),
+                    (Map<String, Object>) testData.get("propertiesRef"));
             assertNotNull(documentId.getId());
             CmisObject cmisObject = getConnector().getObjectById(documentId.getId());
             assertNotNull(cmisObject);
@@ -46,7 +46,8 @@ public class CreateDocumentByIdTestCases extends AbstractTestCases {
     @Test
     public void testCreateDocumentById_no_properties() {
         try {
-            ObjectId documentId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("filename"), testData.get("contentRef"), (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"), null);
+            ObjectId documentId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("filename"), testData.get("contentRef"),
+                    (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"), null);
             assertNotNull(documentId.getId());
             CmisObject cmisObject = getConnector().getObjectById(documentId.getId());
             assertNotNull(cmisObject);

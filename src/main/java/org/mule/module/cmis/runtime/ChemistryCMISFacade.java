@@ -45,36 +45,26 @@ import java.util.*;
  * Implementation of {@link CMISFacade} that use Apache Chemistry Project.
  */
 public class ChemistryCMISFacade implements CMISFacade {
+
     private static final Logger logger = LoggerFactory.getLogger(ChemistryCMISFacade.class);
 
     private Session repositorySession;
     private Map<String, String> connectionParameters;
     private final String baseURL;
 
-    public ChemistryCMISFacade(@NotNull String username,
-                               @NotNull String password,
-                               @NotNull String baseURL,
-                               @Nullable String repositoryId,
-                               @NotNull CMISConnectionType endpoint,
-                               @Nullable String connectionTimeout,
-                               @NotNull String cxfPortProvider,
-                               boolean useAlfrescoExtension,
-                               boolean useCookies,
-                               Authentication authentication) {
+    public ChemistryCMISFacade(@NotNull String username, @NotNull String password, @NotNull String baseURL, @Nullable String repositoryId, @NotNull CMISConnectionType endpoint,
+            @Nullable String connectionTimeout, @NotNull String cxfPortProvider, boolean useAlfrescoExtension, boolean useCookies, Authentication authentication) {
         if (!baseURL.endsWith("/")) {
             baseURL = baseURL + "/";
         }
 
         this.baseURL = baseURL;
 
-        this.connectionParameters =
-                paramMap(username, password, repositoryId, this.baseURL, endpoint,
-                        connectionTimeout, useAlfrescoExtension, cxfPortProvider, authentication, useCookies);
+        this.connectionParameters = paramMap(username, password, repositoryId, this.baseURL, endpoint, connectionTimeout, useAlfrescoExtension, cxfPortProvider, authentication,
+                useCookies);
     }
 
-    public static ContentStream createContentStream(String filename,
-                                                    String mimeType,
-                                                    Object content) {
+    public static ContentStream createContentStream(String filename, String mimeType, Object content) {
         ContentStreamImpl ret;
 
         if (content instanceof String) {
@@ -117,8 +107,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    protected static OperationContext createOperationContext(String filter,
-                                                             String orderBy) {
+    protected static OperationContext createOperationContext(String filter, String orderBy) {
         OperationContext ctx = new OperationContextImpl();
         ctx.setIncludeAcls(true);
         ctx.setIncludePolicies(true);
@@ -134,32 +123,23 @@ public class ChemistryCMISFacade implements CMISFacade {
         return ctx;
     }
 
-    private static Map<String, String> paramMap(String username,
-                                                String password,
-                                                String repositoryId,
-                                                String baseURL,
-                                                CMISConnectionType endpoint,
-                                                String connectionTimeout,
-                                                boolean useAlfrescoExtension,
-                                                String cxfPortProvider,
-                                                Authentication authentication,
-                                                boolean useCookies) {
+    private static Map<String, String> paramMap(String username, String password, String repositoryId, String baseURL, CMISConnectionType endpoint, String connectionTimeout,
+            boolean useAlfrescoExtension, String cxfPortProvider, Authentication authentication, boolean useCookies) {
 
         Map<String, String> parameters = new HashMap<String, String>();
 
         // user credentials
         switch (authentication) {
-            case STANDARD:
-                parameters.put(SessionParameter.USER, username.trim());
-                parameters.put(SessionParameter.PASSWORD, password.trim());
-                break;
-            case NTLM:
-                parameters.put(SessionParameter.USER, username.trim());
-                parameters.put(SessionParameter.PASSWORD, password.trim());
-                parameters.put(SessionParameter.AUTHENTICATION_PROVIDER_CLASS,
-                        CmisBindingFactory.NTLM_AUTHENTICATION_PROVIDER);
-                break;
-            default:
+        case STANDARD:
+            parameters.put(SessionParameter.USER, username.trim());
+            parameters.put(SessionParameter.PASSWORD, password.trim());
+            break;
+        case NTLM:
+            parameters.put(SessionParameter.USER, username.trim());
+            parameters.put(SessionParameter.PASSWORD, password.trim());
+            parameters.put(SessionParameter.AUTHENTICATION_PROVIDER_CLASS, CmisBindingFactory.NTLM_AUTHENTICATION_PROVIDER);
+            break;
+        default:
         }
 
         parameters.put(SessionParameter.COOKIES, String.valueOf(useCookies));
@@ -217,9 +197,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             List<Repository> repositoryList = SessionFactoryImpl.newInstance().getRepositories(parameters);
 
             if (repositoryList.isEmpty()) {
-                logger.error(
-                        "No repositories were returned at the CMIS server URL \"" + baseURL + "\". " +
-                                "The connector is currently non-functional.");
+                logger.error("No repositories were returned at the CMIS server URL \"" + baseURL + "\". " + "The connector is currently non-functional.");
             } else {
                 // Get the first repo in the list.
                 Repository firstRepo = repositoryList.get(0);
@@ -230,9 +208,8 @@ public class ChemistryCMISFacade implements CMISFacade {
                 logger.debug("The repository ID that will be used is " + repoID + ".");
             }
         } catch (Exception repoIDEx) {
-            throw new CMISConnectorConnectionException(
-                    "An error occurred while attempting to dynamically obtain a repository ID: " + repoIDEx.getMessage() +
-                            ". The connector is currently non-functional. ", repoIDEx);
+            throw new CMISConnectorConnectionException("An error occurred while attempting to dynamically obtain a repository ID: " + repoIDEx.getMessage()
+                    + ". The connector is currently non-functional. ", repoIDEx);
         }
 
         return repoID;
@@ -305,27 +282,14 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     public ObjectId createDocumentById(@NotNull(value = "No folderId was specified in the request.") String folderId,
-                                       @NotNull(value = "No filename was specified in the request.") String filename,
-                                       @NotNull(value = "No document content was specified in the payload.") Object content,
-                                       @NotNull(value = "No file mime type was specified in the request.") String mimeType,
-                                       org.mule.module.cmis.model.VersioningState versioningState,
-                                       @NotNull(value = "No object type was specified in the request.") String objectType,
-                                       Map<String, Object> properties) {
+            @NotNull(value = "No filename was specified in the request.") String filename, @NotNull(value = "No document content was specified in the payload.") Object content,
+            @NotNull(value = "No file mime type was specified in the request.") String mimeType, org.mule.module.cmis.model.VersioningState versioningState,
+            @NotNull(value = "No object type was specified in the request.") String objectType, Map<String, Object> properties) {
         ObjectId returnId = null;
         Session session = this.getSession(this.connectionParameters);
         if (session != null) {
-            logger.debug(
-                    "Preparing to create a document with file name \"" + filename + "\" in the folder with ID \"" +
-                            folderId + "\".");
-            returnId =
-                    createDocument(
-                            session.getObject(session.createObjectId(folderId)),
-                            filename,
-                            content,
-                            mimeType,
-                            versioningState,
-                            objectType,
-                            properties);
+            logger.debug("Preparing to create a document with file name \"" + filename + "\" in the folder with ID \"" + folderId + "\".");
+            returnId = createDocument(session.getObject(session.createObjectId(folderId)), filename, content, mimeType, versioningState, objectType, properties);
             logger.debug("The ID of the repository node after document creation is \"" + returnId.getId() + "\".");
         }
 
@@ -333,27 +297,15 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     public ObjectId createDocumentByPath(@NotNull(value = "No folderPath was specified in the request.") String folderPath,
-                                         @NotNull(value = "No filename was specified in the request.") String filename,
-                                         @NotNull(value = "No document content was specified in the payload.") Object content,
-                                         @NotNull(value = "No file mime type was specified in the request.") String mimeType,
-                                         org.mule.module.cmis.model.VersioningState versioningState,
-                                         @NotNull(value = "No object type was specified in the request.") String objectType,
-                                         Map<String, Object> properties,
-                                         boolean force) {
+            @NotNull(value = "No filename was specified in the request.") String filename, @NotNull(value = "No document content was specified in the payload.") Object content,
+            @NotNull(value = "No file mime type was specified in the request.") String mimeType, org.mule.module.cmis.model.VersioningState versioningState,
+            @NotNull(value = "No object type was specified in the request.") String objectType, Map<String, Object> properties, boolean force) {
         ObjectId returnId = null;
         Session session = this.getSession(this.connectionParameters);
         if (session != null) {
-            logger.debug(
-                    "Preparing to create a document with file name \"" + filename + "\" in folder \"" +
-                            folderPath + "\".");
-            returnId =
-                    createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath),
-                            filename,
-                            content,
-                            mimeType,
-                            versioningState,
-                            objectType,
-                            properties);
+            logger.debug("Preparing to create a document with file name \"" + filename + "\" in folder \"" + folderPath + "\".");
+            returnId = createDocument(force ? getOrCreateFolderByPath(folderPath) : session.getObjectByPath(folderPath), filename, content, mimeType, versioningState, objectType,
+                    properties);
             logger.debug("The ID of the repository node after document creation is \"" + returnId.getId() + "\".");
         }
         return returnId;
@@ -376,11 +328,9 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     /**
-     * For each folder in the given folder path, creates it if necessary.
-     * Notice: this implementation checks that the folder exists, and if not creates it.
-     * This is not efficient, it would be better to try to just try to create it
-     * and catch {@link CmisContentAlreadyExistsException}, but currently that exception
-     * is not being thrown - it seems like a server's bug
+     * For each folder in the given folder path, creates it if necessary. Notice: this implementation checks that the folder exists, and if not creates it. This is not efficient,
+     * it would be better to try to just try to create it and catch {@link CmisContentAlreadyExistsException}, but currently that exception is not being thrown - it seems like a
+     * server's bug
      */
     private CmisObject createFolderStructure(String folderPath) {
         String[] folderNames = StringUtils.split(folderPath, "/");
@@ -397,9 +347,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                 logger.debug("Path not found: " + currentPath, ex);
             }
 
-            currentObjectId = currentObject != null
-                    ? currentObject.getId()
-                    : createFolder(folder, currentObjectId).getId();
+            currentObjectId = currentObject != null ? currentObject.getId() : createFolder(folder, currentObjectId).getId();
         }
         return getObjectById(currentObjectId);
     }
@@ -408,12 +356,10 @@ public class ChemistryCMISFacade implements CMISFacade {
      * create a document
      */
     protected ObjectId createDocument(@NotNull(value = "No folder was specified in the request.") CmisObject folder,
-                                      @NotNull(value = "No filename was specified in the request.") String filename,
-                                      @NotNull(value = "No document content was specified in the payload.") Object content,
-                                      @NotNull(value = "No file mime type was specified in the request.") String mimeType,
-                                      @NotNull(value = "No versioning state was specified in the request.") org.mule.module.cmis.model.VersioningState versioningState,
-                                      String objectType,
-                                      Map<String, Object> extraProperties) {
+            @NotNull(value = "No filename was specified in the request.") String filename, @NotNull(value = "No document content was specified in the payload.") Object content,
+            @NotNull(value = "No file mime type was specified in the request.") String mimeType,
+            @NotNull(value = "No versioning state was specified in the request.") org.mule.module.cmis.model.VersioningState versioningState, String objectType,
+            Map<String, Object> extraProperties) {
         ObjectId returnId = null;
 
         Session session = this.getSession(this.connectionParameters);
@@ -423,9 +369,8 @@ public class ChemistryCMISFacade implements CMISFacade {
             try {
                 vs = VersioningState.valueOf(versioningState.name());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException(String.format(
-                        "Illegal value for versioningState. Given `%s' could be: %s",
-                        versioningState, Arrays.toString(VersioningState.values())), e);
+                throw new IllegalArgumentException(String.format("Illegal value for versioningState. Given `%s' could be: %s", versioningState,
+                        Arrays.toString(VersioningState.values())), e);
             }
 
             Map<String, Object> properties = new HashMap<String, Object>();
@@ -434,9 +379,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             if (extraProperties != null) {
                 properties.putAll(extraProperties);
             }
-            returnId = session.createDocument(properties,
-                    session.createObjectId(folder.getId()),
-                    createContentStream(filename, mimeType, content), vs);
+            returnId = session.createDocument(properties, session.createObjectId(folder.getId()), createContentStream(filename, mimeType, content), vs);
         }
 
         return returnId;
@@ -456,8 +399,7 @@ public class ChemistryCMISFacade implements CMISFacade {
             properties.put(PropertyIds.NAME, folderName);
             properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
             try {
-                returnId = session.createFolder(properties, session.getObject(
-                        session.createObjectId(parentObjectId)));
+                returnId = session.createFolder(properties, session.getObject(session.createObjectId(parentObjectId)));
             } catch (CmisContentAlreadyExistsException e) {
                 logger.debug("CMIS Content Already Exists ", e);
                 CmisObject object = session.getObject(session.createObjectId(parentObjectId));
@@ -491,8 +433,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End getTypeDefinition
     }
 
-    public ItemIterable<Document> getCheckoutDocs(String filter,
-                                                  String orderBy) {
+    public ItemIterable<Document> getCheckoutDocs(String filter, String orderBy) {
         ItemIterable<Document> docList = null;
 
         Session session = this.getSession(this.connectionParameters);
@@ -505,11 +446,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End getCheckoutDocs
     }
 
-    public ProviderAwarePagingDelegate<QueryResult, CMISConnector> query(@NotNull String query,
-                                                                         @NotNull boolean searchAllVersions,
-                                                                         String filter,
-                                                                         String orderBy,
-                                                                         PagingConfiguration pagingConfiguration) {
+    public ProviderAwarePagingDelegate<QueryResult, CMISConnector> query(@NotNull String query, @NotNull boolean searchAllVersions, String filter, String orderBy,
+            PagingConfiguration pagingConfiguration) {
         Validate.notEmpty(query, "Query is empty");
         logger.debug("Preparing to execute the CMIS query \"" + query + "\".");
 
@@ -532,9 +470,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End getParentFolders
     }
 
-    public Object folder(Folder folder, String folderId,
-                         NavigationOptions get, Integer depth,
-                         String filter, String orderBy) {
+    public Object folder(Folder folder, String folderId, NavigationOptions get, Integer depth, String filter, String orderBy) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
 
@@ -577,10 +513,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return null;
     }
 
-    public FileableCmisObject moveObject(FileableCmisObject cmisObject,
-                                         String objectId,
-                                         String sourceFolderId,
-                                         String targetFolderId) {
+    public FileableCmisObject moveObject(FileableCmisObject cmisObject, String objectId, String sourceFolderId, String targetFolderId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         Validate.notEmpty(sourceFolderId, "sourceFolderId is empty");
@@ -595,9 +528,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return null;
     }
 
-    public CmisObject updateObjectProperties(CmisObject cmisObject,
-                                             String objectId,
-                                             Map<String, Object> properties) {
+    public CmisObject updateObjectProperties(CmisObject cmisObject, String objectId, Map<String, Object> properties) {
         CmisObject returnObj = null;
 
         validateObjectOrId(cmisObject, objectId);
@@ -624,8 +555,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    public List<String> deleteTree(@Nullable CmisObject folder, @Nullable String folderId,
-                                   UnfileObject unfile, boolean allversions, boolean continueOnFailure) {
+    public List<String> deleteTree(@Nullable CmisObject folder, @Nullable String folderId, UnfileObject unfile, boolean allversions, boolean continueOnFailure) {
         validateObjectOrId(folder, folderId);
         validateRedundantIdentifier(folder, folderId);
         CmisObject target = getCmisObject(folder, folderId);
@@ -635,8 +565,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return Collections.emptyList();
     }
 
-    public List<Relationship> getObjectRelationships(CmisObject cmisObject,
-                                                     String objectId) {
+    public List<Relationship> getObjectRelationships(CmisObject cmisObject, String objectId) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         CmisObject target = getCmisObject(cmisObject, objectId);
@@ -656,8 +585,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         return null;
     }
 
-    public List<Document> getAllVersions(CmisObject document, String documentId,
-                                         String filter, String orderBy) {
+    public List<Document> getAllVersions(CmisObject document, String documentId, String filter, String orderBy) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
         CmisObject target = getCmisObject(document, documentId);
@@ -689,11 +617,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    public ObjectId checkIn(CmisObject document, String documentId,
-                            Object content, String filename,
-                            String mimeType, boolean major,
-                            String checkinComment,
-                            Map<String, Object> properties) {
+    public ObjectId checkIn(CmisObject document, String documentId, Object content, String filename, String mimeType, boolean major, String checkinComment,
+            Map<String, Object> properties) {
         validateObjectOrId(document, documentId);
         validateRedundantIdentifier(document, documentId);
         Validate.notEmpty(filename, "filename is empty");
@@ -704,19 +629,16 @@ public class ChemistryCMISFacade implements CMISFacade {
         CmisObject target = getCmisObject(document, documentId);
         if (target != null && target instanceof Document) {
             Document doc = (Document) target;
-            return doc.checkIn(major, coalesceProperties(properties),
-                    createContentStream(filename, mimeType, content),
-                    checkinComment);
+            return doc.checkIn(major, coalesceProperties(properties), createContentStream(filename, mimeType, content), checkinComment);
         }
         return null;
     }
 
     private Map<String, Object> coalesceProperties(Map<String, Object> properties) {
-        return properties != null ? properties : Collections.<String, Object>emptyMap();
+        return properties != null ? properties : Collections.<String, Object> emptyMap();
     }
 
-    public Acl applyAcl(CmisObject cmisObject, String objectId, List<Ace> addAces,
-                        List<Ace> removeAces, AclPropagation aclPropagation) {
+    public Acl applyAcl(CmisObject cmisObject, String objectId, List<Ace> addAces, List<Ace> removeAces, AclPropagation aclPropagation) {
         validateObjectOrId(cmisObject, objectId);
         validateRedundantIdentifier(cmisObject, objectId);
         CmisObject target = getCmisObject(cmisObject, objectId);
@@ -746,9 +668,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         }
     }
 
-    public void applyAspect(String objectId,
-                            String aspectName,
-                            Map<String, Object> properties) {
+    public void applyAspect(String objectId, String aspectName, Map<String, Object> properties) {
         validateObjectOrId(null, objectId);
 
         CmisObject target = getCmisObject(null, objectId);
@@ -762,9 +682,7 @@ public class ChemistryCMISFacade implements CMISFacade {
         // End applyAspect
     }
 
-    public ObjectId createRelationship(String parentObjectId,
-                                       String childObjectId,
-                                       String relationshipType) {
+    public ObjectId createRelationship(String parentObjectId, String childObjectId, String relationshipType) {
         if (StringUtils.isEmpty(parentObjectId)) {
             logger.error("No value was specified for the required attribute \"parentObjectId\". No relationship could be created.");
             return null;
@@ -822,7 +740,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         try {
             return session.createRelationship(relProps, null, null, null);
         } catch (Exception relEx) {
-            logger.error("An error occurred while attempting to create a relationship between the parent object with ID \"" + parentObjectId + "\" and the child object with ID \"" + childObjectId + "\". ", relEx);
+            logger.error("An error occurred while attempting to create a relationship between the parent object with ID \"" + parentObjectId + "\" and the child object with ID \""
+                    + childObjectId + "\". ", relEx);
             return null;
         }
     }
@@ -832,8 +751,7 @@ public class ChemistryCMISFacade implements CMISFacade {
     }
 
     /**
-     * Returns the object if it is not null. Otherwise, get the object by ID and
-     * returns it if types match. Returns null if types don't match.
+     * Returns the object if it is not null. Otherwise, get the object by ID and returns it if types match. Returns null if types don't match.
      *
      * @return
      */
@@ -854,8 +772,8 @@ public class ChemistryCMISFacade implements CMISFacade {
         Session repoSession = this.repositorySession;
 
         if (parameters == null) {
-            throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the connector configuration " +
-                    "is missing or incorrectly specified in the mule application configuration file.");
+            throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the connector configuration "
+                    + "is missing or incorrectly specified in the mule application configuration file.");
         } else if (StringUtils.isEmpty(parameters.get(SessionParameter.REPOSITORY_ID))) {
             // There must have been a problem dynamically obtaining the repository ID.
             // Try again.
@@ -864,8 +782,8 @@ public class ChemistryCMISFacade implements CMISFacade {
             if (repoID != null) {
                 parameters.put(SessionParameter.REPOSITORY_ID, repoID);
             } else {
-                throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the repository ID is missing " +
-                        "from the connector configuration.");
+                throw new CMISConnectorConnectionException("Repository sessions cannot be obtained through the connector because the repository ID is missing "
+                        + "from the connector configuration.");
             }
             return null;
         }
@@ -877,8 +795,7 @@ public class ChemistryCMISFacade implements CMISFacade {
                 repoSession.getDefaultContext().setCacheEnabled(false);
                 this.repositorySession = repoSession;
             } catch (Exception sessionEx) {
-                throw new CMISConnectorConnectionException("An error occurred while attempting to obtain a new repository session - " + sessionEx.getMessage(),
-                        sessionEx);
+                throw new CMISConnectorConnectionException("An error occurred while attempting to obtain a new repository session - " + sessionEx.getMessage(), sessionEx);
             }
         }
 

@@ -32,12 +32,12 @@ public class CreateRelationshipTestCases extends AbstractTestCases {
 
         folderObjectId = getFolderObjectId();
         documentObjectId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("aFileName"), testData.get("contentRef"),
-                (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"),
-                (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"));
+                (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"),
+                (Map<String, Object>) testData.get("propertiesRef"));
 
         anotherDocumentObjectId = getConnector().createDocumentById(folderObjectId.getId(), (String) testData.get("anotherFileName"), testData.get("contentRef"),
-                (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"),
-                (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"));
+                (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"),
+                (Map<String, Object>) testData.get("propertiesRef"));
     }
 
     @Test

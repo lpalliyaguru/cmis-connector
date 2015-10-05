@@ -41,8 +41,8 @@ public class GetCheckoutDocsTestCases extends AbstractTestCases {
 
         for (HashMap<String, Object> document : documents) {
             String objectId = (getConnector().createDocumentById(folderObjectId.getId(), (String) document.get("filename"), document.get("contentRef"),
-                    (String) document.get("mimeType"), (VersioningState) document.get("versioningState"),
-                    (String) document.get("objectType"), (Map<String, Object>) document.get("propertiesRef"))).getId();
+                    (String) document.get("mimeType"), (VersioningState) document.get("versioningState"), (String) document.get("objectType"),
+                    (Map<String, Object>) document.get("propertiesRef"))).getId();
             documentObjectIds.add(objectId);
 
             // Check out the document
@@ -67,7 +67,6 @@ public class GetCheckoutDocsTestCases extends AbstractTestCases {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
 
     @After
     public void tearDown() throws Exception {

@@ -30,7 +30,12 @@ public class QueryTestCases extends AbstractTestCases {
     public void testQuery() {
         try {
             List<QueryResult> results = new ArrayList<QueryResult>();
-            Object[] args = new Object[]{(String) testData.get("statement"), (Boolean) testData.get("searchAllVersions"), null, null, new PagingConfiguration(Integer.parseInt((String) testData.get("pageSize")))};
+            Object[] args = new Object[] {
+                    (String) testData.get("statement"),
+                    (Boolean) testData.get("searchAllVersions"),
+                    null,
+                    null,
+                    new PagingConfiguration(Integer.parseInt((String) testData.get("pageSize"))) };
             final Collection<QueryResult> resultCollection = (Collection<QueryResult>) getDispatcher().runPaginatedMethod("query", args);
             final Iterator<QueryResult> resultIterator = resultCollection.iterator();
             while (resultIterator.hasNext()) {

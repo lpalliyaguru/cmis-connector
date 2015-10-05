@@ -37,7 +37,9 @@ public class CheckInTestCases extends AbstractTestCases {
     public void testCheckIn() {
         boolean found = false;
         try {
-            ObjectId checkedInId = getConnector().checkIn(null, checkOutId.getId(), testData.get("contentRef"), (String) testData.get("filename"), (String) testData.get("mimeType"), (Boolean) testData.get("major"), (String) testData.get("checkinComment"), (Map<String, Object>) testData.get("propertiesRef"));
+            ObjectId checkedInId = getConnector().checkIn(null, checkOutId.getId(), testData.get("contentRef"), (String) testData.get("filename"),
+                    (String) testData.get("mimeType"), (Boolean) testData.get("major"), (String) testData.get("checkinComment"),
+                    (Map<String, Object>) testData.get("propertiesRef"));
             assertTrue(checkedInId != null && !checkedInId.getId().isEmpty() && !checkedInId.getId().trim().isEmpty());
             // Wait for Alfresco to index the checked in documents
             Thread.sleep(GET_CHECKOUT_DOCS_DELAY);

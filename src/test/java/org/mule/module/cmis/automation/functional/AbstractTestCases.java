@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AbstractTestCases extends AbstractTestCase<CMISConnector> {
+
     @Rule
     public Timeout globalTimeout = new Timeout(600000);
 
@@ -38,9 +39,8 @@ public class AbstractTestCases extends AbstractTestCase<CMISConnector> {
     }
 
     protected ObjectId getDocumentObjectId(String folderId) {
-        return getConnector().createDocumentById(folderId, (String) testData.get("filename"), testData.get("contentRef"),
-                (String) testData.get("mimeType"), (VersioningState) testData.get("versioningState"),
-                (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"));
+        return getConnector().createDocumentById(folderId, (String) testData.get("filename"), testData.get("contentRef"), (String) testData.get("mimeType"),
+                (VersioningState) testData.get("versioningState"), (String) testData.get("objectType"), (Map<String, Object>) testData.get("propertiesRef"));
     }
 
     protected Principal getPrincipal(Acl acl) {

@@ -45,8 +45,7 @@ import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
         QueryTestCases.class,
         RepositoriesTestCases.class,
         RepositoryInfoTestCases.class,
-        UpdateObjectPropertiesTestCases.class
-})
+        UpdateObjectPropertiesTestCases.class })
 public class FunctionalTestSuite {
 
     @BeforeClass

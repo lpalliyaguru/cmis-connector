@@ -49,7 +49,7 @@ public class ConnectivitySystemTestCases {
     @Test
     public void validCredentialsConnectivityTest() {
         try {
-            //Call the @TestConnectivity
+            // Call the @TestConnectivity
             config.testConnect(baseUrl, username, password, repositoryId);
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -59,7 +59,7 @@ public class ConnectivitySystemTestCases {
     @Test
     public void invalidCredentialsConnectivityTest() {
         try {
-            //Call the @TestConnectivity
+            // Call the @TestConnectivity
             config.testConnect(baseUrl, "noUsername", "noPassword", "");
         } catch (ConnectionException ce) {
             assertTrue(Arrays.asList(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ConnectionExceptionCode.UNKNOWN).contains(ce.getCode()));
@@ -68,7 +68,7 @@ public class ConnectivitySystemTestCases {
         }
 
         try {
-            //Call the @TestConnectivity
+            // Call the @TestConnectivity
             config.testConnect("unknown", username, password, "");
         } catch (ConnectionException ce) {
             assertEquals(ConnectionExceptionCode.UNKNOWN, ce.getCode());
@@ -80,7 +80,7 @@ public class ConnectivitySystemTestCases {
     @Test
     public void nullCredentialsConnectivityTest() {
         try {
-            //Call the @TestConnectivity
+            // Call the @TestConnectivity
             config.testConnect(null, null, null, null);
         } catch (ConnectionException ce) {
             assertEquals(ConnectionExceptionCode.INCORRECT_CREDENTIALS, ce.getCode());

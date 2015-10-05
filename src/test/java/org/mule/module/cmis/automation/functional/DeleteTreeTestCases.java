@@ -32,8 +32,8 @@ public class DeleteTreeTestCases extends AbstractTestCases {
     public void testDeleteTree() {
         List<String> objectsFailedToDelete;
         try {
-            objectsFailedToDelete = getConnector().deleteTree(null, folderObjectId.getId(), UnfileObject.DELETE,
-                    (Boolean) testData.get("allVersions"), (Boolean) testData.get("continueOnFailure"));
+            objectsFailedToDelete = getConnector().deleteTree(null, folderObjectId.getId(), UnfileObject.DELETE, (Boolean) testData.get("allVersions"),
+                    (Boolean) testData.get("continueOnFailure"));
             assertNotNull(objectsFailedToDelete);
             assertEquals(0, objectsFailedToDelete.size());
         } catch (Exception e) {

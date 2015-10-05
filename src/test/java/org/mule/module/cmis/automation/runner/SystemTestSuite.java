@@ -11,9 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.mule.module.cmis.automation.system.ConnectivitySystemTestCases;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-        ConnectivitySystemTestCases.class
-})
+@SuiteClasses({ ConnectivitySystemTestCases.class })
 public class SystemTestSuite {
 
 }

@@ -36,7 +36,6 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-
 /**
  * Test {@link org.mule.module.cmis.CMISConnector} internals
  */
@@ -65,8 +64,8 @@ public class CMISConnectorTest {
 
     @Test
     public void testRepositories() throws Exception {
-        when(facade.repositories()).thenReturn(Collections.<Repository>emptyList());
-        assertEquals(Collections.<Repository>emptyList(), connector.repositories());
+        when(facade.repositories()).thenReturn(Collections.<Repository> emptyList());
+        assertEquals(Collections.<Repository> emptyList(), connector.repositories());
     }
 
     @Test
@@ -99,7 +98,8 @@ public class CMISConnectorTest {
     @Test
     public void testCreateDocumentByPath() throws Exception {
         when(facade.createDocumentByPath(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap(), anyBoolean())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentByPath("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, Object>(5), false));
+        assertEquals(objectId, connector.createDocumentByPath("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE,
+                "D:cmiscustom:document", new HashMap<String, Object>(5), false));
     }
 
     @Test
@@ -111,7 +111,8 @@ public class CMISConnectorTest {
     @Test
     public void testCreateDocumentById() throws Exception {
         when(facade.createDocumentById(anyString(), anyString(), anyObject(), anyString(), any(VersioningState.class), anyString(), anyMap())).thenReturn(objectId);
-        assertEquals(objectId, connector.createDocumentById("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document", new HashMap<String, Object>(5)));
+        assertEquals(objectId, connector.createDocumentById("/mule-demo", "foo", "This is a mock test", "text/plain;charset=UTF-8", VersioningState.NONE, "D:cmiscustom:document",
+                new HashMap<String, Object>(5)));
     }
 
     @Test
@@ -209,7 +210,8 @@ public class CMISConnectorTest {
     @Test
     public void testCheckIn() throws Exception {
         when(facade.checkIn(any(CmisObject.class), anyString(), anyObject(), anyString(), anyString(), anyBoolean(), anyString(), anyMap())).thenReturn(objectId);
-        assertEquals(objectId, connector.checkIn(cmisObject, "docId", "This is a mock test", "foo.txt", "text/plain;charset=UTF-8", false, "Test Checkin Comments", new HashMap<String, Object>()));
+        assertEquals(objectId,
+                connector.checkIn(cmisObject, "docId", "This is a mock test", "foo.txt", "text/plain;charset=UTF-8", false, "Test Checkin Comments", new HashMap<String, Object>()));
     }
 
     @Test

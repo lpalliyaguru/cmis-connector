@@ -29,11 +29,11 @@ public class GetOrCreateFolderByPathTestCases extends AbstractTestCases {
         CmisObject getCmisObj;
 
         try {
-            //Test create the Folder
+            // Test create the Folder
             folderObjectId = getConnector().getOrCreateFolderByPath((String) testData.get("folderPath"));
             assertNotNull(folderObjectId.getId());
 
-            //Test get the Folder
+            // Test get the Folder
             getCmisObj = getConnector().getOrCreateFolderByPath((String) testData.get("folderPath"));
             assertEquals(folderObjectId.getId(), getCmisObj.getId());
 

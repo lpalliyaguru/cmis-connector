@@ -46,7 +46,8 @@ public class FolderTestCases extends AbstractTestCases {
         List<String> cmisObjsIds = new ArrayList<String>();
 
         try {
-            CollectionIterable<CmisObject> cmisObjs = (CollectionIterable<CmisObject>) getConnector().folder(null, folderObjectId.getId(), NavigationOptions.CHILDREN, 100, null, null);
+            CollectionIterable<CmisObject> cmisObjs = (CollectionIterable<CmisObject>) getConnector().folder(null, folderObjectId.getId(), NavigationOptions.CHILDREN, 100, null,
+                    null);
             AbstractIterator<CmisObject> ai = cmisObjs.iterator();
 
             while (ai.hasNext()) {

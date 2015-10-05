@@ -29,7 +29,6 @@ public enum VersioningState {
      */
     CHECKEDOUT("checkedout");
 
-
     private final String value;
 
     VersioningState(String v) {

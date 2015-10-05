@@ -36,9 +36,8 @@ public class GetAllVersionsTestCases extends AbstractTestCases {
             CmisObject cmisObject = getConnector().getObjectById(docId);
 
             String checkOutId = getConnector().checkOut(cmisObject, null).getId();
-            docId = (getConnector().checkIn(null, checkOutId, version.get("contentRef"), (String) testData.get("filename"),
-                    (String) testData.get("mimeType"), (Boolean) version.get("major"), (String) version.get("checkinComment"),
-                    (Map<String, Object>) testData.get("propertiesRef"))).getId();
+            docId = (getConnector().checkIn(null, checkOutId, version.get("contentRef"), (String) testData.get("filename"), (String) testData.get("mimeType"),
+                    (Boolean) version.get("major"), (String) version.get("checkinComment"), (Map<String, Object>) testData.get("propertiesRef"))).getId();
         }
     }
 

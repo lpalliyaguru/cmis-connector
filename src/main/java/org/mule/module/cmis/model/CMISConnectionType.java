@@ -9,8 +9,7 @@ package org.mule.module.cmis.model;
  * Connection Type for CMIS
  */
 public enum CMISConnectionType {
-    ATOM("ATOM"),
-    SOAP("SOAP");
+    ATOM("ATOM"), SOAP("SOAP");
 
     private String value;
 
