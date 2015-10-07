@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <bean id="randomShortString" class="org.mule.modules.tests.ConnectorTestUtils"
+    <bean id="randomShortString" class="org.mule.modules.cmis.automation.functional.TestDataBuilder"
           factory-method="generateRandomShortString" scope="prototype"/>
 
-    <bean id="randomInputStream" class="org.mule.modules.tests.ConnectorTestUtils"
+    <bean id="randomInputStream" class="org.mule.modules.cmis.automation.functional.TestDataBuilder"
           factory-method="generateRandomInputStream" scope="prototype"/>
 
     <!-- create-folder -->
@@ -38,7 +38,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
@@ -60,7 +60,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document,P:cm:titled"/>
         <entry key="contentRef" value-ref="randomInputStream"/>
     </util:map>
@@ -76,7 +76,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
         <entry key="force" value="#{T(java.lang.Boolean).TRUE}"/>
@@ -100,7 +100,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MAJOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
@@ -118,7 +118,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
@@ -136,7 +136,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MAJOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
@@ -145,7 +145,7 @@
 
     <util:map id="folderTestData" map-class="java.util.HashMap" key-type="java.lang.String"
               value-type="java.lang.Object" scope="prototype">
-        <entry key="get" value="#{T(org.mule.module.cmis.model.NavigationOptions).CHILDREN}"/>
+        <entry key="get" value="#{T(org.mule.modules.cmis.model.NavigationOptions).CHILDREN}"/>
         <entry key="parentFolder" value="parentFolder"/>
         <entry key="subfolders">
             <list value-type="java.lang.String">
@@ -177,7 +177,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="aspectName" value="cm:taggable"/>
         <entry key="propertiesRef">
@@ -198,7 +198,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -224,7 +224,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MAJOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -250,7 +250,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="folderPath" value="/"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MAJOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="Unmodified content"/>
         <entry key="force" value="#{T(java.lang.Boolean).TRUE}"/>
@@ -285,7 +285,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
     </util:map>
@@ -308,7 +308,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="This is the file content"/>
     </util:map>
@@ -324,7 +324,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
         <entry key="aclPropagation"
@@ -344,7 +344,7 @@
         <entry key="major" value="#{T(java.lang.Boolean).TRUE}"/>
         <entry key="checkinComment" value="Checking in a new file"/>
         <entry key="contentRef" value-ref="randomInputStream"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MAJOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MAJOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -360,7 +360,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -377,7 +377,7 @@
         <entry key="major" value="#{T(java.lang.Boolean).TRUE}"/>
         <entry key="checkinComment" value="Checking in a file for testing"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -396,7 +396,7 @@
                     <entry key="filename" value-ref="randomShortString"/>
                     <entry key="mimeType" value="text/plain;charset=UTF-8"/>
                     <entry key="contentRef" value="The first document"/>
-                    <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+                    <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
                     <entry key="objectType" value="D:cmiscustom:document"/>
                     <entry key="propertiesRef">
                         <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -407,7 +407,7 @@
                     <entry key="filename" value-ref="randomShortString"/>
                     <entry key="mimeType" value="text/plain;charset=UTF-8"/>
                     <entry key="contentRef" value="The second document"/>
-                    <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+                    <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
                     <entry key="objectType" value="D:cmiscustom:document"/>
                     <entry key="propertiesRef">
                         <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -425,7 +425,7 @@
         <entry key="filename" value-ref="randomShortString"/>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
         <entry key="contentRef" value="This is the file content"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="propertiesRef">
             <map key-type="java.lang.String" value-type="java.lang.Object">
@@ -456,7 +456,7 @@
             </map>
         </entry>
         <entry key="mimeType" value="text/plain;charset=UTF-8"/>
-        <entry key="versioningState" value="#{T(org.mule.module.cmis.model.VersioningState).MINOR}"/>
+        <entry key="versioningState" value="#{T(org.mule.modules.cmis.model.VersioningState).MINOR}"/>
         <entry key="objectType" value="D:cmiscustom:document"/>
         <entry key="contentRef" value="this is the file content"/>
         <entry key="aclPropagation"

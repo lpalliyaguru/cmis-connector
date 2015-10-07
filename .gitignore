@@ -13,3 +13,4 @@ mappings
 bin/
 .factorypath
 dependency-reduced-pom.xml
+interop-*
