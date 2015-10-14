@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/cmis" prefix="cmis">
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="CMIS" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric"></global-cloud-connector>
+  <nested caption="" description="" localId="connection-pooling-profile" abstract="true">
+    <radioBoolean name="defaultPoolingProfile" caption="Use default connection pool configuration" description="Use default connection pool configuration." fillLine="true"></radioBoolean>
+    <radioBoolean name="customPoolingProfile" caption="Define connection pool configuration" description="Define connection pool configuration." fillLine="true"></radioBoolean>
+    <integer defaultValue="5" min="-1" step="0" name="maxActive" caption="Max active" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="5" min="-1" step="0" name="maxIdle" caption="Max idle" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <enum defaultValue="INITIALISE_ONE" name="initialisationPolicy" caption="Initialisation policy" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="INITIALISE_NONE"></option>
+      <option value="INITIALISE_ONE"></option>
+      <option value="INITIALISE_ALL"></option>
+    </enum>
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" name="exhaustedAction" caption="Exhausted action" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="WHEN_EXHAUSTED_WAIT"></option>
+      <option value="WHEN_EXHAUSTED_FAIL"></option>
+      <option value="WHEN_EXHAUSTED_GROW"></option>
+    </enum>
+    <integer defaultValue="5" min="-1" step="0" name="maxWait" caption="Max wait" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="1800000" min="-1" step="0" name="minEvictionMillis" caption="Min eviction (ms)" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="-1" min="-1" step="0" name="evictionCheckIntervalMillis" caption="Eviction check interval (ms)" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+  </nested>
+  <nested caption="" description="" localId="reconnectionStrategyElement" abstract="true">
+    <label name="connectionLabel" caption="Define how mule should attempt to handle a connection failure" description=""></label>
+    <radioBoolean name="noReconnection" caption="Do not use a Reconnection strategy" description="Disable reconection strategy" fillLine="true"></radioBoolean>
+    <radioBoolean name="standardReconnection" caption="Standard Reconnection" description="A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts." fillLine="true"></radioBoolean>
+    <integer defaultValue="2000" min="1" max="2147483647" step="1" name="reconnectionFrequency" caption="Frequency (ms)" description="How often (in ms) to reconnect" controlled="standardReconnection" indented="true"></integer>
+    <integer defaultValue="2" min="1" max="2147483647" step="1" name="reconnectionAttemps" caption="Reconnection Attempts" description="How many reconnection attempts to make" controlled="standardReconnection,!reconnectForever" indented="true"></integer>
+    <boolean name="reconnectForever" caption="Reconnect Forever" description="A reconnection strategy that retries an infinite number of times at the specified frequency." supportsExpressions="false" controlled="standardReconnection" indented="true"></boolean>
+    <radioBoolean name="customReconnection" caption="Custom Reconnection" description="A user-defined reconnection strategy." fillLine="true"></radioBoolean>
+    <classname name="class" caption="Class" description="A class that implements the RetryPolicyTemplate interface." controlled="customReconnection" indented="true"></classname>
+    <childElement allowMultiple="true" name="http://www.springframework.org/schema/beans/property" caption="Properties" description="Property elements." controlled="customReconnection"></childElement>
+  </nested>
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="CMIS: Configuration" description="Global Configuration configuration information." icon="icons/small/cmis-connector-24x16.png" localId="config" image="icons/large/cmis-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cmis/parentConfig" connectivityTesting="on" connectivityTestingLabel="Test Connection..." metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Cmis configuration properties.">
+      <group id="cmisGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="baseUrl" caption="Base Url" description="CMIS repository address." required="true" javaType="java.lang.String"></string>
+        <string name="username" caption="Username" description="CMIS repository username." required="true" javaType="java.lang.String"></string>
+        <password name="password" caption="Password" description="CMIS repository password." required="true" javaType="java.lang.String"></password>
+        <string name="repositoryId" caption="Repository Id" description="CMIS repository identifier." required="false" javaType="java.lang.String"></string>
+      </group>
+      <group id="general" caption="General">
+        <enum defaultValue="ATOM" allowsCustom="true" name="endpoint" caption="Endpoint" description="The type of endpoint. Values allowed: SOAP or ATOM." supportsExpressions="false" required="false" javaType="org.mule.modules.cmis.model.CMISConnectionType">
+          <option value="ATOM"></option>
+          <option value="SOAP"></option>
+        </enum>
+        <enum defaultValue="STANDARD" allowsCustom="true" name="authentication" caption="Authentication" description="Specifies authentication provider, supports HTTP basic authentication and NTLM." supportsExpressions="false" required="false" javaType="org.mule.modules.cmis.model.Authentication">
+          <option value="NTLM"></option>
+          <option value="STANDARD"></option>
+        </enum>
+        <string defaultValue="org.apache.chemistry.opencmis.client.bindings.spi.webservices.CXFPortProvider" name="cxfPortProvider" caption="Port Provider" description="Specifies CXF port provider, the CMIS connector includes a default implementation." supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+        <string defaultValue="10000" name="connectionTimeout" caption="Connection Timeout" description="The connection time-out specification." supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+        <boolean defaultValue="false" name="useAlfrescoExtension" caption="Use Alfresco Extension" description="Specifies whether the Alfresco Object Factory implementation should be utilized." supportsExpressions="false" required="false" javaType="boolean"></boolean>
+        <boolean defaultValue="false" name="useCookies" caption="Use Cookies" description="Turn on-off cookies support." supportsExpressions="false" required="false" javaType="boolean"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Pooling Profile" description="Pooling profile options.">
+      <group id="poolingProfile" caption="Pooling Profile">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/cmis/connection-pooling-profile" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Reconnection" description="Reconnection options.">
+      <group id="reconnectionStrategies" caption="Strategies">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/core/reconnectionStrategyElement" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.HTTPTransactionValuePersistence"></childElement>
+        <childElement allowSubTypes="true" allowedSubTypes="http://www.mulesoft.org/schema/mule/core/reconnect,http://www.mulesoft.org/schema/mule/core/reconnect-custom-strategy,http://www.mulesoft.org/schema/mule/core/reconnect-forever" name="http://www.mulesoft.org/schema/mule/core/abstractReconnectionStrategy" caption="" description="" visibleInDialog="false"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractcmisconnectorgeneric" description="Interact with Cmis." icon="icons/small/cmis-connector-24x16.png" localId="abstractCmisConnectorGeneric" image="icons/large/cmis-connector-48x32.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractCmisConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/cmis/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.5.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.cmis" caption="CMIS" description="CMIS (Content Management Interoperability Services) is a standard for improving interoperability between ECM systems." icon="icons/small/cmis-connector-24x16.png" localId="cmis-connector" image="icons/large/cmis-connector-48x32.png" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="cmisConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Cmis operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/apply-acl" modeLabel="Apply acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/apply-aspect" modeLabel="Apply aspect"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/apply-policy" modeLabel="Apply policy"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/cancel-check-out" modeLabel="Cancel check out"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/changelog" modeLabel="Changelog"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/check-in" modeLabel="Check in"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/check-out" modeLabel="Check out"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/create-document-by-id" modeLabel="Create document by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/create-document-by-path" modeLabel="Create document by path"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/create-folder" modeLabel="Create folder"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/create-relationship" modeLabel="Create relationship"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/delete" modeLabel="Delete"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/delete-tree" modeLabel="Delete tree"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/folder" modeLabel="Folder"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-acl" modeLabel="Get acl"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-all-versions" modeLabel="Get all versions"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-applied-policies" modeLabel="Get applied policies"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-checkout-docs" modeLabel="Get checkout docs"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-content-stream" modeLabel="Get content stream"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-object-by-id" modeLabel="Get object by id"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-object-by-path" modeLabel="Get object by path"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-object-relationships" modeLabel="Get object relationships"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-or-create-folder-by-path" modeLabel="Get or create folder by path"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-parent-folders" modeLabel="Get parent folders"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/get-type-definition" modeLabel="Get type definition"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/move-object" modeLabel="Move object"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/query" modeLabel="Query"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/repositories" modeLabel="Repositories"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/repository-info" modeLabel="Repository info"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cmis/update-object-properties" modeLabel="Update object properties"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.commons.data.Acl" caption="Apply Acl" icon="icons/small/cmis-connector-24x16.png" localId="apply-acl" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object whose Acl is intended to change." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The id of the object." required="false" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="aclPropagation" caption="Acl Propagation" description="Whether to propagate changes or not. can be REPOSITORYDETERMINED | OBJECTONLY | PROPAGATE." supportsExpressions="true" required="true" javaType="org.apache.chemistry.opencmis.commons.enums.AclPropagation">
+          <option value="OBJECTONLY"></option>
+          <option value="PROPAGATE"></option>
+          <option value="REPOSITORYDETERMINED"></option>
+        </enum>
+      </group>
+      <group id="add Aces" caption="Add Aces">
+        <element-controller-list listName="add-aces" localName="apply-acl-add-aces" itemName="add-ace" caption="Add Aces" description="List of ACEs to be added or null if no ACEs should be added." required="true" javaType="java.util.List&lt;org.apache.chemistry.opencmis.commons.data.Ace&gt;"></element-controller-list>
+      </group>
+      <group id="remove Aces" caption="Remove Aces">
+        <element-controller-list listName="remove-aces" localName="apply-acl-remove-aces" itemName="remove-ace" caption="Remove Aces" description="List of ACEs to be removed or null if no ACEs should be removed." required="true" javaType="java.util.List&lt;org.apache.chemistry.opencmis.commons.data.Ace&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Apply Aspect" icon="icons/small/cmis-connector-24x16.png" localId="apply-aspect" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="aspectName" caption="Aspect Name" description="The name of the aspect to be applied to the object." required="true" javaType="java.lang.String"></string>
+        <string name="objectId" caption="Object Id" description="The object's id." required="true" javaType="java.lang.String"></string>
+        <element-controller-map mapName="properties" localName="apply-aspect-properties" itemName="property" defaultValue="#[payload]" caption="Properties" description="The properties to set." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Apply Policy" icon="icons/small/cmis-connector-24x16.png" localId="apply-policy" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The document from which to get the stream. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="Id of the document from which to get the stream. Can be null if &quot;object&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+      <group id="policy Ids" caption="Policy Ids">
+        <element-controller-list listName="policy-ids" localName="apply-policy-policy-ids" itemName="policy-id" caption="Policy Ids" description="Policy ID's to apply." required="true" javaType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.ObjectId&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Cancel Check Out" icon="icons/small/cmis-connector-24x16.png" localId="cancel-check-out" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="document-ref" caption="Document Reference" description="The checked out document. Can be null if &quot;documentId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="documentId" caption="Document Id" description="Id of the checked out document. Can be null if &quot;document&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ChangeEvents" caption="Changelog" icon="icons/small/cmis-connector-24x16.png" localId="changelog" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="changeLogToken" caption="Change Log Token" description="The change log token to start from or." required="false" javaType="java.lang.String"></string>
+        <boolean defaultValue="false" name="includeProperties" caption="Include Properties" description="Indicates if changed properties should be included in the result." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Check In" icon="icons/small/cmis-connector-24x16.png" localId="check-in" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="document-ref" caption="Document Reference" description="The document to check-in. Can be null if &quot;documentId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="checkinComment" caption="Checkin Comment" description="Check-in comment." required="true" javaType="java.lang.String"></string>
+        <string name="documentId" caption="Document Id" description="Id of the document to check-in. Can be null if &quot;document&quot; is set." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="content-ref" caption="Content Reference" description="File content (no byte array or input stream for now)." required="false" javaType="java.lang.Object"></string>
+        <string name="filename" caption="Filename" description="Name of the file." required="true" javaType="java.lang.String"></string>
+        <string name="mimeType" caption="Mime Type" description="Stream content-type." required="true" javaType="java.lang.String"></string>
+        <boolean defaultValue="false" name="major" caption="Major" description="Whether it is major." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+      </group>
+      <group id="properties" caption="Properties">
+        <element-controller-map mapName="properties" localName="check-in-properties" itemName="property" caption="Properties" description="Custom properties." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Check Out" icon="icons/small/cmis-connector-24x16.png" localId="check-out" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="document-ref" caption="Document Reference" description="The document to be checked out. Can be null if &quot;documentId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="documentId" caption="Document Id" description="Id of the document to be checked out. Can be null if &quot;document&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Create Document By Id" icon="icons/small/cmis-connector-24x16.png" localId="create-document-by-id" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filename" caption="Filename" description="Name of the file." required="true" javaType="java.lang.String"></string>
+        <string name="folderId" caption="Folder Id" description="Folder Object Id." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="content-ref" caption="Content Reference" description="File content as specified in the payload." required="false" javaType="java.lang.Object"></string>
+        <string name="mimeType" caption="Mime Type" description="Stream content-type." required="true" javaType="java.lang.String"></string>
+        <string name="objectType" caption="Object Type" description="The type of the object." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="versioningState" caption="Versioning State" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:  none: The document MUST be created as a non-versionable document. checkedout: The document MUST be created in the checked-out state. major (default): The document MUST be created as a major version. minor: The document MUST be created as a minor version. ." supportsExpressions="true" required="true" javaType="org.mule.modules.cmis.model.VersioningState">
+          <option value="CHECKEDOUT"></option>
+          <option value="MAJOR"></option>
+          <option value="MINOR"></option>
+          <option value="NONE"></option>
+        </enum>
+      </group>
+      <group id="properties" caption="Properties">
+        <element-controller-map mapName="properties" localName="create-document-by-id-properties" itemName="property" caption="Properties" description="The properties optional document properties to set." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Create Document By Path" icon="icons/small/cmis-connector-24x16.png" localId="create-document-by-path" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filename" caption="Filename" description="Name of the file." required="true" javaType="java.lang.String"></string>
+        <string name="folderPath" caption="Folder Path" description="Folder in the repository that will hold the document." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="content-ref" caption="Content Reference" description="File content as specified in the payload." required="false" javaType="java.lang.Object"></string>
+        <string name="mimeType" caption="Mime Type" description="Stream content-type." required="true" javaType="java.lang.String"></string>
+        <string name="objectType" caption="Object Type" description="The type of the object." required="true" javaType="java.lang.String"></string>
+        <enum defaultValue="NONE" allowsCustom="true" name="versioningState" caption="Versioning State" description="An enumeration specifying what the versioning state of the newly-created object MUST be. If the repository does not support versioning, the repository MUST ignore the versioningState parameter.  Valid values are:  none: The document MUST be created as a non-versionable document. checkedout: The document MUST be created in the checked-out state. major (default): The document MUST be created as a major version. minor: The document MUST be created as a minor version. ." supportsExpressions="true" required="false" javaType="org.mule.modules.cmis.model.VersioningState">
+          <option value="CHECKEDOUT"></option>
+          <option value="MAJOR"></option>
+          <option value="MINOR"></option>
+          <option value="NONE"></option>
+        </enum>
+        <boolean defaultValue="false" name="force" caption="Force" description="If should folder structure must be created when there are missing intermediate folders." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+      </group>
+      <group id="properties" caption="Properties">
+        <element-controller-map mapName="properties" localName="create-document-by-path-properties" itemName="property" caption="Properties" description="The properties optional document properties to set." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Create Folder" icon="icons/small/cmis-connector-24x16.png" localId="create-folder" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="folderName" caption="Folder Name" description="Folder name (eg: &quot;my documents&quot;)." required="true" javaType="java.lang.String"></string>
+        <string name="parentObjectId" caption="Parent Object Id" description="Parent folder for the folder being created (eg: repository.rootFolder)." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectId" caption="Create Relationship" icon="icons/small/cmis-connector-24x16.png" localId="create-relationship" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="childObjectId" caption="Child Object Id" description="The ID of the child (or target) object in the relationship." required="true" javaType="java.lang.String"></string>
+        <string name="parentObjectId" caption="Parent Object Id" description="The ID of the parent (or source) object in the relationship." required="true" javaType="java.lang.String"></string>
+        <string name="relationshipType" caption="Relationship Type" description="The name of the relationship type that should be associated with the objects." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete" icon="icons/small/cmis-connector-24x16.png" localId="delete" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object to be deleted. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The object's id. Can be null if &quot;cmisObject&quot; is set." required="false" javaType="java.lang.String"></string>
+        <boolean defaultValue="false" name="allVersions" caption="All Versions" description="If true, deletes all version history of the object. Defaults to &quot;false&quot;." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;java.lang.String&gt;" caption="Delete Tree" icon="icons/small/cmis-connector-24x16.png" localId="delete-tree" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="folder-ref" caption="Folder Reference" description="Folder Object. Can be null if &quot;folderId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="folderId" caption="Folder Id" description="Folder Object id. Can be null if &quot;folder&quot; is set." required="false" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="unfile" caption="Unfile" description="Specifies how the repository must process file-able child- or descendant-objects." supportsExpressions="true" required="false" javaType="org.apache.chemistry.opencmis.commons.enums.UnfileObject">
+          <option value="DELETE"></option>
+          <option value="DELETESINGLEFILED"></option>
+          <option value="UNFILE"></option>
+        </enum>
+        <boolean name="allversions" caption="Allversions" description="If true, then delete all versions of the document. If false, delete only the document object specified." supportsExpressions="true" required="true" javaType="boolean"></boolean>
+        <boolean name="continueOnFailure" caption="Continue On Failure" description="Specified whether to continue attempting to perform this operation even if deletion of a child- or descendant-object in the specified folder cannot be deleted or not." supportsExpressions="true" required="true" javaType="boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Object" caption="Folder" icon="icons/small/cmis-connector-24x16.png" localId="folder" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <enum allowsCustom="true" name="get" caption="Get" description="NavigationOptions that specifies whether to get the parent folder, the list of immediate children or the whole descendants tree." supportsExpressions="true" required="true" javaType="org.mule.modules.cmis.model.NavigationOptions">
+          <option value="CHILDREN"></option>
+          <option value="DESCENDANTS"></option>
+          <option value="PARENT"></option>
+          <option value="TREE"></option>
+        </enum>
+        <string defaultValue="#[payload]" name="folder-ref" caption="Folder Reference" description="Folder Object. Can be null if &quot;folderId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.Folder"></string>
+        <string name="folderId" caption="Folder Id" description="Folder Object id. Can be null if &quot;folder&quot; is set." required="false" javaType="java.lang.String"></string>
+        <integer min="0" step="1" name="depth" caption="Depth" description="If &quot;get&quot; value is DESCENDANTS, represents the depth of the descendants tree." required="false" javaType="java.lang.Integer"></integer>
+        <string name="filter" caption="Filter" description="Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)." required="false" javaType="java.lang.String"></string>
+        <string name="orderBy" caption="Order By" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name (only for CHILDREN or DESCENDANTS navigation)." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.commons.data.Acl" caption="Get Acl" icon="icons/small/cmis-connector-24x16.png" localId="get-acl" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object whose Acl is needed." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The id of the object." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Document&gt;" caption="Get All Versions" icon="icons/small/cmis-connector-24x16.png" localId="get-all-versions" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="document-ref" caption="Document Reference" description="The document whose versions are to be retrieved." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="documentId" caption="Document Id" description="Id of the document whose versions are to be retrieved." required="false" javaType="java.lang.String"></string>
+        <string name="filter" caption="Filter" description="Comma-separated list of properties to filter (only for CHILDREN or DESCENDANTS navigation)." required="false" javaType="java.lang.String"></string>
+        <string name="orderBy" caption="Order By" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name (only for CHILDREN or DESCENDANTS navigation)." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Policy&gt;" caption="Get Applied Policies" icon="icons/small/cmis-connector-24x16.png" localId="get-applied-policies" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The document from which to get the stream. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="Id of the document from which to get the stream. Can be null if &quot;object&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ItemIterable&lt;org.apache.chemistry.opencmis.client.api.Document&gt;" caption="Get Checkout Docs" icon="icons/small/cmis-connector-24x16.png" localId="get-checkout-docs" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="filter" caption="Filter" description="Comma-separated list of properties to filter." required="false" javaType="java.lang.String"></string>
+        <string name="orderBy" caption="Order By" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.commons.data.ContentStream" caption="Get Content Stream" icon="icons/small/cmis-connector-24x16.png" localId="get-content-stream" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The document from which to get the stream. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="Id of the document from which to get the stream. Can be null if &quot;object&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.CmisObject" caption="Get Object By Id" icon="icons/small/cmis-connector-24x16.png" localId="get-object-by-id" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="objectId" caption="Object Id" description="The object id." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.CmisObject" caption="Get Object By Path" icon="icons/small/cmis-connector-24x16.png" localId="get-object-by-path" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="path" caption="Path" description="Path of the object to retrieve." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Relationship&gt;" caption="Get Object Relationships" icon="icons/small/cmis-connector-24x16.png" localId="get-object-relationships" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object whose relationships are needed." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The id of the object." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.CmisObject" caption="Get Or Create Folder By Path" icon="icons/small/cmis-connector-24x16.png" localId="get-or-create-folder-by-path" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="folderPath" caption="Folder Path" description="Path to the folder." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Folder&gt;" caption="Get Parent Folders" icon="icons/small/cmis-connector-24x16.png" localId="get-parent-folders" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object whose parent folders are needed. can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="Id of the object whose parent folders are needed. can be null if &quot;object&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.ObjectType" caption="Get Type Definition" icon="icons/small/cmis-connector-24x16.png" localId="get-type-definition" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="typeId" caption="Type Id" description="Object type Id." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.FileableCmisObject" caption="Move Object" icon="icons/small/cmis-connector-24x16.png" localId="move-object" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceFolderId" caption="Source Folder Id" description="Id of the source folder." required="true" javaType="java.lang.String"></string>
+        <string name="targetFolderId" caption="Target Folder Id" description="Id of the target folder." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="The object to move. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.FileableCmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The object's id. Can be null if &quot;cmisObject&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.QueryResult&gt;" caption="Query" icon="icons/small/cmis-connector-24x16.png" localId="query" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="statement" caption="Statement" description="The query statement (CMIS query language)." required="false" javaType="java.lang.String"></string>
+        <string name="filter" caption="Filter" description="Comma-separated list of properties to filter." required="false" javaType="java.lang.String"></string>
+        <string name="orderBy" caption="Order By" description="Comma-separated list of query names and the ascending modifier &quot;ASC&quot; or the descending modifier &quot;DESC&quot; for each query name." required="false" javaType="java.lang.String"></string>
+        <boolean defaultValue="false" name="searchAllVersions" caption="Search All Versions" description="Specifies if the latest and non-latest versions of document objects should be included." supportsExpressions="true" required="false" javaType="boolean"></boolean>
+      </group>
+      <group id="paging" caption="Paging">
+        <string defaultValue="100" name="fetchSize" caption="Fetch Size" description="The amount of items to fetch on each invocation to the data source." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.apache.chemistry.opencmis.client.api.Repository&gt;" caption="Repositories" icon="icons/small/cmis-connector-24x16.png" localId="repositories" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.commons.data.RepositoryInfo" caption="Repository Info" icon="icons/small/cmis-connector-24x16.png" localId="repository-info" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.apache.chemistry.opencmis.client.api.CmisObject" caption="Update Object Properties" icon="icons/small/cmis-connector-24x16.png" localId="update-object-properties" image="icons/large/cmis-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cmis/abstractCmisConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="cmisObject-ref" caption="Cmis Object Reference" description="Object to be updated. Can be null if &quot;objectId&quot; is set." required="false" javaType="org.apache.chemistry.opencmis.client.api.CmisObject"></string>
+        <string name="objectId" caption="Object Id" description="The object's id. Can be null if &quot;cmisObject&quot; is set." required="false" javaType="java.lang.String"></string>
+      </group>
+      <group id="properties" caption="Properties">
+        <element-controller-map mapName="properties" localName="update-object-properties-properties" itemName="property" caption="Properties" description="The properties to update." required="true" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+</namespace>

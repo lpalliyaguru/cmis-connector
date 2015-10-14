@@ -1,0 +1,15 @@
+org.apache.chemistry.opencmis.commons.enums.transformers
+org.mule.modules.cmis
+org.mule.modules.cmis.adapter
+org.mule.modules.cmis.adapters
+org.mule.modules.cmis.agents
+org.mule.modules.cmis.config
+org.mule.modules.cmis.connectivity
+org.mule.modules.cmis.devkit
+org.mule.modules.cmis.exception
+org.mule.modules.cmis.model
+org.mule.modules.cmis.model.transformers
+org.mule.modules.cmis.pooling
+org.mule.modules.cmis.processors
+org.mule.modules.cmis.runtime
+

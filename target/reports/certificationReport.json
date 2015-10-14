@@ -1,0 +1,18 @@
+{
+  "Passed Validations": [
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/src/main/java exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/icons exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/demo exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/LICENSE_HEADER.txt exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/LICENSE.md exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/src/test/java exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/README.md exists and is not empty",
+    "File /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/doc exists and is not empty",
+    "File named user-manual.adoc exists and is not empty under path /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/doc",
+    "File named release-notes.adoc exists and is not empty under path /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/doc",
+    "File ending with '24x16.png' exists and is not empty under path /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/icons",
+    "File ending with '48x32.png' exists and is not empty under path /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/icons",
+    "File ending with 'Connector.java' exists and is not empty under path /Users/marianoquintela/Documents/ClonedRepos/cmis-connector/src/main/java"
+  ],
+  "Failed Validations": []
+}
